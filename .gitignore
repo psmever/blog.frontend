@@ -26,3 +26,7 @@ yarn-error.log*
 config/*
 !config/sample.environment.env
 .env
+
+# idea
+.vscode
+.idea
