@@ -9,7 +9,7 @@ interface RootProps  {
     Routerhistory: any
 };
 
-const Root = ({Routerhistory} : RootProps) => {
+const Routes = ({Routerhistory} : RootProps) => {
 
 
     useEffect(() => {
@@ -29,4 +29,4 @@ const Root = ({Routerhistory} : RootProps) => {
     );
 }
 
-export default Root;
+export default Routes;
