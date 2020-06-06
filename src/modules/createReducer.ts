@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import * as commonTypes from "./commonTypes";
+import * as commonTypes from "modules/commonTypes";
 
 export default function createReducer<S>( initialState: S, handlers: any ): Reducer<S> {
 	const r = (state: S = initialState, action: commonTypes.Action<S>): S => {

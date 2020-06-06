@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import History from "./routes/History";
 import { createBrowserHistory } from 'history'
 import configureStore from 'configureStore'
-import Root from "./routes/Root";
+import Routes from "./modules/Routes";
+import History from "./modules/History";
 
 const history = createBrowserHistory();
 
@@ -13,7 +13,7 @@ const store = configureStore(history, initialState);
 
 const App = () => (
     <Provider store={ store }>
-        <Root Routerhistory={ History }/>
+        <Routes Routerhistory={ History }/>
     </Provider>
 )
 
