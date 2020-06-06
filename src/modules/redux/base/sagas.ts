@@ -1,5 +1,5 @@
 import { takeLatest, fork } from "redux-saga/effects";
-import { Types }  from './types';
+import { Types }  from 'modules/reduxActiontTypes';
 
 function* baseActionSaga() {
 }

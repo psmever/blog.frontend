@@ -1,6 +1,5 @@
 import React from "react";
 import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
-
 import {
     MainPage,
     DefaultPage,
@@ -11,7 +10,6 @@ interface RootProps  {
 };
 
 const Root = ({Routerhistory} : RootProps) => {
-
 
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
