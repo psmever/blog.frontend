@@ -17,11 +17,12 @@ const Routes = ({Routerhistory} : RootProps) => {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Router history={ Routerhistory }>
                 <Switch>
-                    <Route path={process.env.PUBLIC_URL + "/"} exact={ true } component={ DefaultPage } />
+                    <Route path={process.env.PUBLIC_URL + "/"} exact={ true } component={ MainPage } />
                     <Route path={process.env.PUBLIC_URL + "/main"} exact={ true } component={ MainPage } />
                     <Route path={process.env.PUBLIC_URL + "/post"} exact={ true } component={ PostPage } />
                     <Route path={process.env.PUBLIC_URL + "/post_list"} exact={ true } component={ PostListPage } />
                     <Route path={process.env.PUBLIC_URL + "/about"} exact={ true } component={ AboutPage } />
+                    <Route path={process.env.PUBLIC_URL + "/default"} exact={ true } component={ DefaultPage } />
                     <Redirect path="*" to={process.env.PUBLIC_URL + "/main"} />
                 </Switch>
             </Router>
