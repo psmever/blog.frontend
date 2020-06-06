@@ -1,4 +1,4 @@
-import { Types }  from './types';
+import { Types }  from 'modules/reduxActiontTypes';
 
 export const baseAction = () => {
     return {
