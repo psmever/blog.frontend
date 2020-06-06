@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history'
-import configureStore from 'configureStore'
+import configureStore from 'modules/configureStore'
 import Routes from "./modules/Routes";
 import History from "./modules/History";
 
