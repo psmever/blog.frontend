@@ -3,6 +3,9 @@ import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom
 import {
     MainPage,
     DefaultPage,
+    PostPage,
+    PostListPage,
+    AboutPage,
 } from "pages";
 
 interface RootProps  {
@@ -16,7 +19,10 @@ const Routes = ({Routerhistory} : RootProps) => {
                 <Switch>
                     <Route path={process.env.PUBLIC_URL + "/"} exact={ true } component={ DefaultPage } />
                     <Route path={process.env.PUBLIC_URL + "/main"} exact={ true } component={ MainPage } />
-                    <Redirect path="*" to={process.env.PUBLIC_URL + "/"} />
+                    <Route path={process.env.PUBLIC_URL + "/post"} exact={ true } component={ PostPage } />
+                    <Route path={process.env.PUBLIC_URL + "/post_list"} exact={ true } component={ PostListPage } />
+                    <Route path={process.env.PUBLIC_URL + "/about"} exact={ true } component={ AboutPage } />
+                    <Redirect path="*" to={process.env.PUBLIC_URL + "/main"} />
                 </Switch>
             </Router>
         </BrowserRouter>
