@@ -6,4 +6,5 @@ declare global {
     }
 }
 const History = createBrowserHistory();
+
 export default History;
