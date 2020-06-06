@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import History from "./routes/History";
 import { createBrowserHistory } from 'history'
 import configureStore from 'configureStore'
-
 import Root from "./routes/Root";
 
 const history = createBrowserHistory();
