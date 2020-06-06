@@ -12,4 +12,3 @@ export default function createReducer<S>( initialState: S, handlers: any ): Redu
 
 	return r as Reducer<S>;
 }
-

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
 import {
     MainPage,
@@ -10,12 +10,6 @@ interface RootProps  {
 };
 
 const Routes = ({Routerhistory} : RootProps) => {
-
-
-    useEffect(() => {
-        console.debug(1);
-    });
-
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Router history={ Routerhistory }>
