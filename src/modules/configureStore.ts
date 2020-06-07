@@ -27,7 +27,6 @@ export default function configureStore(history: History, initialState: RootState
         }
     }
 
-
     const store = createStore(
         createRootReducer(history),
         initialState,
