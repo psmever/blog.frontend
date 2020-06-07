@@ -1,9 +1,8 @@
 import React from "react";
 import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
 
-import * as Pages from "components/pages";
-
 import MainLayoutComponents from 'components/MainLayoutComponents'
+import * as Pages from "components/pages";
 
 interface RootProps  {
     Routerhistory: any
