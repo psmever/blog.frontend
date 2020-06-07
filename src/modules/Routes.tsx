@@ -11,14 +11,13 @@ interface RootProps  {
 const Routes = ({Routerhistory} : RootProps) => {
 
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={process.env.PUBLIC_URL + "/"}>
             <Router history={ Routerhistory }>
                 <Switch>
                     <MainLayoutComponents>
-                        <Route path={process.env.PUBLIC_URL + "/"} exact component={ Pages.MainPage } />
-                        <Route path={process.env.PUBLIC_URL + "/about"} exact component={ Pages.AboutPage } />
-                        <Route path={process.env.PUBLIC_URL + "/post"} exact component={ Pages.PostDetailPage } />
-                        <Redirect path="*" to={process.env.PUBLIC_URL + "/"} />
+                        <Route path={process.env.PUBLIC_URL + "/"} exact={true} component={ Pages.MainPage } />
+                        <Route path={process.env.PUBLIC_URL + "/about"} exact={true} component={ Pages.AboutPage } />
+                        <Route path={process.env.PUBLIC_URL + "/post"} exact={true} component={ Pages.PostDetailPage } />
                     </MainLayoutComponents>
                 </Switch>
             </Router>
