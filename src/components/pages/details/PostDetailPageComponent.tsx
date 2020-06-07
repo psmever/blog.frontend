@@ -33,14 +33,14 @@ export default function PostDetailPage() {
                             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
                             <h5 className="my-3">Bullet Points:</h5>
                             <ul className="mb-5">
-                            <li className="mb-2">Lorem ipsum dolor sit amet consectetuer.</li>
-                            <li className="mb-2">Aenean commodo ligula eget dolor.</li>
-                            <li className="mb-2">Aenean massa cum sociis natoque penatibus.</li>
+                                <li className="mb-2">Lorem ipsum dolor sit amet consectetuer.</li>
+                                <li className="mb-2">Aenean commodo ligula eget dolor.</li>
+                                <li className="mb-2">Aenean massa cum sociis natoque penatibus.</li>
                             </ul>
                             <ol className="mb-5">
-                            <li className="mb-2">Lorem ipsum dolor sit amet consectetuer.</li>
-                            <li className="mb-2">Aenean commodo ligula eget dolor.</li>
-                            <li className="mb-2">Aenean massa cum sociis natoque penatibus.</li>
+                                <li className="mb-2">Lorem ipsum dolor sit amet consectetuer.</li>
+                                <li className="mb-2">Aenean commodo ligula eget dolor.</li>
+                                <li className="mb-2">Aenean massa cum sociis natoque penatibus.</li>
                             </ol>
                             <h5 className="my-3">Quote Example:</h5>
                             <blockquote className="blockquote m-lg-5 py-3 pl-4 px-lg-5">
