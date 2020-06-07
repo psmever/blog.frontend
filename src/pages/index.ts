@@ -1,6 +1,6 @@
-export { default as DefaultPage } from './blog/DefaultPage';
-export { default as MainPage } from './blog/MainPage';
+export { default as DefaultPage } from './template/DefaultPage';
+export { default as MainPage } from './template/MainPage';
 
-export { default as PostPage } from './blog/PostPage';
-export { default as PostListPage } from './blog/PostListPage';
-export { default as AboutPage } from './blog/AboutPage';
+export { default as PostPage } from './template/PostPage';
+export { default as PostListPage } from './template/PostListPage';
+export { default as AboutPage } from './template/AboutPage';
