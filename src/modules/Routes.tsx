@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
+import { Router, Route, Switch, BrowserRouter } from "react-router-dom";
 
 import MainLayoutComponents from 'components/MainLayoutComponents'
 import * as Pages from "components/pages";
