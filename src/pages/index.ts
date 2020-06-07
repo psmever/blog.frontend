@@ -1,6 +1,5 @@
-export { default as TemplateDefaultPage } from './template/DefaultPage';
-export { default as TemplateMainPage } from './template/MainPage';
+export { default as DefaultPage } from './DefaultPage';
 
-export { default as TemplatePostPage } from './template/PostPage';
-export { default as TemplatePostListPage } from './template/PostListPage';
-export { default as TemplateAboutPage } from './template/AboutPage';
+export { default as MainPage } from './details/MainPage';
+export { default as AboutPage } from './details/AboutPage';
+export { default as PostDetailPage } from './details/PostDetailPage';
