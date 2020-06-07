@@ -1,6 +1,7 @@
 import React from "react";
 import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
-import * as BlogPages from "pages";
+
+import * as Pages from "components/pages";
 
 import MainLayoutComponents from 'components/MainLayoutComponents'
 
@@ -15,9 +16,9 @@ const Routes = ({Routerhistory} : RootProps) => {
             <Router history={ Routerhistory }>
                 <Switch>
                     <MainLayoutComponents>
-                        <Route path={process.env.PUBLIC_URL + "/"} exact component={ BlogPages.MainPage } />
-                        <Route path={process.env.PUBLIC_URL + "/about"} exact component={ BlogPages.AboutPage } />
-                        <Route path={process.env.PUBLIC_URL + "/post"} exact component={ BlogPages.PostDetailPage } />
+                        <Route path={process.env.PUBLIC_URL + "/"} exact component={ Pages.MainPage } />
+                        <Route path={process.env.PUBLIC_URL + "/about"} exact component={ Pages.AboutPage } />
+                        <Route path={process.env.PUBLIC_URL + "/post"} exact component={ Pages.PostDetailPage } />
                         <Redirect path="*" to={process.env.PUBLIC_URL + "/"} />
                     </MainLayoutComponents>
                 </Switch>
