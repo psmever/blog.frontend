@@ -1,22 +1,24 @@
 import React from "react";
-import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
-import {
-    MainPage,
-    DefaultPage,
-} from "pages";
+import { Router, Route, Switch, BrowserRouter } from "react-router-dom";
+
+import MainLayoutComponents from 'components/MainLayoutComponents'
+import * as Pages from "components/pages";
 
 interface RootProps  {
     Routerhistory: any
 };
 
 const Routes = ({Routerhistory} : RootProps) => {
+
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={process.env.PUBLIC_URL + "/"}>
             <Router history={ Routerhistory }>
                 <Switch>
-                    <Route path={process.env.PUBLIC_URL + "/"} exact={ true } component={ DefaultPage } />
-                    <Route path={process.env.PUBLIC_URL + "/main"} exact={ true } component={ MainPage } />
-                    <Redirect path="*" to={process.env.PUBLIC_URL + "/"} />
+                    <MainLayoutComponents>
+                        <Route path={process.env.PUBLIC_URL + "/"} exact={true} component={ Pages.MainPage } />
+                        <Route path={process.env.PUBLIC_URL + "/about"} exact={true} component={ Pages.AboutPage } />
+                        <Route path={process.env.PUBLIC_URL + "/post"} exact={true} component={ Pages.PostDetailPage } />
+                    </MainLayoutComponents>
                 </Switch>
             </Router>
         </BrowserRouter>

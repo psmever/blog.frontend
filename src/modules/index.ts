@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { connectRouter, RouterState } from 'connected-react-router'
+
 import { History } from 'history'
 import { all } from 'redux-saga/effects';
 import * as _CommonTypes_ from 'modules/commonTypes';
