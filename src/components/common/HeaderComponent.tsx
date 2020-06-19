@@ -1,6 +1,6 @@
 import React from 'react';
 import * as HeaderStyleComponent from "styles/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as StyledIcons from 'styles/StyledIcons';
 
 export default function HeaderComponent() {
     return (
@@ -8,7 +8,7 @@ export default function HeaderComponent() {
             <HeaderStyleComponent.Header>
                 <HeaderStyleComponent.BlogName><HeaderStyleComponent.BlogNameLink to="/">SungMin's Blog</HeaderStyleComponent.BlogNameLink></HeaderStyleComponent.BlogName>
                 <HeaderStyleComponent.Nav>
-                    <HeaderStyleComponent.NavbarToggler>
+                    <HeaderStyleComponent.NavbarToggler type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                         <HeaderStyleComponent.NavbarTogglerIcon></HeaderStyleComponent.NavbarTogglerIcon>
                     </HeaderStyleComponent.NavbarToggler>
 
@@ -20,12 +20,12 @@ export default function HeaderComponent() {
                             <HeaderStyleComponent.SocialList>
                                 <HeaderStyleComponent.ListInlineItem>
                                     <HeaderStyleComponent.SocialListLink to="/">
-                                        <FontAwesomeIcon icon={["fab", "facebook"]} size="lg"/>
+                                        <StyledIcons.FacebookIcon/>
                                     </HeaderStyleComponent.SocialListLink>
                                 </HeaderStyleComponent.ListInlineItem>
                                 <HeaderStyleComponent.ListInlineItem>
                                     <HeaderStyleComponent.SocialListLink to="/">
-                                        <FontAwesomeIcon icon={["fab", "github"]} size="lg"/>
+                                        <StyledIcons.GithubIcon/>
                                     </HeaderStyleComponent.SocialListLink>
                                 </HeaderStyleComponent.ListInlineItem>
                             </HeaderStyleComponent.SocialList>
@@ -35,17 +35,17 @@ export default function HeaderComponent() {
                         <HeaderStyleComponent.NavbarNav>
                             <HeaderStyleComponent.NavItem>
                                 <HeaderStyleComponent.NavItemLinkActive to={process.env.PUBLIC_URL + "/"}>
-                                    <i className="fas fa-home fa-fw mr-2"></i>Blog Home <HeaderStyleComponent.NavItemLinkTitle>(current)</HeaderStyleComponent.NavItemLinkTitle>
+                                    <StyledIcons.HomeIcon /> Blog Home <HeaderStyleComponent.NavItemLinkTitle>(current)</HeaderStyleComponent.NavItemLinkTitle>
                                 </HeaderStyleComponent.NavItemLinkActive>
                             </HeaderStyleComponent.NavItem>
                             <HeaderStyleComponent.NavItem>
                                 <HeaderStyleComponent.NavItemLink to="/">
-                                    <i className="fas fa-bookmark fa-fw mr-2"></i>Blog Post
+                                    <StyledIcons.PostIcon /> Blog Post
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
                             <HeaderStyleComponent.NavItem>
                                 <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/about"}>
-                                    <i className="fas fa-user fa-fw mr-2"></i>About Me
+                                    <StyledIcons.AboutIcon /> About Me
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
                         </HeaderStyleComponent.NavbarNav>
