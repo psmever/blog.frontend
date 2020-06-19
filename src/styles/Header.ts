@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import {Zap} from '@styled-icons/octicons'
 
 export const Header = styled.header`
     font-size: 1rem;
@@ -16,6 +17,12 @@ export const Header = styled.header`
     width: 280px;
     background: #5469C9;
     color: #fff;
+
+    @media (max-width: 991.98px){
+    position: static;
+    width: inherit;
+    height: auto;
+}
 `
 
 export const BlogName = styled.h1`
@@ -29,6 +36,12 @@ export const BlogName = styled.h1`
     font-weight: bold;
     font-size: 1.5rem;
     color: #fff;
+
+    @media (max-width: 991.98px){
+        width: 100%;
+        position: absolute;
+        left: 0;
+    }
 `
 
 export const BlogNameLink = styled(Link)`
@@ -44,7 +57,16 @@ export const BlogNameLink = styled(Link)`
 `
 
 export const Nav = styled.nav`
-    font-size: 1rem;
+@media (max-width: 991.98px){
+    padding: 1rem;
+
+}
+position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    /* font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -52,50 +74,74 @@ export const Nav = styled.nav`
     color: #fff;
     box-sizing: border-box;
     position: relative;
-    display: flex;
     align-items: center;
     flex-flow: row nowrap;
     justify-content: flex-start;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem; */
+
+    @media (max-width: 991.98px){
+        /* padding: 1rem; */
+        /* flex-flow: row nowrap; */
+        /* display: flex; */
+        /* justify-content: flex-start; */
+        /* position: relative; */
+        /* display: flex; */
+        /* flex-wrap: wrap; */
+        /* align-items: center; */
+        /* justify-content: space-between; */
+    }
+    @media (min-width: 992px){
+        /* flex-flow: row nowrap; */
+        /* display: flex; */
+        /* justify-content: flex-start; */
+        /* position: relative; */
+        /* display: flex; */
+        /* flex-wrap: wrap; */
+        /* align-items: center; */
+        /* justify-content: space-between; */
+    }
 `
 
 export const NavbarToggler = styled.button`
-    -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
-    margin: 0;
-    font-family: inherit;
-    overflow: visible;
-    text-transform: none;
-    -webkit-appearance: button;
-    font-size: 1.25rem;
-    line-height: 1;
-    background-color: transparent;
-    cursor: pointer;
-    display: none;
-    color: rgba(255, 255, 255, 0.5);
-    border-radius: 2px;
-    opacity: 0.8;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    padding: 0.25rem 0.6rem;
+
+-webkit-font-smoothing: antialiased;
+box-sizing: border-box;
+margin: 0;
+font-family: inherit;
+overflow: visible;
+text-transform: none;
+-webkit-appearance: button;
+font-size: 1.25rem;
+line-height: 1;
+background-color: transparent;
+cursor: pointer;
+color: rgba(255,255,255,0.5);
+border-radius: 2px;
+opacity: .8;
+border: 1px solid rgba(255,255,255,0.8);
+padding: .25rem .6rem;
+
+    @media (min-width: 992px){
+        display: none;
+    }
 `
 
 export const NavbarTogglerIcon = styled.span`
-    -webkit-font-smoothing: antialiased;
-    font-family: inherit;
-    text-transform: none;
-    font-size: 1.25rem;
-    line-height: 1;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
-    box-sizing: border-box;
-    display: inline-block;
-    width: 1.5em;
-    height: 1.5em;
-    vertical-align: middle;
-    content: "";
-    background: no-repeat center center;
-    background-size: 100% 100%;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+font-family: inherit;
+text-transform: none;
+font-size: 1.25rem;
+line-height: 1;
+cursor: pointer;
+color: rgba(255,255,255,0.5);
+box-sizing: border-box;
+display: inline-block;
+width: 1.5em;
+height: 1.5em;
+vertical-align: middle;
+content: "";
+background: no-repeat center center;
+background-size: 100% 100%;
+background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 `
 
 export const NavbarCollapse = styled.div`
@@ -109,8 +155,14 @@ export const NavbarCollapse = styled.div`
     flex-grow: 1;
     align-items: center;
     flex-direction: column !important;
-    display: flex !important;
-    flex-basis: auto;
+    /* display: none; */
+
+
+    @media (min-width: 992px){
+        /* display: none; */
+        display: flex !important;
+        flex-basis: auto;
+    }
 `
 
 export const ProfileSection = styled.div`
@@ -270,7 +322,9 @@ export const NavItemLink = styled(Link)`
     color: rgba(255, 255, 255, 0.8);
 
 `
-
+export const NavItemLinkIcon = styled(Zap)`
+color: red;
+`
 export const NavItemLinkTitle = styled.span`
     font-size: 1rem;
     line-height: 1.5;

@@ -6,9 +6,6 @@ import Routes from "./modules/Routes";
 import History from "./modules/History";
 import GlobalStyle from "styles/GlobalStyle";
 
-import initFontAwesome from "utils/initFontAwesome";
-initFontAwesome();
-
 const history = createBrowserHistory();
 
 
