@@ -8,6 +8,7 @@ export const Header = styled.header`
         width: inherit;
         height: auto;
     }
+
     box-sizing: border-box;
     display: block;
     text-align: center !important;
@@ -21,23 +22,26 @@ export const Header = styled.header`
 `
 
 export const BlogName = styled.h1`
-@media (max-width: 991.98px){
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 1.2rem;
-}
-@media (min-width: 992px) {
-    padding-top: 1.5rem !important;
-}
-text-align: center !important;
-box-sizing: border-box;
-margin-top: 0;
-line-height: 1.2;
-margin-bottom: 0 !important;
-font-weight: bold;
-font-size: 1.5rem;
-color: #fff;
+
+    @media (max-width: 991.98px){
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 1.2rem;
+    }
+
+    @media (min-width: 992px) {
+        padding-top: 1.5rem !important;
+    }
+
+    text-align: center !important;
+    box-sizing: border-box;
+    margin-top: 0;
+    line-height: 1.2;
+    margin-bottom: 0 !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #fff;
 `
 
 export const BlogNameLink = styled(Link)`
@@ -52,42 +56,43 @@ export const BlogNameLink = styled(Link)`
 `
 
 export const Nav = styled.nav`
-@media (max-width: 991.98px){
-    padding: 1rem;
-}
-text-align: center !important;
-color: #fff;
-box-sizing: border-box;
-position: relative;
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-justify-content: space-between;
-padding: 2rem 1rem;
 
+    @media (max-width: 991.98px){
+        padding: 1rem;
+    }
 
+    text-align: center !important;
+    color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 1rem;
 `
 
 export const NavbarToggler = styled.button`
-@media (min-width: 992px){
-    display: none;
-}
 
-box-sizing: border-box;
-margin: 0;
-font-family: inherit;
-overflow: visible;
-text-transform: none;
--webkit-appearance: button;
-font-size: 1.25rem;
-line-height: 1;
-background-color: transparent;
-cursor: pointer;
-color: rgba(255, 255, 255, 0.5);
-border-radius: 2px;
-opacity: 0.8;
-border: 1px solid rgba(255, 255, 255, 0.8);
-padding: 0.25rem 0.6rem;
+    @media (min-width: 992px){
+        display: none;
+    }
+
+    box-sizing: border-box;
+    margin: 0;
+    font-family: inherit;
+    overflow: visible;
+    text-transform: none;
+    -webkit-appearance: button;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    opacity: 0.8;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.6rem;
 `
 
 export const NavbarTogglerIcon = styled.span`
@@ -113,51 +118,51 @@ export const NavbarTogglerIcon = styled.span`
 `
 
 export const NavbarCollapse = styled.div`
-@media (min-width: 992px){
-    display: flex !important;
-    flex-basis: auto;
-}
 
-@media (max-width: 991.98px){
-    display: none;
-}
+    @media (min-width: 992px){
+        display: flex !important;
+        flex-basis: auto;
+    }
 
-text-align: center !important;
-color: #fff;
-box-sizing: border-box;
-flex-basis: 100%;
-flex-grow: 1;
-align-items: center;
-flex-direction: column !important;
+    @media (max-width: 991.98px){
+        display: none;
+    }
+
+    text-align: center !important;
+    color: #fff;
+    box-sizing: border-box;
+    flex-basis: 100%;
+    flex-grow: 1;
+    align-items: center;
+    flex-direction: column !important;
 `
 
 export const ProfileSection = styled.div`
-@media (min-width: 992px){
-    padding-top: 0 !important;
-}
-text-align: center !important;
-color: #fff;
-box-sizing: border-box;
-padding-top: 1rem !important;
+
+    @media (min-width: 992px){
+        padding-top: 0 !important;
+    }
+
+    text-align: center !important;
+    color: #fff;
+    box-sizing: border-box;
+    padding-top: 1rem !important;
 `
 
 export const ProfileImage = styled.img`
-text-align: center !important;
-color: #fff;
-box-sizing: border-box;
-vertical-align: middle;
-border-style: none;
-border-radius: 50% !important;
-margin-bottom: 1rem !important;
-margin-right: auto !important;
-margin-left: auto !important;
-max-width: 160px;
+    text-align: center !important;
+    color: #fff;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border-style: none;
+    border-radius: 50% !important;
+    margin-bottom: 1rem !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    max-width: 160px;
 `
 
 export const Bio = styled.div`
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     text-align: center !important;
     color: #fff;
     box-sizing: border-box;
@@ -166,9 +171,6 @@ export const Bio = styled.div`
 `
 
 export const BioLink = styled(Link)`
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     text-align: center !important;
     font-size: 0.875rem;
     box-sizing: border-box;
@@ -177,10 +179,6 @@ export const BioLink = styled(Link)`
     text-decoration: underline;
 `
 export const SocialList = styled.ul`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     text-align: center !important;
     color: #fff;
     box-sizing: border-box;
@@ -195,20 +193,13 @@ export const SocialList = styled.ul`
 `
 
 export const SocialListHr = styled.hr`
-font-size: 100%;
-font: inherit;
-text-align: center !important;
-color: #fff;
-box-sizing: content-box;
-height: 0;
-overflow: visible;
+    color: #fff;
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
 `
 
 export const ListInlineItem = styled.li`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     color: #fff;
     list-style: none;
     box-sizing: border-box;
@@ -217,10 +208,6 @@ export const ListInlineItem = styled.li`
 `
 
 export const SocialListLink = styled(Link)`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     list-style: none;
     box-sizing: border-box;
     color: #5469C9;
@@ -236,10 +223,6 @@ export const SocialListLink = styled(Link)`
 `
 
 export const NavbarNav = styled.ul`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     color: #fff;
     box-sizing: border-box;
     margin-top: 0;
@@ -252,9 +235,6 @@ export const NavbarNav = styled.ul`
 `
 
 export const NavItem = styled.li`
-    font-size: 1rem;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     color: #fff;
     list-style: none;
     box-sizing: border-box;
@@ -262,9 +242,6 @@ export const NavItem = styled.li`
 `
 
 export const NavItemLinkActive = styled(Link)`
-    font-size: 1rem;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     list-style: none;
     font-weight: bold;
     box-sizing: border-box;
@@ -278,9 +255,6 @@ export const NavItemLinkActive = styled(Link)`
 `
 
 export const NavItemLink = styled(Link)`
-    font-size: 1rem;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     list-style: none;
     font-weight: bold;
     box-sizing: border-box;
@@ -291,12 +265,8 @@ export const NavItemLink = styled(Link)`
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     color: rgba(255, 255, 255, 0.8);
-
 `
 export const NavItemLinkTitle = styled.span`
-    font-size: 1rem;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     list-style: none;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.5);
@@ -313,10 +283,6 @@ export const NavItemLinkTitle = styled.span`
 `
 
 export const GetInTouch = styled.div`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
     text-align: center !important;
     color: #fff;
     box-sizing: border-box;
@@ -324,9 +290,11 @@ export const GetInTouch = styled.div`
     margin-bottom: 1rem !important;
 `
 export const GetInTouchLink = styled(Link)`
+
     @media (max-width: 991.98px) {
         width: 100%;
     }
+
     box-sizing: border-box;
     text-decoration: none;
     display: inline-block;

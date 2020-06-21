@@ -1,11 +1,19 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
-export const Footer = styled.footer`
+export const MainWarpper = styled.div`
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
+    text-align: left;
     -webkit-font-smoothing: antialiased;
+    color: #4f4f4f;
+    box-sizing: border-box;
+    margin-left: 280px;
+    background: #fff;
+`
+
+export const Footer = styled.footer`
     box-sizing: border-box;
     display: block;
     padding-top: 0.5rem !important;
