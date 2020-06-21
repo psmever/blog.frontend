@@ -29,7 +29,7 @@ export default function HeaderComponent() {
                                     </HeaderStyleComponent.SocialListLink>
                                 </HeaderStyleComponent.ListInlineItem>
                             </HeaderStyleComponent.SocialList>
-                            <hr />
+                            <HeaderStyleComponent.SocialListHr />
                         </HeaderStyleComponent.ProfileSection>
 
                         <HeaderStyleComponent.NavbarNav>

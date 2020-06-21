@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
-import {Zap} from '@styled-icons/octicons'
 
 export const Header = styled.header`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+
+    @media (max-width: 991.98px) {
+        position: static;
+        width: inherit;
+        height: auto;
+    }
     box-sizing: border-box;
     display: block;
     text-align: center !important;
@@ -17,35 +18,29 @@ export const Header = styled.header`
     width: 280px;
     background: #5469C9;
     color: #fff;
-
-    @media (max-width: 991.98px){
-    position: static;
-    width: inherit;
-    height: auto;
-}
 `
 
 export const BlogName = styled.h1`
-    -webkit-font-smoothing: antialiased;
-    text-align: center !important;
-    box-sizing: border-box;
-    margin-top: 0;
-    line-height: 1.2;
-    margin-bottom: 0 !important;
+@media (max-width: 991.98px){
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 1.2rem;
+}
+@media (min-width: 992px) {
     padding-top: 1.5rem !important;
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #fff;
-
-    @media (max-width: 991.98px){
-        width: 100%;
-        position: absolute;
-        left: 0;
-    }
+}
+text-align: center !important;
+box-sizing: border-box;
+margin-top: 0;
+line-height: 1.2;
+margin-bottom: 0 !important;
+font-weight: bold;
+font-size: 1.5rem;
+color: #fff;
 `
 
 export const BlogNameLink = styled(Link)`
-    -webkit-font-smoothing: antialiased;
     text-align: center !important;
     line-height: 1.2;
     font-weight: bold;
@@ -59,52 +54,25 @@ export const BlogNameLink = styled(Link)`
 export const Nav = styled.nav`
 @media (max-width: 991.98px){
     padding: 1rem;
-
 }
+text-align: center !important;
+color: #fff;
+box-sizing: border-box;
 position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    /* font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    text-align: center !important;
-    color: #fff;
-    box-sizing: border-box;
-    position: relative;
-    align-items: center;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    padding: 2rem 1rem; */
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: space-between;
+padding: 2rem 1rem;
 
-    @media (max-width: 991.98px){
-        /* padding: 1rem; */
-        /* flex-flow: row nowrap; */
-        /* display: flex; */
-        /* justify-content: flex-start; */
-        /* position: relative; */
-        /* display: flex; */
-        /* flex-wrap: wrap; */
-        /* align-items: center; */
-        /* justify-content: space-between; */
-    }
-    @media (min-width: 992px){
-        /* flex-flow: row nowrap; */
-        /* display: flex; */
-        /* justify-content: flex-start; */
-        /* position: relative; */
-        /* display: flex; */
-        /* flex-wrap: wrap; */
-        /* align-items: center; */
-        /* justify-content: space-between; */
-    }
+
 `
 
 export const NavbarToggler = styled.button`
+@media (min-width: 992px){
+    display: none;
+}
 
--webkit-font-smoothing: antialiased;
 box-sizing: border-box;
 margin: 0;
 font-family: inherit;
@@ -115,82 +83,75 @@ font-size: 1.25rem;
 line-height: 1;
 background-color: transparent;
 cursor: pointer;
-color: rgba(255,255,255,0.5);
+color: rgba(255, 255, 255, 0.5);
 border-radius: 2px;
-opacity: .8;
-border: 1px solid rgba(255,255,255,0.8);
-padding: .25rem .6rem;
-
-    @media (min-width: 992px){
-        display: none;
-    }
+opacity: 0.8;
+border: 1px solid rgba(255, 255, 255, 0.8);
+padding: 0.25rem 0.6rem;
 `
 
 export const NavbarTogglerIcon = styled.span`
-font-family: inherit;
-text-transform: none;
-font-size: 1.25rem;
-line-height: 1;
-cursor: pointer;
-color: rgba(255,255,255,0.5);
-box-sizing: border-box;
-display: inline-block;
-width: 1.5em;
-height: 1.5em;
-vertical-align: middle;
-content: "";
-background: no-repeat center center;
-background-size: 100% 100%;
-background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-family: inherit;
+    text-transform: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    color: rgba(255,255,255,0.5);
+    box-sizing: border-box;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    content: "";
+    background: no-repeat center center;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 `
 
 export const NavbarCollapse = styled.div`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    text-align: center !important;
-    color: #fff;
-    box-sizing: border-box;
-    flex-grow: 1;
-    align-items: center;
-    flex-direction: column !important;
-    /* display: none; */
+@media (min-width: 992px){
+    display: flex !important;
+    flex-basis: auto;
+}
 
+@media (max-width: 991.98px){
+    display: none;
+}
 
-    @media (min-width: 992px){
-        /* display: none; */
-        display: flex !important;
-        flex-basis: auto;
-    }
+text-align: center !important;
+color: #fff;
+box-sizing: border-box;
+flex-basis: 100%;
+flex-grow: 1;
+align-items: center;
+flex-direction: column !important;
 `
 
 export const ProfileSection = styled.div`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    text-align: center !important;
-    color: #fff;
-    box-sizing: border-box;
+@media (min-width: 992px){
     padding-top: 0 !important;
+}
+text-align: center !important;
+color: #fff;
+box-sizing: border-box;
+padding-top: 1rem !important;
 `
 
 export const ProfileImage = styled.img`
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    text-align: center !important;
-    color: #fff;
-    box-sizing: border-box;
-    vertical-align: middle;
-    border-style: none;
-    border-radius: 50% !important;
-    margin-bottom: 1rem !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    max-width: 160px;
+text-align: center !important;
+color: #fff;
+box-sizing: border-box;
+vertical-align: middle;
+border-style: none;
+border-radius: 50% !important;
+margin-bottom: 1rem !important;
+margin-right: auto !important;
+margin-left: auto !important;
+max-width: 160px;
 `
 
 export const Bio = styled.div`
@@ -231,6 +192,16 @@ export const SocialList = styled.ul`
     padding-bottom: 1rem !important;
     margin-right: auto !important;
     margin-left: auto !important;
+`
+
+export const SocialListHr = styled.hr`
+font-size: 100%;
+font: inherit;
+text-align: center !important;
+color: #fff;
+box-sizing: content-box;
+height: 0;
+overflow: visible;
 `
 
 export const ListInlineItem = styled.li`
@@ -322,9 +293,6 @@ export const NavItemLink = styled(Link)`
     color: rgba(255, 255, 255, 0.8);
 
 `
-export const NavItemLinkIcon = styled(Zap)`
-color: red;
-`
 export const NavItemLinkTitle = styled.span`
     font-size: 1rem;
     line-height: 1.5;
@@ -356,7 +324,9 @@ export const GetInTouch = styled.div`
     margin-bottom: 1rem !important;
 `
 export const GetInTouchLink = styled(Link)`
-    -webkit-font-smoothing: antialiased;
+    @media (max-width: 991.98px) {
+        width: 100%;
+    }
     box-sizing: border-box;
     text-decoration: none;
     display: inline-block;
