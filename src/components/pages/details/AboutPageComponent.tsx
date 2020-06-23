@@ -24,21 +24,6 @@ export default function AboutPage() {
                 </AboutStyleComponent.AboutSection>
                 {/* <!--//about-section--> */}
 
-                <AboutStyleComponent.CtaSection>
-                    <AboutStyleComponent.CtaContainer>
-                        <AboutStyleComponent.CtaHeader>Newsletter</AboutStyleComponent.CtaHeader>
-                        <AboutStyleComponent.CtaIntro>Welcome to my blog. Subscribe and get my latest blog post in your inbox.</AboutStyleComponent.CtaIntro>
-                        <AboutStyleComponent.CtaForm>
-                            <AboutStyleComponent.CtaFormGroup>
-                                <AboutStyleComponent.CtaFormLabel htmlFor="semail">Your email</AboutStyleComponent.CtaFormLabel>
-                                <AboutStyleComponent.CtaInput type="email" placeholder="Enter email" />
-                            </AboutStyleComponent.CtaFormGroup>
-                            <AboutStyleComponent.CtaButton type="button">Subscribe</AboutStyleComponent.CtaButton>
-                        </AboutStyleComponent.CtaForm>
-                    </AboutStyleComponent.CtaContainer>
-                    {/* <!--//container--> */}
-                </AboutStyleComponent.CtaSection>
-
             </AboutStyleComponent.MainWrapper>
             {/* <!--//main-wrapper--> */}
         </>

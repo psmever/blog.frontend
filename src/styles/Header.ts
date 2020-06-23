@@ -9,7 +9,6 @@ export const Header = styled.header`
         height: auto;
     }
 
-    box-sizing: border-box;
     display: block;
     text-align: center !important;
     position: fixed;
@@ -19,6 +18,7 @@ export const Header = styled.header`
     width: 280px;
     background: #5469C9;
     color: #fff;
+
 `
 
 export const BlogName = styled.h1`
@@ -35,24 +35,25 @@ export const BlogName = styled.h1`
     }
 
     text-align: center !important;
-    box-sizing: border-box;
     margin-top: 0;
     line-height: 1.2;
     margin-bottom: 0 !important;
     font-weight: bold;
     font-size: 1.5rem;
     color: #fff;
+
 `
 
 export const BlogNameLink = styled(Link)`
+
     text-align: center !important;
     line-height: 1.2;
     font-weight: bold;
     font-size: 1.5rem;
-    box-sizing: border-box;
     text-decoration: none;
     background-color: transparent;
     color: #fff;
+
 `
 
 export const Nav = styled.nav`
@@ -63,13 +64,13 @@ export const Nav = styled.nav`
 
     text-align: center !important;
     color: #fff;
-    box-sizing: border-box;
     position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding: 2rem 1rem;
+
 `
 
 export const NavbarToggler = styled.button`
@@ -78,7 +79,6 @@ export const NavbarToggler = styled.button`
         display: none;
     }
 
-    box-sizing: border-box;
     margin: 0;
     font-family: inherit;
     overflow: visible;
@@ -93,9 +93,11 @@ export const NavbarToggler = styled.button`
     opacity: 0.8;
     border: 1px solid rgba(255, 255, 255, 0.8);
     padding: 0.25rem 0.6rem;
+
 `
 
 export const NavbarTogglerIcon = styled.span`
+
     margin: 0;
     padding: 0;
     border: 0;
@@ -106,7 +108,6 @@ export const NavbarTogglerIcon = styled.span`
     line-height: 1;
     cursor: pointer;
     color: rgba(255,255,255,0.5);
-    box-sizing: border-box;
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
@@ -115,6 +116,7 @@ export const NavbarTogglerIcon = styled.span`
     background: no-repeat center center;
     background-size: 100% 100%;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+
 `
 
 export const NavbarCollapse = styled.div`
@@ -130,11 +132,11 @@ export const NavbarCollapse = styled.div`
 
     text-align: center !important;
     color: #fff;
-    box-sizing: border-box;
     flex-basis: 100%;
     flex-grow: 1;
     align-items: center;
     flex-direction: column !important;
+
 `
 
 export const ProfileSection = styled.div`
@@ -145,14 +147,14 @@ export const ProfileSection = styled.div`
 
     text-align: center !important;
     color: #fff;
-    box-sizing: border-box;
     padding-top: 1rem !important;
+
 `
 
 export const ProfileImage = styled.img`
+
     text-align: center !important;
     color: #fff;
-    box-sizing: border-box;
     vertical-align: middle;
     border-style: none;
     border-radius: 50% !important;
@@ -160,28 +162,31 @@ export const ProfileImage = styled.img`
     margin-right: auto !important;
     margin-left: auto !important;
     max-width: 160px;
+
 `
 
 export const Bio = styled.div`
+
     text-align: center !important;
     color: #fff;
-    box-sizing: border-box;
     margin-bottom: 1rem !important;
     font-size: 0.875rem;
+
 `
 
 export const BioLink = styled(Link)`
+
     text-align: center !important;
     font-size: 0.875rem;
-    box-sizing: border-box;
     background-color: transparent;
     color: #fff;
     text-decoration: underline;
+
 `
 export const SocialList = styled.ul`
+
     text-align: center !important;
     color: #fff;
-    box-sizing: border-box;
     margin-top: 0;
     margin-bottom: 1rem;
     padding-left: 0;
@@ -190,26 +195,30 @@ export const SocialList = styled.ul`
     padding-bottom: 1rem !important;
     margin-right: auto !important;
     margin-left: auto !important;
+
 `
 
 export const SocialListHr = styled.hr`
+
     color: #fff;
     box-sizing: content-box;
     height: 0;
     overflow: visible;
+
 `
 
 export const ListInlineItem = styled.li`
+
     color: #fff;
     list-style: none;
-    box-sizing: border-box;
     display: inline-block;
     margin-right: 0.5rem;
+
 `
 
 export const SocialListLink = styled(Link)`
+
     list-style: none;
-    box-sizing: border-box;
     color: #5469C9;
     text-decoration: none;
     width: 32px;
@@ -220,11 +229,12 @@ export const SocialListLink = styled(Link)`
     border-radius: 50%;
     transition: all 0.4s ease-in-out;
     background-color: #fff;
+
 `
 
 export const NavbarNav = styled.ul`
+
     color: #fff;
-    box-sizing: border-box;
     margin-top: 0;
     display: flex;
     padding-left: 0;
@@ -232,19 +242,21 @@ export const NavbarNav = styled.ul`
     list-style: none;
     flex-direction: column !important;
     text-align: left !important;
+
 `
 
 export const NavItem = styled.li`
+
     color: #fff;
     list-style: none;
-    box-sizing: border-box;
     font-weight: bold;
+
 `
 
 export const NavItemLinkActive = styled(Link)`
+
     list-style: none;
     font-weight: bold;
-    box-sizing: border-box;
     text-decoration: none;
     background-color: transparent;
     display: block;
@@ -252,12 +264,13 @@ export const NavItemLinkActive = styled(Link)`
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     color: rgba(0, 0, 0, 0.5);
+
 `
 
 export const NavItemLink = styled(Link)`
+
     list-style: none;
     font-weight: bold;
-    box-sizing: border-box;
     text-decoration: none;
     background-color: transparent;
     display: block;
@@ -265,12 +278,13 @@ export const NavItemLink = styled(Link)`
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     color: rgba(255, 255, 255, 0.8);
+
 `
 export const NavItemLinkTitle = styled.span`
+
     list-style: none;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.5);
-    box-sizing: border-box;
     position: absolute;
     width: 1px;
     height: 1px;
@@ -280,14 +294,16 @@ export const NavItemLinkTitle = styled.span`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+
 `
 
 export const GetInTouch = styled.div`
+
     text-align: center !important;
     color: #fff;
-    box-sizing: border-box;
     margin-top: 1rem !important;
     margin-bottom: 1rem !important;
+
 `
 export const GetInTouchLink = styled(Link)`
 
@@ -295,7 +311,6 @@ export const GetInTouchLink = styled(Link)`
         width: 100%;
     }
 
-    box-sizing: border-box;
     text-decoration: none;
     display: inline-block;
     text-align: center;
@@ -314,4 +329,5 @@ export const GetInTouchLink = styled(Link)`
     border-color: transparent;
     font-size: 1rem;
     padding-top: 0.5rem;
+
 `
