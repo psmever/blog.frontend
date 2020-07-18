@@ -14,6 +14,7 @@ const Routes = ({Routerhistory} : RootProps) => {
         <BrowserRouter basename={process.env.PUBLIC_URL + "/"}>
             <Router history={ Routerhistory }>
                 <Switch>
+                    <Route path={process.env.PUBLIC_URL + "/admin/login"} exact={true} component={ Pages.AdminLoginPage } />
                     <MainLayoutComponents>
                         <Route path={process.env.PUBLIC_URL + "/"} exact={true} component={ Pages.MainPage } />
                         <Route path={process.env.PUBLIC_URL + "/about"} exact={true} component={ Pages.AboutPage } />
