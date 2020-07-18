@@ -1,54 +1,62 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import * as HeaderStyleComponent from "styles/Header";
+import * as StyledIcons from 'styles/StyledIcons';
 
 export default function HeaderComponent() {
     return (
         <>
-            <header className="header text-center">
-                <h1 className="blog-name pt-lg-4 mb-0"><Link to="/">SungMin's Blog</Link></h1>
+            <HeaderStyleComponent.Header>
+                <HeaderStyleComponent.BlogName><HeaderStyleComponent.BlogNameLink to="/">SungMin's Blog</HeaderStyleComponent.BlogNameLink></HeaderStyleComponent.BlogName>
+                <HeaderStyleComponent.Nav>
+                    <HeaderStyleComponent.NavbarToggler type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <HeaderStyleComponent.NavbarTogglerIcon></HeaderStyleComponent.NavbarTogglerIcon>
+                    </HeaderStyleComponent.NavbarToggler>
 
-                <nav className="navbar navbar-expand-lg navbar-dark" >
+                    <HeaderStyleComponent.NavbarCollapse>
+                        <HeaderStyleComponent.ProfileSection>
+                            <HeaderStyleComponent.ProfileImage src="/assets/images/main_php.svg"/>
 
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                    </button>
+                            <HeaderStyleComponent.Bio>Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide a link to the about page.<br /><HeaderStyleComponent.BioLink to="/">Find out more about me</HeaderStyleComponent.BioLink></HeaderStyleComponent.Bio>
+                            <HeaderStyleComponent.SocialList>
+                                <HeaderStyleComponent.ListInlineItem>
+                                    <HeaderStyleComponent.SocialListLink to="/">
+                                        <StyledIcons.FacebookIcon/>
+                                    </HeaderStyleComponent.SocialListLink>
+                                </HeaderStyleComponent.ListInlineItem>
+                                <HeaderStyleComponent.ListInlineItem>
+                                    <HeaderStyleComponent.SocialListLink to="/">
+                                        <StyledIcons.GithubIcon/>
+                                    </HeaderStyleComponent.SocialListLink>
+                                </HeaderStyleComponent.ListInlineItem>
+                            </HeaderStyleComponent.SocialList>
+                            <HeaderStyleComponent.SocialListHr />
+                        </HeaderStyleComponent.ProfileSection>
 
-                    <div id="navigation" className="collapse navbar-collapse flex-column" >
-                        <div className="profile-section pt-3 pt-lg-0">
-                            <img className="profile-image mb-3 rounded-circle mx-auto" src="/assets/images/main_php.svg" alt="" />
+                        <HeaderStyleComponent.NavbarNav>
+                            <HeaderStyleComponent.NavItem>
+                                <HeaderStyleComponent.NavItemLinkActive to={process.env.PUBLIC_URL + "/"}>
+                                    <StyledIcons.HomeIcon /> Blog Home <HeaderStyleComponent.NavItemLinkTitle>(current)</HeaderStyleComponent.NavItemLinkTitle>
+                                </HeaderStyleComponent.NavItemLinkActive>
+                            </HeaderStyleComponent.NavItem>
+                            <HeaderStyleComponent.NavItem>
+                                <HeaderStyleComponent.NavItemLink to="/">
+                                    <StyledIcons.PostIcon /> Blog Post
+                                </HeaderStyleComponent.NavItemLink>
+                            </HeaderStyleComponent.NavItem>
+                            <HeaderStyleComponent.NavItem>
+                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/about"}>
+                                    <StyledIcons.AboutIcon /> About Me
+                                </HeaderStyleComponent.NavItemLink>
+                            </HeaderStyleComponent.NavItem>
+                        </HeaderStyleComponent.NavbarNav>
 
-                            <div className="bio mb-3">Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide a link to the about page.<br /><Link to="/">Find out more about me</Link></div>
-                            {/* <!--//bio--> */}
-                            <ul className="social-list list-inline py-3 mx-auto">
-                                <li className="list-inline-item"><Link to="/"><i className="fab fa-twitter fa-fw"></i></Link></li>
-                                <li className="list-inline-item"><Link to="/"><i className="fab fa-linkedin-in fa-fw"></i></Link></li>
-                                <li className="list-inline-item"><Link to="/"><i className="fab fa-github-alt fa-fw"></i></Link></li>
-                                <li className="list-inline-item"><Link to="/"><i className="fab fa-stack-overflow fa-fw"></i></Link></li>
-                                <li className="list-inline-item"><Link to="/"><i className="fab fa-codepen fa-fw"></i></Link></li>
-                            </ul>
-                            {/* <!--//social-list--> */}
-                            <hr />
-                        </div>
-                        {/* <!--//profile-section--> */}
+                        <HeaderStyleComponent.GetInTouch>
+                            <HeaderStyleComponent.GetInTouchLink to={process.env.PUBLIC_URL + "/"}>Get in Touch</HeaderStyleComponent.GetInTouchLink>
+                        </HeaderStyleComponent.GetInTouch>
 
-                        <ul className="navbar-nav flex-column text-left">
-                            <li className="nav-item active">
-                                <Link to={process.env.PUBLIC_URL + "/"} className="nav-link"><i className="fas fa-home fa-fw mr-2"></i>Blog Home <span className="sr-only">(current)</span></Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/" className="nav-link"><i className="fas fa-bookmark fa-fw mr-2"></i>Blog Post</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to={process.env.PUBLIC_URL + "/about"} className="nav-link"><i className="fas fa-user fa-fw mr-2"></i>About Me</Link>
-                            </li>
-                        </ul>
-
-                        <div className="my-2 my-md-3">
-                            <Link to="/" className="btn btn-primary">Get in Touch</Link>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+                    </HeaderStyleComponent.NavbarCollapse>
+                </HeaderStyleComponent.Nav>
+            </HeaderStyleComponent.Header>
         </>
     );
 }
