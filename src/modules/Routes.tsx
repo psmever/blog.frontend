@@ -15,6 +15,7 @@ const Routes = ({Routerhistory} : RootProps) => {
             <Router history={ Routerhistory }>
                 <Switch>
                     <Route path={process.env.PUBLIC_URL + "/admin/login"} exact={true} component={ Pages.AdminLoginPage } />
+                    <Route path={process.env.PUBLIC_URL + "/admin/write"} exact={true} component={ Pages.AdminWritePage } />
                     <MainLayoutComponents>
                         <Route path={process.env.PUBLIC_URL + "/"} exact={true} component={ Pages.MainPage } />
                         <Route path={process.env.PUBLIC_URL + "/about"} exact={true} component={ Pages.AboutPage } />
