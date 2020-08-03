@@ -48,6 +48,11 @@ export default function HeaderComponent() {
                                     <StyledIcons.AboutIcon /> About Me
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
+                            <HeaderStyleComponent.NavItem>
+                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/admin/write"}>
+                                    <StyledIcons.AboutIcon /> Write
+                                </HeaderStyleComponent.NavItemLink>
+                            </HeaderStyleComponent.NavItem>
                         </HeaderStyleComponent.NavbarNav>
 
                         <HeaderStyleComponent.GetInTouch>
