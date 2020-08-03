@@ -15,3 +15,8 @@ export interface Action<T>  {
     type: Types;
     payload: T;
 }
+
+export interface editorContentsInterface {
+    html: string,
+    text: string,
+}
