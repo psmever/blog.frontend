@@ -76,6 +76,11 @@ body {
     color: #292929;
     text-align: left;
     background-color: #fff;
+    height:100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #4f4f4f;
+    overflow-x: hidden;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -409,12 +414,6 @@ h6 {
 }
 
 
-body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #4f4f4f;
-}
-
 h1,
 h2,
 h3,
@@ -425,6 +424,3 @@ h6 {
     font-weight: bold;
 }
 
-body {
-    overflow-x: hidden;
-}
