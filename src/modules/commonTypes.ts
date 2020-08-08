@@ -16,7 +16,19 @@ export interface Action<T>  {
     payload: T;
 }
 
+// 마크다운 에디터 contents
 export interface editorContentsInterface {
     html: string,
     text: string,
+}
+
+
+export interface editorTagInterfaceItem {
+    id: string;
+    text: string;
+}
+export interface editorTagInterface extends Array<editorTagInterfaceItem> {}
+
+export interface PublishButtonPropsInterface {
+    buttonType: 'Home' | 'Save' | 'Publish';
 }
