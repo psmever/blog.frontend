@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as commonTypes from 'modules/commonTypes';
 
 export const MainWrapper = styled.div`
 
@@ -20,7 +21,7 @@ export const MainWrapper = styled.div`
 export const BlogWrite = styled.article`
 
     @media (min-width: 768px) {
-        padding: 3rem !important;
+        padding: 1rem !important;
     }
 
     font-size: 1rem;
@@ -92,12 +93,31 @@ export const WriteTitleBox = styled.div`
         flex: 0 0 auto;
         flex-flow: row wrap;
         align-items: center;
-        /* margin-bottom: 0; */
     }
 
     text-align: center !important;
     box-sizing: border-box;
     margin-bottom: 1.2rem;
+
+`
+
+export const WriteTagBox = styled.div`
+
+    @media (max-width: 767.98px) {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 576px) {
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    text-align: center !important;
+    box-sizing: border-box;
+    margin-bottom: 1.5rem;
 
 `
 
@@ -162,9 +182,25 @@ export const WriteTitle = styled.input`
 
 export const WriteBody = styled.div`
 
-    @media (max-width: 991.98px) {
-        height: calc(100vh - 200px - 56px);
+    @media screen and (min-width: 769px) {
+        height: calc(100vh - 240px);
     }
+
+    @media screen and (min-device-width: 481px) and (max-device-width: 768px) {
+        height: calc(100vh - 183px);
+    }
+
+    @media only screen and (max-device-width: 480px) {
+        height: calc(100vh - 183px);
+    }
+
+    /* @media (min-width: 576px){
+        height: calc(100vh - 225px);
+    }
+
+    @media (max-width: 767.98px) {
+        height: calc(100vh - 183px);
+    } */
 
 
     font-size: 1rem;
@@ -175,9 +211,105 @@ export const WriteBody = styled.div`
     color: #4f4f4f;
     box-sizing: border-box;
     /* position: relative; */
-    height: calc(100vh - 150px - 34px);
+    height: calc(100vh - 190px);
     display:block;
 
 `
 
+export const ButtonContainer = styled.div`
 
+    @media (max-width: 767.98px) {
+        font-size: 0.5rem;
+    }
+
+    @media (max-width: 670.98px) {
+            font-size: 0.8rem;
+    }
+
+    @media (min-width: 576px) {
+        font-size: 0.8rem;
+    }
+    /* border: 1px solid black; */
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 3rem;
+    grid-auto-flow: row;
+    margin-top: 0.2rem; */
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit);
+    grid-template-rows: repeat(1);
+    grid-gap: 1rem;
+    grid-auto-flow: dense;
+    margin-top: 0.4rem;
+
+`
+
+export const ButtonBox = styled.div<commonTypes.PublishButtonPropsInterface>`
+
+    grid-column: ${props => {
+        if (props.buttonType === 'Home') {
+            return '1';
+        } else if (props.buttonType === 'Save') {
+            return '7';
+        } else if (props.buttonType === 'Publish') {
+            return '8';
+        }
+    }};
+
+    text-align: ${props => {
+        if (props.buttonType === 'Home') {
+            return 'left';
+        } else if (props.buttonType === 'Save') {
+            return 'right';
+        } else if (props.buttonType === 'Publish') {
+            return 'right';
+        }
+    }};;
+    margin-left: 0.1rem;
+
+`
+
+export const PublishButton = styled.button`
+    width: 100%;
+    border-radius: 0.8rem;
+
+    background:#5469C9;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:3rem;
+    font-size:1.6em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+
+    &:hover {
+        background:#fff;
+        color:#1AAB8A;
+    }
+
+    &:before,&:after{
+        content:'';
+        position:absolute;
+        top:0;
+        right:0;
+        height:2px;
+        width:0;
+        background: #5469C9;
+        transition:400ms ease all;
+    }
+
+    &:after{
+        right:inherit;
+        top:inherit;
+        left:0;
+        bottom:0;
+    }
+
+    &:hover:before,&:hover:after{
+        width:100%;
+        transition:800ms ease all;
+    }
+`
