@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
+import { Router, Route, Switch, BrowserRouter } from "react-router-dom";
 
 import MainLayoutComponents from 'components/MainLayoutComponents'
 import * as Pages from "components/pages";
@@ -19,10 +19,12 @@ const Routes = ({Routerhistory} : RootProps) => {
                     <Route path={process.env.PUBLIC_URL + "/admin/write"} exact={true} component={ Pages.AdminWritePage } />
 
                     <MainLayoutComponents>
+                        <Route exact path="/" component={ Pages.MainPage }/>
+                        <Route path={process.env.PUBLIC_URL + "/test"} exact={true} component={ Pages.TestPage } />
                         <Route path={process.env.PUBLIC_URL + "/pages"} exact={true} component={ Pages.MainPage } />
                         <Route path={process.env.PUBLIC_URL + "/pages/about"} exact={true} component={ Pages.AboutPage } />
                         <Route path={process.env.PUBLIC_URL + "/pages/post"} exact={true} component={ Pages.PostDetailPage } />
-                        <Redirect path="*" to="/pages" />
+                        {/* <Redirect path="*" to="/pages" /> */}
                     </MainLayoutComponents>
                     {/* <Route exact path={process.env.PUBLIC_URL + "/"} render={() => (<Redirect to="/pages" />)} /> */}
 

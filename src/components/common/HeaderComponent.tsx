@@ -53,6 +53,11 @@ export default function HeaderComponent() {
                                     <StyledIcons.AboutIcon /> Write
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
+                            <HeaderStyleComponent.NavItem>
+                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/test"}>
+                                    <StyledIcons.AboutIcon /> Test
+                                </HeaderStyleComponent.NavItemLink>
+                            </HeaderStyleComponent.NavItem>
                         </HeaderStyleComponent.NavbarNav>
 
                         <HeaderStyleComponent.GetInTouch>
