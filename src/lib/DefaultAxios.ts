@@ -20,8 +20,7 @@ export interface apiRequest {
 }
 
 export const _Axios_ = axios.create({
-    // baseURL: "http://blog.backend.test",
-    baseURL: "http://psmever.iptime.org:8081",
+    baseURL: process.env.REACT_APP_API_URL,
     timeout: 20000,
     headers: {
         "Access-Control-Allow-Origin": "*",
@@ -33,9 +32,6 @@ export const _Axios_ = axios.create({
 
 _Axios_.interceptors.request.use(function (config) {
     const login_access_token = ""
-
-    console.debug(config.headers);
-
     if(login_access_token) {
         config.headers.Authorization = 'Bearer ' + login_access_token;
     } else {
@@ -47,6 +43,7 @@ _Axios_.interceptors.request.use(function (config) {
 });
 
 _Axios_.interceptors.response.use(function (response) : any {
+    console.debug(response.data);
     return Promise.resolve({
         state: true,
         data: response.data
@@ -68,11 +65,11 @@ _Axios_.interceptors.response.use(function (response) : any {
         return new Promise((resolve, reject) => {
             _Axios_.post('/api/justgram/v1/token/refresh', { refresh_token:"" }).then(
                 (e) => {
-                    console.debug(':: token refresh success::');
+                    console.debug(':: token refresh success ::');
                     resolve(retryOriginalRequest(originalRequest));
                 },
                 (error) => {
-                    console.debug(':: token refresh fail::');
+                    console.debug(':: token refresh fail ::');
                     reject({state: false});
                 }
             )
