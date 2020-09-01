@@ -6,7 +6,9 @@ export default function TestPage() {
     // TODO 로그인 토큰 리프레시 테스트 하고 프로젝트 진행~
     const testRequest = async () => {
 
-        const result = await API.login();
+        // const result = await API.login();
+
+        const result = await API.loginCheck();
 
         console.debug(result);
     }
