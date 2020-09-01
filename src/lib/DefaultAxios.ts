@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as Helper from 'lib/Helper';
 
 export interface tokenRefreshInterface {
     state: boolean;
@@ -30,8 +31,12 @@ export const _Axios_ = axios.create({
     }
 });
 
+let isRefreshing = false;
+let failedQueue = [];
+
+
 _Axios_.interceptors.request.use(function (config) {
-    const login_access_token = ""
+    const login_access_token = Helper.getAccessToken();
     if(login_access_token) {
         config.headers.Authorization = 'Bearer ' + login_access_token;
     } else {
@@ -39,47 +44,71 @@ _Axios_.interceptors.request.use(function (config) {
     }
     return config;
 }, function (error) {
+    const originalRequest = error.config;
+
+    if (error.response.status === 401 && !originalRequest._retry) {
+        if (isRefreshing) {
+          // If I'm refreshing the token I send request to a queue
+          return new Promise((resolve, reject) => {
+            failedQueue.push({ resolve, reject });
+          })
+            .then(() => {
+              originalRequest.headers.Authorization = Helper.getAccessToken();
+              return axios(originalRequest);
+            })
+            .catch(err => err);
+        }
+        // If header of the request has changed, it means I've refreshed the token
+        if (originalRequest.headers.Authorization !== Helper.getAccessToken()) {
+          originalRequest.headers.Authorization = Helper.getAccessToken();
+          return Promise.resolve(axios(originalRequest));
+        }
+
+        originalRequest._retry = true; // mark request a retry
+        isRefreshing = true; // set the refreshing var to true
+
+        // If none of the above, refresh the token and process the queue
+        return new Promise((resolve, reject) => {
+          console.log('REFRESH');
+
+        });
+      }
+
     return Promise.reject(error);
 });
 
 _Axios_.interceptors.response.use(function (response) : any {
-    console.debug(response.data);
+    // console.debug(response.data);
     return Promise.resolve({
         state: true,
         data: response.data
     });
 }, function (error) {
+    const originalRequest = error.config;
     const { config, config: { headers:{ Authorization } }, response: { status, data }} = error;
 
-    if(status === 401 && Authorization.length === 0) {
+    // TODO 2020-09-01 23:44  test.js 와 비교후 코딩.. getAuth()????
+    if (error.response.status === 401 && !originalRequest._retry) {
+        console.debug('401 error');
+        if (isRefreshing) {
+            // If I'm refreshing the token I send request to a queue
+            return new Promise((resolve, reject) => {
+                failedQueue.push({ resolve, reject });
+            })
+                .then(() => {
+                    originalRequest.headers.Authorization = Helper.getAccessToken();
+                    return axios(originalRequest);
+                })
+                .catch(err => {
+                    console.debug({error: err});
+                });
+        }
 
     }
 
-    if(status === 500 && Authorization.length > 0) {
 
-    }
-
-    if(status === 401 && Authorization.length > 0) {
-        console.debug(':: try token refresh ::');
-        const originalRequest = config;
-        return new Promise((resolve, reject) => {
-            _Axios_.post('/api/justgram/v1/token/refresh', { refresh_token:"" }).then(
-                (e) => {
-                    console.debug(':: token refresh success ::');
-                    resolve(retryOriginalRequest(originalRequest));
-                },
-                (error) => {
-                    console.debug(':: token refresh fail ::');
-                    reject({state: false});
-                }
-            )
-        });
-    }
-
-    // return Promise.reject(error);
-    return Promise.reject({
-        state: false,
-        data: data
+    return Promise.resolve({
+        state: false
     });
 });
 
