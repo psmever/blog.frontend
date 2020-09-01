@@ -14,5 +14,5 @@ export function login ():Promise<any> {
 };
 
 export function loginCheck ():Promise<any> {
-    return DefaultAxios._Axios_.post('/api/v1/auth/login-check');
+    return DefaultAxios._Axios_.post('/api/v1/auth/login-check', {});
 };
