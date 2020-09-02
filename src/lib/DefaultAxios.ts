@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
 import * as Helper from 'lib/Helper';
 
 /**
@@ -7,8 +7,6 @@ import * as Helper from 'lib/Helper';
  */
 
 // TODO TypeScript 로 변환 해야 함.
-
-
 const apiBaseURLL = process.env.REACT_APP_API_URL;
 const axiosDefaultHeader = {
     baseURL: apiBaseURLL,
@@ -18,12 +16,13 @@ const axiosDefaultHeader = {
         "Access-Control-Allow-Origin": "*",
         "Request-Client-Type": "S01010",
         "Accept": "application/json",
+        "Authorization": '',
     }
 }
 axiosDefaultHeader.headers.Authorization = 'Bearer '+Helper.getAccessToken();
 export const _Axios_ = axios.create(axiosDefaultHeader);
 
-const setTokenData = (tokenData = {}, axiosClient) => {
+const setTokenData = (tokenData = {}, axiosClient: AxiosInstance) => {
     Helper.saveRefreshToken(tokenData);
 };
 
@@ -46,12 +45,12 @@ const handleTokenRefresh = () => {
     });
 };
 
-const attachTokenToRequest = (request, access_token) => {
+const attachTokenToRequest = (request : any, access_token : any) => {
     request.headers['Authorization'] = 'Bearer ' + access_token;
 };
 
 let isRefreshing = false;
-let failedQueue = [];
+let failedQueue: any = [];
 
 const options = {
     attachTokenToRequest,
@@ -59,8 +58,8 @@ const options = {
     handleTokenRefresh,
 };
 
-const processQueue = (error, token = null) => {
-    failedQueue.forEach(prom => {
+const processQueue = (error : any, token = null) => {
+    failedQueue.forEach((prom: any) => {
         if (error) {
             prom.reject(error);
         } else {
@@ -71,7 +70,7 @@ const processQueue = (error, token = null) => {
     failedQueue = [];
 };
 
-const errorInterceptor = (error) => {
+const errorInterceptor = (error : any) => {
     const originalRequest = error.config;
 
     if (isRefreshing) {
@@ -92,7 +91,7 @@ const errorInterceptor = (error) => {
     isRefreshing = true;
     return new Promise((resolve, reject) => {
         options.handleTokenRefresh.call(options.handleTokenRefresh)
-            .then((tokenData) => {
+            .then((tokenData : any) => {
                 options.setTokenData(tokenData, _Axios_);
                 options.attachTokenToRequest(originalRequest, tokenData.access_token);
                 processQueue(null, tokenData.access_token);
