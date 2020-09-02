@@ -1,6 +1,4 @@
 import * as DefaultAxios from 'lib/DefaultAxios';
-import * as AxiosClient from 'lib/AxiosClient';
-
 
 export function checkServer ():Promise<any> {
     return DefaultAxios._Axios_.get('/api/system/check-notice');
