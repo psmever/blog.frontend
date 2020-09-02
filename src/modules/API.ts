@@ -1,6 +1,5 @@
 import * as DefaultAxios from 'lib/DefaultAxios';
 import * as AxiosClient from 'lib/AxiosClient';
-import * as DefaultAxios2 from 'lib/DefaultAxios2';
 
 
 export function checkServer ():Promise<any> {
@@ -21,5 +20,5 @@ export function loginCheck ():Promise<any> {
 
 
 export function testCheck () {
-    return DefaultAxios2.instance.post('/api/v1/auth/login-check', {});
+    return DefaultAxios._Axios_.post('/api/v1/auth/login-check', {});
 };

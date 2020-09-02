@@ -1,27 +1,17 @@
-import axios from 'axios';
+import axios from 'axios'
 import * as Helper from 'lib/Helper';
 
-export interface tokenRefreshInterface {
-    state: boolean;
-    data?: {
-        token_type?: string;
-        expires_in?: number;
-        access_token?: string;
-        refresh_token?: string;
-        user_name?: string;
-    }
-    message?: string;
-}
+/**
+ * https://gist.github.com/Godofbrowser/bf118322301af3fc334437c683887c5f
+ * Thank Original Source
+ */
 
-export interface apiRequest {
-    authType: boolean;
-    method: 'get'|'post'|'delete'|'put';
-    endpoint: string;
-    payload: any
-}
+// TODO TypeScript 로 변환 해야 함.
 
-export const _Axios_ = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+
+const apiBaseURLL = process.env.REACT_APP_API_URL;
+const axiosDefaultHeader = {
+    baseURL: apiBaseURLL,
     timeout: 20000,
     headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -29,91 +19,96 @@ export const _Axios_ = axios.create({
         "Request-Client-Type": "S01010",
         "Accept": "application/json",
     }
-});
+}
+axiosDefaultHeader.headers.Authorization = 'Bearer '+Helper.getAccessToken();
+export const _Axios_ = axios.create(axiosDefaultHeader);
+
+const setTokenData = (tokenData = {}, axiosClient) => {
+    Helper.saveRefreshToken(tokenData);
+};
+
+const handleTokenRefresh = () => {
+    const refreshToken = Helper.getRefreshToken();
+    return new Promise((resolve, reject) => {
+        const _thisAxios_ = axios.create(axiosDefaultHeader);
+        _thisAxios_.post(`${apiBaseURLL}/api/v1/auth/token-refresh`, { refresh_token: refreshToken })
+            .then(({data}) => {
+                const tokenData = {
+                    access_token: data.access_token,
+                    refresh_token: data.refresh_token,
+                    expires_in: data.expires_in,
+                };
+                resolve(tokenData);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    });
+};
+
+const attachTokenToRequest = (request, access_token) => {
+    request.headers['Authorization'] = 'Bearer ' + access_token;
+};
 
 let isRefreshing = false;
 let failedQueue = [];
 
+const options = {
+    attachTokenToRequest,
+    setTokenData,
+    handleTokenRefresh,
+};
 
-_Axios_.interceptors.request.use(function (config) {
-    const login_access_token = Helper.getAccessToken();
-    if(login_access_token) {
-        config.headers.Authorization = 'Bearer ' + login_access_token;
-    } else {
-        config.headers.Authorization = '';
-    }
-    return config;
-}, function (error) {
+const processQueue = (error, token = null) => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
+    });
+
+    failedQueue = [];
+};
+
+const errorInterceptor = (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry) {
-        if (isRefreshing) {
-          // If I'm refreshing the token I send request to a queue
-          return new Promise((resolve, reject) => {
-            failedQueue.push({ resolve, reject });
-          })
-            .then(() => {
-              originalRequest.headers.Authorization = Helper.getAccessToken();
-              return axios(originalRequest);
-            })
-            .catch(err => err);
-        }
-        // If header of the request has changed, it means I've refreshed the token
-        if (originalRequest.headers.Authorization !== Helper.getAccessToken()) {
-          originalRequest.headers.Authorization = Helper.getAccessToken();
-          return Promise.resolve(axios(originalRequest));
-        }
+    if (isRefreshing) {
+        console.debug('1');
+        return new Promise(function (resolve, reject) {
+            failedQueue.push({resolve, reject})
+        }).then(token => {
 
-        originalRequest._retry = true; // mark request a retry
-        isRefreshing = true; // set the refreshing var to true
-
-        // If none of the above, refresh the token and process the queue
-        return new Promise((resolve, reject) => {
-          console.log('REFRESH');
-
-        });
-      }
-
-    return Promise.reject(error);
-});
-
-_Axios_.interceptors.response.use(function (response) : any {
-    // console.debug(response.data);
-    return Promise.resolve({
-        state: true,
-        data: response.data
-    });
-}, function (error) {
-    const originalRequest = error.config;
-    const { config, config: { headers:{ Authorization } }, response: { status, data }} = error;
-
-    // TODO 2020-09-01 23:44  test.js 와 비교후 코딩.. getAuth()????
-    if (error.response.status === 401 && !originalRequest._retry) {
-        // console.debug('401 error');
-        if (isRefreshing) {
-            // If I'm refreshing the token I send request to a queue
-            return new Promise((resolve, reject) => {
-                failedQueue.push({ resolve, reject });
-                console.debug(1);
-            })
-                .then(() => {
-                    originalRequest.headers.Authorization = Helper.getAccessToken();
-                    console.debug(2);
-                    return axios(originalRequest);
-                })
-                .catch(err => {
-                    console.debug(3);
-                    console.debug({error: err});
-                });
-        }
+            originalRequest._queued = true;
+            options.attachTokenToRequest(originalRequest, token);
+            return _Axios_.request(originalRequest);
+        }).catch(err => {
+            return Promise.reject(error); // Ignore refresh token request's "err" and return actual "error" for the original request
+        })
     }
-    return Promise.resolve({
-        state: false
-    });
-});
 
-const retryOriginalRequest = (originalRequest: any) => {
+    originalRequest._retry = true;
+    isRefreshing = true;
     return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(_Axios_(originalRequest)), 1000);
+        options.handleTokenRefresh.call(options.handleTokenRefresh)
+            .then((tokenData) => {
+                options.setTokenData(tokenData, _Axios_);
+                options.attachTokenToRequest(originalRequest, tokenData.access_token);
+                processQueue(null, tokenData.access_token);
+                resolve(_Axios_.request(originalRequest));
+            })
+            .catch((err) => {
+                processQueue(err, null);
+                reject(err);
+            })
+            .finally(() => {
+                console.debug('finally');
+                isRefreshing = false;
+            })
     });
 };
+
+_Axios_.interceptors.response.use(undefined, errorInterceptor);
+
+export default _Axios_;
