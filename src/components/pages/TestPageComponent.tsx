@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import * as API from 'modules/API';
 import * as Helper from 'lib/Helper';
-import DefaultAxios2 from 'lib/DefaultAxios2';
 import axios from 'axios';
 
 export default function TestPage() {
