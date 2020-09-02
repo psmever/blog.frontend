@@ -89,7 +89,7 @@ _Axios_.interceptors.response.use(function (response) : any {
 
     // TODO 2020-09-01 23:44  test.js 와 비교후 코딩.. getAuth()????
     if (error.response.status === 401 && !originalRequest._retry) {
-        // console.debug('401 error');
+        console.debug('401 error');
         if (isRefreshing) {
             // If I'm refreshing the token I send request to a queue
             return new Promise((resolve, reject) => {
