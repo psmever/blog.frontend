@@ -1,5 +1,5 @@
 import React from 'react';
-import * as commonTypes from 'modules/commonTypes';
+import { editorContentsInterface } from 'commonTypes';
 import useWrite from 'hooks/useWrite';
 import * as PostWriterStyleComponent from "styles/PostWriter";
 
@@ -77,7 +77,7 @@ export default function WritePage() {
     } = useWrite();
 
 
-    const handleEditorContentsChandge = ({html, text}: commonTypes.editorContentsInterface) => {
+    const handleEditorContentsChandge = ({html, text}: editorContentsInterface) => {
         setEditorContents({
             html: html,
             text: text
