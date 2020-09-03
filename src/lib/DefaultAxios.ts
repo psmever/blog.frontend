@@ -19,7 +19,8 @@ const axiosDefaultHeader = {
         "Authorization": '',
     }
 }
-axiosDefaultHeader.headers.Authorization = 'Bearer '+Helper.getAccessToken();
+const defaultHeaderToken = Helper.getAccessToken() ? 'Bearer '+Helper.getAccessToken() : '';
+axiosDefaultHeader.headers.Authorization = defaultHeaderToken;
 export const _Axios_ = axios.create(axiosDefaultHeader);
 
 const setTokenData = (tokenData = {}, axiosClient: AxiosInstance) => {
@@ -74,11 +75,9 @@ const errorInterceptor = (error : any) => {
     const originalRequest = error.config;
 
     if (isRefreshing) {
-        console.debug('1');
         return new Promise(function (resolve, reject) {
             failedQueue.push({resolve, reject})
         }).then(token => {
-
             originalRequest._queued = true;
             options.attachTokenToRequest(originalRequest, token);
             return _Axios_.request(originalRequest);
@@ -98,6 +97,9 @@ const errorInterceptor = (error : any) => {
                 resolve(_Axios_.request(originalRequest));
             })
             .catch((err) => {
+                // 토큰 Refresh Error
+                console.debug(':: Token Refresh Fail.... ::');
+                Helper.removeLoginToken();
                 processQueue(err, null);
                 reject(err);
             })
@@ -108,6 +110,11 @@ const errorInterceptor = (error : any) => {
     });
 };
 
-_Axios_.interceptors.response.use(undefined, errorInterceptor);
+_Axios_.interceptors.response.use(function (response) : any {
+    return Promise.resolve({
+        state: true,
+        data: response.data
+    });
+}, errorInterceptor);
 
 export default _Axios_;
