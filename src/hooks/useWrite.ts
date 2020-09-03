@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as commonTypes from 'modules/commonTypes';
+import { editorContentsInterface, editorTagInterface } from 'commonTypes';
 
 
 const testInitText = `
@@ -16,13 +16,13 @@ function test() {
 export default function useWrite() {
 
 
-    const [ editorContents, setEditorContents ] = useState<commonTypes.editorContentsInterface>({
+    const [ editorContents, setEditorContents ] = useState<editorContentsInterface>({
         html: '',
         text: testInitText
     });
 
     // 글 쓰기 테그.
-    const [ editorTagContents, setEditorTagContents] = useState<commonTypes.editorTagInterface>([
+    const [ editorTagContents, setEditorTagContents] = useState<editorTagInterface>([
         {id: 'javascript', text:'javascript'},
         {id: 'php', text:'php'},
         {id: 'linux', text:'linux'},
@@ -30,7 +30,7 @@ export default function useWrite() {
     ]);
 
     // 글 쓰기 추천 테그.
-    const [ editorTagSuggestions, setEditorTagSuggestions] = useState<commonTypes.editorTagInterface>([
+    const [ editorTagSuggestions, setEditorTagSuggestions] = useState<editorTagInterface>([
         { id: 'Develop', text: 'Develop' },
         { id: 'Linux', text: 'Linux' },
         { id: 'Javascript', text: 'Javascript' },

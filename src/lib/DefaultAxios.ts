@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
+import * as CT from 'commonTypes';
 import * as Helper from 'lib/Helper';
+import * as _ from "lodash";
 
 /**
  * https://gist.github.com/Godofbrowser/bf118322301af3fc334437c683887c5f
@@ -7,8 +9,8 @@ import * as Helper from 'lib/Helper';
  */
 
 // TODO TypeScript 로 변환 해야 함.
-const apiBaseURLL = process.env.REACT_APP_API_URL;
-const axiosDefaultHeader = {
+const apiBaseURLL: string | undefined = _.isUndefined(process.env.REACT_APP_API_URL) ? process.env.REACT_APP_API_URL : 'http://localhost';
+const axiosDefaultHeader : CT.axiosHeaderInterface = {
     baseURL: apiBaseURLL,
     timeout: 20000,
     headers: {
@@ -19,9 +21,11 @@ const axiosDefaultHeader = {
         "Authorization": '',
     }
 }
-const defaultHeaderToken = Helper.getAccessToken() ? 'Bearer '+Helper.getAccessToken() : '';
+
+const defaultHeaderToken: CT.AccessTokenType = Helper.getAccessToken() ? 'Bearer '+Helper.getAccessToken() : '';
 axiosDefaultHeader.headers.Authorization = defaultHeaderToken;
-export const _Axios_ = axios.create(axiosDefaultHeader);
+
+export const _Axios_: AxiosInstance = axios.create(axiosDefaultHeader);
 
 const setTokenData = (tokenData = {}, axiosClient: AxiosInstance) => {
     Helper.saveRefreshToken(tokenData);
@@ -30,7 +34,7 @@ const setTokenData = (tokenData = {}, axiosClient: AxiosInstance) => {
 const handleTokenRefresh = () => {
     const refreshToken = Helper.getRefreshToken();
     return new Promise((resolve, reject) => {
-        const _thisAxios_ = axios.create(axiosDefaultHeader);
+        const _thisAxios_: AxiosInstance = axios.create(axiosDefaultHeader);
         _thisAxios_.post(`${apiBaseURLL}/api/v1/auth/token-refresh`, { refresh_token: refreshToken })
             .then(({data}) => {
                 const tokenData = {

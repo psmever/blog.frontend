@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as commonTypes from 'modules/commonTypes';
+import { PublishButtonPropsInterface } from 'commonTypes';
 
 export const MainWrapper = styled.div`
 
@@ -245,7 +245,7 @@ export const ButtonContainer = styled.div`
 
 `
 
-export const ButtonBox = styled.div<commonTypes.PublishButtonPropsInterface>`
+export const ButtonBox = styled.div<PublishButtonPropsInterface>`
 
     grid-column: ${props => {
         if (props.buttonType === 'Home') {
