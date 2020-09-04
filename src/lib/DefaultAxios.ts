@@ -9,7 +9,7 @@ import * as _ from "lodash";
  */
 
 // TODO TypeScript 로 변환 해야 함.
-const apiBaseURLL: string | undefined = _.isUndefined(process.env.REACT_APP_API_URL) ? process.env.REACT_APP_API_URL : 'http://localhost';
+const apiBaseURLL: string | undefined = _.isUndefined(process.env.REACT_APP_API_URL) ? 'http://localhost' : process.env.REACT_APP_API_URL;
 const axiosDefaultHeader : CT.axiosHeaderInterface = {
     baseURL: apiBaseURLL,
     timeout: 20000,
