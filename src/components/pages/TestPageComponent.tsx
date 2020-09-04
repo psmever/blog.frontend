@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import * as API from 'modules/API';
 import * as Helper from 'lib/Helper';
-import axios from 'axios';
 
 export default function TestPage() {
 
@@ -22,25 +21,15 @@ export default function TestPage() {
         // loginCheckRequest();
     }
 
-    const loginCheckRequest = async () => {
-        const loginCheckResult = await API.loginCheck();
-        if(loginCheckResult.state === false) {
-            Helper.removeLoginToken();
-        } else {
-            console.debug(loginCheckResult.data.result);
-        }
-    }
-
     useEffect(() => {
         console.debug(':: TestPage Start :: ');
 
-        // Helper.removeLoginToken();
-        console.debug({getAccessToken:Helper.getAccessToken()});
+        // // Helper.removeLoginToken();
+        // console.debug(Helper.getAccessToken() ? 'login True' : 'login False');
 
         if(Helper.isEmpty(Helper.getAccessToken()) === true) {
             loginRequest();
         } else {
-            // loginCheckRequest();
             loginRequest2();
         }
 
