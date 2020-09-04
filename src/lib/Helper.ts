@@ -7,6 +7,28 @@ export const DEBUG = (e: object) => {
     console.debug('%c::DEBUG::', 'color: green; font-weight: bold;',e);
 };
 
+export const COLORLOG = (message: string, color: 'success' | 'info' | 'error' | 'warning') : void => {
+
+    switch (color) {
+        case "success":
+            console.log("%c" + message, "color: Green");
+            break;
+        case "info":
+            console.log("%c" + message, "color: DodgerBlue");
+             break;
+        case "error":
+            console.log("%c" + message, "color: Red");
+             break;
+        case "warning":
+            console.log("%c" + message, "color: Orange");
+            break;
+        default:
+            console.log("%c" + message, "color: Green");
+    }
+
+    return;
+}
+
 /**
  * 로컬 스토리지 매니저.
  */
