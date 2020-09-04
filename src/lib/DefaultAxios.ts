@@ -1,5 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { AccessTokenType, localTokenInterface, serverTokenInterface } from 'commonTypes';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosPromise, AxiosError, AxiosResponse } from 'axios'
+import { AccessTokenType, localTokenInterface, serverTokenInterface, axiosReturnInterface, serverResponse } from 'commonTypes';
 import * as Helper from 'lib/Helper';
 import * as _ from "lodash";
 
@@ -34,21 +34,25 @@ const setTokenData = (tokenData: AccessTokenType, axiosClient: AxiosInstance) =>
 /**
  * refresh Token.
  */
-const handleTokenRefresh = () => {
+const handleTokenRefresh = (): Promise<localTokenInterface> => {
+    console.debug(':: handleTokenRefresh ::');
     const refreshToken = Helper.getRefreshToken();
     return new Promise((resolve, reject) => {
         const _thisAxios_: AxiosInstance = axios.create(axiosDefaultHeader);
-        _thisAxios_.post<serverTokenInterface>(`${apiBaseURLL}/api/v1/auth/token-refresh`, { refresh_token: refreshToken })
+        _thisAxios_.post<localTokenInterface>(`${apiBaseURLL}/api/v1/auth/token-refresh`, { refresh_token: '1'+refreshToken })
             .then(({data}) => {
-                const tokenData: localTokenInterface = {
+                resolve({
                     access_token: data.access_token,
                     refresh_token: data.refresh_token,
                     expires_in: data.expires_in,
-                };
-                resolve(tokenData);
+                });
             })
-            .catch((err) => {
-                reject(err);
+            .catch((error) => {
+                reject({
+                    access_token: '',
+                    refresh_token: '',
+                    expires_in: '',
+                });
             })
     });
 };
@@ -62,6 +66,14 @@ const attachTokenToRequest = (request : AxiosRequestConfig, access_token: any) =
     request.headers['Authorization'] = 'Bearer ' + access_token;
 };
 
+const shouldIntercept = (error: any) => {
+    try {
+        return error.response.status === 401
+    } catch (e) {
+        return false;
+    }
+};
+
 let isRefreshing = false;
 let failedQueue: any = [];
 
@@ -69,6 +81,7 @@ const options = {
     attachTokenToRequest,
     setTokenData,
     handleTokenRefresh,
+    shouldIntercept,
 };
 
 const processQueue = (error : any, token : any = null) => {
@@ -88,6 +101,16 @@ const processQueue = (error : any, token : any = null) => {
  * @param error
  */
 const errorInterceptor = (error : any) => {
+
+    // FIXME 이건 뭐하는 코드지?
+    if (!options.shouldIntercept(error)) {
+        return Promise.reject(error);
+    }
+
+    if (error.config._retry || error.config._queued) {
+        return Promise.reject(error);
+    }
+
     const originalRequest = error.config;
 
     // FIXME  토큰 리프세쉬중 어떻게 할껀지?
@@ -117,23 +140,28 @@ const errorInterceptor = (error : any) => {
             })
             .catch((err) => {
                 // 토큰 Refresh Error
-                console.debug(':: Token Refresh Fail.... ::');
+                Helper.COLORLOG(':: 재인증에 실패 했습니다. :: ', 'error');
                 Helper.removeLoginToken();
                 processQueue(err, null);
                 reject(err);
             })
             .finally(() => {
-                console.debug('finally');
+                // console.debug('finally');
                 isRefreshing = false;
             })
     });
 };
 
-_Axios_.interceptors.response.use(function (response) : any {
-    return Promise.resolve({
+// _Axios_.interceptors.response.use((response: any): AxiosResponse<axiosReturnInterface> => {
+_Axios_.interceptors.response.use((response: AxiosResponse<axiosReturnInterface>): axiosReturnInterface => {
+    // return Promise.resolve({
+    //     state: true,
+    //     data: response.data
+    // });
+    return {
         state: true,
         data: response.data
-    });
+    }
 }, errorInterceptor);
 
 export default _Axios_;
