@@ -10,21 +10,22 @@ declare module 'commonTypes' {
     // saga end
 
     // 통신 관련 타입.
-    export interface axiosHeadersInterface {
-        'Content-Type': string;
-        "Access-Control-Allow-Origin": string;
-        "Request-Client-Type": string;
-        "Accept": string;
-        "Authorization": AccessTokenType;
-    }
-    export interface axiosHeaderInterface {
-        baseURL: ProcessEnvType;
-        timeout: number;
-        headers: axiosHeadersInterface;
-    }
-
     export interface serverTokenInterface {
+        token_type: string
+        expires_in: number
+        access_token: string
+        refresh_token: string
+    }
 
+    export interface serverResponse<T> {
+        message: string
+        result: T
+    }
+
+    export interface localTokenInterface {
+        access_token: string,
+        refresh_token: string,
+        expires_in: number,
     }
 
     /**

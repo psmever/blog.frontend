@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from 'axios'
-import * as CT from 'commonTypes';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { AccessTokenType, localTokenInterface, serverTokenInterface } from 'commonTypes';
 import * as Helper from 'lib/Helper';
 import * as _ from "lodash";
 
@@ -10,7 +10,7 @@ import * as _ from "lodash";
 
 // TODO TypeScript 로 변환 해야 함.
 const apiBaseURLL: string | undefined = _.isUndefined(process.env.REACT_APP_API_URL) ? 'http://localhost' : process.env.REACT_APP_API_URL;
-const axiosDefaultHeader : CT.axiosHeaderInterface = {
+const axiosDefaultHeader : AxiosRequestConfig = {
     baseURL: apiBaseURLL,
     timeout: 20000,
     headers: {
@@ -22,22 +22,25 @@ const axiosDefaultHeader : CT.axiosHeaderInterface = {
     }
 }
 
-const defaultHeaderToken: CT.AccessTokenType = Helper.getAccessToken() ? 'Bearer '+Helper.getAccessToken() : '';
+const defaultHeaderToken: AccessTokenType = Helper.getAccessToken() ? 'Bearer '+Helper.getAccessToken() : '';
 axiosDefaultHeader.headers.Authorization = defaultHeaderToken;
 
 export const _Axios_: AxiosInstance = axios.create(axiosDefaultHeader);
 
-const setTokenData = (tokenData = {}, axiosClient: AxiosInstance) => {
+const setTokenData = (tokenData: AccessTokenType, axiosClient: AxiosInstance) => {
     Helper.saveRefreshToken(tokenData);
 };
 
+/**
+ * refresh Token.
+ */
 const handleTokenRefresh = () => {
     const refreshToken = Helper.getRefreshToken();
     return new Promise((resolve, reject) => {
         const _thisAxios_: AxiosInstance = axios.create(axiosDefaultHeader);
-        _thisAxios_.post(`${apiBaseURLL}/api/v1/auth/token-refresh`, { refresh_token: refreshToken })
+        _thisAxios_.post<serverTokenInterface>(`${apiBaseURLL}/api/v1/auth/token-refresh`, { refresh_token: refreshToken })
             .then(({data}) => {
-                const tokenData = {
+                const tokenData: localTokenInterface = {
                     access_token: data.access_token,
                     refresh_token: data.refresh_token,
                     expires_in: data.expires_in,
@@ -50,7 +53,12 @@ const handleTokenRefresh = () => {
     });
 };
 
-const attachTokenToRequest = (request : any, access_token : any) => {
+/**
+ * axios Request 에 토큰 추가.
+ * @param request
+ * @param access_token
+ */
+const attachTokenToRequest = (request : AxiosRequestConfig, access_token: any) => {
     request.headers['Authorization'] = 'Bearer ' + access_token;
 };
 
@@ -63,7 +71,7 @@ const options = {
     handleTokenRefresh,
 };
 
-const processQueue = (error : any, token = null) => {
+const processQueue = (error : any, token : any = null) => {
     failedQueue.forEach((prom: any) => {
         if (error) {
             prom.reject(error);
@@ -75,19 +83,26 @@ const processQueue = (error : any, token = null) => {
     failedQueue = [];
 };
 
+/**
+ * axios Error Interceptor
+ * @param error
+ */
 const errorInterceptor = (error : any) => {
     const originalRequest = error.config;
 
+    // FIXME  토큰 리프세쉬중 어떻게 할껀지?
     if (isRefreshing) {
-        return new Promise(function (resolve, reject) {
-            failedQueue.push({resolve, reject})
-        }).then(token => {
-            originalRequest._queued = true;
-            options.attachTokenToRequest(originalRequest, token);
-            return _Axios_.request(originalRequest);
-        }).catch(err => {
-            return Promise.reject(error); // Ignore refresh token request's "err" and return actual "error" for the original request
-        })
+        // console.debug('isRefreshing');
+        // return new Promise(function (resolve, reject) {
+        //     failedQueue.push({resolve, reject})
+        // }).then(token => {
+        //     console.debug(token);
+        //     originalRequest._queued = true;
+        //     options.attachTokenToRequest(originalRequest, token);
+        //     return _Axios_.request(originalRequest);
+        // }).catch(err => {
+        //     return Promise.reject(error); // Ignore refresh token request's "err" and return actual "error" for the original request
+        // })
     }
 
     originalRequest._retry = true;
