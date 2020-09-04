@@ -11,8 +11,15 @@ declare module 'commonTypes' {
 
     // 통신 관련 타입.
     export interface serverTokenInterface {
-        token_type: string
-        expires_in: number
+        token_type?: string
+        expires_in?: number
+        access_token: string
+        refresh_token: string
+    }
+
+    export interface defaultServerResponse {
+        token_type?: string
+        expires_in?: number
         access_token: string
         refresh_token: string
     }
@@ -26,6 +33,11 @@ declare module 'commonTypes' {
         access_token: string,
         refresh_token: string,
         expires_in: number,
+    }
+
+    export interface axiosReturnInterface {
+        state: boolean;
+        data: any
     }
 
     /**
