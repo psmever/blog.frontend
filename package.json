@@ -49,7 +49,8 @@
     "build": "cp config/development.env .env && react-scripts build",
     "build:prod": "cp config/production.env .env && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "react-scripts build && scp -r ./build/* user@server_ip_address:/var/www/my-website/"
   },
   "eslintConfig": {
     "extends": "react-app"
