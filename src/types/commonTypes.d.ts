@@ -1,4 +1,6 @@
 declare module 'commonTypes' {
+    import AxiosError from 'axios'
+
     // saga start
     export type defaultSagaStatus = "idle" | "loading" | "success" | "failure";
     export type ProcessEnvType = string | undefined;
@@ -24,10 +26,11 @@ declare module 'commonTypes' {
         refresh_token: string
     }
 
-    export interface serverResponse<T> {
-        message: string
-        result: T
+    export interface axiosErrorInterface extends AxiosError<any> {
+        _queued?: boolean,
+        _retry?: boolean,
     }
+
 
     export interface localTokenInterface {
         access_token: string,
@@ -35,9 +38,19 @@ declare module 'commonTypes' {
         expires_in: number,
     }
 
+
+    // export interface AxiosResponse {
+    //     data: any;
+    //     status: number;
+    //     statusText: string;
+    //     headers: any;
+    //     config: AxiosRequestConfig;
+    //   }
+
     export interface axiosReturnInterface {
-        state: boolean;
-        data: any
+        status: boolean,
+        message: string,
+        payload: any
     }
 
     /**

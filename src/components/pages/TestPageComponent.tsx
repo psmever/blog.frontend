@@ -8,14 +8,17 @@ export default function TestPage() {
     const loginRequest = async () => {
         console.debug('::login start::');
         const loginResult = await API.login();
-        Helper.saveLoginToken(loginResult.data);
+        Helper.saveLoginToken(loginResult.payload);
         console.debug('::login end::');
     }
 
     const loginRequest2 = async () => {
         console.debug('::testCheck start::');
         const loginResult = await API.testCheck();
-        console.debug(loginResult);
+        // console.debug(loginResult.status);
+        if(loginResult.status === false) {
+            alert(loginResult.message);
+        }
         // Helper.saveLoginToken(loginResult.data);
         console.debug('::testCheck end::');
         // loginCheckRequest();
