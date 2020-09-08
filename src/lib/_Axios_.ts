@@ -1,5 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { AccessTokenType, localTokenInterface, } from 'commonTypes';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import { AccessTokenType, localTokenInterface,axiosCuError } from 'commonTypes';
 import * as Helper from 'lib/Helper';
 import * as _ from "lodash";
 
@@ -68,10 +68,9 @@ const attachTokenToRequest = (request : AxiosRequestConfig, access_token: any) =
     request.headers['Authorization'] = 'Bearer ' + access_token;
 };
 
-// TODO error AxiosError 로 처리 가능하게 해야..
 const shouldIntercept = (error: AxiosError) => {
     try {
-        return error.response.status === 401
+        return error.response?.status === 401
     } catch (e) {
         return false;
     }
@@ -104,17 +103,19 @@ const processQueue = (error : any, token : any = null) => {
  * @param error
  */
 const errorInterceptor = (error: any) => {
-    const { config: { headers:{ Authorization } }, response: { status }} = error;
+
+    const { config: { headers:{ Authorization } } } = error;
+    const status = error.response?.status
 
     // TODO 인증 관련 에러 말고 에러났을때.어떻게 할껀지?
     if (options.shouldIntercept(error) === false) {
         // TODO 503 에러 일때 어떻게 할껀지?
         if(status === 503) {
-            alert(error.response.data.error_message);
+            alert(error.response?.data.error_message);
         } else {
             return Promise.resolve({
                 status: false,
-                message: error.response.data.error_message
+                message: error.response?.data.error_message
             });
         }
     }
@@ -125,7 +126,7 @@ const errorInterceptor = (error: any) => {
 
     const originalRequest = error.config;
 
-    // FIXME  이거 뭐하는 소스 코드 인지?
+    // TODO  이거 뭐하는 소스 코드 인지?
     if (isRefreshing) {
         return new Promise(function (resolve, reject) {
             failedQueue.push({resolve, reject})

@@ -38,6 +38,15 @@ declare module 'commonTypes' {
         expires_in: number,
     }
 
+    export interface testCuError {
+        _retry: boolean,
+        _queued: boolean,
+    }
+    export interface axiosCuError {
+        _queued : boolean,
+        _retry : boolean,
+        error_message: string,
+    }
 
     // export interface AxiosResponse {
     //     data: any;
