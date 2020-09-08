@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import { AccessTokenType, localTokenInterface,axiosCuError } from 'commonTypes';
+import { AccessTokenType, localTokenInterface } from 'commonTypes';
 import * as Helper from 'lib/Helper';
 import * as _ from "lodash";
 
@@ -33,6 +33,7 @@ const setTokenData = (tokenData: AccessTokenType, axiosClient: AxiosInstance): v
 
 /**
  * refresh Token.
+ * 토큰 리프레쉬
  */
 const handleTokenRefresh = (): Promise<localTokenInterface> => {
     Helper.COLORLOG(':: Try Token Refresh :: ', 'warning');
@@ -86,7 +87,7 @@ const options = {
     shouldIntercept,
 };
 
-const processQueue = (error : any, token : any = null) => {
+const processQueue = (error : AxiosError | null, token : string | null = null ) => {
     failedQueue.forEach((prom: any) => {
         if (error) {
             prom.reject(error);
@@ -139,6 +140,7 @@ const errorInterceptor = (error: any) => {
         })
     }
 
+    // 인증 에러시 토큰 리프레쉬 시도.
     if(status === 401 && Authorization.length > 0) {
         originalRequest._retry = true;
         isRefreshing = true;
@@ -154,7 +156,7 @@ const errorInterceptor = (error: any) => {
                     // 토큰 Refresh Error
                     Helper.COLORLOG(':: Fail Token Refresh :: ', 'error');
                     Helper.removeLoginToken();
-                    processQueue(err, null);
+                    processQueue(err, '');
                     reject(err);
                 })
                 .finally(() => {
@@ -178,6 +180,7 @@ const successInterceptor = (response: AxiosResponse): Promise<any> => {
     });
 }
 
+// export axios
 _Axios_.interceptors.response.use(response => successInterceptor(response), error => errorInterceptor(error));
 
 export default _Axios_;
