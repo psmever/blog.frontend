@@ -1,12 +1,12 @@
 import { takeLatest, fork } from "redux-saga/effects";
-import { Types } from 'modules/reduxActiontTypes';
+import { SagaTypes } from 'modules/reduxActiontTypes';
 
 function* baseActionSaga() {
 
 }
 
 function* onBaseSagaWatcher() {
-    yield takeLatest(Types.BASE_START as any, baseActionSaga);
+    yield takeLatest(SagaTypes.BASE_START as any, baseActionSaga);
 }
 
 export default [
