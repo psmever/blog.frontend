@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRequestInterface } from 'commonTypes';
 import { attemptLoginAction } from 'modules/redux/authenticate';
+import { RootState } from 'modules';
 
 export default function useLogin() {
 
     const dispatch = useDispatch();
+    const login_state = useSelector((state: RootState) => state.authenticate.login);
 
     const [ inputEmail, setInputEmail ] = useState<string>('');
     const [ inputPassword, setInputPassword ] = useState<string>('');
@@ -31,8 +33,14 @@ export default function useLogin() {
         // TODO 실패시 어떻게 할껀지?
     }
 
-    // useEffect(() => {
-    // }, [inputEmail, inputPassword]);
+    useEffect(() => {
+        console.debug(':: useLogin loading ::');
+    }, []);
+
+    useEffect(() => {
+        // TODO login redux state 구조 수정 해야함.
+        console.debug(login_state);
+    }, [login_state])
 
     return {
         inputEmail,
