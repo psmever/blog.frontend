@@ -55,6 +55,8 @@ export default function useLogin() {
             history.push(process.env.PUBLIC_URL + '/');
 
         } else if(login_state.status === 'failure') { // 시도 에러.
+            // TODO 알럿창 처리.
+            // https://github.com/schiehll/react-alert
 
         }
     }, [login_state])
