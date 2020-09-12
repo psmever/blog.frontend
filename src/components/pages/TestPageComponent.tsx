@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2'
-import { ToastProvider, useToasts } from 'react-toast-notifications'
-
-
-
+import { useToasts } from 'react-toast-notifications'
 
 export default function TestPage() {
 
@@ -62,12 +59,9 @@ export default function TestPage() {
     }, []);
 
     return (
-        // <>
-        //     TestPage
-        // </>
+        <>
+            TestPage
+        </>
 
-    <ToastProvider>
-
-    </ToastProvider>
     );
 }
