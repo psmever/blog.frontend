@@ -44,7 +44,7 @@ export default function HeaderComponent() {
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
                             <HeaderStyleComponent.NavItem>
-                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/about"}>
+                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/pages/about"}>
                                     <StyledIcons.AboutIcon /> About Me
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
