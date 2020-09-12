@@ -29,12 +29,10 @@ export default function LoginPage() {
         const target_id: string = (e.target as HTMLElement).id;
 
         if(target_id === 'Email') {
-            console.debug('email');
             inputPasswordRef.current?.focus();
         }
 
         if(target_id === 'Password'){
-            console.debug('password');
             _handelLogin();
         }
     }
