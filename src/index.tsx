@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { ToastProvider } from 'react-toast-notifications'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    // FIXME  React.Fragment 사용?
+    <React.Fragment>
+        <ToastProvider>
+            <App />
+        </ToastProvider>
+    </React.Fragment>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

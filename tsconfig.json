@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "baseUrl": "./src",
     "target": "es5",
     "lib": [
       "dom",
@@ -17,7 +19,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "src/types"]
   },
   "include": [
     "src"
