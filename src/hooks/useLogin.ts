@@ -54,18 +54,16 @@ export default function useLogin() {
 
         } else if(login_state.status === 'success') { // 로그인 완료.
             Helper.saveLoginToken(login_state.data); // 토큰 저장.
-
             addToast("로그인 되었습니다.", {
                 appearance: 'success',
                 autoDismiss: true,
             })
-
             history.push(process.env.PUBLIC_URL + '/');
-
         } else if(login_state.status === 'failure') { // 시도 에러.
-            // TODO 알럿창 처리.
-            // https://github.com/schiehll/react-alert
-
+            addToast(login_state.message, {
+                appearance: 'error',
+                autoDismiss: true,
+            })
         }
     }, [login_state])
 
