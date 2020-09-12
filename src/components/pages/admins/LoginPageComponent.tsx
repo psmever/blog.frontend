@@ -1,11 +1,16 @@
 import React,{ KeyboardEvent, useRef } from 'react';
 import * as AdminLoginStyleComponent from "styles/AdminLogin";
 import useLogin from 'hooks/useLogin';
+import { LoginButtonLoading } from 'components/elements';
+import { useSelector } from 'react-redux';
+import { RootState } from 'modules';
 
 export default function LoginPage() {
 
     // focus 용 Ref.
     const inputPasswordRef = useRef<HTMLInputElement | null>(null);
+
+    const login_state = useSelector((state: RootState) => state.authenticate.login);
 
     const {
         inputEmail,
@@ -61,12 +66,15 @@ export default function LoginPage() {
                         onKeyPress={e => onEnter(e)}
                         ref={inputPasswordRef}
                     />
+                    {login_state.status === 'loading'
+                        ? <LoginButtonLoading />
+                        : <AdminLoginStyleComponent.LoginButton
+                                type="button"
+                                onClick={ () => _handleLoginButtonClick() }
+                            >로그인.
+                        </AdminLoginStyleComponent.LoginButton>
+                    }
 
-                    <AdminLoginStyleComponent.LoginButton
-                        type="button"
-                        onClick={ () => _handleLoginButtonClick() }
-                    >로그인.
-                    </AdminLoginStyleComponent.LoginButton>
                 </AdminLoginStyleComponent.LoginMain>
             </AdminLoginStyleComponent.LoginWrapper>
 
