@@ -1,18 +1,10 @@
 declare module 'commonTypes' {
     import AxiosError from 'axios'
 
-    // saga start
-    export type defaultSagaStatus = "idle" | "loading" | "success" | "failure";
     export type ProcessEnvType = string | undefined;
     export type AccessTokenType = string;
 
-    export interface baseSagaState {
-        status : defaultSagaStatus
-    }
-    // saga end
-
     // 통신 관련 타입.
-
     // 토큰 저장 인터페이스
     export interface localTokenInterface {
         access_token: string,
@@ -25,6 +17,11 @@ declare module 'commonTypes' {
         status: boolean,
         message: string,
         payload: any
+    }
+
+    export interface loginRequestInterface {
+        email: string,
+        password: string
     }
 
     /**

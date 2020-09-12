@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { ToastProvider } from 'react-toast-notifications'
 
 ReactDOM.render(
+    // FIXME  React.Fragment 사용?
     <React.Fragment>
-        <App />
+        <ToastProvider>
+            <App />
+        </ToastProvider>
     </React.Fragment>,
     document.getElementById('root')
 );
