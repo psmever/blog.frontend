@@ -58,6 +58,11 @@ export default function HeaderComponent() {
                                     <StyledIcons.AboutIcon /> Test
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
+                            <HeaderStyleComponent.NavItem>
+                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/admin/login"}>
+                                    <StyledIcons.SuperuserIcon /> Login
+                                </HeaderStyleComponent.NavItemLink>
+                            </HeaderStyleComponent.NavItem>
                         </HeaderStyleComponent.NavbarNav>
 
                         <HeaderStyleComponent.GetInTouch>

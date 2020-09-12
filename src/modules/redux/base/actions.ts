@@ -1,7 +1,7 @@
-import { Types }  from 'modules/reduxActiontTypes';
+import { SagaTypes }  from 'modules/reduxActiontTypes';
 
 export const baseAction = () => {
     return {
-        type: Types.BASE_START
+        type: SagaTypes.BASE_START
     };
 }

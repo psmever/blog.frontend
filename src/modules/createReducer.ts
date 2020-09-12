@@ -1,8 +1,8 @@
 import { Reducer } from "redux";
-import { Action } from "modules/reduxActiontTypes";
+import { SagaAction } from "modules/reduxActiontTypes";
 
 export default function createReducer<S>( initialState: S, handlers: any ): Reducer<S> {
-	const r = (state: S = initialState, action: Action<S>): S => {
+	const r = (state: S = initialState, action: SagaAction<S>): S => {
 		if (handlers.hasOwnProperty(action.type)) {
 			return handlers[action.type](state, action);
 		} else {

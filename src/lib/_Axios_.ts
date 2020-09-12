@@ -7,8 +7,6 @@ import * as _ from "lodash";
  * https://gist.github.com/Godofbrowser/bf118322301af3fc334437c683887c5f
  * Thank Original Source
  */
-
-// TODO TypeScript 로 변환 해야 함.
 const apiBaseURLL: string | undefined = _.isUndefined(process.env.REACT_APP_API_URL) ? 'http://localhost' : process.env.REACT_APP_API_URL;
 const axiosDefaultHeader : AxiosRequestConfig = {
     baseURL: apiBaseURLL,
@@ -108,9 +106,9 @@ const errorInterceptor = (error: any) => {
     const { config: { headers:{ Authorization } } } = error;
     const status = error.response?.status
 
-    // TODO 인증 관련 에러 말고 에러났을때.어떻게 할껀지?
+    // FIXME 인증 관련 에러 말고 에러났을때.어떻게 할껀지?
     if (options.shouldIntercept(error) === false) {
-        // TODO 503 에러 일때 어떻게 할껀지?
+        // FIXME 503 에러 일때 어떻게 할껀지?
         if(status === 503) {
             alert(error.response?.data.error_message);
         } else {
@@ -127,7 +125,7 @@ const errorInterceptor = (error: any) => {
 
     const originalRequest = error.config;
 
-    // TODO  이거 뭐하는 소스 코드 인지?
+    // FIXME  이거 뭐하는 소스 코드 인지?
     if (isRefreshing) {
         return new Promise(function (resolve, reject) {
             failedQueue.push({resolve, reject})
@@ -175,8 +173,7 @@ const errorInterceptor = (error: any) => {
 const successInterceptor = (response: AxiosResponse): Promise<any> => {
     return Promise.resolve({
         status : true,
-        message : response.data.message,
-        payload: response.data.result
+        payload: response.data
     });
 }
 
