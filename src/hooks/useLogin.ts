@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequestInterface } from 'commonTypes';
 import { attemptLoginAction } from 'modules/redux/authenticate';
@@ -42,32 +42,29 @@ export default function useLogin() {
         dispatch(attemptLoginAction(loginPayload));
     }
 
-    useEffect(() => {
-        console.debug(':: useLogin loading ::');
-    }, []);
+    const loginResuxStore = useCallback(() => {
+        return login_state;
+      }, [login_state]);
+
 
     // 로그인 스토어 변경 처리.
     useEffect(() => {
-        if(login_state.status === 'idle') { // 로그인 시도 전.
-            // TODO 로그인 시도전 어떻게 할건지?
+        const loginStatus = loginResuxStore()
+        switch (loginStatus.status) {
+            case 'failure':
+                addToast(loginStatus.message, { appearance: 'error', autoDismiss: true });
+                break;
+            case 'success':
+                Helper.saveLoginToken(loginStatus.data);
+                addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
+                history.push(process.env.PUBLIC_URL + '/');
+                break;
+          }
+    }, [loginResuxStore, addToast])
 
-        } else if(login_state.status === 'loading') { // 로그인 시도중.
-            // TODO 로그인중 어떻게 할껀지?
-
-        } else if(login_state.status === 'success') { // 로그인 완료.
-            Helper.saveLoginToken(login_state.data); // 토큰 저장.
-            addToast("로그인 되었습니다.", {
-                appearance: 'success',
-                autoDismiss: true,
-            })
-            history.push(process.env.PUBLIC_URL + '/');
-        } else if(login_state.status === 'failure') { // 시도 에러.
-            addToast(login_state.message, {
-                appearance: 'error',
-                autoDismiss: true,
-            })
-        }
-    })
+    useEffect(() => {
+        console.debug(':: useLogin loading ::');
+    }, []);
 
     return {
         inputEmail,
