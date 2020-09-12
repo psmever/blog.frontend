@@ -5,8 +5,11 @@ import { attemptLoginAction } from 'modules/redux/authenticate';
 import { RootState } from 'modules';
 import * as Helper from 'lib/Helper';
 import history from 'modules/History';
+import { useToasts } from 'react-toast-notifications'
+
 
 export default function useLogin() {
+    const { addToast } = useToasts()
 
     const dispatch = useDispatch();
     const login_state = useSelector((state: RootState) => state.authenticate.login);
@@ -51,6 +54,11 @@ export default function useLogin() {
 
         } else if(login_state.status === 'success') { // 로그인 완료.
             Helper.saveLoginToken(login_state.data); // 토큰 저장.
+
+            addToast("로그인 되었습니다.", {
+                appearance: 'success',
+                autoDismiss: true,
+            })
 
             history.push(process.env.PUBLIC_URL + '/');
 
