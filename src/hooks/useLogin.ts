@@ -49,8 +49,10 @@ export default function useLogin() {
     // 로그인 스토어 변경 처리.
     useEffect(() => {
         if(login_state.status === 'idle') { // 로그인 시도 전.
+            // TODO 로그인 시도전 어떻게 할건지?
 
         } else if(login_state.status === 'loading') { // 로그인 시도중.
+            // TODO 로그인중 어떻게 할껀지?
 
         } else if(login_state.status === 'success') { // 로그인 완료.
             Helper.saveLoginToken(login_state.data); // 토큰 저장.
@@ -65,7 +67,7 @@ export default function useLogin() {
                 autoDismiss: true,
             })
         }
-    }, [login_state])
+    })
 
     return {
         inputEmail,
