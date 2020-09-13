@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Router, Route, Switch, BrowserRouter } from "react-router-dom";
-
 import MainLayoutComponents from 'components/MainLayoutComponents'
 import * as Pages from "components/pages";
-
+import useBase from "hooks/useBase";
+import { BodyLoading } from 'components/elements';
 interface RootProps  {
     Routerhistory: any
 };
 
 const Routes = ({Routerhistory} : RootProps) => {
+    const {
+        startServerCheck,
+        baseLoading,
+    } = useBase();
+
+    useEffect(() => {
+        console.debug(':: base loading ::');
+        startServerCheck();
+    // eslint-disable-next-line
+    }, []);
 
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL + "/pages"}>
             <Router history={ Routerhistory }>
+                { baseLoading === true
+                ?
+                    <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <BodyLoading/>
+                    </div>
+                :
                 <Switch>
 
                     <Route path={process.env.PUBLIC_URL + "/admin/login"} exact={true} component={ Pages.AdminLoginPage } />
@@ -29,6 +45,8 @@ const Routes = ({Routerhistory} : RootProps) => {
                     {/* <Route exact path={process.env.PUBLIC_URL + "/"} render={() => (<Redirect to="/pages" />)} /> */}
 
                 </Switch>
+                }
+
             </Router>
         </BrowserRouter>
     );
