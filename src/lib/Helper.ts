@@ -113,6 +113,23 @@ export function removeLoginToken(): void {
 }
 
 /**
+ * 로컬 스토리지 토큰. 페이지 다시 로드시 사용.
+ */
+export function getLocalToken() : {
+    login_state : string | null,
+    login_expires_in : number | null,
+    login_access_token : string | null,
+    login_refresh_token : string | null,
+}{
+    return {
+        login_state : storageManager.get("login_state"),
+        login_expires_in : storageManager.get("login_expires_in"),
+        login_access_token : storageManager.get("login_access_token"),
+        login_refresh_token : storageManager.get("login_refresh_token"),
+    }
+}
+
+/**
  * return AccessToken.
  */
 export function getAccessToken() {
