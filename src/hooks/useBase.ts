@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { checkServer, checkServerNotice } from 'modules/API';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBaseDataAction } from 'modules/redux/base';
+import { attemptLocalTokenAction } from 'modules/redux/authenticate';
 import * as Helper from 'lib/Helper';
 import _Alert_ from 'lib/_Alert_';
 import * as _ from "lodash";
@@ -31,8 +32,9 @@ export default function useBase() {
         dispatch(getBaseDataAction());
     }
 
+    // 서버 체크.
     const startServerCheck = () => {
-        Helper.COLORLOG(':: startServerCheck Start ::', 'info');
+        Helper.COLORLOG(':: App Start ::', 'info');
         setBaseLoading(true);
         // Production 버전일 경우만 서버 체크.
         if(process.env.REACT_APP_ENV === 'production') {
@@ -46,12 +48,14 @@ export default function useBase() {
                         getSiteBaseData();
                     });
                 } else {
-                    Helper.COLORLOG(':: startServerCheck Fail (001) ::', 'error');
+                    Helper.COLORLOG(':: App Start Fail (001) ::', 'error');
                 }
             });
         } else {
             getSiteBaseData();
         }
+
+        dispatch(attemptLocalTokenAction()); // 로컬 토큰 체크.
     }
 
     const BaseResuxState = useCallback(() => {
@@ -62,10 +66,10 @@ export default function useBase() {
         const baseStatus = BaseResuxState()
         if(baseStatus === 'success') {
             setBaseLoading(false);
-            Helper.COLORLOG(':: startServerCheck End ::', 'info');
+            // Helper.COLORLOG(':: App Start End ::', 'info');
         } else if(baseStatus === 'failure') {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
-            Helper.COLORLOG(':: startServerCheck Fail(002) ::', 'error');
+            Helper.COLORLOG(':: App Start Fail(002) ::', 'error');
         }
     }, [BaseResuxState])
 
