@@ -32,25 +32,27 @@ export default function useBase() {
     }
 
     const startServerCheck = () => {
-        // TODO: Production 에서만 적용 되게.
         Helper.COLORLOG(':: startServerCheck Start ::', 'info');
         setBaseLoading(true);
-        checkServerStatus().then((e: any) => {
-            if(e.status === true) {
-                checkServerNoticeStatus().then((e: any) => {
-                    // 공지 사항이 있을때.
-                    if(!_.isNull(e.payload) && !_.isUndefined(e.payload.notice_message)) {
-                        _Alert_.default({text: e.payload.notice_message})
-                    }
-                    getSiteBaseData();
-                });
-            } else {
-                Helper.COLORLOG(':: startServerCheck Fail (001) ::', 'error');
-            }
-        });
-
+        // Production 버전일 경우만 서버 체크.
+        if(process.env.REACT_APP_ENV === 'production') {
+            checkServerStatus().then((e: any) => {
+                if(e.status === true) {
+                    checkServerNoticeStatus().then((e: any) => {
+                        // 공지 사항이 있을때.
+                        if(!_.isNull(e.payload) && !_.isUndefined(e.payload.notice_message)) {
+                            _Alert_.default({text: e.payload.notice_message})
+                        }
+                        getSiteBaseData();
+                    });
+                } else {
+                    Helper.COLORLOG(':: startServerCheck Fail (001) ::', 'error');
+                }
+            });
+        } else {
+            getSiteBaseData();
+        }
     }
-
 
     const BaseResuxState = useCallback(() => {
         return baseResuxState;
@@ -65,7 +67,6 @@ export default function useBase() {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
             Helper.COLORLOG(':: startServerCheck Fail(002) ::', 'error');
         }
-
     }, [BaseResuxState])
 
     return {
