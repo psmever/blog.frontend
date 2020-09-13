@@ -1,31 +1,33 @@
 import { createReducer } from "typesafe-actions";
-import { baseSagaState } from 'reduxTypes';
+import { baseDataSagaState } from 'reduxTypes';
 import {SagaTypes, SagaAction} from 'modules/reduxActiontTypes';
 
-const initialState: baseSagaState = {
-    status: "idle"
+const initialState: baseDataSagaState = {
+    status: "idle",
+    codes: null
 }
 
-export const baseSagaReducer = createReducer<baseSagaState>(initialState, {
-    [SagaTypes.BASE_START]: (state: baseSagaState) => {
+export const baseSagaReducer = createReducer<baseDataSagaState>(initialState, {
+    [SagaTypes.BASE_REQUEST_START]: (state: baseDataSagaState) => {
         return {
             ...state,
             status: "loading",
         };
     },
-    [SagaTypes.BASE_SUCCESS]: (state: baseSagaState, action: SagaAction<baseSagaState>) => {
+    [SagaTypes.BASE_REQUEST_SUCCESS]: (state: baseDataSagaState, action: SagaAction<baseDataSagaState>) => {
         return {
             ...state,
             status: "success",
+            codes: action.payload.codes
         };
     },
-    [SagaTypes.BASE_ERROR]: (state: baseSagaState, action: SagaAction<baseSagaState>) => {
+    [SagaTypes.BASE_REQUEST_ERROR]: (state: baseDataSagaState, action: SagaAction<baseDataSagaState>) => {
         return {
             ...state,
             status: "failure",
         };
     },
-    [SagaTypes.BASE_RESET]: (state: baseSagaState) => {
+    [SagaTypes.BASE_REQUEST_RESET]: (state: baseDataSagaState) => {
         return {
             ...state,
             status: "idle",
