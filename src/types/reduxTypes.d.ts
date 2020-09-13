@@ -26,6 +26,14 @@ declare module 'reduxTypes' {
         }
     }
 
+    export interface postSagaState {
+        create: {
+            status: defaultSagaStatus,
+            data?: any
+            message?: string
+        }
+    }
+
     // 테스트용?
     export interface defaultSagaState<T> {
         status : defaultSagaStatus
