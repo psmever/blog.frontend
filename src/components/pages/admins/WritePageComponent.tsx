@@ -1,7 +1,21 @@
 import React from 'react';
 import { editorContentsInterface } from 'commonTypes';
 import useWrite from 'hooks/useWrite';
-import * as PostWriterStyleComponent from "styles/PostWriter";
+import history from 'modules/History';
+import {
+    MainWrapper,
+    BlogWrite,
+    Container,
+    Header,
+    WriteTitleBox,
+    WriteTitleLabel,
+    WriteTitle,
+    WriteTagBox,
+    WriteBody,
+    ButtonContainer,
+    ButtonBox,
+    PublishButton
+} from "styles/PostWriter";
 
 import hljs from 'highlight.js'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -69,11 +83,16 @@ const markdownEditorConfig = {
 export default function WritePage() {
 
     const {
+        editorTitle,
+        setEditorTitle,
         setEditorContents,
         editorContents,
         editorTagContents,
         setEditorTagContents,
-        editorTagSuggestions
+        editorTagSuggestions,
+
+        _handleClickSaveButton,
+        _handleClickPublishButton,
     } = useWrite();
 
 
@@ -84,18 +103,18 @@ export default function WritePage() {
         })
     }
 
-    const handleDelete = (e: any) => {
+    const handleTagDelete = (e: any) => {
         setEditorTagContents(editorTagContents.filter((tag, index) => index !== e))
     }
 
-    const handleAddition = (e: any) => {
+    const handleTagAddition = (e: any) => {
         setEditorTagContents([
             ...editorTagContents,
             e
         ]);
     }
 
-    const handleDrag = (tag: any, currPos: any, newPos:any) => {
+    const handleTagDrag = (tag: any, currPos: any, newPos:any) => {
         console.debug({
             tag:tag,
             currPos:currPos,
@@ -117,38 +136,45 @@ export default function WritePage() {
         console.debug("TagClick : ",editorTagContents[e]);
     }
 
+    const handleHomeButtonClick = () => {
+        history.push(process.env.PUBLIC_URL + '/');
+    }
+
+    const handleSaveButtonClick = () => {
+        _handleClickSaveButton();
+
+    }
+    const handlePublishButtonClick = () => {
+        _handleClickPublishButton();
+    }
+
     return (
         <>
-            <PostWriterStyleComponent.MainWrapper>
-
-                <PostWriterStyleComponent.BlogWrite>
-
-                    <PostWriterStyleComponent.Container>
-
-                        <PostWriterStyleComponent.Header>
-                            {/* <PostWriterStyleComponent.HeaderTitle>글등록.</PostWriterStyleComponent.HeaderTitle> */}
-
-                        </PostWriterStyleComponent.Header>
-
-                        <PostWriterStyleComponent.WriteTitleBox>
-                            <PostWriterStyleComponent.WriteTitleLabel htmlFor="semail"></PostWriterStyleComponent.WriteTitleLabel>
-                            <PostWriterStyleComponent.WriteTitle type="text" id="semail" placeholder="제목을 입력해 주세요." />
-                        </PostWriterStyleComponent.WriteTitleBox>
-
-                        <PostWriterStyleComponent.WriteTagBox>
+            <MainWrapper>
+                <BlogWrite>
+                    <Container>
+                        <Header>
+                            {/* <HeaderTitle>글등록.</HeaderTitle> */}
+                        </Header>
+                        <WriteTitleBox>
+                            <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
+                            <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요."
+                                value={editorTitle}
+                                onChange={ e => setEditorTitle(e.target.value) }
+                            />
+                        </WriteTitleBox>
+                        <WriteTagBox>
                             <ReactTags tags={ editorTagContents }
                                 suggestions={editorTagSuggestions}
-                                handleDelete={handleDelete}
-                                handleAddition={handleAddition}
-                                handleDrag={handleDrag}
+                                handleDelete={handleTagDelete}
+                                handleAddition={handleTagAddition}
+                                handleDrag={handleTagDrag}
                                 delimiters={delimiters}
                                 handleTagClick={handleTagClick}
                                 placeholder={':::테그를 입력해 주세요:::'}
                             />
-                        </PostWriterStyleComponent.WriteTagBox>
-
-                        <PostWriterStyleComponent.WriteBody>
-
+                        </WriteTagBox>
+                        <WriteBody>
                             <MdEditor
                                 plugins={[
                                     'header',
@@ -177,30 +203,16 @@ export default function WritePage() {
                                 placeholder={"내용을 입력해 주세요."}
                                 config={markdownEditorConfig}
                             />
-
-                        </PostWriterStyleComponent.WriteBody>
-
-                        <PostWriterStyleComponent.ButtonContainer>
-
-                            <PostWriterStyleComponent.ButtonBox buttonType={"Home"}>
-                                <PostWriterStyleComponent.PublishButton>홈</PostWriterStyleComponent.PublishButton>
-                            </PostWriterStyleComponent.ButtonBox>
-
-                            <PostWriterStyleComponent.ButtonBox buttonType={"Save"}>
-                                <PostWriterStyleComponent.PublishButton>저장</PostWriterStyleComponent.PublishButton>
-                            </PostWriterStyleComponent.ButtonBox>
-
-                            <PostWriterStyleComponent.ButtonBox buttonType={"Publish"}>
-                                <PostWriterStyleComponent.PublishButton>개시</PostWriterStyleComponent.PublishButton>
-                            </PostWriterStyleComponent.ButtonBox>
-
-                        </PostWriterStyleComponent.ButtonContainer>
-
-                    </PostWriterStyleComponent.Container>
+                        </WriteBody>
+                        <ButtonContainer>
+                            <ButtonBox buttonType={"Home"} onClick={handleHomeButtonClick}><PublishButton>홈</PublishButton></ButtonBox>
+                            <ButtonBox buttonType={"Save"} onClick={handleSaveButtonClick}><PublishButton>저장</PublishButton></ButtonBox>
+                            <ButtonBox buttonType={"Publish"} onClick={handlePublishButtonClick}><PublishButton>개시</PublishButton></ButtonBox>
+                        </ButtonContainer>
+                    </Container>
                     {/* <!--//container--> */}
-                </PostWriterStyleComponent.BlogWrite>
-
-            </PostWriterStyleComponent.MainWrapper>
+                </BlogWrite>
+            </MainWrapper>
             {/* <!--//main-wrapper--> */}
         </>
 

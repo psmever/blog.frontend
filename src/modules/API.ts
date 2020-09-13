@@ -40,3 +40,7 @@ export function loginCheck() : Promise<commonTypes.axiosReturnInterface> {
 export function testCheck() : Promise<commonTypes.axiosReturnInterface> {
     return _Axios_.post('/api/v1/auth/login-check', {data: {}});
 };
+
+export function postCreate(payload: any) : Promise<commonTypes.axiosReturnInterface> {
+    return _Axios_.post('/api/v1/post', payload);
+};
