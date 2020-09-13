@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginRequestInterface } from 'commonTypes';
 import { attemptLoginAction } from 'modules/redux/authenticate';
 import { RootState } from 'modules';
-import * as Helper from 'lib/Helper';
+// import * as Helper from 'lib/Helper';
 import history from 'modules/History';
 import { useToasts } from 'react-toast-notifications'
 
@@ -44,7 +44,7 @@ export default function useLogin() {
 
     const loginResuxStore = useCallback(() => {
         return login_state;
-      }, [login_state]);
+    }, [login_state]);
 
 
     // 로그인 스토어 변경 처리.
@@ -55,7 +55,8 @@ export default function useLogin() {
                 addToast(loginStatus.message, { appearance: 'error', autoDismiss: true });
                 break;
             case 'success':
-                Helper.saveLoginToken(loginStatus.data);
+                // FIXME 로그인 유지 시키도록 해야함.
+                // Helper.saveLoginToken(loginStatus.data);
                 addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
                 history.push(process.env.PUBLIC_URL + '/');
                 break;
@@ -63,7 +64,7 @@ export default function useLogin() {
     }, [loginResuxStore, addToast])
 
     useEffect(() => {
-        console.debug(':: useLogin loading ::');
+        // console.debug(':: useLogin loading ::');
     }, []);
 
     return {

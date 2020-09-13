@@ -3,7 +3,7 @@ import { connectRouter, RouterState } from 'connected-react-router'
 
 import { History } from 'history'
 import { all } from 'redux-saga/effects';
-import { baseSagaState, authenticateSagaState } from 'reduxTypes';
+import { baseDataSagaState, authenticateSagaState } from 'reduxTypes';
 
 import base from './redux/base';
 import baseSagas from './redux/base/sagas';
@@ -13,7 +13,7 @@ import authenticateSagas from './redux/authenticate/sagas';
 
 export interface RootState {
     router: RouterState
-    base: baseSagaState
+    base: baseDataSagaState
     authenticate: authenticateSagaState
 }
 

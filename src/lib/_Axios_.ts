@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { AccessTokenType, localTokenInterface } from 'commonTypes';
 import * as Helper from 'lib/Helper';
+import _Alert_ from 'lib/_Alert_';
 import * as _ from "lodash";
 
 /**
@@ -104,17 +105,32 @@ const processQueue = (error : AxiosError | null, token : string | null = null ) 
 const errorInterceptor = (error: any) => {
 
     const { config: { headers:{ Authorization } } } = error;
-    const status = error.response?.status
+    const status = error.response?.status;
 
     // FIXME 인증 관련 에러 말고 에러났을때.어떻게 할껀지?
     if (options.shouldIntercept(error) === false) {
         // FIXME 503 에러 일때 어떻게 할껀지?
-        if(status === 503) {
-            alert(error.response?.data.error_message);
+        // TODO 에러 payload 설정 api server error_message 를 배열로 처리...
+        if(status === 503) {     // 서버 에러
+            _Alert_.serverStatusError({
+                text: error.response.data.error.error_message
+            });
+            return Promise.resolve({
+                status: false,
+                message: error.response?.data.error.error_message
+            });
+        } else if(status === 429) {   // 너무 많은 요청 일때.
+            _Alert_.serverStatusError({
+                text: error.response.data.error.error_message
+            });
+            return Promise.resolve({
+                status: false,
+                message: error.response?.data.error.error_message
+            });
         } else {
             return Promise.resolve({
                 status: false,
-                message: error.response?.data.error_message
+                message: error.response?.data.error.error_message
             });
         }
     }
@@ -163,7 +179,6 @@ const errorInterceptor = (error: any) => {
                 })
         });
     }
-
 };
 
 /**
@@ -171,10 +186,20 @@ const errorInterceptor = (error: any) => {
  * @param response
  */
 const successInterceptor = (response: AxiosResponse): Promise<any> => {
-    return Promise.resolve({
-        status : true,
-        payload: response.data
-    });
+    // TODO 성공 payload 설정.
+    // result, 있을떄, 없을떄.
+
+    if(response.status === 204) {
+        return Promise.resolve({
+            status : true,
+            payload: null
+        });
+    } else {
+        return Promise.resolve({
+            status : true,
+            payload: response.data.result
+        });
+    }
 }
 
 // export axios
