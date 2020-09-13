@@ -14,11 +14,12 @@ export const authSagaReducer = createReducer<authenticateSagaState>(initialState
         return {
             ...state,
             login: {
-                status: 'idle',
+                status: 'loading',
             }
         }
     },
     [SagaTypes.LOGIN_REQUEST_SUCCESS]: (state: authenticateSagaState, action: SagaAction<axiosReturnInterface>) => {
+        console.debug(action);
         return {
             ...state,
             login: {
