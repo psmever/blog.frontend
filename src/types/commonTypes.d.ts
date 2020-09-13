@@ -45,4 +45,12 @@ declare module 'commonTypes' {
     export interface PublishButtonPropsInterface {
         buttonType: 'Home' | 'Save' | 'Publish';
     }
+
+    // 얼렁창 클래스 인터페이스.
+    export interface alertTypeInterface {
+        title?: string,
+        text: string,
+        footer?: string,
+        push_router?: string,
+    }
 }
