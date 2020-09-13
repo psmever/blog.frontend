@@ -15,7 +15,6 @@ const Routes = ({Routerhistory} : RootProps) => {
     } = useBase();
 
     useEffect(() => {
-        console.debug(':: base loading ::');
         startServerCheck();
     // eslint-disable-next-line
     }, []);

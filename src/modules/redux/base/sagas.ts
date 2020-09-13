@@ -1,12 +1,18 @@
-import { takeLatest, fork } from "redux-saga/effects";
+import { takeLatest, fork, put } from "redux-saga/effects";
 import { SagaTypes } from 'modules/reduxActiontTypes';
+import { getSiteBaseData } from 'modules/API';
 
-function* baseActionSaga() {
-
+function* getBaseDataActionSaga() {
+    const response = yield getSiteBaseData();
+    if(response.status === true) {
+        yield put({ type: SagaTypes.BASE_REQUEST_SUCCESS, payload: response.payload});
+    } else {
+        yield put({ type: SagaTypes.BASE_REQUEST_ERROR, payload: response});
+    }
 }
 
 function* onBaseSagaWatcher() {
-    yield takeLatest(SagaTypes.BASE_START as any, baseActionSaga);
+    yield takeLatest(SagaTypes.BASE_REQUEST_START as any, getBaseDataActionSaga);
 }
 
 export default [
