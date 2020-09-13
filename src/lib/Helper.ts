@@ -14,7 +14,7 @@ export const COLORLOG = (message: string, color: 'success' | 'info' | 'error' | 
             console.log("%c" + message, "color: Green");
             break;
         case "info":
-            console.log("%c" + message, "color: DodgerBlue");
+            console.log("%c" + message, "color: #42FF33");
              break;
         case "error":
             console.log("%c" + message, "color: Red");
