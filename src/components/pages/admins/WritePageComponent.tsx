@@ -16,6 +16,7 @@ import {
     ButtonBox,
     PublishButton
 } from "styles/PostWriter";
+import { ButtonLoading } from 'components/elements';
 
 import hljs from 'highlight.js'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -93,6 +94,8 @@ export default function WritePage() {
 
         _handleClickSaveButton,
         _handleClickPublishButton,
+
+        post_create_state
     } = useWrite();
 
 
@@ -148,6 +151,7 @@ export default function WritePage() {
         _handleClickPublishButton();
     }
 
+    // TODO 2020-09-20 22:57 버튼 로딩 컴포넌트 가운데에 마춰야함.
     return (
         <>
             <MainWrapper>
@@ -206,7 +210,8 @@ export default function WritePage() {
                         </WriteBody>
                         <ButtonContainer>
                             <ButtonBox buttonType={"Home"} onClick={handleHomeButtonClick}><PublishButton>홈</PublishButton></ButtonBox>
-                            <ButtonBox buttonType={"Save"} onClick={handleSaveButtonClick}><PublishButton>저장</PublishButton></ButtonBox>
+                            {/* { post_create_state.status === 'loading' ? <ButtonBox buttonType={"Save"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Save"} onClick={handleSaveButtonClick}><PublishButton>저장</PublishButton></ButtonBox> } */}
+                            <ButtonBox buttonType={"Save"}><ButtonLoading/></ButtonBox>
                             <ButtonBox buttonType={"Publish"} onClick={handlePublishButtonClick}><PublishButton>개시</PublishButton></ButtonBox>
                         </ButtonContainer>
                     </Container>

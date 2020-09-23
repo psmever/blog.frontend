@@ -10,7 +10,7 @@ const initialState: postSagaState = {
 }
 
 export const postagaReducer = createReducer<postSagaState>(initialState, {
-    [SagaTypes.LOGIN_REQUEST_START]: (state: postSagaState) => {
+    [SagaTypes.POST_CREATE_REQUEST_START]: (state: postSagaState) => {
         return {
             ...state,
             create: {
@@ -18,7 +18,7 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         }
     },
-    [SagaTypes.LOGIN_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_CREATE_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
         return {
             ...state,
             create: {
@@ -27,7 +27,7 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         };
     },
-    [SagaTypes.LOGIN_REQUEST_ERROR]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_CREATE_REQUEST_ERROR]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
         return {
             ...state,
             create: {
@@ -36,7 +36,7 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         };
     },
-    [SagaTypes.LOGIN_REQUEST_RESET]: (state: postSagaState) => {
+    [SagaTypes.POST_CREATE_REQUEST_RESET]: (state: postSagaState) => {
         return {
             ...state,
             create: {
