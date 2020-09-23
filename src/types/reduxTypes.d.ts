@@ -39,4 +39,19 @@ declare module 'reduxTypes' {
         status : defaultSagaStatus
         data: any
     }
+
+    export interface postCreateContentsItemInterface {
+        html: string,
+        text: string,
+    }
+
+    // 글등록 인터페이스.
+    export interface postCreateInterface {
+        title: string,
+        tags: postCreateTagsItemInterface[],
+        contents: {
+            html: string,
+            text: string
+        }
+    }
 }
