@@ -9,9 +9,10 @@ interface RootProps  {
 };
 
 const Routes = ({Routerhistory} : RootProps) => {
+
     const {
         startServerCheck,
-        baseLoading,
+        globalLoading
     } = useBase();
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const Routes = ({Routerhistory} : RootProps) => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL + "/pages"}>
             <Router history={ Routerhistory }>
-                { baseLoading === true
+                { globalLoading === "loading"
                 ?
                     <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <BodyLoading/>

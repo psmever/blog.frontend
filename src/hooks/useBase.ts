@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { checkServer, checkServerNotice } from 'modules/API';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBaseDataAction } from 'modules/redux/base';
+import { getBaseDataAction, startBaseGLobalLoadingAction, endBaseGLobalLoadingAction } from 'modules/redux/base';
 import { attemptLocalTokenAction } from 'modules/redux/authenticate';
 import * as Helper from 'lib/Helper';
 import _Alert_ from 'lib/_Alert_';
@@ -12,8 +12,7 @@ export default function useBase() {
 
     const dispatch = useDispatch();
     const baseResuxState = useSelector((state: RootState) => state.base.status);
-
-    const [ baseLoading, setBaseLoading ] = useState<boolean>(false);
+    const globalLoading = useSelector((state: RootState) => state.base.global_loading);
 
     // 서버 상태 체크.
     const checkServerStatus = () => {
@@ -35,7 +34,7 @@ export default function useBase() {
     // 서버 체크.
     const startServerCheck = () => {
         Helper.COLORLOG(':: App Start ::', 'info');
-        setBaseLoading(true);
+        dispatch(startBaseGLobalLoadingAction());
         // Production 버전일 경우만 서버 체크.
         if(process.env.REACT_APP_ENV === 'production') {
             checkServerStatus().then((e: any) => {
@@ -65,16 +64,18 @@ export default function useBase() {
     useEffect(() => {
         const baseStatus = BaseResuxState()
         if(baseStatus === 'success') {
-            setBaseLoading(false);
+            if(globalLoading === 'loading') {
+                dispatch(endBaseGLobalLoadingAction());
+            }
             // Helper.COLORLOG(':: App Start End ::', 'info');
         } else if(baseStatus === 'failure') {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
             Helper.COLORLOG(':: App Start Fail(002) ::', 'error');
         }
-    }, [BaseResuxState])
+    }, [baseResuxState])
 
     return {
         startServerCheck,
-        baseLoading
+        globalLoading
     };
 }

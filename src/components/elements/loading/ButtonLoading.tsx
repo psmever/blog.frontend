@@ -2,6 +2,10 @@ import React from 'react';
 import { css } from "@emotion/core";
 import PulseLoader from "react-spinners/PulseLoader";
 
+import {
+    ButtonLoadingStyled
+} from "styles/Elements";
+
 const override = css`
     display: block;
     margin: 0 auto;
@@ -11,15 +15,13 @@ const override = css`
 // https://github.com/davidhu2000/react-spinners
 export default function ButtonLoading() {
     return (
-        <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div className="sweet-loading">
-                <PulseLoader
-                    css={override}
-                    size={10}
-                    color={"#123abc"}
-                    loading={true}
-                />
-            </div>
-        </div>
+        <ButtonLoadingStyled>
+            <PulseLoader
+                css={override}
+                size={10}
+                color={"#123abc"}
+                loading={true}
+            />
+        </ButtonLoadingStyled>
     );
 }

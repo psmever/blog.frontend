@@ -14,6 +14,7 @@ declare module 'reduxTypes' {
     export interface baseDataSagaState {
         status : defaultSagaStatus;
         codes : baseDataCodeListInterface | null;
+        global_loading : defaultSagaStatus;
     }
 
     // 리덕스 인증 관련 스토어 Interface
