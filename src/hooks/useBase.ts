@@ -12,6 +12,7 @@ export default function useBase() {
 
     const dispatch = useDispatch();
     const baseResuxState = useSelector((state: RootState) => state.base.status);
+    const [ baseLoading, setBaseLoading ] = useState<boolean>(false);
     const globalLoading = useSelector((state: RootState) => state.base.global_loading);
 
     // 서버 상태 체크.
@@ -33,8 +34,9 @@ export default function useBase() {
 
     // 서버 체크.
     const startServerCheck = () => {
-        Helper.COLORLOG(':: App Start ::', 'info');
-        dispatch(startBaseGLobalLoadingAction());
+        Helper.COLORLOG(':: App Check Start ::', 'info');
+        // dispatch(startBaseGLobalLoadingAction());
+        setBaseLoading(true);
         // Production 버전일 경우만 서버 체크.
         if(process.env.REACT_APP_ENV === 'production') {
             checkServerStatus().then((e: any) => {
@@ -64,10 +66,8 @@ export default function useBase() {
     useEffect(() => {
         const baseStatus = BaseResuxState()
         if(baseStatus === 'success') {
-            if(globalLoading === 'loading') {
-                dispatch(endBaseGLobalLoadingAction());
-            }
-            // Helper.COLORLOG(':: App Start End ::', 'info');
+            setBaseLoading(false);
+            Helper.COLORLOG(':: App Check End ::', 'info');
         } else if(baseStatus === 'failure') {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
             Helper.COLORLOG(':: App Start Fail(002) ::', 'error');
@@ -76,6 +76,6 @@ export default function useBase() {
 
     return {
         startServerCheck,
-        globalLoading
+        baseLoading
     };
 }

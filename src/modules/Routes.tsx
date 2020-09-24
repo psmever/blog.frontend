@@ -12,7 +12,7 @@ const Routes = ({Routerhistory} : RootProps) => {
 
     const {
         startServerCheck,
-        globalLoading
+        baseLoading
     } = useBase();
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Routes = ({Routerhistory} : RootProps) => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL + "/pages"}>
             <Router history={ Routerhistory }>
-                { globalLoading === "loading"
+                { baseLoading === true
                 ?
                     <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <BodyLoading/>
@@ -33,6 +33,7 @@ const Routes = ({Routerhistory} : RootProps) => {
 
                     <Route path={process.env.PUBLIC_URL + "/admin/login"} exact={true} component={ Pages.AdminLoginPage } />
                     <Route path={process.env.PUBLIC_URL + "/admin/write"} exact={true} component={ Pages.AdminWritePage } />
+                    <Route path={process.env.PUBLIC_URL + "/admin/:post_uuid/edit"} exact={true} component={ Pages.AdminWritePage } />
 
                     <MainLayoutComponents>
                         <Route exact path="/" component={ Pages.MainPage }/>

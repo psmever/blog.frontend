@@ -7,6 +7,9 @@ const initialState: postSagaState = {
     create: {
         status: 'idle',
     },
+    edit: {
+        status: 'idle',
+    },
 }
 
 export const postagaReducer = createReducer<postSagaState>(initialState, {
@@ -40,6 +43,41 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
         return {
             ...state,
             create: {
+                status: 'idle',
+            }
+        };
+    },
+
+    [SagaTypes.POST_EDIT_REQUEST_START]: (state: postSagaState) => {
+        return {
+            ...state,
+            edit: {
+                status: 'loading',
+            }
+        }
+    },
+    [SagaTypes.POST_EDIT_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+        return {
+            ...state,
+            edit: {
+                status: 'success',
+                data: action.payload,
+            }
+        };
+    },
+    [SagaTypes.POST_EDIT_REQUEST_ERROR]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+        return {
+            ...state,
+            edit: {
+                status: 'failure',
+                message: action.payload.message,
+            }
+        };
+    },
+    [SagaTypes.POST_EDIT_REQUEST_RESET]: (state: postSagaState) => {
+        return {
+            ...state,
+            edit: {
                 status: 'idle',
             }
         };

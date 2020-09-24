@@ -32,6 +32,11 @@ declare module 'reduxTypes' {
             status: defaultSagaStatus,
             data?: any
             message?: string
+        };
+        edit: {
+            status: defaultSagaStatus,
+            data?: any
+            message?: string
         }
     }
 

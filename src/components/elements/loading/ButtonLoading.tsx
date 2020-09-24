@@ -7,8 +7,9 @@ import {
 } from "styles/Elements";
 
 const override = css`
+    width: 100%;
+    padding: 15% 0 0 0;
     display: block;
-    margin: 0 auto;
     border-color: red;
 `;
 
