@@ -16,6 +16,10 @@ import {
     ButtonBox,
     PublishButton
 } from "styles/PostWriter";
+import {
+    ButtonLoadingBox
+} from "styles/Elements";
+
 import { ButtonLoading } from 'components/elements';
 
 import hljs from 'highlight.js'
@@ -210,8 +214,7 @@ export default function WritePage() {
                         </WriteBody>
                         <ButtonContainer>
                             <ButtonBox buttonType={"Home"} onClick={handleHomeButtonClick}><PublishButton>홈</PublishButton></ButtonBox>
-                            {/* { post_create_state.status === 'loading' ? <ButtonBox buttonType={"Save"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Save"} onClick={handleSaveButtonClick}><PublishButton>저장</PublishButton></ButtonBox> } */}
-                            <ButtonBox buttonType={"Save"}><ButtonLoading/></ButtonBox>
+                            { post_create_state.status === 'loading' ? <ButtonBox buttonType={"Save"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Save"} onClick={handleSaveButtonClick}><PublishButton>저장</PublishButton></ButtonBox> }
                             <ButtonBox buttonType={"Publish"} onClick={handlePublishButtonClick}><PublishButton>개시</PublishButton></ButtonBox>
                         </ButtonContainer>
                     </Container>

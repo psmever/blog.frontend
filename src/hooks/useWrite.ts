@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editorContentsInterface, editorTagInterface } from 'commonTypes';
 import { postCreateInterface } from 'reduxTypes';
 import { postCreateAction } from 'modules/redux/post';
+import { startBaseGLobalLoadingAction, endBaseGLobalLoadingAction } from 'modules/redux/base';
 import { RootState } from 'modules';
 
 export default function useWrite() {

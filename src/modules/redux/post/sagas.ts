@@ -1,10 +1,7 @@
 import { takeLatest, fork, call, put } from "redux-saga/effects";
 import { SagaTypes } from 'modules/reduxActiontTypes';
-import { loginRequestInterface } from 'commonTypes';
 import { postCreateInterface } from 'reduxTypes';
 import { postCreate } from 'modules/API';
-import * as Helper from 'lib/Helper';
-import * as _ from "lodash";
 
 // 글등록 Saga
 function* postCreateActionSaga({payload} : {payload: postCreateInterface}) {
