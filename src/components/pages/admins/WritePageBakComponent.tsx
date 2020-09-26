@@ -191,7 +191,7 @@ export default function WritePageBak() {
                             </PostWriterStyleComponent.ButtonBox>
 
                             <PostWriterStyleComponent.ButtonBox buttonType={"Publish"}>
-                                <PostWriterStyleComponent.PublishButton>개시</PostWriterStyleComponent.PublishButton>
+                                <PostWriterStyleComponent.PublishButton>게시</PostWriterStyleComponent.PublishButton>
                             </PostWriterStyleComponent.ButtonBox>
 
                         </PostWriterStyleComponent.ButtonContainer>

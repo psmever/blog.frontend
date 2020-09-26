@@ -27,17 +27,16 @@ declare module 'reduxTypes' {
         }
     }
 
+    export interface desultSagaState {
+        status: defaultSagaStatus,
+        data?: any
+        message?: string
+    }
     export interface postSagaState {
-        create: {
-            status: defaultSagaStatus,
-            data?: any
-            message?: string
-        };
-        edit: {
-            status: defaultSagaStatus,
-            data?: any
-            message?: string
-        }
+        create: desultSagaState
+        edit: desultSagaState
+        publish: desultSagaState
+        update: desultSagaState
     }
 
     // 테스트용?
@@ -51,10 +50,18 @@ declare module 'reduxTypes' {
         text: string,
     }
 
+    // 테그 인터페이스.
+    // 배열이기 떄문에 2개로 처리.
+    export interface editorTagsInterfaceItem {
+        tag_id: string;
+        tag_text: string;
+    }
+    export interface postTagsRequestInterface extends Array<editorTagsInterfaceItem> {}
+
     // 글등록 인터페이스.
-    export interface postCreateInterface {
+    export interface postRequestInterface {
         title: string,
-        tags: postCreateTagsItemInterface[],
+        tags: postTagsRequestInterface,
         contents: {
             html: string,
             text: string
