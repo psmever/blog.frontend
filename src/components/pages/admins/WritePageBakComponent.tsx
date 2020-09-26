@@ -1,23 +1,7 @@
 import React from 'react';
 import { editorContentsInterface } from 'commonTypes';
 import useWrite from 'hooks/useWrite';
-import history from 'modules/History';
-import {
-    MainWrapper,
-    BlogWrite,
-    Container,
-    Header,
-    WriteTitleBox,
-    WriteTitleLabel,
-    WriteTitle,
-    WriteTagBox,
-    WriteBody,
-    ButtonContainer,
-    ButtonBox,
-    PublishButton
-} from "styles/PostWriter";
-
-import { ButtonLoading } from 'components/elements';
+import * as PostWriterStyleComponent from "styles/PostWriter";
 
 import hljs from 'highlight.js'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -82,47 +66,36 @@ const markdownEditorConfig = {
 }
 
 /** MarkDown Editor End */
-export default function WritePage() {
+export default function WritePageBak() {
 
     const {
-        editorTitle,
-        setEditorTitle,
         setEditorContents,
         editorContents,
         editorTagContents,
         setEditorTagContents,
-        editorTagSuggestions,
-
-        _handleClickSaveButton,
-        _handleClickPublishButton,
-
-        post_create_state,
-        post_publish_state
+        editorTagSuggestions
     } = useWrite();
 
-    // 내용 수정시 데이터 업데이트
-    const handleEditorContentsChange = ({html, text}: editorContentsInterface) => {
+
+    const handleEditorContentsChandge = ({html, text}: editorContentsInterface) => {
         setEditorContents({
             html: html,
             text: text
         })
     }
 
-    // 테그 삭제.
-    const handleTagDelete = (e: any) => {
+    const handleDelete = (e: any) => {
         setEditorTagContents(editorTagContents.filter((tag, index) => index !== e))
     }
 
-    // 테그 추가.
-    const handleTagAddition = (e: any) => {
+    const handleAddition = (e: any) => {
         setEditorTagContents([
             ...editorTagContents,
             e
         ]);
     }
 
-    // 테그 드레그 이벤트
-    const handleTagDrag = (tag: any, currPos: any, newPos:any) => {
+    const handleDrag = (tag: any, currPos: any, newPos:any) => {
         console.debug({
             tag:tag,
             currPos:currPos,
@@ -135,59 +108,47 @@ export default function WritePage() {
         newTags.splice(currPos, 1);
         newTags.splice(newPos, 0, tag);
 
+        // re-render
         setEditorTagContents(newTags);
 
     }
 
-    // 테그 클릭 이벤트
     const handleTagClick = (e: any) => {
         console.debug("TagClick : ",editorTagContents[e]);
     }
 
-    // 홈으로 이동 버튼 클릭 이벤트
-    const handleHomeButtonClick = () => {
-        history.push(process.env.PUBLIC_URL + '/');
-    }
-
-    // 저장 버튼 클릭 이벤트
-    const handleSaveButtonClick = () => {
-        _handleClickSaveButton();
-
-    }
-
-    // 게시 버튼 클릭 이벤트
-    const handlePublishButtonClick = () => {
-        _handleClickPublishButton();
-    }
-
-    // TODO 2020-09-20 22:57 버튼 로딩 컴포넌트 가운데에 마춰야함.
     return (
         <>
-            <MainWrapper>
-                <BlogWrite>
-                    <Container>
-                        <Header>
-                            {/* <HeaderTitle>글등록.</HeaderTitle> */}
-                        </Header>
-                        <WriteTitleBox>
-                            <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
-                            <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요."
-                                value={editorTitle}
-                                onChange={ e => setEditorTitle(e.target.value) }
-                            />
-                        </WriteTitleBox>
-                        <WriteTagBox>
+            <PostWriterStyleComponent.MainWrapper>
+
+                <PostWriterStyleComponent.BlogWrite>
+
+                    <PostWriterStyleComponent.Container>
+
+                        <PostWriterStyleComponent.Header>
+                            {/* <PostWriterStyleComponent.HeaderTitle>글등록.</PostWriterStyleComponent.HeaderTitle> */}
+
+                        </PostWriterStyleComponent.Header>
+
+                        <PostWriterStyleComponent.WriteTitleBox>
+                            <PostWriterStyleComponent.WriteTitleLabel htmlFor="semail"></PostWriterStyleComponent.WriteTitleLabel>
+                            <PostWriterStyleComponent.WriteTitle type="text" id="semail" placeholder="제목을 입력해 주세요." />
+                        </PostWriterStyleComponent.WriteTitleBox>
+
+                        <PostWriterStyleComponent.WriteTagBox>
                             <ReactTags tags={ editorTagContents }
                                 suggestions={editorTagSuggestions}
-                                handleDelete={handleTagDelete}
-                                handleAddition={handleTagAddition}
-                                handleDrag={handleTagDrag}
+                                handleDelete={handleDelete}
+                                handleAddition={handleAddition}
+                                handleDrag={handleDrag}
                                 delimiters={delimiters}
                                 handleTagClick={handleTagClick}
                                 placeholder={':::테그를 입력해 주세요:::'}
                             />
-                        </WriteTagBox>
-                        <WriteBody>
+                        </PostWriterStyleComponent.WriteTagBox>
+
+                        <PostWriterStyleComponent.WriteBody>
+
                             <MdEditor
                                 plugins={[
                                     'header',
@@ -212,20 +173,34 @@ export default function WritePage() {
                                 value={editorContents.text}
                                 style={{ height: "100%", width: "100%" }}
                                 renderHTML={(text) => mdParser.render(text)}
-                                onChange={handleEditorContentsChange}
+                                onChange={handleEditorContentsChandge}
                                 placeholder={"내용을 입력해 주세요."}
                                 config={markdownEditorConfig}
                             />
-                        </WriteBody>
-                        <ButtonContainer>
-                            <ButtonBox buttonType={"Home"} onClick={handleHomeButtonClick}><PublishButton>홈</PublishButton></ButtonBox>
-                            { post_create_state.status === 'loading' ? <ButtonBox buttonType={"Save"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Save"} onClick={handleSaveButtonClick}><PublishButton>저장</PublishButton></ButtonBox> }
-                            { post_publish_state.status === 'loading' ? <ButtonBox buttonType={"Publish"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Publish"} onClick={handlePublishButtonClick}><PublishButton>게시</PublishButton></ButtonBox> }
-                        </ButtonContainer>
-                    </Container>
+
+                        </PostWriterStyleComponent.WriteBody>
+
+                        <PostWriterStyleComponent.ButtonContainer>
+
+                            <PostWriterStyleComponent.ButtonBox buttonType={"Home"}>
+                                <PostWriterStyleComponent.PublishButton>홈</PostWriterStyleComponent.PublishButton>
+                            </PostWriterStyleComponent.ButtonBox>
+
+                            <PostWriterStyleComponent.ButtonBox buttonType={"Save"}>
+                                <PostWriterStyleComponent.PublishButton>저장</PostWriterStyleComponent.PublishButton>
+                            </PostWriterStyleComponent.ButtonBox>
+
+                            <PostWriterStyleComponent.ButtonBox buttonType={"Publish"}>
+                                <PostWriterStyleComponent.PublishButton>게시</PostWriterStyleComponent.PublishButton>
+                            </PostWriterStyleComponent.ButtonBox>
+
+                        </PostWriterStyleComponent.ButtonContainer>
+
+                    </PostWriterStyleComponent.Container>
                     {/* <!--//container--> */}
-                </BlogWrite>
-            </MainWrapper>
+                </PostWriterStyleComponent.BlogWrite>
+
+            </PostWriterStyleComponent.MainWrapper>
             {/* <!--//main-wrapper--> */}
         </>
 

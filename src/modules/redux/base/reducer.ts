@@ -4,7 +4,8 @@ import {SagaTypes, SagaAction} from 'modules/reduxActiontTypes';
 
 const initialState: baseDataSagaState = {
     status: "idle",
-    codes: null
+    codes: null,
+    global_loading: "idle"
 }
 
 export const baseSagaReducer = createReducer<baseDataSagaState>(initialState, {
@@ -31,6 +32,19 @@ export const baseSagaReducer = createReducer<baseDataSagaState>(initialState, {
         return {
             ...state,
             status: "idle",
+        };
+    },
+
+    [SagaTypes.BASE_GLOBAL_LOADING_START]: (state: baseDataSagaState) => {
+        return {
+            ...state,
+            global_loading: "loading",
+        };
+    },
+    [SagaTypes.BASE_GLOBAL_LOADING_END]: (state: baseDataSagaState) => {
+        return {
+            ...state,
+            global_loading: "idle",
         };
     },
 });

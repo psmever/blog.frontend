@@ -265,7 +265,9 @@ export const ButtonBox = styled.div<PublishButtonPropsInterface>`
         } else if (props.buttonType === 'Publish') {
             return 'right';
         }
-    }};;
+    }};
+
+
     margin-left: 0.1rem;
 
 `
