@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom';
 import { RootState } from 'modules';
 import _Alert_ from 'lib/_Alert_';
 
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import * as _ from "lodash";
 
 interface RouteParams {
@@ -37,7 +37,6 @@ export default function useWrite() {
     const history = useHistory();
 
     const params = useParams<RouteParams>();
-    const location = useLocation<LocationState>();
 
     const post_create_state = useSelector((state: RootState) => state.post.create);
     const post_edit_state = useSelector((state: RootState) => state.post.edit);
@@ -141,7 +140,8 @@ export default function useWrite() {
         if(params.post_uuid && !_.isUndefined(params.post_uuid)) {
             dispatch(postEditAction({post_uuid: params.post_uuid}));
         }
-    }, [dispatch, location, params.post_uuid]);
+    // eslint-disable-next-line
+    }, [params.post_uuid]);
 
     // 게시 버튼 클릭 했을떄 publish state 상태 확인.
     useEffect(() => {
