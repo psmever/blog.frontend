@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { checkServer, checkServerNotice } from 'modules/API';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBaseDataAction, startBaseGLobalLoadingAction, endBaseGLobalLoadingAction } from 'modules/redux/base';
+import { getBaseDataAction } from 'modules/redux/base';
 import { attemptLocalTokenAction } from 'modules/redux/authenticate';
 import * as Helper from 'lib/Helper';
 import _Alert_ from 'lib/_Alert_';
@@ -13,7 +13,6 @@ export default function useBase() {
     const dispatch = useDispatch();
     const baseResuxState = useSelector((state: RootState) => state.base.status);
     const [ baseLoading, setBaseLoading ] = useState<boolean>(false);
-    const globalLoading = useSelector((state: RootState) => state.base.global_loading);
 
     // 서버 상태 체크.
     const checkServerStatus = () => {
@@ -59,10 +58,14 @@ export default function useBase() {
         dispatch(attemptLocalTokenAction()); // 로컬 토큰 체크.
     }
 
+    // 기본 베이트 스테이트
+    // fix 경고 떄문에 이렇게 처리함.
+    // FIXME 2020-09-26 18:17 리팩토리 필요.
     const BaseResuxState = useCallback(() => {
         return baseResuxState;
     }, [baseResuxState]);
 
+    // 기본 데이터 체크.
     useEffect(() => {
         const baseStatus = BaseResuxState()
         if(baseStatus === 'success') {
@@ -72,7 +75,7 @@ export default function useBase() {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
             Helper.COLORLOG(':: App Start Fail(002) ::', 'error');
         }
-    }, [baseResuxState])
+    }, [BaseResuxState])
 
     return {
         startServerCheck,

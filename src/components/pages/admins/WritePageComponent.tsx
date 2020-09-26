@@ -16,9 +16,6 @@ import {
     ButtonBox,
     PublishButton
 } from "styles/PostWriter";
-import {
-    ButtonLoadingBox
-} from "styles/Elements";
 
 import { ButtonLoading } from 'components/elements';
 
@@ -99,21 +96,24 @@ export default function WritePage() {
         _handleClickSaveButton,
         _handleClickPublishButton,
 
-        post_create_state
+        post_create_state,
+        post_publish_state
     } = useWrite();
 
-
-    const handleEditorContentsChandge = ({html, text}: editorContentsInterface) => {
+    // 내용 수정시 데이터 업데이트
+    const handleEditorContentsChange = ({html, text}: editorContentsInterface) => {
         setEditorContents({
             html: html,
             text: text
         })
     }
 
+    // 테그 삭제.
     const handleTagDelete = (e: any) => {
         setEditorTagContents(editorTagContents.filter((tag, index) => index !== e))
     }
 
+    // 테그 추가.
     const handleTagAddition = (e: any) => {
         setEditorTagContents([
             ...editorTagContents,
@@ -121,6 +121,7 @@ export default function WritePage() {
         ]);
     }
 
+    // 테그 드레그 이벤트
     const handleTagDrag = (tag: any, currPos: any, newPos:any) => {
         console.debug({
             tag:tag,
@@ -134,23 +135,27 @@ export default function WritePage() {
         newTags.splice(currPos, 1);
         newTags.splice(newPos, 0, tag);
 
-        // re-render
         setEditorTagContents(newTags);
 
     }
 
+    // 테그 클릭 이벤트
     const handleTagClick = (e: any) => {
         console.debug("TagClick : ",editorTagContents[e]);
     }
 
+    // 홈으로 이동 버튼 클릭 이벤트
     const handleHomeButtonClick = () => {
         history.push(process.env.PUBLIC_URL + '/');
     }
 
+    // 저장 버튼 클릭 이벤트
     const handleSaveButtonClick = () => {
         _handleClickSaveButton();
 
     }
+
+    // 게시 버튼 클릭 이벤트
     const handlePublishButtonClick = () => {
         _handleClickPublishButton();
     }
@@ -207,7 +212,7 @@ export default function WritePage() {
                                 value={editorContents.text}
                                 style={{ height: "100%", width: "100%" }}
                                 renderHTML={(text) => mdParser.render(text)}
-                                onChange={handleEditorContentsChandge}
+                                onChange={handleEditorContentsChange}
                                 placeholder={"내용을 입력해 주세요."}
                                 config={markdownEditorConfig}
                             />
@@ -215,7 +220,7 @@ export default function WritePage() {
                         <ButtonContainer>
                             <ButtonBox buttonType={"Home"} onClick={handleHomeButtonClick}><PublishButton>홈</PublishButton></ButtonBox>
                             { post_create_state.status === 'loading' ? <ButtonBox buttonType={"Save"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Save"} onClick={handleSaveButtonClick}><PublishButton>저장</PublishButton></ButtonBox> }
-                            { post_create_state.status === 'loading' ? <ButtonBox buttonType={"Publish"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Publish"} onClick={handlePublishButtonClick}><PublishButton>개시</PublishButton></ButtonBox> }
+                            { post_publish_state.status === 'loading' ? <ButtonBox buttonType={"Publish"}><ButtonLoading/></ButtonBox> : <ButtonBox buttonType={"Publish"} onClick={handlePublishButtonClick}><PublishButton>게시</PublishButton></ButtonBox> }
                         </ButtonContainer>
                     </Container>
                     {/* <!--//container--> */}

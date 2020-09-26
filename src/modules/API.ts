@@ -3,6 +3,7 @@ import {
     axiosReturnInterface,
     loginRequestInterface
 } from 'commonTypes';
+import { postRequestInterface } from 'reduxTypes';
 
 /**
  * 서버 상태 체크
@@ -48,7 +49,7 @@ export function testCheck() : Promise<axiosReturnInterface> {
  * 글 저장
  * @param payload
  */
-export function postCreate(payload: any) : Promise<axiosReturnInterface> {
+export function postCreate(payload: postRequestInterface) : Promise<axiosReturnInterface> {
     return _Axios_.post('/api/v1/post', payload);
 };
 
@@ -58,4 +59,18 @@ export function postCreate(payload: any) : Promise<axiosReturnInterface> {
  */
 export function postEdit(post_uuid: string) : Promise<axiosReturnInterface> {
     return _Axios_.get(`/api/v1/post/${post_uuid}/edit`, {data: {}});
+};
+
+/**
+ * 글 게시.
+ * @param post_uuid
+ */
+export function postPublish(post_uuid: string) : Promise<axiosReturnInterface> {
+    return _Axios_.post(`/api/v1/post/${post_uuid}/publish`, {data: {}});
+};
+
+
+// 글 수정.
+export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface> {
+    return _Axios_.post(`/api/v1/post/${post_uuid}/update`, payload);
 };
