@@ -46,7 +46,7 @@ declare module 'commonTypes' {
         buttonType: 'Home' | 'Save' | 'Publish';
     }
 
-    // 얼렁창 클래스 인터페이스.
+    // 얼럿창 클래스 인터페이스.
     export interface alertTypeInterface {
         title?: string,
         text: string,

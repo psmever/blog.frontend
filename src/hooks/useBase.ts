@@ -12,7 +12,6 @@ export default function useBase() {
 
     const dispatch = useDispatch();
     const baseResuxState = useSelector((state: RootState) => state.base.status);
-
     const [ baseLoading, setBaseLoading ] = useState<boolean>(false);
 
     // 서버 상태 체크.
@@ -34,7 +33,8 @@ export default function useBase() {
 
     // 서버 체크.
     const startServerCheck = () => {
-        Helper.COLORLOG(':: App Start ::', 'info');
+        Helper.COLORLOG(':: App Check Start ::', 'info');
+        // dispatch(startBaseGLobalLoadingAction());
         setBaseLoading(true);
         // Production 버전일 경우만 서버 체크.
         if(process.env.REACT_APP_ENV === 'production') {
@@ -58,15 +58,19 @@ export default function useBase() {
         dispatch(attemptLocalTokenAction()); // 로컬 토큰 체크.
     }
 
+    // 기본 베이트 스테이트
+    // fix 경고 떄문에 이렇게 처리함.
+    // FIXME 2020-09-26 18:17 리팩토리 필요.
     const BaseResuxState = useCallback(() => {
         return baseResuxState;
     }, [baseResuxState]);
 
+    // 기본 데이터 체크.
     useEffect(() => {
         const baseStatus = BaseResuxState()
         if(baseStatus === 'success') {
             setBaseLoading(false);
-            // Helper.COLORLOG(':: App Start End ::', 'info');
+            Helper.COLORLOG(':: App Check End ::', 'info');
         } else if(baseStatus === 'failure') {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
             Helper.COLORLOG(':: App Start Fail(002) ::', 'error');

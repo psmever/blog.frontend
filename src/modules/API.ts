@@ -1,21 +1,25 @@
 import _Axios_ from 'lib/_Axios_';
-import * as commonTypes from 'commonTypes';
+import {
+    axiosReturnInterface,
+    loginRequestInterface
+} from 'commonTypes';
+import { postRequestInterface } from 'reduxTypes';
 
 /**
  * 서버 상태 체크
  */
-export function checkServer() : Promise<commonTypes.axiosReturnInterface> {
+export function checkServer() : Promise<axiosReturnInterface> {
     return _Axios_.get('/api/system/check-status', {data: {}});
 };
 
 /**
  * 서버 공지 사항 체크
  */
-export function checkServerNotice() : Promise<commonTypes.axiosReturnInterface> {
+export function checkServerNotice() : Promise<axiosReturnInterface> {
     return _Axios_.get('/api/system/check-notice', {data: {}});
 };
 
-export function getSiteBaseData() : Promise<commonTypes.axiosReturnInterface> {
+export function getSiteBaseData() : Promise<axiosReturnInterface> {
     return _Axios_.get('/api/system/base-data', {data: {}});
 }
 
@@ -23,20 +27,50 @@ export function getSiteBaseData() : Promise<commonTypes.axiosReturnInterface> {
  * 로그인
  * @param payload
  */
-export function login(payload: commonTypes.loginRequestInterface) : Promise<commonTypes.axiosReturnInterface> {
+export function login(payload: loginRequestInterface) : Promise<axiosReturnInterface> {
     return _Axios_.post('/api/v1/auth/login', payload);
 };
 
 /**
  * 로그인 유저 체크
  */
-export function loginCheck() : Promise<commonTypes.axiosReturnInterface> {
+export function loginCheck() : Promise<axiosReturnInterface> {
     return _Axios_.post('/api/v1/auth/login-check', {data: {}});
 };
 
 /**
  * 테스트용?
  */
-export function testCheck() : Promise<commonTypes.axiosReturnInterface> {
+export function testCheck() : Promise<axiosReturnInterface> {
     return _Axios_.post('/api/v1/auth/login-check', {data: {}});
+};
+
+/**
+ * 글 저장
+ * @param payload
+ */
+export function postCreate(payload: postRequestInterface) : Promise<axiosReturnInterface> {
+    return _Axios_.post('/api/v1/post', payload);
+};
+
+/**
+ * 글 보기 ( 수정용 )
+ * @param post_uuid
+ */
+export function postEdit(post_uuid: string) : Promise<axiosReturnInterface> {
+    return _Axios_.get(`/api/v1/post/${post_uuid}/edit`, {data: {}});
+};
+
+/**
+ * 글 게시.
+ * @param post_uuid
+ */
+export function postPublish(post_uuid: string) : Promise<axiosReturnInterface> {
+    return _Axios_.post(`/api/v1/post/${post_uuid}/publish`, {data: {}});
+};
+
+
+// 글 수정.
+export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface> {
+    return _Axios_.post(`/api/v1/post/${post_uuid}/update`, payload);
 };
