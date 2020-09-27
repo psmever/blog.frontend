@@ -4,11 +4,13 @@ declare module 'reduxTypes' {
     // 기본 사가 스테이트 Interface
     export type defaultSagaStatus = "idle" | "loading" | "success" | "failure";
 
+
     // base Code list Interface
     interface baseDataCodeListInterface {
         code_name? : {
             code_id: string,
         }
+        code_group: any
     }
     // 기본 스토어 스테이트
     export interface baseDataSagaState {
