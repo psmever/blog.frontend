@@ -2,6 +2,7 @@ import React from 'react';
 import { editorContentsInterface } from 'commonTypes';
 import useWrite from 'hooks/useWrite';
 import history from 'modules/History';
+import { DefaultSelectBox } from 'components/elements';
 import {
     MainWrapper,
     BlogWrite,
@@ -10,6 +11,7 @@ import {
     WriteTitleBox,
     WriteTitleLabel,
     WriteTitle,
+    CategorySelectBox,
     WriteTagBox,
     WriteBody,
     ButtonContainer,
@@ -176,6 +178,11 @@ export default function WritePage() {
                                 onChange={ e => setEditorTitle(e.target.value) }
                             />
                         </WriteTitleBox>
+
+                        <CategorySelectBox>
+                            <DefaultSelectBox />
+                        </CategorySelectBox>
+
                         <WriteTagBox>
                             <ReactTags tags={ editorTagContents }
                                 suggestions={editorTagSuggestions}
