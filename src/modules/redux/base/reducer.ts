@@ -4,7 +4,7 @@ import {SagaTypes, SagaAction} from 'modules/reduxActiontTypes';
 
 const initialState: baseDataSagaState = {
     status: "idle",
-    codes: null,
+    codes: [],
     global_loading: "idle"
 }
 
