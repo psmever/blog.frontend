@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editorContentsInterface, editorTagInterface } from 'commonTypes';
-import { postRequestInterface } from 'reduxTypes';
+import { editorContentsInterface, editorTagInterface, defaultSelectBoxInterface, defaultSelectBoxItems } from 'commonTypes';
+import { postRequestInterface, basicCodeItem} from 'reduxTypes';
 import {
     postCreateAction,
     postStateResetAction,
@@ -38,7 +38,8 @@ export default function useWrite() {
 
     const params = useParams<RouteParams>();
 
-    const post_codes_group_state = useSelector((state: RootState) => state.base.codes?.code_group);
+    // TODO 2020-09-28 21:22  스테이트명 정리.
+    const baseState = useSelector((state: RootState) => state.base);
     const post_create_state = useSelector((state: RootState) => state.post.create);
     const post_edit_state = useSelector((state: RootState) => state.post.edit);
     const post_update_state = useSelector((state: RootState) => state.post.update);
@@ -51,8 +52,13 @@ export default function useWrite() {
         text: ''
     });
 
+    // 리스트 이미지용 카테고리 select box options
+    const [ categoryThumbList, setCategoryThumbList ] = useState<defaultSelectBoxInterface>([
+        { value: '', label: '' }
+    ]);
+
     // 글 쓰기 테그.
-    const [ editorTagContents, setEditorTagContents] = useState<editorTagInterface>([]);
+    const [ editorTagContents, setEditorTagContents ] = useState<editorTagInterface>([]);
 
     // 글 쓰기 추천 테그.
     const [ editorTagSuggestions, setEditorTagSuggestions] = useState<editorTagInterface>([
@@ -62,11 +68,17 @@ export default function useWrite() {
         { id: 'PHP', text: 'PHP' },
     ]);
 
+    const [ editorCategoryThumb, setEditorCategoryThumb ] = useState<string>('');
+
+
+
+
     // 글 저장 및 업데이트
     const _handleClickSaveButton = () => {
 
         const dataObject : postRequestInterface = {
             title: editorTitle,
+            category_thumb: editorCategoryThumb,
             tags: editorTagContents.map(({ id, text }) => ({ tag_id: id, tag_text: text })),
             contents: editorContents
         };
@@ -84,6 +96,11 @@ export default function useWrite() {
         if(params.post_uuid && !_.isUndefined(params.post_uuid)) {
             dispatch(postPublishAction({post_uuid: params.post_uuid}));
         }
+    }
+
+    // selectBox change event
+    const _handleSelectBoxChange = (category : string) => {
+        setEditorCategoryThumb(category);
     }
 
     // 최초엔 내용들 초기화.
@@ -125,10 +142,10 @@ export default function useWrite() {
                 text: post_edit_state.data.contents_text
             });
             setEditorTagContents(post_edit_state.data.tags.map((e: any) => {
-            return {
-                id: e.tag_id,
-                text: e.tag_text
-            }
+                return {
+                    id: e.tag_id,
+                    text: e.tag_text
+                }
             }));
             dispatch(postEditResetAction());
         }
@@ -161,8 +178,16 @@ export default function useWrite() {
     }, [dispatch, post_update_state]);
 
     useEffect(() => {
-        post_codes_group_state.map((e) => console.debug(e));
-    },[post_codes_group_state]);
+        if(baseState.status === 'success') {
+            setCategoryThumbList(baseState.codes?.code_group.S05.map((e: basicCodeItem) => {
+                return {
+                    value: e.code_id,
+                    label: e.code_name
+                }
+            }));
+        }
+
+    }, [baseState]);
 
     return {
         editorTitle,
@@ -173,11 +198,15 @@ export default function useWrite() {
         setEditorTagContents,
         editorTagSuggestions,
         setEditorTagSuggestions,
+        editorCategoryThumb,
 
         _handleClickSaveButton,
         _handleClickPublishButton,
+        _handleSelectBoxChange,
 
         post_create_state,
         post_publish_state,
+
+        categoryThumbList,
     };
 }

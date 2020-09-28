@@ -94,12 +94,16 @@ export default function WritePage() {
         editorTagContents,
         setEditorTagContents,
         editorTagSuggestions,
+        editorCategoryThumb,
 
         _handleClickSaveButton,
         _handleClickPublishButton,
+        _handleSelectBoxChange,
 
         post_create_state,
-        post_publish_state
+        post_publish_state,
+
+        categoryThumbList
     } = useWrite();
 
     // 내용 수정시 데이터 업데이트
@@ -180,7 +184,7 @@ export default function WritePage() {
                         </WriteTitleBox>
 
                         <CategorySelectBox>
-                            <DefaultSelectBox />
+                            <DefaultSelectBox options={ categoryThumbList } selectChange={_handleSelectBoxChange} selectItem={editorCategoryThumb}/>
                         </CategorySelectBox>
 
                         <WriteTagBox>
