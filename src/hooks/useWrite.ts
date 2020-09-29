@@ -68,10 +68,12 @@ export default function useWrite() {
         { id: 'PHP', text: 'PHP' },
     ]);
 
-    const [ editorCategoryThumb, setEditorCategoryThumb ] = useState<string>('');
+    const [ editorCategoryThumb, setEditorCategoryThumb ] = useState<defaultSelectBoxItems>({value: 'S05000', label: 'blog-default' });
 
 
-
+    const _handleEditorCategorySelectItem = (selectitem:defaultSelectBoxItems ) => {
+        setEditorCategoryThumb(selectitem)
+    }
 
     // 글 저장 및 업데이트
     const _handleClickSaveButton = () => {
@@ -96,11 +98,6 @@ export default function useWrite() {
         if(params.post_uuid && !_.isUndefined(params.post_uuid)) {
             dispatch(postPublishAction({post_uuid: params.post_uuid}));
         }
-    }
-
-    // selectBox change event
-    const _handleSelectBoxChange = (category : string) => {
-        setEditorCategoryThumb(category);
     }
 
     // 최초엔 내용들 초기화.
@@ -189,6 +186,11 @@ export default function useWrite() {
 
     }, [baseState]);
 
+
+    useEffect(() => {
+        console.debug(editorCategoryThumb);
+    }, [editorCategoryThumb]);
+
     return {
         editorTitle,
         setEditorTitle,
@@ -198,11 +200,11 @@ export default function useWrite() {
         setEditorTagContents,
         editorTagSuggestions,
         setEditorTagSuggestions,
+        _handleEditorCategorySelectItem,
         editorCategoryThumb,
 
         _handleClickSaveButton,
         _handleClickPublishButton,
-        _handleSelectBoxChange,
 
         post_create_state,
         post_publish_state,

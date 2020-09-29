@@ -94,11 +94,12 @@ export default function WritePage() {
         editorTagContents,
         setEditorTagContents,
         editorTagSuggestions,
+        _handleEditorCategorySelectItem,
+
         editorCategoryThumb,
 
         _handleClickSaveButton,
         _handleClickPublishButton,
-        _handleSelectBoxChange,
 
         post_create_state,
         post_publish_state,
@@ -184,7 +185,11 @@ export default function WritePage() {
                         </WriteTitleBox>
 
                         <CategorySelectBox>
-                            <DefaultSelectBox options={ categoryThumbList } selectChange={_handleSelectBoxChange} selectItem={editorCategoryThumb}/>
+                            <DefaultSelectBox
+                                options={ categoryThumbList }
+                                selectValue={editorCategoryThumb}
+                                selectOption={ _handleEditorCategorySelectItem }
+                            />
                         </CategorySelectBox>
 
                         <WriteTagBox>

@@ -71,7 +71,10 @@ declare module 'reduxTypes' {
     // 글등록 인터페이스.
     export interface postRequestInterface {
         title: string,
-        category_thumb: string,
+        category_thumb: {
+            label: string;
+            value: string;
+        },
         tags: postTagsRequestInterface,
         contents: {
             html: string,
