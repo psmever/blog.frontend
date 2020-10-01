@@ -107,10 +107,18 @@ const errorInterceptor = (error: any) => {
     const { config: { headers:{ Authorization } } } = error;
     const status = error.response?.status;
 
-    // FIXME 인증 관련 에러 말고 에러났을때.어떻게 할껀지?
+    // FIXME 서버 상태, 인증 외에 401 에러 처리 어떻게 할껀지?
     if (options.shouldIntercept(error) === false) {
         if(status === 503) {     // 서버 에러
             _Alert_.serverStatusError({
+                text: error.response.data.error.error_message
+            });
+            return Promise.resolve({
+                status: false,
+                message: error.response?.data.error.error_message
+            });
+        } else if(status === 412) {     // 헤더 체크 에러.
+            _Alert_.error({
                 text: error.response.data.error.error_message
             });
             return Promise.resolve({
