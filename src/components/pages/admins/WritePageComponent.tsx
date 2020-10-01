@@ -167,7 +167,7 @@ export default function WritePage() {
         _handleClickPublishButton();
     }
 
-    // TODO 2020-09-20 22:57 버튼 로딩 컴포넌트 가운데에 마춰야함.
+    // FIXME 2020-10-01 22:21  높이 스크롤 생기는 버그 수정.필요.
     return (
         <>
             <MainWrapper>
