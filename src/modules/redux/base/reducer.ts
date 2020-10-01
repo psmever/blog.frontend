@@ -1,5 +1,5 @@
 import { createReducer } from "typesafe-actions";
-import { baseDataSagaState } from 'reduxTypes';
+import { baseDataSagaState } from 'commonTypes';
 import {SagaTypes, SagaAction} from 'modules/reduxActiontTypes';
 
 const initialState: baseDataSagaState = {

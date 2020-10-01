@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editorContentsInterface, editorTagInterface, defaultSelectBoxInterface, defaultSelectBoxItems } from 'commonTypes';
-import { postRequestInterface, basicCodeItem} from 'reduxTypes';
+import {
+    editorContentsInterface,
+    editorTagInterface,
+    defaultSelectBoxInterface,
+    defaultSelectBoxItems,
+    postRequestInterface,
+    basicCodeItem,
+} from 'commonTypes';
 import {
     postCreateAction,
     postStateResetAction,
@@ -57,6 +63,7 @@ export default function useWrite() {
     const [ editorTagContents, setEditorTagContents ] = useState<editorTagInterface>([]);
 
     // 글 쓰기 추천 테그.
+    // FIXME 2020-10-02 01:23  테그 처리.
     const [ editorTagSuggestions, setEditorTagSuggestions] = useState<editorTagInterface>([
         { id: 'Develop', text: 'Develop' },
         { id: 'Linux', text: 'Linux' },
@@ -118,7 +125,7 @@ export default function useWrite() {
             // 스테이트 리셋.
             dispatch(postStateResetAction());
             history.push({
-                pathname: process.env.PUBLIC_URL + `/admin/${post_create_state.data.post_uuid}/edit`,
+                pathname: process.env.PUBLIC_URL + `/admin/${post_create_state.data?.post_uuid}/edit`,
                 state: { edit: true }
             });
         }
@@ -126,7 +133,7 @@ export default function useWrite() {
 
     // 에디트 모드일 경우 edit store 에서 내용을 가지오 와서 셋.
     useEffect(() => {
-        if(post_edit_state.status === 'success') {
+        if(post_edit_state.status === 'success' && post_edit_state.data !== undefined) {
             setEditorTitle(post_edit_state.data.post_title);
             setEditorCategoryThumb({value: post_edit_state.data.category_thumb.code_id, label: post_edit_state.data.category_thumb.code_name});
             setEditorTagContents(post_edit_state.data.tags.map((element: any) => {

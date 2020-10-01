@@ -3,7 +3,11 @@ import { connectRouter, RouterState } from 'connected-react-router'
 
 import { History } from 'history'
 import { all } from 'redux-saga/effects';
-import { baseDataSagaState, authenticateSagaState, postSagaState } from 'reduxTypes';
+import {
+    baseDataSagaState,
+    authenticateSagaState,
+    postSagaState
+} from 'commonTypes';
 
 import base from './redux/base';
 import baseSagas from './redux/base/sagas';
