@@ -1,5 +1,5 @@
 import { SagaTypes }  from 'modules/reduxActiontTypes';
-import { postRequestInterface } from 'reduxTypes';
+import { postRequestInterface } from 'commonTypes';
 
 // 글 등록.
 export const postCreateAction = (payload: postRequestInterface) => {
