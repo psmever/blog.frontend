@@ -203,7 +203,7 @@ export const WriteTitle = styled.input`
 export const WriteBody = styled.div`
 
     @media screen and (min-width: 769px) {
-        height: calc(100vh - 240px);
+        height: calc(100vh - 299px);
     }
 
     @media screen and (min-device-width: 481px) and (max-device-width: 768px) {
@@ -231,7 +231,7 @@ export const WriteBody = styled.div`
     color: #4f4f4f;
     box-sizing: border-box;
     /* position: relative; */
-    height: calc(100vh - 190px);
+    height: calc(100vh - 226px);
     display:block;
 
 `
