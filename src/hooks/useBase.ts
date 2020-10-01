@@ -1,5 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { checkServer, checkServerNotice } from 'modules/API';
+import {
+    axiosReturnInterface,
+    apiNoticeResultInterface,
+} from 'commonTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBaseDataAction } from 'modules/redux/base';
 import { attemptLocalTokenAction } from 'modules/redux/authenticate';
@@ -16,13 +20,13 @@ export default function useBase() {
 
     // 서버 상태 체크.
     const checkServerStatus = () => {
-        return new Promise((resolve) => {
+        return new Promise<axiosReturnInterface<any>>((resolve) => {
             resolve(checkServer());
         })
     }
     // 서버 공지 사항 체크.
     const checkServerNoticeStatus = () => {
-        return new Promise((resolve) => {
+        return new Promise<axiosReturnInterface<apiNoticeResultInterface>>((resolve) => {
             resolve(checkServerNotice());
         })
     }
@@ -34,13 +38,12 @@ export default function useBase() {
     // 서버 체크.
     const startServerCheck = () => {
         Helper.COLORLOG(':: App Check Start ::', 'info');
-        // dispatch(startBaseGLobalLoadingAction());
         setBaseLoading(true);
         // Production 버전일 경우만 서버 체크.
         if(process.env.REACT_APP_ENV === 'production') {
-            checkServerStatus().then((e: any) => {
+            checkServerStatus().then((e: axiosReturnInterface<any>) => {
                 if(e.status === true) {
-                    checkServerNoticeStatus().then((e: any) => {
+                    checkServerNoticeStatus().then((e: axiosReturnInterface<apiNoticeResultInterface>) => {
                         // 공지 사항이 있을때.
                         if(!_.isNull(e.payload) && !_.isUndefined(e.payload.notice_message)) {
                             _Alert_.default({text: e.payload.notice_message})

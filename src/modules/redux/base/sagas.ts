@@ -2,6 +2,7 @@ import { takeLatest, fork, put } from "redux-saga/effects";
 import { SagaTypes } from 'modules/reduxActiontTypes';
 import { getSiteBaseData } from 'modules/API';
 
+// 사이트 기본 데이터.
 function* getBaseDataActionSaga() {
     const response = yield getSiteBaseData();
     if(response.status === true) {

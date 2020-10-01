@@ -1,6 +1,6 @@
 import { takeLatest, fork, call, put } from "redux-saga/effects";
 import { SagaTypes } from 'modules/reduxActiontTypes';
-import { postRequestInterface } from 'reduxTypes';
+import { postRequestInterface } from 'commonTypes';
 import { postCreate, postEdit, postPublish, postUpdate } from 'modules/API';
 
 // 글등록 Saga

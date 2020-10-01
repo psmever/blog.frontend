@@ -1,6 +1,10 @@
 import { createReducer } from "typesafe-actions";
-import { authenticateSagaState } from 'reduxTypes';
-import { axiosReturnInterface } from 'commonTypes';
+
+import {
+    axiosReturnInterface,
+    authenticateSagaState,
+    localTokenInterface
+} from 'commonTypes';
 import { SagaTypes, SagaAction } from 'modules/reduxActiontTypes';
 
 const initialState: authenticateSagaState = {
@@ -18,7 +22,7 @@ export const authSagaReducer = createReducer<authenticateSagaState>(initialState
             }
         }
     },
-    [SagaTypes.LOGIN_REQUEST_SUCCESS]: (state: authenticateSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.LOGIN_REQUEST_SUCCESS]: (state: authenticateSagaState, action: SagaAction<localTokenInterface>) => {
         return {
             ...state,
             login: {
@@ -27,7 +31,7 @@ export const authSagaReducer = createReducer<authenticateSagaState>(initialState
             }
         };
     },
-    [SagaTypes.LOGIN_REQUEST_ERROR]: (state: authenticateSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.LOGIN_REQUEST_ERROR]: (state: authenticateSagaState, action: SagaAction<axiosReturnInterface<localTokenInterface>>) => {
         return {
             ...state,
             login: {
@@ -53,7 +57,7 @@ export const authSagaReducer = createReducer<authenticateSagaState>(initialState
             }
         }
     },
-    [SagaTypes.LOCAL_TOKEN_CHECK_SUCCESS]: (state: authenticateSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.LOCAL_TOKEN_CHECK_SUCCESS]: (state: authenticateSagaState, action: SagaAction<localTokenInterface>) => {
         return {
             ...state,
             login: {
