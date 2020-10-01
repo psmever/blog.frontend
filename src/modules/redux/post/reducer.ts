@@ -1,6 +1,10 @@
 import { createReducer } from "typesafe-actions";
-import { postSagaState } from 'reduxTypes';
-import { axiosReturnInterface } from 'commonTypes';
+import {
+    axiosReturnInterface,
+    postSagaState,
+    apiPostCreateResultInterface,
+    apiPostEditResultInterface,
+} from 'commonTypes';
 import { SagaTypes, SagaAction } from 'modules/reduxActiontTypes';
 
 const initialState: postSagaState = {
@@ -27,7 +31,7 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         }
     },
-    [SagaTypes.POST_CREATE_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_CREATE_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<apiPostCreateResultInterface>) => {
         return {
             ...state,
             create: {
@@ -36,12 +40,12 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         };
     },
-    [SagaTypes.POST_CREATE_REQUEST_ERROR]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_CREATE_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<apiPostCreateResultInterface>) => {
         return {
             ...state,
             create: {
                 status: 'failure',
-                message: action.payload.message,
+                message: action.message,
             }
         };
     },
@@ -62,7 +66,7 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         }
     },
-    [SagaTypes.POST_EDIT_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_EDIT_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<apiPostEditResultInterface>) => {
         return {
             ...state,
             edit: {
@@ -71,12 +75,12 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         };
     },
-    [SagaTypes.POST_EDIT_REQUEST_ERROR]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_EDIT_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<apiPostEditResultInterface>) => {
         return {
             ...state,
             edit: {
                 status: 'failure',
-                message: action.payload.message,
+                message: action.message,
             }
         };
     },
@@ -97,21 +101,20 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         }
     },
-    [SagaTypes.POST_PUBLISH_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_PUBLISH_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface<any>>) => {
         return {
             ...state,
             publish: {
                 status: 'success',
-                data: action.payload,
             }
         };
     },
-    [SagaTypes.POST_PUBLISH_REQUEST_ERROR]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_PUBLISH_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<any>) => {
         return {
             ...state,
             publish: {
                 status: 'failure',
-                message: action.payload.message,
+                message: action.message,
             }
         };
     },
@@ -132,21 +135,20 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         }
     },
-    [SagaTypes.POST_UPDATE_REQUEST_SUCCESS]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_UPDATE_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<any>) => {
         return {
             ...state,
             update: {
                 status: 'success',
-                data: action.payload,
             }
         };
     },
-    [SagaTypes.POST_UPDATE_REQUEST_ERROR]: (state: postSagaState, action: SagaAction<axiosReturnInterface>) => {
+    [SagaTypes.POST_UPDATE_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<any>) => {
         return {
             ...state,
             update: {
                 status: 'failure',
-                message: action.payload.message,
+                message: action.message,
             }
         };
     },

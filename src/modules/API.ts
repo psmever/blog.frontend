@@ -1,25 +1,33 @@
 import _Axios_ from 'lib/_Axios_';
 import {
     axiosReturnInterface,
-    loginRequestInterface
+    loginRequestInterface,
+    postRequestInterface,
+    apiNoticeResultInterface,
+    apiSiteBaseDataInterface,
+    apiPostCreateResultInterface,
+    apiPostEditResultInterface,
 } from 'commonTypes';
-import { postRequestInterface } from 'reduxTypes';
+
 
 /**
  * 서버 상태 체크
  */
-export function checkServer() : Promise<axiosReturnInterface> {
+export function checkServer() : Promise<axiosReturnInterface<any>> {
     return _Axios_.get('/api/system/check-status', {data: {}});
 };
 
 /**
  * 서버 공지 사항 체크
  */
-export function checkServerNotice() : Promise<axiosReturnInterface> {
+export function checkServerNotice() : Promise<axiosReturnInterface<apiNoticeResultInterface>> {
     return _Axios_.get('/api/system/check-notice', {data: {}});
 };
 
-export function getSiteBaseData() : Promise<axiosReturnInterface> {
+/**
+ * 사이트 기본 데이터 처리.
+ */
+export function getSiteBaseData() : Promise<axiosReturnInterface<apiSiteBaseDataInterface>> {
     return _Axios_.get('/api/system/base-data', {data: {}});
 }
 
@@ -27,21 +35,14 @@ export function getSiteBaseData() : Promise<axiosReturnInterface> {
  * 로그인
  * @param payload
  */
-export function login(payload: loginRequestInterface) : Promise<axiosReturnInterface> {
+export function login(payload: loginRequestInterface) : Promise<axiosReturnInterface<any>> {
     return _Axios_.post('/api/v1/auth/login', payload);
 };
 
 /**
  * 로그인 유저 체크
  */
-export function loginCheck() : Promise<axiosReturnInterface> {
-    return _Axios_.post('/api/v1/auth/login-check', {data: {}});
-};
-
-/**
- * 테스트용?
- */
-export function testCheck() : Promise<axiosReturnInterface> {
+export function loginCheck() : Promise<axiosReturnInterface<any>> {
     return _Axios_.post('/api/v1/auth/login-check', {data: {}});
 };
 
@@ -49,7 +50,7 @@ export function testCheck() : Promise<axiosReturnInterface> {
  * 글 저장
  * @param payload
  */
-export function postCreate(payload: postRequestInterface) : Promise<axiosReturnInterface> {
+export function postCreate(payload: postRequestInterface) : Promise<axiosReturnInterface<apiPostCreateResultInterface>> {
     return _Axios_.post('/api/v1/post', payload);
 };
 
@@ -57,7 +58,7 @@ export function postCreate(payload: postRequestInterface) : Promise<axiosReturnI
  * 글 보기 ( 수정용 )
  * @param post_uuid
  */
-export function postEdit(post_uuid: string) : Promise<axiosReturnInterface> {
+export function postEdit(post_uuid: string) : Promise<axiosReturnInterface<apiPostEditResultInterface>> {
     return _Axios_.get(`/api/v1/post/${post_uuid}/edit`, {data: {}});
 };
 
@@ -65,12 +66,12 @@ export function postEdit(post_uuid: string) : Promise<axiosReturnInterface> {
  * 글 게시.
  * @param post_uuid
  */
-export function postPublish(post_uuid: string) : Promise<axiosReturnInterface> {
+export function postPublish(post_uuid: string) : Promise<axiosReturnInterface<any>> {
     return _Axios_.post(`/api/v1/post/${post_uuid}/publish`, {data: {}});
 };
 
 
 // 글 수정.
-export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface> {
+export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface<any>> {
     return _Axios_.post(`/api/v1/post/${post_uuid}/update`, payload);
 };
