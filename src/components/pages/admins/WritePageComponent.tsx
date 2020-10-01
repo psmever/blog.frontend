@@ -2,6 +2,7 @@ import React from 'react';
 import { editorContentsInterface } from 'commonTypes';
 import useWrite from 'hooks/useWrite';
 import history from 'modules/History';
+import { DefaultSelectBox } from 'components/elements';
 import {
     MainWrapper,
     BlogWrite,
@@ -10,6 +11,7 @@ import {
     WriteTitleBox,
     WriteTitleLabel,
     WriteTitle,
+    CategorySelectBox,
     WriteTagBox,
     WriteBody,
     ButtonContainer,
@@ -92,12 +94,17 @@ export default function WritePage() {
         editorTagContents,
         setEditorTagContents,
         editorTagSuggestions,
+        _handleEditorCategorySelectItem,
+
+        editorCategoryThumb,
 
         _handleClickSaveButton,
         _handleClickPublishButton,
 
         post_create_state,
-        post_publish_state
+        post_publish_state,
+
+        categoryThumbList
     } = useWrite();
 
     // 내용 수정시 데이터 업데이트
@@ -160,7 +167,7 @@ export default function WritePage() {
         _handleClickPublishButton();
     }
 
-    // TODO 2020-09-20 22:57 버튼 로딩 컴포넌트 가운데에 마춰야함.
+    // FIXME 2020-10-01 22:21  높이 스크롤 생기는 버그 수정.필요.
     return (
         <>
             <MainWrapper>
@@ -176,6 +183,15 @@ export default function WritePage() {
                                 onChange={ e => setEditorTitle(e.target.value) }
                             />
                         </WriteTitleBox>
+
+                        <CategorySelectBox>
+                            <DefaultSelectBox
+                                options={ categoryThumbList }
+                                selectValue={editorCategoryThumb}
+                                selectOption={ _handleEditorCategorySelectItem }
+                            />
+                        </CategorySelectBox>
+
                         <WriteTagBox>
                             <ReactTags tags={ editorTagContents }
                                 suggestions={editorTagSuggestions}
