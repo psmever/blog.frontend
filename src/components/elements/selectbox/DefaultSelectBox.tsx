@@ -18,7 +18,6 @@ export default function DefaultSelectBox({
         selectOption(e)
     }
 
-    // TODO 2020-09-29 00:19  선택 에러 남.
     return (
         <div style={{width: '100%'}}>
             <Select

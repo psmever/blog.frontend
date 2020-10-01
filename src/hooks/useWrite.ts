@@ -23,10 +23,6 @@ interface RouteParams {
     post_uuid: string;
 }
 
-interface LocationState {
-    edit: boolean
-}
-
 export default function useWrite() {
 
     // FIXME 2020-09-26 18:19  리팩토리 필요.
@@ -77,14 +73,12 @@ export default function useWrite() {
 
     // 글 저장 및 업데이트
     const _handleClickSaveButton = () => {
-
         const dataObject : postRequestInterface = {
             title: editorTitle,
-            category_thumb: editorCategoryThumb,
+            category_thumb: editorCategoryThumb.value,
             tags: editorTagContents.map(({ id, text }) => ({ tag_id: id, tag_text: text })),
             contents: editorContents
         };
-
         // post_uuid 가 있을경우 update saga 호출.
         if(params.post_uuid && !_.isUndefined(params.post_uuid)) {
             dispatch(postUpdateAction({post_uuid: params.post_uuid, payload: dataObject}));
@@ -134,16 +128,17 @@ export default function useWrite() {
     useEffect(() => {
         if(post_edit_state.status === 'success') {
             setEditorTitle(post_edit_state.data.post_title);
+            setEditorCategoryThumb({value: post_edit_state.data.category_thumb.code_id, label: post_edit_state.data.category_thumb.code_name});
+            setEditorTagContents(post_edit_state.data.tags.map((element: any) => {
+                return {
+                    id: element.tag_id,
+                    text: element.tag_text
+                }
+            }));
             setEditorContents({
                 html: post_edit_state.data.contents_html,
                 text: post_edit_state.data.contents_text
             });
-            setEditorTagContents(post_edit_state.data.tags.map((e: any) => {
-                return {
-                    id: e.tag_id,
-                    text: e.tag_text
-                }
-            }));
             dispatch(postEditResetAction());
         }
     }, [dispatch, post_edit_state]);
@@ -183,13 +178,7 @@ export default function useWrite() {
                 }
             }));
         }
-
     }, [baseState]);
-
-
-    useEffect(() => {
-        console.debug(editorCategoryThumb);
-    }, [editorCategoryThumb]);
 
     return {
         editorTitle,
