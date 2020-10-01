@@ -41,6 +41,12 @@ declare module 'commonTypes' {
     }
     export interface editorTagInterface extends Array<editorTagInterfaceItem> {}
 
+    export interface defaultSelectBoxItems {
+        value: string
+        label: string
+    }
+    export interface defaultSelectBoxInterface extends Array<defaultSelectBoxItems> {}
+
     // 글등록 페이지 버튼 인터페이스
     export interface PublishButtonPropsInterface {
         buttonType: 'Home' | 'Save' | 'Publish';

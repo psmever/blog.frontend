@@ -121,6 +121,26 @@ export const WriteTagBox = styled.div`
 
 `
 
+export const CategorySelectBox = styled.div`
+
+    @media (max-width: 767.98px) {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 576px) {
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    text-align: center !important;
+    box-sizing: border-box;
+    margin-bottom: 1.5rem;
+
+`
+
 
 export const WriteTitleLabel = styled.label`
 
@@ -183,7 +203,7 @@ export const WriteTitle = styled.input`
 export const WriteBody = styled.div`
 
     @media screen and (min-width: 769px) {
-        height: calc(100vh - 240px);
+        height: calc(100vh - 299px);
     }
 
     @media screen and (min-device-width: 481px) and (max-device-width: 768px) {
@@ -211,7 +231,7 @@ export const WriteBody = styled.div`
     color: #4f4f4f;
     box-sizing: border-box;
     /* position: relative; */
-    height: calc(100vh - 190px);
+    height: calc(100vh - 226px);
     display:block;
 
 `
