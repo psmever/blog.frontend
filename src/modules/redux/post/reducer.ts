@@ -20,6 +20,9 @@ const initialState: postSagaState = {
     update: {
         status: 'idle',
     },
+    lists: {
+        status: 'idle',
+    },
 }
 
 export const postagaReducer = createReducer<postSagaState>(initialState, {
@@ -156,6 +159,41 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
         return {
             ...state,
             update: {
+                status: 'idle',
+            }
+        };
+    },
+
+    [SagaTypes.POST_LIST_REQUEST_START]: (state: postSagaState) => {
+        return {
+            ...state,
+            lists: {
+                status: 'loading',
+            }
+        }
+    },
+    [SagaTypes.POST_LIST_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<any>) => {
+        return {
+            ...state,
+            lists: {
+                status: 'success',
+                data: action.payload
+            }
+        };
+    },
+    [SagaTypes.POST_LIST_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<any>) => {
+        return {
+            ...state,
+            lists: {
+                status: 'failure',
+                message: action.message,
+            }
+        };
+    },
+    [SagaTypes.POST_LIST_REQUEST_RESET]: (state: postSagaState) => {
+        return {
+            ...state,
+            lists: {
                 status: 'idle',
             }
         };
