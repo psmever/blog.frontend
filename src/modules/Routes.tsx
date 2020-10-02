@@ -42,7 +42,8 @@ const Routes = ({Routerhistory} : RootProps) => {
                             <Route path={process.env.PUBLIC_URL + "/test"} exact={true} component={ Pages.TestPage } />
                             <Route path={process.env.PUBLIC_URL + "/pages"} exact={true} component={ Pages.MainPage } />
                             <Route path={process.env.PUBLIC_URL + "/pages/about"} exact={true} component={ Pages.AboutPage } />
-                            <Route path={process.env.PUBLIC_URL + "/pages/post"} exact={true} component={ Pages.PostDetailPage } />
+                            {/* <Route path={process.env.PUBLIC_URL + "/pages/post"} exact={true} component={ Pages.PostDetailPage } /> */}
+                            <Route path={process.env.PUBLIC_URL + "/pages/post/detail/:slug_title"} exact={true} component={ Pages.PostDetailPage } />
                             {/* <Redirect path="*" to="/pages" /> */}
                         </MainLayoutComponents>
                         {/* <Route exact path={process.env.PUBLIC_URL + "/"} render={() => (<Redirect to="/pages" />)} /> */}
