@@ -55,6 +55,39 @@ declare module 'commonTypes' {
         created: string
         updated: string
     }
+    // 글 리스트
+    export interface apiPostListResultItemsInterface {
+        post_id: number
+        post_uuid: string
+        user: {
+            user_uuid: string
+            user_type: basicCodeItem
+            user_level: basicCodeItem
+            name: string
+            nickname: string
+            email: string
+            active: defaultYesNo
+        },
+        post_title: string
+        slug_title: string
+        category_thumb: {
+            code_id: string
+            code_name: string
+            category_thumb_url: string
+        }
+        list_contents: string
+        markdown: defaultYesNo
+        tags: editorTagInterfaceItem[]
+        post_active: defaultYesNo
+        post_publish: defaultYesNo
+        list_created: string
+    }
+
+    export interface apiPostListResultInterface {
+        per_page: number,
+        current_page: number,
+        posts: apiPostListResultItemsInterface[]
+    }
 
     // 기본 api 리턴 인테페이스
     export interface axiosReturnInterface<T> {
@@ -147,6 +180,7 @@ declare module 'commonTypes' {
         edit: desultSagaState<apiPostEditResultInterface>
         publish: desultSagaState<any>
         update: desultSagaState
+        lists: desultSagaState<apiPostListResultInterface>
     }
 
     export interface postCreateContentsItemInterface {
