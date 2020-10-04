@@ -5,6 +5,8 @@ import * as StyledIcons from 'styles/StyledIcons';
 import useDetail from 'hooks/useDetail';
 import ReactMarkdown from 'react-markdown';
 import Markdown,{compiler} from 'markdown-to-jsx';
+// const toc = require('remark-toc');
+import './demo.css';
 
 export default function PostDetailPage() {
 
@@ -19,15 +21,37 @@ export default function PostDetailPage() {
 
 
     const markdown = `
-Foo \`console.log('foo')\` baz
-
-| foo | bar |
-|-----|-----|
-| bar | baz |
-
-\`\`\`js
-const foo = "bar"
-\`\`\`
+    # Live demo
+    Changes are automatically rendered as you type.
+    ## Table of Contents
+    * Implements [GitHub Flavored Markdown](https://github.github.com/gfm/)
+    * Renders actual, "native" React DOM elements
+    * Allows you to escape or skip HTML (try toggling the checkboxes above)
+    * If you escape or skip the HTML, no \`dangerouslySetInnerHTML\` is used! Yay!
+    ## HTML block below
+    <blockquote>
+      This blockquote will change based on the HTML settings above.
+    </blockquote>
+    ## How about some code?
+    \`\`\`js
+    var React = require('react');
+    var Markdown = require('react-markdown');
+    React.render(
+      <Markdown source="# Your markdown here" />,
+      document.getElementById('content')
+    );
+    \`\`\`
+    Pretty neat, eh?
+    ## Tables?
+    | Feature   | Support |
+    | --------- | ------- |
+    | tables    | ✔ |
+    | alignment | ✔ |
+    | wewt      | ✔ |
+    ## More info?
+    Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)
+    ---------------
+    A component by [Espen Hovlandsdal](https://espen.codes/)
 `
 
 
@@ -37,24 +61,9 @@ const foo = "bar"
 
     return (
         <>
-            <PostDetailStyleComponent.MainWrapper>
 
-                <PostDetailStyleComponent.BlogPost>
+    <Markdown options={{ forceBlock: true }}>{markdown}</Markdown>
 
-                    <PostDetailStyleComponent.Container>
-
-                        <PostDetailStyleComponent.Header>
-                            <PostDetailStyleComponent.HeaderTitle>{postBaseStateDetail.data?.post_title}</PostDetailStyleComponent.HeaderTitle>
-                            <PostDetailStyleComponent.HeaderMeta>
-                                <PostDetailStyleComponent.HeaderDate>{postBaseStateDetail.data?.detail_updated} </PostDetailStyleComponent.HeaderDate>
-                                <PostDetailStyleComponent.HeaderTime> 5 min read</PostDetailStyleComponent.HeaderTime>
-                                <PostDetailStyleComponent.HeaderComment>
-                                    <PostDetailStyleComponent.HeaderCommentLink to="/">4 comments</PostDetailStyleComponent.HeaderCommentLink>
-                                </PostDetailStyleComponent.HeaderComment>
-                            </PostDetailStyleComponent.HeaderMeta>
-                        </PostDetailStyleComponent.Header>
-
-                        <PostDetailStyleComponent.PostBody>
                             {/* <ReactMarkdown
                                 // source={postBaseStateDetail.data?.contents_text}
                                 source={markdown}
@@ -62,41 +71,22 @@ const foo = "bar"
                             /> */}
 
 {/* {postBaseStateDetail.data?.contents_html} */}
+{/* <ReactMarkdown
+            className="result"
+            source={markdown}
+            skipHtml={true}
+            escapeHtml={true}
+            // renderers={{code: CodeBlock}}
+            // plugins={[toc]}
+          /> */}
                         {/* <Markdown
-                            children={markdown}
+                            children={postBaseStateDetail.data?.contents_html !== undefined && postBaseStateDetail.data.contents_html}
                         /> */}
 
-{compiler(markdown)}
-{compiler(markdown, { disableParsingRawHTML: true })}
-
-                        </PostDetailStyleComponent.PostBody>
-
-                        <PostDetailStyleComponent.Nav>
-                            <PostDetailStyleComponent.NavPrevLink to="/"><StyledIcons.ArrowLeftIcon/>Previous</PostDetailStyleComponent.NavPrevLink>
-                            <PostDetailStyleComponent.NavNextLink to="/">Next<StyledIcons.ArrowRightIcon/></PostDetailStyleComponent.NavNextLink>
-                        </PostDetailStyleComponent.Nav>
-
-                    </PostDetailStyleComponent.Container>
-                    {/* <!--//container--> */}
-                </PostDetailStyleComponent.BlogPost>
-
-                <PostDetailStyleComponent.PromoSection>
-                    <PostDetailStyleComponent.PromoContainer>
-                        <PostDetailStyleComponent.PromoTitle>Promo Section Heading</PostDetailStyleComponent.PromoTitle>
-                        <PostDetailStyleComponent.PromoPtag>You can use this section to promote your side projects etc. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </PostDetailStyleComponent.PromoPtag>
-                        <PostDetailStyleComponent.PromoFigure>
-                            <PostDetailStyleComponent.PromoLink to="/">
-                                <PostDetailStyleComponent.PromoImage src="/assets/images/promo-banner.jpg" alt="" />
-                            </PostDetailStyleComponent.PromoLink>
-                        </PostDetailStyleComponent.PromoFigure>
-                    </PostDetailStyleComponent.PromoContainer>
-                    {/* <!--//container--> */}
-                </PostDetailStyleComponent.PromoSection>
-                {/* <!--//promo-section--> */}
+{/* {compiler(markdown)} */}
+{/* {compiler(markdown, { disableParsingRawHTML: true })} */}
 
 
-            </PostDetailStyleComponent.MainWrapper>
-            {/* <!--//main-wrapper--> */}
         </>
     );
 }
