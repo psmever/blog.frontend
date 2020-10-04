@@ -2,91 +2,72 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import * as PostDetailStyleComponent from "styles/PostDetail";
 import * as StyledIcons from 'styles/StyledIcons';
+import { MarkdownRender } from 'components/elements';
+
 import useDetail from 'hooks/useDetail';
-import ReactMarkdown from 'react-markdown';
-import Markdown,{compiler} from 'markdown-to-jsx';
-// const toc = require('remark-toc');
-import './demo.css';
+
 
 export default function PostDetailPage() {
 
-    const MyParagraph = (props:any) => (
-        <p>This is inside MyParagraph, and the value is {props.children}</p>
-      );
-
-      // see https://github.com/rexxars/react-markdown#node-types
-      const renderers = {
-        paragraph: (props : any) => <MyParagraph {...props} />
-      };
-
-
-    const markdown = `
-    # Live demo
-    Changes are automatically rendered as you type.
-    ## Table of Contents
-    * Implements [GitHub Flavored Markdown](https://github.github.com/gfm/)
-    * Renders actual, "native" React DOM elements
-    * Allows you to escape or skip HTML (try toggling the checkboxes above)
-    * If you escape or skip the HTML, no \`dangerouslySetInnerHTML\` is used! Yay!
-    ## HTML block below
-    <blockquote>
-      This blockquote will change based on the HTML settings above.
-    </blockquote>
-    ## How about some code?
-    \`\`\`js
-    var React = require('react');
-    var Markdown = require('react-markdown');
-    React.render(
-      <Markdown source="# Your markdown here" />,
-      document.getElementById('content')
-    );
-    \`\`\`
-    Pretty neat, eh?
-    ## Tables?
-    | Feature   | Support |
-    | --------- | ------- |
-    | tables    | ✔ |
-    | alignment | ✔ |
-    | wewt      | ✔ |
-    ## More info?
-    Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)
-    ---------------
-    A component by [Espen Hovlandsdal](https://espen.codes/)
-`
 
 
     const {
-        postBaseStateDetail
+        postContents
     } = useDetail();
 
     return (
         <>
+            <PostDetailStyleComponent.MainWrapper>
 
-    <Markdown options={{ forceBlock: true }}>{markdown}</Markdown>
+                <PostDetailStyleComponent.BlogPost>
 
-                            {/* <ReactMarkdown
-                                // source={postBaseStateDetail.data?.contents_text}
-                                source={markdown}
-                                renderers={renderers}
-                            /> */}
+                    <PostDetailStyleComponent.Container>
 
-{/* {postBaseStateDetail.data?.contents_html} */}
-{/* <ReactMarkdown
-            className="result"
-            source={markdown}
-            skipHtml={true}
-            escapeHtml={true}
-            // renderers={{code: CodeBlock}}
-            // plugins={[toc]}
-          /> */}
-                        {/* <Markdown
-                            children={postBaseStateDetail.data?.contents_html !== undefined && postBaseStateDetail.data.contents_html}
-                        /> */}
+                        <PostDetailStyleComponent.Header>
+                            <PostDetailStyleComponent.HeaderTitle>{postContents.post_title}</PostDetailStyleComponent.HeaderTitle>
+                            <PostDetailStyleComponent.HeaderMeta>
+                                <PostDetailStyleComponent.HeaderDate>{postContents.detail_updated}&nbsp;</PostDetailStyleComponent.HeaderDate>
+                                <PostDetailStyleComponent.HeaderTime>0 min read&nbsp;</PostDetailStyleComponent.HeaderTime>
+                                <PostDetailStyleComponent.HeaderComment>
+                                    <PostDetailStyleComponent.HeaderCommentLink to="/">0 comments&nbsp;</PostDetailStyleComponent.HeaderCommentLink>
+                                </PostDetailStyleComponent.HeaderComment>
+                            </PostDetailStyleComponent.HeaderMeta>
+                        </PostDetailStyleComponent.Header>
 
-{/* {compiler(markdown)} */}
-{/* {compiler(markdown, { disableParsingRawHTML: true })} */}
+                        <PostDetailStyleComponent.PostBody>
+
+                        <MarkdownRender
+                            markdownText={postContents.contents_text}
+                        />
+
+                        </PostDetailStyleComponent.PostBody>
+
+                        <PostDetailStyleComponent.Nav>
+                            <PostDetailStyleComponent.NavPrevLink to="/"><StyledIcons.ArrowLeftIcon/>Previous</PostDetailStyleComponent.NavPrevLink>
+                            <PostDetailStyleComponent.NavNextLink to="/">Next<StyledIcons.ArrowRightIcon/></PostDetailStyleComponent.NavNextLink>
+                        </PostDetailStyleComponent.Nav>
+
+                    </PostDetailStyleComponent.Container>
+                    {/* <!--//container--> */}
+                </PostDetailStyleComponent.BlogPost>
+
+                <PostDetailStyleComponent.PromoSection>
+                    <PostDetailStyleComponent.PromoContainer>
+                        <PostDetailStyleComponent.PromoTitle>Promo Section Heading</PostDetailStyleComponent.PromoTitle>
+                        <PostDetailStyleComponent.PromoPtag>You can use this section to promote your side projects etc. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </PostDetailStyleComponent.PromoPtag>
+                        <PostDetailStyleComponent.PromoFigure>
+                            <PostDetailStyleComponent.PromoLink to="/">
+                                <PostDetailStyleComponent.PromoImage src="/assets/images/promo-banner.jpg" alt="" />
+                            </PostDetailStyleComponent.PromoLink>
+                        </PostDetailStyleComponent.PromoFigure>
+                    </PostDetailStyleComponent.PromoContainer>
+                    {/* <!--//container--> */}
+                </PostDetailStyleComponent.PromoSection>
+                {/* <!--//promo-section--> */}
 
 
+            </PostDetailStyleComponent.MainWrapper>
+            {/* <!--//main-wrapper--> */}
         </>
     );
 }
