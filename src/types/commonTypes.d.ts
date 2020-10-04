@@ -56,6 +56,68 @@ declare module 'commonTypes' {
         updated: string
     }
 
+    // 글 리스트
+    export interface apiPostListResultItemsInterface {
+        post_id: number
+        post_uuid: string
+        user: {
+            user_uuid: string
+            user_type: basicCodeItem
+            user_level: basicCodeItem
+            name: string
+            nickname: string
+            email: string
+            active: defaultYesNo
+        },
+        post_title: string
+        slug_title: string
+        category_thumb: {
+            code_id: string
+            code_name: string
+            category_thumb_url: string
+        }
+        list_contents: string
+        markdown: defaultYesNo
+        tags: editorTagInterfaceItem[]
+        post_active: defaultYesNo
+        post_publish: defaultYesNo
+        list_created: string
+    }
+
+    // 글정보
+    export interface apiPostDetailResultInterface {
+        post_uuid: string
+        user: {
+            user_uuid: string
+            user_type: {
+                code_id: string
+                code_name: string
+            },
+            user_level: {
+                code_id: string
+                code_name: string
+            },
+            name: string
+            nickname: string
+            email: string
+            active: defaultYesNo
+        },
+        post_title: string
+        slug_title: string
+        contents_html: string
+        contents_text: string
+        markdown: defaultYesNo
+        tags: editorTagInterfaceItem[]
+        detail_created: string
+        detail_updated: string
+    }
+
+    export interface apiPostListResultInterface {
+        per_page: number,
+        current_page: number,
+        posts: apiPostListResultItemsInterface[]
+    }
+
     // 기본 api 리턴 인테페이스
     export interface axiosReturnInterface<T> {
         status: boolean,
@@ -104,7 +166,6 @@ declare module 'commonTypes' {
         push_router?: string,
     }
 
-
     // base Code list Interface
     export interface basicCodeItem {
         code_id: string,
@@ -147,6 +208,8 @@ declare module 'commonTypes' {
         edit: desultSagaState<apiPostEditResultInterface>
         publish: desultSagaState<any>
         update: desultSagaState
+        lists: desultSagaState<apiPostListResultInterface>
+        detail: desultSagaState<apiPostDetailResultInterface>
     }
 
     export interface postCreateContentsItemInterface {
