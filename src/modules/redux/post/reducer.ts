@@ -4,6 +4,7 @@ import {
     postSagaState,
     apiPostCreateResultInterface,
     apiPostEditResultInterface,
+    apiPostDetailResultInterface,
 } from 'commonTypes';
 import { SagaTypes, SagaAction } from 'modules/reduxActiontTypes';
 
@@ -20,6 +21,12 @@ const initialState: postSagaState = {
     update: {
         status: 'idle',
     },
+    lists: {
+        status: 'idle',
+    },
+    detail: {
+        status: 'idle',
+    }
 }
 
 export const postagaReducer = createReducer<postSagaState>(initialState, {
@@ -156,6 +163,76 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
         return {
             ...state,
             update: {
+                status: 'idle',
+            }
+        };
+    },
+
+    [SagaTypes.POST_LIST_REQUEST_START]: (state: postSagaState) => {
+        return {
+            ...state,
+            lists: {
+                status: 'loading',
+            }
+        }
+    },
+    [SagaTypes.POST_LIST_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<any>) => {
+        return {
+            ...state,
+            lists: {
+                status: 'success',
+                data: action.payload
+            }
+        };
+    },
+    [SagaTypes.POST_LIST_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<any>) => {
+        return {
+            ...state,
+            lists: {
+                status: 'failure',
+                message: action.message,
+            }
+        };
+    },
+    [SagaTypes.POST_LIST_REQUEST_RESET]: (state: postSagaState) => {
+        return {
+            ...state,
+            lists: {
+                status: 'idle',
+            }
+        };
+    },
+
+    [SagaTypes.POST_DETAIL_REQUEST_START]: (state: postSagaState) => {
+        return {
+            ...state,
+            detail: {
+                status: 'loading',
+            }
+        }
+    },
+    [SagaTypes.POST_DETAIL_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<apiPostDetailResultInterface>) => {
+        return {
+            ...state,
+            detail: {
+                status: 'success',
+                data: action.payload
+            }
+        };
+    },
+    [SagaTypes.POST_DETAIL_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<apiPostDetailResultInterface>) => {
+        return {
+            ...state,
+            detail: {
+                status: 'failure',
+                message: action.message,
+            }
+        };
+    },
+    [SagaTypes.POST_DETAIL_REQUEST_RESET]: (state: postSagaState) => {
+        return {
+            ...state,
+            detail: {
                 status: 'idle',
             }
         };
