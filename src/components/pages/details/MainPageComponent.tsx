@@ -1,6 +1,5 @@
 import React from 'react';
 import * as MainStyleComponent from "styles/Main";
-import * as StyledIcons from 'styles/StyledIcons';
 import useMain from 'hooks/useMain';
 
 export default function MainPage() {
