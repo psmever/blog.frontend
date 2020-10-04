@@ -69,3 +69,11 @@ export const postGetListAction = (pageNumber: number) => {
         pageNumber: pageNumber,
     }
 }
+
+// 글 상세 정보 가지고 오기.
+export const postDetailAction = (slugTitle : string) => {
+    return {
+        type: SagaTypes.POST_DETAIL_REQUEST_START,
+        slugTitle: slugTitle
+    }
+}

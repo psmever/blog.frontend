@@ -8,6 +8,7 @@ import {
     apiPostCreateResultInterface,
     apiPostEditResultInterface,
     apiPostListResultInterface,
+    apiPostDetailResultInterface,
 } from 'commonTypes';
 
 
@@ -80,4 +81,9 @@ export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: p
 // 글 리스트
 export function getPostList({pageNumber} : {pageNumber : number}) : Promise<axiosReturnInterface<apiPostListResultInterface>> {
     return _Axios_.get(`/api/v1/post/${pageNumber}`, {data: {}});
+}
+
+// 글보기 Detail
+export const getPostDetail = ({slugTitle} : {slugTitle: string}) : Promise<axiosReturnInterface<apiPostDetailResultInterface>> => {
+    return _Axios_.get(`/api/v1/post/${slugTitle}/detail`, {data: {}});
 }

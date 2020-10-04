@@ -55,6 +55,7 @@ declare module 'commonTypes' {
         created: string
         updated: string
     }
+
     // 글 리스트
     export interface apiPostListResultItemsInterface {
         post_id: number
@@ -81,6 +82,34 @@ declare module 'commonTypes' {
         post_active: defaultYesNo
         post_publish: defaultYesNo
         list_created: string
+    }
+
+    // 글정보
+    export interface apiPostDetailResultInterface {
+        post_uuid: string
+        user: {
+            user_uuid: string
+            user_type: {
+                code_id: string
+                code_name: string
+            },
+            user_level: {
+                code_id: string
+                code_name: string
+            },
+            name: string
+            nickname: string
+            email: string
+            active: defaultYesNo
+        },
+        post_title: string
+        slug_title: string
+        contents_html: string
+        contents_text: string
+        markdown: defaultYesNo
+        tags: editorTagInterfaceItem[]
+        detail_created: string
+        detail_updated: string
     }
 
     export interface apiPostListResultInterface {
@@ -137,7 +166,6 @@ declare module 'commonTypes' {
         push_router?: string,
     }
 
-
     // base Code list Interface
     export interface basicCodeItem {
         code_id: string,
@@ -181,6 +209,7 @@ declare module 'commonTypes' {
         publish: desultSagaState<any>
         update: desultSagaState
         lists: desultSagaState<apiPostListResultInterface>
+        detail: desultSagaState<apiPostDetailResultInterface>
     }
 
     export interface postCreateContentsItemInterface {
