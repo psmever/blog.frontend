@@ -35,7 +35,7 @@ export default function MainPage() {
                                     <MainStyleComponent.ListImage src={element.category_thumb.category_thumb_url} alt="" />
                                     <MainStyleComponent.MegiaBody>
                                         <MainStyleComponent.Title>
-                                            <MainStyleComponent.TitleLink to={process.env.PUBLIC_URL + `/pages/post/${element.slug_title}`}>
+                                            <MainStyleComponent.TitleLink to={process.env.PUBLIC_URL + `/pages/post/detail/${element.slug_title}`}>
                                                 {element.post_title}
                                             </MainStyleComponent.TitleLink>
                                         </MainStyleComponent.Title>
@@ -51,7 +51,7 @@ export default function MainPage() {
                                         <MainStyleComponent.ListItemIntro>
                                             {element.list_contents}
                                         </MainStyleComponent.ListItemIntro>
-                                        <MainStyleComponent.MoreLink to={process.env.PUBLIC_URL + `/pages/post/${element.slug_title}`}>
+                                        <MainStyleComponent.MoreLink to={process.env.PUBLIC_URL + `/pages/post/detail/${element.slug_title}`}>
                                             Read more &rarr;
                                         </MainStyleComponent.MoreLink>
                                     </MainStyleComponent.MegiaBody>

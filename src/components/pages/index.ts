@@ -7,4 +7,4 @@ export { default as PostDetailPage } from './details/PostDetailPageComponent';
 
 
 export { default as AdminLoginPage } from './admins/LoginPageComponent';
-export { default as AdminWritePage } from './admins/WritePageComponent';
+export { default as AdminWritePage } from './admins/PostWritePageComponent';
