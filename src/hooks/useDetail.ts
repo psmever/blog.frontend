@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import {
     postDetailAction
 } from 'modules/redux/post';
-import * as _ from "lodash";
 import { apiPostDetailResultInterface } from 'commonTypes';
 
 // post 내용 초기화.
@@ -54,11 +53,11 @@ export default function useDetail() {
 
     const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
 
-
-
     useEffect(() => {
         console.debug('useDetail start');
         dispatch(postDetailAction(params.slug_title));
+    // FIXME 2020-10-05 01:14  경고 disable 수정 필요.
+    // eslint-disable-next-line
     }, [])
 
     useEffect(() => {

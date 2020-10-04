@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import * as PostDetailStyleComponent from "styles/PostDetail";
 import * as StyledIcons from 'styles/StyledIcons';
 import { MarkdownRender } from 'components/elements';
