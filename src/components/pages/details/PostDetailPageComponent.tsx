@@ -1,6 +1,5 @@
 import React from 'react';
 import * as PostDetailStyleComponent from "styles/PostDetail";
-import * as StyledIcons from 'styles/StyledIcons';
 import { MarkdownRender } from 'components/elements';
 
 import useDetail from 'hooks/useDetail';
@@ -40,11 +39,6 @@ export default function PostDetailPage() {
                         />
 
                         </PostDetailStyleComponent.PostBody>
-
-                        <PostDetailStyleComponent.Nav>
-                            <PostDetailStyleComponent.NavPrevLink to="/"><StyledIcons.ArrowLeftIcon/>Previous</PostDetailStyleComponent.NavPrevLink>
-                            <PostDetailStyleComponent.NavNextLink to="/">Next<StyledIcons.ArrowRightIcon/></PostDetailStyleComponent.NavNextLink>
-                        </PostDetailStyleComponent.Nav>
 
                     </PostDetailStyleComponent.Container>
                     {/* <!--//container--> */}
