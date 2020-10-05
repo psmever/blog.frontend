@@ -63,7 +63,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy:prod": "cp config/production.env .env && react-scripts build && ssh oracle_web \"rm -rf /var/www/site/nicepage/blog-web/*\" && scp -r ./build/* oracle_web:/var/www/site/nicepage/blog-web",
-    "deploy:stage": "cp config/development.env .env && react-scripts build && ssh local_server \"rm -rf /var/www/site/blog/front/*\" && scp -r ./build/* local_server:/var/www/site/blog/front"
+    "deploy:stage": "cp config/stage.env .env && react-scripts build && ssh local_server \"rm -rf /var/www/site/blog/front/*\" && scp -r ./build/* local_server:/var/www/site/blog/front"
   },
   "eslintConfig": {
     "extends": "react-app"
