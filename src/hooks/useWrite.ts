@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     editorContentsInterface,
@@ -26,6 +26,7 @@ import * as Helper from 'lib/Helper';
 import { useHistory } from 'react-router-dom';
 import * as _ from "lodash";
 
+
 interface RouteParams {
     post_uuid: string;
 }
@@ -38,6 +39,7 @@ export default function useWrite() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const willMount = useRef(true);
 
     const params = useParams<RouteParams>();
 
@@ -189,12 +191,21 @@ export default function useWrite() {
     }, [baseState]);
 
     useEffect(() => {
+        console.debug(willMount);
+        console.debug(history.location.state);
+        // willMount.current = false;
         const localstorage = Helper.getLocalToken();
         console.debug(localstorage);
         if(localstorage.login_state === null || localstorage.login_state === false) {
             _Alert_.error({text: '로그인한 사용자만 이용할수 있습니다.'});
-            history.push(process.env.PUBLIC_URL + '/admin/login');
+            history.push({
+                pathname: process.env.PUBLIC_URL + '/admin/login',
+                state: {
+                    befor: 'write'
+                }
+            });
         }
+
     }, []);
 
     return {
