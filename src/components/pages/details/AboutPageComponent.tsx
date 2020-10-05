@@ -8,16 +8,21 @@ export default function AboutPage() {
 
                 <AboutStyleComponent.AboutSection>
                     <AboutStyleComponent.Container>
-                        <AboutStyleComponent.Title>About Me</AboutStyleComponent.Title>
+                        <AboutStyleComponent.Title>민군은?</AboutStyleComponent.Title>
 
-                        <AboutStyleComponent.AboutPTag>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. </AboutStyleComponent.AboutPTag>
-                        <AboutStyleComponent.AboutFigure><AboutStyleComponent.AboutImage src="/assets/images/about-me.jpg" alt="" /></AboutStyleComponent.AboutFigure>
-                        <AboutStyleComponent.AboutContentsTitle>About The Blog</AboutStyleComponent.AboutContentsTitle>
-                        <AboutStyleComponent.AboutPTag>Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus.</AboutStyleComponent.AboutPTag>
-                        <AboutStyleComponent.AboutContentsTitle>My Skills and Experiences</AboutStyleComponent.AboutContentsTitle>
-                        <AboutStyleComponent.AboutPTag>Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutFigure><AboutStyleComponent.AboutImage src="/assets/images/about/about-me-20201005.jpg" alt="" /></AboutStyleComponent.AboutFigure>
+                        <AboutStyleComponent.AboutContentsTitle>좋아하는것</AboutStyleComponent.AboutContentsTitle>
+                        <AboutStyleComponent.AboutPTag>맥을 좋아하고, 맥을 사는것을 좋아하고(돈은 없음;;) 맥에 관해 대화(?) 하는것.. 해킨 커뮤니티가 없어지니 같이 대화할 사람이 없네...</AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutPTag>php 를 좋아하고 php로 뭘 만들어 보는것</AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutPTag>술과 담배는...</AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutContentsTitle>취미는 </AboutStyleComponent.AboutContentsTitle>
+                        <AboutStyleComponent.AboutPTag>퇴근하고 동네 한바퀴는 꼭 뛰자. </AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutPTag>1주일에 한번은 동네 커피숍에 가서 코딩을 하자. </AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutPTag>하루에 자기전 한시간은 코딩을 하자. </AboutStyleComponent.AboutPTag>
                         <AboutStyleComponent.AboutContentsTitle>Side Projects</AboutStyleComponent.AboutContentsTitle>
-                        <AboutStyleComponent.AboutPTag>Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutPTag>MyBlog</AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutPTag>인스타 짝퉁</AboutStyleComponent.AboutPTag>
+                        <AboutStyleComponent.AboutPTag>앱</AboutStyleComponent.AboutPTag>
 
                         <AboutStyleComponent.AboutFigure><AboutStyleComponent.AboutContentsLink to="/"><AboutStyleComponent.AboutImage src="/assets/images/promo-banner.jpg" alt="" /></AboutStyleComponent.AboutContentsLink></AboutStyleComponent.AboutFigure>
                     </AboutStyleComponent.Container>

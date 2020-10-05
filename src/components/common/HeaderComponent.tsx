@@ -6,7 +6,7 @@ export default function HeaderComponent() {
     return (
         <>
             <HeaderStyleComponent.Header>
-                <HeaderStyleComponent.BlogName><HeaderStyleComponent.BlogNameLink to="/">SungMin's Blog</HeaderStyleComponent.BlogNameLink></HeaderStyleComponent.BlogName>
+                <HeaderStyleComponent.BlogName><HeaderStyleComponent.BlogNameLink to="/">psmever's Blog</HeaderStyleComponent.BlogNameLink></HeaderStyleComponent.BlogName>
                 <HeaderStyleComponent.Nav>
                     <HeaderStyleComponent.NavbarToggler type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                         <HeaderStyleComponent.NavbarTogglerIcon></HeaderStyleComponent.NavbarTogglerIcon>
@@ -16,7 +16,7 @@ export default function HeaderComponent() {
                         <HeaderStyleComponent.ProfileSection>
                             <HeaderStyleComponent.ProfileImage src="/assets/images/main_php.svg"/>
 
-                            <HeaderStyleComponent.Bio>Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide a link to the about page.<br /><HeaderStyleComponent.BioLink to="/">Find out more about me</HeaderStyleComponent.BioLink></HeaderStyleComponent.Bio>
+                            <HeaderStyleComponent.Bio>안녕 하세요.<br />< br/>PHP 를 좋아해서 PHP 개발자를 하고 있는< br/>< br/> 박성민 입니다.< br/>< br/> 즐거운 하루 보내세요 ^^;;<br /></HeaderStyleComponent.Bio>
                             <HeaderStyleComponent.SocialList>
                                 <HeaderStyleComponent.ListInlineItem>
                                     <HeaderStyleComponent.SocialListLink to="/">
@@ -51,11 +51,6 @@ export default function HeaderComponent() {
                             <HeaderStyleComponent.NavItem>
                                 <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/admin/write"}>
                                     <StyledIcons.AboutIcon /> Write
-                                </HeaderStyleComponent.NavItemLink>
-                            </HeaderStyleComponent.NavItem>
-                            <HeaderStyleComponent.NavItem>
-                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/test"}>
-                                    <StyledIcons.AboutIcon /> Test
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
                             <HeaderStyleComponent.NavItem>
