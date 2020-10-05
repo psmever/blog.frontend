@@ -39,11 +39,6 @@ export default function HeaderComponent() {
                                 </HeaderStyleComponent.NavItemLinkActive>
                             </HeaderStyleComponent.NavItem>
                             <HeaderStyleComponent.NavItem>
-                                <HeaderStyleComponent.NavItemLink to="/">
-                                    <StyledIcons.PostIcon /> Blog Post
-                                </HeaderStyleComponent.NavItemLink>
-                            </HeaderStyleComponent.NavItem>
-                            <HeaderStyleComponent.NavItem>
                                 <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/pages/about"}>
                                     <StyledIcons.AboutIcon /> About Me
                                 </HeaderStyleComponent.NavItemLink>
@@ -53,15 +48,10 @@ export default function HeaderComponent() {
                                     <StyledIcons.AboutIcon /> Write
                                 </HeaderStyleComponent.NavItemLink>
                             </HeaderStyleComponent.NavItem>
-                            <HeaderStyleComponent.NavItem>
-                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/admin/login"}>
-                                    <StyledIcons.SuperuserIcon /> Login
-                                </HeaderStyleComponent.NavItemLink>
-                            </HeaderStyleComponent.NavItem>
                         </HeaderStyleComponent.NavbarNav>
 
                         <HeaderStyleComponent.GetInTouch>
-                            <HeaderStyleComponent.GetInTouchLink to={process.env.PUBLIC_URL + "/"}>Get in Touch</HeaderStyleComponent.GetInTouchLink>
+                            <HeaderStyleComponent.GetInTouchLink to={process.env.PUBLIC_URL + "/admin/login"}>로그인</HeaderStyleComponent.GetInTouchLink>
                         </HeaderStyleComponent.GetInTouch>
 
                     </HeaderStyleComponent.NavbarCollapse>
