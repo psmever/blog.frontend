@@ -1,25 +1,34 @@
 import React from 'react';
 import * as MainStyleComponent from "styles/Main";
 import useMain from 'hooks/useMain';
+import { useToasts } from 'react-toast-notifications';
 
 export default function MainPage() {
+
+    const { addToast } = useToasts();
+
     const {
         postBaseStateLists
     } = useMain();
+
+
+    const handleClickSearchButton = () => {
+        addToast('준비 중입니다.', { appearance: 'success', autoDismiss: true });
+    }
 
     return (
         <>
             <MainStyleComponent.MainWarpper>
                 <MainStyleComponent.CtaSection>
                     <MainStyleComponent.CtaSectionContainer>
-                        <MainStyleComponent.Heading>DevBlog - A Blog Template Made For Developers</MainStyleComponent.Heading>
-                        <MainStyleComponent.Intro>Welcome to my blog. Subscribe and get my latest blog post in your inbox.</MainStyleComponent.Intro>
+                        <MainStyleComponent.Heading>@psmever - 개발 블러그</MainStyleComponent.Heading>
+                        <MainStyleComponent.Intro>psmever's 블러그에 오신걸 환영 합니다.</MainStyleComponent.Intro>
                         <MainStyleComponent.Form>
                             <MainStyleComponent.FormGroup>
                                 <MainStyleComponent.FormLabel htmlFor="semail">Your email</MainStyleComponent.FormLabel>
-                                <MainStyleComponent.FormInput type="email" id="semail" placeholder="Enter email" />
+                                <MainStyleComponent.FormInput type="text" id="search" placeholder="검색어를 입력해 주세요." />
                             </MainStyleComponent.FormGroup>
-                            <MainStyleComponent.FormSubmitButton type="button">검색</MainStyleComponent.FormSubmitButton>
+                            <MainStyleComponent.FormSubmitButton type="button" onClick={handleClickSearchButton}>검색</MainStyleComponent.FormSubmitButton>
                         </MainStyleComponent.Form>
                     </MainStyleComponent.CtaSectionContainer>
                     {/* <!--//container--> */}
