@@ -6,13 +6,39 @@ import {
 } from 'commonTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBaseDataAction } from 'modules/redux/base';
-import { attemptLocalTokenAction } from 'modules/redux/authenticate';
+// import { attemptLocalTokenAction } from 'modules/redux/authenticate';
 import * as Helper from 'lib/Helper';
 import _Alert_ from 'lib/_Alert_';
 import * as _ from "lodash";
 import { RootState } from 'modules';
 
 export default function useBase() {
+
+    // Test Code Start
+    // const [count, setCount] = useState(0);
+    // const willMount = useRef(true);
+
+    // if (willMount.current) {
+    //     console.log('First time load (it runs only once)');
+    //     setCount(2);
+    //     willMount.current = false;
+    // } else {
+    //     console.log('Repeated load');
+    // }
+
+    // useEffect(() => {
+    //     console.log('Component did mount (it runs only once)');
+    //     return () => console.log('Component will unmount');
+    // }, []);
+
+    // useEffect(() => {
+    //     console.log('Component did update');
+    // });
+
+    // useEffect(() => {
+    //     console.log('Component will receive props');
+    // }, [count]);
+    // Test Code End
 
     const dispatch = useDispatch();
     const baseResuxState = useSelector((state: RootState) => state.base.status);
@@ -57,8 +83,6 @@ export default function useBase() {
         } else {
             getSiteBaseData();
         }
-
-        dispatch(attemptLocalTokenAction()); // 로컬 토큰 체크.
     }
 
     // 기본 베이트 스테이트
@@ -78,7 +102,7 @@ export default function useBase() {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
             Helper.COLORLOG(':: App Start Fail(002) ::', 'error');
         }
-    }, [BaseResuxState])
+    }, [BaseResuxState]);
 
     return {
         startServerCheck,

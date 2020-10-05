@@ -116,7 +116,7 @@ export function removeLoginToken(): void {
  * 로컬 스토리지 토큰. 페이지 다시 로드시 사용.
  */
 export function getLocalToken() : {
-    login_state : string | null,
+    login_state : boolean | null,
     login_expires_in : number | null,
     login_access_token : string | null,
     login_refresh_token : string | null,

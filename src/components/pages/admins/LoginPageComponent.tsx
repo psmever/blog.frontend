@@ -19,7 +19,6 @@ export default function LoginPage() {
         _handleInputEmailChange,
         _handleInputPasswordChange,
         _handleLoginButtonClick,
-        _handelLogin,
     } = useLogin();
 
     // 엔터키 처리.
@@ -33,10 +32,9 @@ export default function LoginPage() {
         }
 
         if(target_id === 'Password'){
-            _handelLogin();
+            _handleLoginButtonClick();
         }
     }
-
 
     return (
         <>
