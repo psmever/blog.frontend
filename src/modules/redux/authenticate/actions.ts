@@ -15,3 +15,10 @@ export const attemptLocalTokenAction = () => {
         type: SagaTypes.LOCAL_TOKEN_CHECK_START
     }
 }
+
+// 로그아웃.
+export const attemptLogoutAction = () => {
+    return {
+        type: SagaTypes.LOGOUT_REQUEST_START
+    }
+}

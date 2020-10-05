@@ -11,6 +11,9 @@ const initialState: authenticateSagaState = {
     login: {
         status: 'idle',
     },
+    logout: {
+        status: 'idle',
+    },
 }
 
 export const authSagaReducer = createReducer<authenticateSagaState>(initialState, {
@@ -70,6 +73,39 @@ export const authSagaReducer = createReducer<authenticateSagaState>(initialState
         return {
             ...state,
             login: {
+                status: 'idle',
+            }
+        };
+    },
+
+    [SagaTypes.LOGOUT_REQUEST_START]: (state: authenticateSagaState) => {
+        return {
+            ...state,
+            logout: {
+                status: 'loading',
+            }
+        }
+    },
+    [SagaTypes.LOGOUT_REQUEST_SUCCESS]: (state: authenticateSagaState, action: SagaAction<localTokenInterface>) => {
+        return {
+            ...state,
+            logout: {
+                status: 'success',
+            }
+        };
+    },
+    [SagaTypes.LOGOUT_REQUEST_ERROR]: (state: authenticateSagaState) => {
+        return {
+            ...state,
+            logout: {
+                status: 'idle',
+            }
+        };
+    },
+    [SagaTypes.LOGOUT_REQUEST_RESET]: (state: authenticateSagaState) => {
+        return {
+            ...state,
+            logout: {
                 status: 'idle',
             }
         };
