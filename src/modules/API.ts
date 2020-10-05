@@ -42,6 +42,14 @@ export function login(payload: loginRequestInterface) : Promise<axiosReturnInter
 };
 
 /**
+ * 로그아웃.
+ */
+export function logout() : Promise<axiosReturnInterface<any>> {
+    return _Axios_.post('/api/v1/auth/logout', {data: {}});
+}
+
+
+/**
  * 로그인 유저 체크
  */
 export function loginCheck() : Promise<axiosReturnInterface<any>> {
