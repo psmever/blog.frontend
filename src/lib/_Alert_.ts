@@ -31,6 +31,18 @@ const _Alert_ = {
             // history.push(process.env.PUBLIC_URL + push_target);
         });
     },
+    // 얼럿 띄우고 홈으로 이동.
+    thenGoHome : (alertOption: alertTypeInterface): void => {
+
+        // FIXME : 이동할 페이지 어떻게 할껀지?
+        // const push_target = alertOption.push_router ? alertOption.push_router : '/';
+        Swal.fire({
+            text: alertOption.text,
+            icon: 'info',
+        }).then(() => {
+            window.location.href = '/';
+        });
+    },
     // 얼럿 띄우고 페이지 새로 고침.
     thenLocationReload : (alertOption: alertTypeInterface): void => {
         Swal.fire({
