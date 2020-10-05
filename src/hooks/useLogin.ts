@@ -10,7 +10,7 @@ import { useToasts } from 'react-toast-notifications'
 
 export default function useLogin() {
 
-    const { addToast } = useToasts()
+    const { addToast } = useToasts();
 
     const dispatch = useDispatch();
     const login_state = useSelector((state: RootState) => state.authenticate.login);
@@ -33,6 +33,7 @@ export default function useLogin() {
         _handelLogin();
     }
 
+    // 로그인 처리.
     const _handelLogin = () => {
         if(login_state.status === 'idle' || login_state.status === 'failure') {
             const loginPayload : loginRequestInterface = {
@@ -66,7 +67,7 @@ export default function useLogin() {
     useEffect(() => {
         const localstorage = Helper.getLocalToken();
         if(localstorage.login_state === true) {
-            addToast('이미 로그인이 되어 있습니다.', { appearance: 'success', autoDismiss: true });
+            addToast('이미 로그인이 되어 있습니다.', { appearance: 'info', autoDismiss: true });
             history.push(process.env.PUBLIC_URL + '/');
         }
     }, []);
