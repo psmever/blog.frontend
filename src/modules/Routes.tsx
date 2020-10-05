@@ -34,6 +34,7 @@ const Routes = ({Routerhistory} : RootProps) => {
                     <Switch>
 
                         <Route path={process.env.PUBLIC_URL + "/admin/login"} exact={true} component={ Pages.AdminLoginPage } />
+                        <Route path={process.env.PUBLIC_URL + "/admin/logout"} exact={true} component={ Pages.AdminLogoutPage } />
                         <Route path={process.env.PUBLIC_URL + "/admin/write"} exact={true} component={ Pages.AdminWritePage } />
                         <Route path={process.env.PUBLIC_URL + "/admin/:post_uuid/edit"} exact={true} component={ Pages.AdminWritePage } />
                         {/* <Route path={process.env.PUBLIC_URL + "/pages/post/detail/:slug_title"} exact={true} component={ Pages.PostDetailPage } /> */}
