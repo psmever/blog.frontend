@@ -216,8 +216,9 @@ export const ListInlineItem = styled.li`
 
 `
 
-export const SocialListLink = styled(Link)`
+export const SocialListLink = styled.div`
 
+    cursor: pointer;
     list-style: none;
     color: #5469C9;
     text-decoration: none;
