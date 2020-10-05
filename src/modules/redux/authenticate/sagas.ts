@@ -1,7 +1,7 @@
 import { takeLatest, fork, call, put } from "redux-saga/effects";
 import { SagaTypes } from 'modules/reduxActiontTypes';
 import { loginRequestInterface } from 'commonTypes';
-import { login } from 'modules/API';
+import { login, logout } from 'modules/API';
 import * as Helper from 'lib/Helper';
 import * as _ from "lodash";
 
@@ -27,8 +27,25 @@ function* localTokenActionSaga() {
     }
 }
 
+// 로그아웃 saga
+function* logoutActionSaga() {
+    const localToken = Helper.getLocalToken();
+    if(localToken.login_state === true) {
+        const response = yield call(logout);
+        if(response !== undefined && response.status === true) {
+            Helper.removeLoginToken();
+            yield put({ type: SagaTypes.LOGOUT_REQUEST_SUCCESS, payload: response.payload });
+        } else {
+            Helper.removeLoginToken();
+            yield put({ type: SagaTypes.LOGOUT_REQUEST_ERROR, payload: response });
+        }
+    }
+    yield put({ type: SagaTypes.LOGOUT_REQUEST_SUCCESS});
+}
+
 function* onBaseSagaWatcher() {
     yield takeLatest(SagaTypes.LOGIN_REQUEST_START as any, loginActionSaga);
+    yield takeLatest(SagaTypes.LOGOUT_REQUEST_START as any, logoutActionSaga);
     yield takeLatest(SagaTypes.LOCAL_TOKEN_CHECK_START as any, localTokenActionSaga);
 }
 

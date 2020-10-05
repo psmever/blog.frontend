@@ -194,6 +194,11 @@ declare module 'commonTypes' {
             status: defaultSagaStatus,
             data?: localTokenInterface
             message?: string
+        },
+        logout : {
+            status: defaultSagaStatus,
+            data?: localTokenInterface
+            message?: string
         }
     }
 
