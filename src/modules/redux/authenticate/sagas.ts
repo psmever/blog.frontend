@@ -9,9 +9,10 @@ import * as _ from "lodash";
 function* loginActionSaga({payload} : {payload: loginRequestInterface}) {
     const response = yield call(login, payload);
     if(response.status === true) {
-        yield put({ type: SagaTypes.LOGIN_REQUEST_SUCCESS, payload: response.payload});
+        Helper.saveLoginToken(response.payload);
+        yield put({ type: SagaTypes.LOGIN_REQUEST_SUCCESS, payload: response.payload });
     } else {
-        yield put({ type: SagaTypes.LOGIN_REQUEST_ERROR, payload: response});
+        yield put({ type: SagaTypes.LOGIN_REQUEST_ERROR, payload: response });
     }
 }
 

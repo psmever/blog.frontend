@@ -21,6 +21,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { RootState } from 'modules';
 import _Alert_ from 'lib/_Alert_';
+import * as Helper from 'lib/Helper';
 
 import { useHistory } from 'react-router-dom';
 import * as _ from "lodash";
@@ -186,6 +187,15 @@ export default function useWrite() {
             }));
         }
     }, [baseState]);
+
+    useEffect(() => {
+        const localstorage = Helper.getLocalToken();
+        console.debug(localstorage);
+        if(localstorage.login_state === null || localstorage.login_state === false) {
+            _Alert_.error({text: '로그인한 사용자만 이용할수 있습니다.'});
+            history.push(process.env.PUBLIC_URL + '/admin/login');
+        }
+    }, []);
 
     return {
         editorTitle,
