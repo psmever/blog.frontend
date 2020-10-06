@@ -20,7 +20,6 @@ import {
 } from "styles/PostWriter";
 
 import { ButtonLoading } from 'components/elements';
-import ReactMarkdown from "react-markdown";
 
 import hljs from 'highlight.js'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -59,13 +58,13 @@ const mdParser = new MarkdownIt({
     quotes: '“”‘’',
     highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
-          try {
-            return hljs.highlight(lang, str).value;
-          } catch (__) {}
-        }
+            try {
+                return hljs.highlight(lang, str).value;
+            } catch (__) {}
+            }
 
-        return ''; // use external default escaping
-      }
+            return ''; // use external default escaping
+        }
 });
 
 const KeyCodes = {
@@ -168,9 +167,9 @@ export default function WritePage() {
         _handleClickPublishButton();
     }
 
-    const markdownRenderText = (text: string) : string => {
-        return mdParser.render(editorTitle + text);
-    }
+    // const markdownRenderText = (text: string) : string => {
+    //     return mdParser.render(editorTitle + text);
+    // }
 
     // FIXME 2020-10-01 22:21  높이 스크롤 생기는 버그 수정.필요.
     return (
@@ -233,8 +232,8 @@ export default function WritePage() {
                                 ]}
                                 value = { editorContents.text }
                                 style = {{ height: "100%", width: "100%" }}
-                                // renderHTML = {(text) => mdParser.render(editorTitle + text)}
-                                renderHTML={text => <ReactMarkdown source={editorTitle + text} />}
+                                renderHTML = {(text) => mdParser.render(editorTitle + text)}
+                                // renderHTML={text => <ReactMarkdown source={editorTitle + text} renderers={{ code: CodeBlock }}/>}
                                 onChange = {handleEditorContentsChange}
                                 placeholder = {"내용을 입력해 주세요."}
                                 config = {markdownEditorConfig}
