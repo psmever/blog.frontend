@@ -18,6 +18,6 @@ export default function LoginButtonLoading() {
                 color={"cadetblue"}
                 loading={true}
             />
-      </div>
+        </div>
     );
 }

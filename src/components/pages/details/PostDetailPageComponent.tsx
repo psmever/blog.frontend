@@ -1,5 +1,24 @@
 import React from 'react';
-import * as PostDetailStyleComponent from "styles/PostDetail";
+import {
+    MainWrapper,
+    BlogPost,
+    Container,
+    Header,
+    HeaderTitle,
+    HeaderMeta,
+    HeaderDate,
+    HeaderTime,
+    HeaderComment,
+    HeaderCommentLink,
+    PostBody,
+    PromoSection,
+    PromoContainer,
+    PromoTitle,
+    PromoPtag,
+    PromoFigure,
+    PromoLink,
+    PromoImage
+} from "styles/PostDetail";
 import { MarkdownRender } from 'components/elements';
 
 import useDetail from 'hooks/useDetail';
@@ -7,59 +26,57 @@ import useDetail from 'hooks/useDetail';
 
 export default function PostDetailPage() {
 
-
-
     const {
         postContents
     } = useDetail();
 
     return (
         <>
-            <PostDetailStyleComponent.MainWrapper>
+            <MainWrapper>
 
-                <PostDetailStyleComponent.BlogPost>
+                <BlogPost>
 
-                    <PostDetailStyleComponent.Container>
+                    <Container>
 
-                        <PostDetailStyleComponent.Header>
-                            <PostDetailStyleComponent.HeaderTitle>{postContents.post_title}</PostDetailStyleComponent.HeaderTitle>
-                            <PostDetailStyleComponent.HeaderMeta>
-                                <PostDetailStyleComponent.HeaderDate>{postContents.detail_updated}&nbsp;</PostDetailStyleComponent.HeaderDate>
-                                <PostDetailStyleComponent.HeaderTime>0 min read&nbsp;</PostDetailStyleComponent.HeaderTime>
-                                <PostDetailStyleComponent.HeaderComment>
-                                    <PostDetailStyleComponent.HeaderCommentLink to="/">0 comments&nbsp;</PostDetailStyleComponent.HeaderCommentLink>
-                                </PostDetailStyleComponent.HeaderComment>
-                            </PostDetailStyleComponent.HeaderMeta>
-                        </PostDetailStyleComponent.Header>
+                        <Header>
+                            <HeaderTitle>{postContents.post_title}</HeaderTitle>
+                            <HeaderMeta>
+                                <HeaderDate>{postContents.detail_updated}&nbsp;</HeaderDate>
+                                <HeaderTime>0 min read&nbsp;</HeaderTime>
+                                <HeaderComment>
+                                    <HeaderCommentLink to="/">0 comments&nbsp;</HeaderCommentLink>
+                                </HeaderComment>
+                            </HeaderMeta>
+                        </Header>
 
-                        <PostDetailStyleComponent.PostBody>
+                        <PostBody>
 
-                        <MarkdownRender
-                            markdownText={postContents.contents_text}
-                        />
+                            <MarkdownRender
+                                markdownText={postContents.contents_text}
+                            />
 
-                        </PostDetailStyleComponent.PostBody>
+                        </PostBody>
 
-                    </PostDetailStyleComponent.Container>
+                    </Container>
                     {/* <!--//container--> */}
-                </PostDetailStyleComponent.BlogPost>
+                </BlogPost>
 
-                <PostDetailStyleComponent.PromoSection>
-                    <PostDetailStyleComponent.PromoContainer>
-                        <PostDetailStyleComponent.PromoTitle>Promo Section Heading</PostDetailStyleComponent.PromoTitle>
-                        <PostDetailStyleComponent.PromoPtag>You can use this section to promote your side projects etc. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </PostDetailStyleComponent.PromoPtag>
-                        <PostDetailStyleComponent.PromoFigure>
-                            <PostDetailStyleComponent.PromoLink to="/">
-                                <PostDetailStyleComponent.PromoImage src="/assets/images/promo-banner.jpg" alt="" />
-                            </PostDetailStyleComponent.PromoLink>
-                        </PostDetailStyleComponent.PromoFigure>
-                    </PostDetailStyleComponent.PromoContainer>
+                <PromoSection>
+                    <PromoContainer>
+                        <PromoTitle>Promo Section Heading</PromoTitle>
+                        <PromoPtag>You can use this section to promote your side projects etc. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </PromoPtag>
+                        <PromoFigure>
+                            <PromoLink to="/">
+                                <PromoImage src="/assets/images/promo-banner.jpg" alt="" />
+                            </PromoLink>
+                        </PromoFigure>
+                    </PromoContainer>
                     {/* <!--//container--> */}
-                </PostDetailStyleComponent.PromoSection>
+                </PromoSection>
                 {/* <!--//promo-section--> */}
 
 
-            </PostDetailStyleComponent.MainWrapper>
+            </MainWrapper>
             {/* <!--//main-wrapper--> */}
         </>
     );

@@ -20,6 +20,7 @@ export const MainWrapper = styled.div`
 `
 
 export const ButtonLoadingStyled = styled.div`
+
     text-align: center;
     display: flex;
     justify-content: center;
@@ -27,6 +28,7 @@ export const ButtonLoadingStyled = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
 `
 
 export const ButtonLoadingBox = styled.div<PublishButtonPropsInterface>`

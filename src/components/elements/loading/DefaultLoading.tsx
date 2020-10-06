@@ -18,6 +18,6 @@ export default function DefaultLoading() {
                 color={"#123abc"}
                 loading={true}
             />
-      </div>
+        </div>
     );
 }
