@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     editorContentsInterface,
@@ -39,7 +39,6 @@ export default function useWrite() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const willMount = useRef(true);
 
     const params = useParams<RouteParams>();
 
