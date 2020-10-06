@@ -1,89 +1,128 @@
-import React, { useEffect } from 'react';
-import * as HeaderStyleComponent from "styles/Header";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import {
+    Header, BlogName, BlogNameLink, Nav, NavbarToggler, NavbarTogglerIcon, NavbarCollapse, ProfileSection, ProfileImage, Bio, SocialList, ListInlineItem,
+    SocialListLink, SocialListHr, NavbarNav, NavItem, NavItemLink, NavItemLinkTitle, GetInTouch, GetInTouchLink
+} from "styles/Header";
 import * as StyledIcons from 'styles/StyledIcons';
 import * as Helper from 'lib/Helper';
+import { useHistory } from 'react-router-dom';
+import { RootState } from 'modules';
 
 export default function HeaderComponent() {
 
+    const nowPathname = useSelector((state: RootState) => state.router.location.pathname);
+    const history = useHistory();
+    const [leftMenuHide, setLeftMenuHide] = useState<boolean>(false);
     const localstorage = Helper.getLocalToken();
 
+    // 왼쪽 깃헙 아이콘
     const handleClickGithubIcon = () => {
-        console.debug('handleClickGithubIcon');
-        // window.open('https://github.com/psmever','_blank','height=250,width=250');
         window.open('https://github.com/psmever', '_blank', 'noopener,noreferrer');
     }
 
+    // 왼쪽 페이스 북 아이콘.
     const handleClickSocialicon = () => {
-        console.debug('handleClickGithubIcon');
         window.open('https://www.facebook.com/park.sungmin.925', '_blank', 'noopener,noreferrer');
     }
 
-    const handleClickNavbarMiniButton = () => {
-        console.debug('handleClickNavbarMiniButton');
+    // 어바웃 메뉴 클릭.
+    const handleClickAboutMeLink = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/pages/about`
+        });
     }
+
+    // 홈 메뉴 클릭.
+    const handleClickHomeLink = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/`
+        });
+    }
+
+    // 글쓰기 메뉴 클릭.
+    const handleClickWritePageLink = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/admin/write`
+        });
+    }
+
+    // 상단 메뉴 버튼
+    const handleClickNavbarMiniButton = () => {
+        if(leftMenuHide === true) {
+            setLeftMenuHide(false);
+        } else {
+            setLeftMenuHide(true);
+        }
+    }
+
+    // 라우터 변경시 메뉴 닫기.
+    useEffect(() => {
+        setLeftMenuHide(false);
+    }, [nowPathname]);
 
     return (
         <>
-            <HeaderStyleComponent.Header>
-                <HeaderStyleComponent.BlogName><HeaderStyleComponent.BlogNameLink to="/">psmever's Blog</HeaderStyleComponent.BlogNameLink></HeaderStyleComponent.BlogName>
-                <HeaderStyleComponent.Nav>
-                    <HeaderStyleComponent.NavbarToggler type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" onClick={handleClickNavbarMiniButton}>
-                        <HeaderStyleComponent.NavbarTogglerIcon></HeaderStyleComponent.NavbarTogglerIcon>
-                    </HeaderStyleComponent.NavbarToggler>
+            <Header>
+                <BlogName><BlogNameLink to="/">psmever's Blog</BlogNameLink></BlogName>
+                <Nav>
+                    <NavbarToggler type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" onClick={handleClickNavbarMiniButton}>
+                        <NavbarTogglerIcon></NavbarTogglerIcon>
+                    </NavbarToggler>
 
-                    <HeaderStyleComponent.NavbarCollapse>
-                        <HeaderStyleComponent.ProfileSection>
-                            <HeaderStyleComponent.ProfileImage src="/assets/images/main_php.svg"/>
+                    <NavbarCollapse leftMenuView={leftMenuHide}>
+                        <ProfileSection>
+                            <ProfileImage src="/assets/images/main_php.svg"/>
 
-                            <HeaderStyleComponent.Bio>안녕 하세요.<br />< br/>PHP 를 좋아해서 PHP 개발을 하고 있는< br/>< br/> 박성민 입니다.< br/>< br/> 즐거운 하루 보내세요 ^^;;<br /></HeaderStyleComponent.Bio>
-                            <HeaderStyleComponent.SocialList>
-                                <HeaderStyleComponent.ListInlineItem>
-                                    <HeaderStyleComponent.SocialListLink onClick={handleClickSocialicon}>
+                            <Bio>안녕 하세요.<br />< br/>PHP 를 좋아해서 PHP 개발을 하고 있는< br/>< br/> 박성민 입니다.< br/>< br/> 즐거운 하루 보내세요 ^^;;<br /></Bio>
+                            <SocialList>
+                                <ListInlineItem>
+                                    <SocialListLink onClick={handleClickSocialicon}>
                                         <StyledIcons.FacebookIcon/>
-                                    </HeaderStyleComponent.SocialListLink>
-                                </HeaderStyleComponent.ListInlineItem>
-                                <HeaderStyleComponent.ListInlineItem>
-                                    <HeaderStyleComponent.SocialListLink onClick={handleClickGithubIcon}>
+                                    </SocialListLink>
+                                </ListInlineItem>
+                                <ListInlineItem>
+                                    <SocialListLink onClick={handleClickGithubIcon}>
                                         <StyledIcons.GithubIcon/>
-                                    </HeaderStyleComponent.SocialListLink>
-                                </HeaderStyleComponent.ListInlineItem>
-                            </HeaderStyleComponent.SocialList>
-                            <HeaderStyleComponent.SocialListHr />
-                        </HeaderStyleComponent.ProfileSection>
+                                    </SocialListLink>
+                                </ListInlineItem>
+                            </SocialList>
+                            <SocialListHr />
+                        </ProfileSection>
 
-                        <HeaderStyleComponent.NavbarNav>
-                            <HeaderStyleComponent.NavItem>
-                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/pages/about"}>
+                        <NavbarNav>
+                            <NavItem>
+                                <NavItemLink activeState={nowPathname === '/pages/about' && true} onClick={handleClickAboutMeLink}>
                                     <StyledIcons.AboutIcon /> About Me
-                                </HeaderStyleComponent.NavItemLink>
-                            </HeaderStyleComponent.NavItem>
-                            <HeaderStyleComponent.NavItem>
-                                <HeaderStyleComponent.NavItemLinkActive to={process.env.PUBLIC_URL + "/"}>
-                                    <StyledIcons.HomeIcon /> Blog Home <HeaderStyleComponent.NavItemLinkTitle>(current)</HeaderStyleComponent.NavItemLinkTitle>
-                                </HeaderStyleComponent.NavItemLinkActive>
-                            </HeaderStyleComponent.NavItem>
-                            {localstorage.login_state === true &&
-                            <HeaderStyleComponent.NavItem>
-                                <HeaderStyleComponent.NavItemLink to={process.env.PUBLIC_URL + "/admin/write"}>
+                                </NavItemLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavItemLink activeState={nowPathname === '/' && true} onClick={handleClickHomeLink}>
+                                    <StyledIcons.HomeIcon /> Blog Home <NavItemLinkTitle>(current)</NavItemLinkTitle>
+                                </NavItemLink>
+                            </NavItem>
+
+                        { localstorage.login_state === true &&
+                            <NavItem>
+                                <NavItemLink activeState={false} onClick={handleClickWritePageLink}>
                                     <StyledIcons.AboutIcon /> Write
-                                </HeaderStyleComponent.NavItemLink>
-                            </HeaderStyleComponent.NavItem>
-                            }
+                                </NavItemLink>
+                            </NavItem>
+                        }
 
-                        </HeaderStyleComponent.NavbarNav>
+                        </NavbarNav>
 
-                        <HeaderStyleComponent.GetInTouch>
+                        <GetInTouch>
                             {localstorage.login_state === true ?
-                                <HeaderStyleComponent.GetInTouchLink to={process.env.PUBLIC_URL + "/admin/logout"}>로그아웃</HeaderStyleComponent.GetInTouchLink>
+                                <GetInTouchLink to={process.env.PUBLIC_URL + "/admin/logout"}>로그아웃</GetInTouchLink>
 
-                                : <HeaderStyleComponent.GetInTouchLink to={process.env.PUBLIC_URL + "/admin/login"}>로그인</HeaderStyleComponent.GetInTouchLink>
+                                : <GetInTouchLink to={process.env.PUBLIC_URL + "/admin/login"}>로그인</GetInTouchLink>
                             }
+                        </GetInTouch>
 
-                        </HeaderStyleComponent.GetInTouch>
-
-                    </HeaderStyleComponent.NavbarCollapse>
-                </HeaderStyleComponent.Nav>
-            </HeaderStyleComponent.Header>
+                    </NavbarCollapse>
+                </Nav>
+            </Header>
         </>
     );
 }

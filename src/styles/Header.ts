@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
+interface headerLeftMenuInterface {
+    leftMenuView: boolean
+}
+
+interface headerNavItemLinkInterface {
+    activeState: boolean
+}
+
 export const Header = styled.header`
 
     @media (max-width: 991.98px) {
@@ -119,7 +127,7 @@ export const NavbarTogglerIcon = styled.span`
 
 `
 
-export const NavbarCollapse = styled.div`
+export const NavbarCollapse = styled.div<headerLeftMenuInterface>`
 
     @media (min-width: 992px){
         display: flex !important;
@@ -127,7 +135,13 @@ export const NavbarCollapse = styled.div`
     }
 
     @media (max-width: 991.98px){
-        display: none;
+        display: ${props => {
+            if (props.leftMenuView === true) {
+                return 'block';
+            } else {
+                return 'none';
+            }
+        }};
     }
 
     text-align: center !important;
@@ -254,8 +268,9 @@ export const NavItem = styled.li`
 
 `
 
-export const NavItemLinkActive = styled(Link)`
+export const NavItemLink = styled.div<headerNavItemLinkInterface>`
 
+    cursor: pointer;
     list-style: none;
     font-weight: bold;
     text-decoration: none;
@@ -264,21 +279,13 @@ export const NavItemLinkActive = styled(Link)`
     padding: 0.5rem 1rem;
     padding-right: 0.5rem;
     padding-left: 0.5rem;
-    color: rgba(0, 0, 0, 0.5);
-
-`
-
-export const NavItemLink = styled(Link)`
-
-    list-style: none;
-    font-weight: bold;
-    text-decoration: none;
-    background-color: transparent;
-    display: block;
-    padding: 0.5rem 1rem;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: ${props => {
+        if (props.activeState === true) {
+            return 'rgba(0, 0, 0, 0.5)';
+        } else {
+            return 'rgba(255, 255, 255, 0.8)';
+        }
+    }};
 
 `
 export const NavItemLinkTitle = styled.span`

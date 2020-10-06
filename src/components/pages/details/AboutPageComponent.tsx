@@ -1,16 +1,28 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import * as AboutStyleComponent from "styles/About";
 
 export default function AboutPage() {
+
+    const handleClickFrontSouce = () => {
+        window.open('https://github.com/psmever/blog.front', '_blank', 'noopener,noreferrer');
+    }
+
+    const handleClickBackendSource = () => {
+        window.open('https://github.com/psmever/blog.backend', '_blank', 'noopener,noreferrer');
+    }
+
     return (
         <>
             <AboutStyleComponent.MainWrapper>
 
                 <AboutStyleComponent.AboutSection>
                     <AboutStyleComponent.Container>
-                        <AboutStyleComponent.Title>민군은?</AboutStyleComponent.Title>
+                        <AboutStyleComponent.Title>민군은</AboutStyleComponent.Title>
 
                         <AboutStyleComponent.AboutFigure><AboutStyleComponent.AboutImage src="/assets/images/about/about-me-20201005.jpg" alt="" /></AboutStyleComponent.AboutFigure>
+                        <AboutStyleComponent.AboutContentsTitle>블러그</AboutStyleComponent.AboutContentsTitle>
+                        <AboutStyleComponent.AboutPTag><Link to='' onClick={handleClickFrontSouce}>Front-Source</Link> &nbsp; <Link to='' onClick={handleClickBackendSource}>Backend-Source</Link></AboutStyleComponent.AboutPTag>
                         <AboutStyleComponent.AboutContentsTitle>좋아하는것</AboutStyleComponent.AboutContentsTitle>
                         <AboutStyleComponent.AboutPTag>맥을 좋아하고, 맥을 사는것을 좋아하고(돈은 없음;;) 맥에 관해 대화(?) 하는것.. 해킨 커뮤니티가 없어지니 같이 대화할 사람이 없네...</AboutStyleComponent.AboutPTag>
                         <AboutStyleComponent.AboutPTag>php 를 좋아하고 php로 뭘 만들어 보는것</AboutStyleComponent.AboutPTag>
