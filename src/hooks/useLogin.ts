@@ -70,6 +70,8 @@ export default function useLogin() {
             addToast('이미 로그인이 되어 있습니다.', { appearance: 'info', autoDismiss: true });
             history.push(process.env.PUBLIC_URL + '/');
         }
+        // FIXME 2020-10-06 13:45 리팩토리.
+        // eslint-disable-next-line
     }, []);
 
     return {
