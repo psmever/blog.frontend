@@ -1,5 +1,12 @@
 import React,{ KeyboardEvent, useRef } from 'react';
-import * as AdminLoginStyleComponent from "styles/AdminLogin";
+import {
+    LoginWrapper,
+    LoginMain,
+    LoginTitle,
+    LoginUserName,
+    LoginPassword,
+    LoginButton,
+} from "styles/AdminLogin";
 import useLogin from 'hooks/useLogin';
 import { LoginButtonLoading } from 'components/elements';
 import { useSelector } from 'react-redux';
@@ -38,11 +45,11 @@ export default function LoginPage() {
 
     return (
         <>
-            <AdminLoginStyleComponent.LoginWrapper>
-                <AdminLoginStyleComponent.LoginMain>
-                    <AdminLoginStyleComponent.LoginTitle>psmever's Blog</AdminLoginStyleComponent.LoginTitle>
+            <LoginWrapper>
+                <LoginMain>
+                    <LoginTitle>psmever's Blog</LoginTitle>
 
-                    <AdminLoginStyleComponent.LoginUserName
+                    <LoginUserName
                         type="text"
                         name="u"
                         id="Email"
@@ -52,7 +59,7 @@ export default function LoginPage() {
                         onKeyPress={e => onEnter(e)}
                     />
 
-                    <AdminLoginStyleComponent.LoginPassword
+                    <LoginPassword
                         type="password"
                         name="p"
                         id="Password"
@@ -64,15 +71,15 @@ export default function LoginPage() {
                     />
                     {login_state.status === 'loading'
                         ? <LoginButtonLoading />
-                        : <AdminLoginStyleComponent.LoginButton
+                        : <LoginButton
                                 type="button"
                                 onClick={ () => _handleLoginButtonClick() }
                             >로그인.
-                        </AdminLoginStyleComponent.LoginButton>
+                        </LoginButton>
                     }
 
-                </AdminLoginStyleComponent.LoginMain>
-            </AdminLoginStyleComponent.LoginWrapper>
+                </LoginMain>
+            </LoginWrapper>
 
        </>
     );

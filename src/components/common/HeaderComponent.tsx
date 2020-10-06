@@ -4,7 +4,7 @@ import {
     Header, BlogName, BlogNameLink, Nav, NavbarToggler, NavbarTogglerIcon, NavbarCollapse, ProfileSection, ProfileImage, Bio, SocialList, ListInlineItem,
     SocialListLink, SocialListHr, NavbarNav, NavItem, NavItemLink, NavItemLinkTitle, GetInTouch, GetInTouchLink
 } from "styles/Header";
-import * as StyledIcons from 'styles/StyledIcons';
+import { FacebookIcon, GithubIcon, HomeIcon, AboutIcon } from 'styles/StyledIcons';
 import * as Helper from 'lib/Helper';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'modules';
@@ -78,12 +78,12 @@ export default function HeaderComponent() {
                             <SocialList>
                                 <ListInlineItem>
                                     <SocialListLink onClick={handleClickSocialicon}>
-                                        <StyledIcons.FacebookIcon/>
+                                        <FacebookIcon/>
                                     </SocialListLink>
                                 </ListInlineItem>
                                 <ListInlineItem>
                                     <SocialListLink onClick={handleClickGithubIcon}>
-                                        <StyledIcons.GithubIcon/>
+                                        <GithubIcon/>
                                     </SocialListLink>
                                 </ListInlineItem>
                             </SocialList>
@@ -93,19 +93,19 @@ export default function HeaderComponent() {
                         <NavbarNav>
                             <NavItem>
                                 <NavItemLink activeState={nowPathname === '/pages/about' && true} onClick={handleClickAboutMeLink}>
-                                    <StyledIcons.AboutIcon /> About Me
+                                    <AboutIcon /> About Me
                                 </NavItemLink>
                             </NavItem>
                             <NavItem>
                                 <NavItemLink activeState={nowPathname === '/' && true} onClick={handleClickHomeLink}>
-                                    <StyledIcons.HomeIcon /> Blog Home <NavItemLinkTitle>(current)</NavItemLinkTitle>
+                                    <HomeIcon /> Blog Home <NavItemLinkTitle>(current)</NavItemLinkTitle>
                                 </NavItemLink>
                             </NavItem>
 
                         { localstorage.login_state === true &&
                             <NavItem>
                                 <NavItemLink activeState={false} onClick={handleClickWritePageLink}>
-                                    <StyledIcons.AboutIcon /> Write
+                                    <AboutIcon /> Write
                                 </NavItemLink>
                             </NavItem>
                         }
