@@ -197,6 +197,15 @@ export const WriteTitle = styled.input`
     border-color: #c2c2c2;
     font-size: 1.9rem;
 
+    border:none;
+    border-right:0px;
+    border-top:0px;
+    border-left:0px;
+    border-bottom:0px;
+    &:focus {
+        outline:none;
+    }
+
 `
 
 

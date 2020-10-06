@@ -137,6 +137,7 @@ export default function useWrite() {
     // 에디트 모드일 경우 edit store 에서 내용을 가지오 와서 셋.
     useEffect(() => {
         if(post_edit_state.status === 'success' && post_edit_state.data !== undefined) {
+
             setEditorTitle(post_edit_state.data.post_title);
             setEditorCategoryThumb({value: post_edit_state.data.category_thumb.code_id, label: post_edit_state.data.category_thumb.code_name});
             setEditorTagContents(post_edit_state.data.tags.map((element: any) => {
@@ -150,6 +151,7 @@ export default function useWrite() {
                 text: post_edit_state.data.contents_text
             });
             dispatch(postEditResetAction());
+
         }
     }, [dispatch, post_edit_state]);
 
@@ -191,11 +193,11 @@ export default function useWrite() {
     }, [baseState]);
 
     useEffect(() => {
-        console.debug(willMount);
-        console.debug(history.location.state);
+        // console.debug(willMount);
+        // console.debug(history.location.state);
         // willMount.current = false;
         const localstorage = Helper.getLocalToken();
-        console.debug(localstorage);
+        // console.debug(localstorage);
         if(localstorage.login_state === null || localstorage.login_state === false) {
             _Alert_.error({text: '로그인한 사용자만 이용할수 있습니다.'});
             history.push({
@@ -208,6 +210,10 @@ export default function useWrite() {
         // FIXME 2020-10-06 13:45 리팩토리.
     // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        console.debug(editorTitle);
+    }, [editorTitle]);
 
     return {
         editorTitle,

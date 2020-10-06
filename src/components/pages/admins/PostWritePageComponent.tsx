@@ -20,6 +20,7 @@ import {
 } from "styles/PostWriter";
 
 import { ButtonLoading } from 'components/elements';
+import ReactMarkdown from "react-markdown";
 
 import hljs from 'highlight.js'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -82,8 +83,8 @@ const markdownEditorConfig = {
         html: true
     }
 }
-
 /** MarkDown Editor End */
+
 export default function WritePage() {
 
     const {
@@ -167,6 +168,10 @@ export default function WritePage() {
         _handleClickPublishButton();
     }
 
+    const markdownRenderText = (text: string) : string => {
+        return mdParser.render(editorTitle + text);
+    }
+
     // FIXME 2020-10-01 22:21  높이 스크롤 생기는 버그 수정.필요.
     return (
         <>
@@ -176,13 +181,6 @@ export default function WritePage() {
                         <Header>
                             {/* <HeaderTitle>글등록.</HeaderTitle> */}
                         </Header>
-                        <WriteTitleBox>
-                            <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
-                            <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요."
-                                value={editorTitle}
-                                onChange={ e => setEditorTitle(e.target.value) }
-                            />
-                        </WriteTitleBox>
 
                         <CategorySelectBox>
                             <DefaultSelectBox
@@ -192,6 +190,14 @@ export default function WritePage() {
                             />
                         </CategorySelectBox>
 
+                        <WriteTitleBox>
+                            <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
+                            <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요."
+                                value={editorTitle}
+                                onChange={ e => setEditorTitle(e.target.value) }
+                            />
+                        </WriteTitleBox>
+
                         <WriteTagBox>
                             <ReactTags tags={ editorTagContents }
                                 suggestions={editorTagSuggestions}
@@ -200,37 +206,38 @@ export default function WritePage() {
                                 handleDrag={handleTagDrag}
                                 delimiters={delimiters}
                                 handleTagClick={handleTagClick}
-                                placeholder={':::테그를 입력해 주세요:::'}
+                                placeholder={'테그를 입력해 주세요'}
                             />
                         </WriteTagBox>
                         <WriteBody>
                             <MdEditor
                                 plugins={[
                                     'header',
-                                    'font-bold',
-                                    'font-italic',
-                                    'font-underline',
-                                    'font-strikethrough',
-                                    'list-unordered',
-                                    'list-ordered',
-                                    'block-quote',
-                                    'block-wrap',
-                                    'block-code-inline',
-                                    'block-code-block',
-                                    'table',
-                                    'image',
-                                    'link',
-                                    'clear',
-                                    'logger',
-                                    'mode-toggle',
+                                    // 'font-bold',
+                                    // 'font-italic',
+                                    // 'font-underline',
+                                    // 'font-strikethrough',
+                                    // 'list-unordered',
+                                    // 'list-ordered',
+                                    // 'block-quote',
+                                    // 'block-wrap',
+                                    // 'block-code-inline',
+                                    // 'block-code-block',
+                                    // 'table',
+                                    // 'image',
+                                    // 'link',
+                                    // 'clear',
+                                    // 'logger',
+                                    // 'mode-toggle',
                                     // 'full-screen'
                                 ]}
-                                value={editorContents.text}
-                                style={{ height: "100%", width: "100%" }}
-                                renderHTML={(text) => mdParser.render(text)}
-                                onChange={handleEditorContentsChange}
-                                placeholder={"내용을 입력해 주세요."}
-                                config={markdownEditorConfig}
+                                value = { editorContents.text }
+                                style = {{ height: "100%", width: "100%" }}
+                                // renderHTML = {(text) => mdParser.render(editorTitle + text)}
+                                renderHTML={text => <ReactMarkdown source={editorTitle + text} />}
+                                onChange = {handleEditorContentsChange}
+                                placeholder = {"내용을 입력해 주세요."}
+                                config = {markdownEditorConfig}
                             />
                         </WriteBody>
                         <ButtonContainer>
