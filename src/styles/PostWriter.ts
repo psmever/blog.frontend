@@ -193,7 +193,7 @@ export const WriteTitle = styled.input`
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     padding-top: 0.875rem;
     padding-bottom: 0.875rem;
-    height: 4.75rem;
+    /* height: 4.75rem; */
     border-color: #c2c2c2;
     font-size: 1.9rem;
 
@@ -207,20 +207,114 @@ export const WriteTitle = styled.input`
     }
 
 `
+export const StyledApp = styled.div`
+	display: flex;
+	width: 100%;
+
+	div {
+		flex: 1;
+		padding: 8px;
+	}
+`;
+
+
+
+
+export const StyledEditor = styled.div`
+	/* background: #efefef; */
+`;
+
+export const StyledEditorTextArea = styled.textarea`
+    width: 100%;
+    /* padding: 5px; */
+    height: calc(100vh - 280px);
+    border-radius: 5px;
+    border: 1px solid #e2e2e2;
+`;
+
+
+
+export const StyledPreviewBox = styled.div`
+    min-width: 0px;
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: calc(100vh - 35px);
+    overflow-x:hidden;
+    overflow-y:scroll;
+
+`
+
+export const StyledPreviewTitle = styled.h1`
+    font-size: 2.5em;
+    margin-bottom: 4rem;
+    font-weight: 800;
+`
+
+
+export const StyledPreviewC3 = styled.div`
+    display: block;
+    font-size: 1.125rem;
+    color: rgb(34, 36, 38);
+    line-height: 1.7;
+    letter-spacing: -0.004em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export const WriteBody = styled.div`
 
     @media screen and (min-width: 769px) {
-        height: calc(100vh - 299px);
+        /* height: calc(100vh - 299px); */
     }
 
     @media screen and (min-device-width: 481px) and (max-device-width: 768px) {
-        height: calc(100vh - 183px);
+        /* height: calc(100vh - 183px); */
     }
 
     @media only screen and (max-device-width: 480px) {
-        height: calc(100vh - 183px);
+        /* height: calc(100vh - 183px); */
     }
 
     /* @media (min-width: 576px){
@@ -240,7 +334,7 @@ export const WriteBody = styled.div`
     color: #4f4f4f;
     box-sizing: border-box;
     /* position: relative; */
-    height: calc(100vh - 226px);
+    height: calc(100vh - 35px);
     display:block;
 
 `
@@ -270,34 +364,7 @@ export const ButtonContainer = styled.div`
     grid-template-rows: repeat(1);
     grid-gap: 1rem;
     grid-auto-flow: dense;
-    margin-top: 0.4rem;
-
-`
-
-export const ButtonBox = styled.div<PublishButtonPropsInterface>`
-
-    grid-column: ${props => {
-        if (props.buttonType === 'Home') {
-            return '1';
-        } else if (props.buttonType === 'Save') {
-            return '7';
-        } else if (props.buttonType === 'Publish') {
-            return '8';
-        }
-    }};
-
-    text-align: ${props => {
-        if (props.buttonType === 'Home') {
-            return 'left';
-        } else if (props.buttonType === 'Save') {
-            return 'right';
-        } else if (props.buttonType === 'Publish') {
-            return 'right';
-        }
-    }};
-
-
-    margin-left: 0.1rem;
+    /* margin-top: 0.4rem; */
 
 `
 
