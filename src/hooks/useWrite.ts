@@ -205,7 +205,8 @@ export default function useWrite() {
                 }
             });
         }
-
+        // FIXME 2020-10-06 13:45 리팩토리.
+    // eslint-disable-next-line
     }, []);
 
     return {

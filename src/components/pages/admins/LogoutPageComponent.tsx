@@ -11,8 +11,9 @@ export default function LogoutPage() {
     const logout_state = useSelector((state: RootState) => state.authenticate.logout.status);
 
     useEffect(() => {
-        console.debug('LogoutPage');
         dispatch(attemptLogoutAction());
+        // FIXME 2020-10-06 13:44  리팩토리
+        // eslint-disable-next-line
     }, []);
 
 
