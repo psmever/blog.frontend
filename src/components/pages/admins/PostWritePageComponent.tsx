@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { editorContentsInterface } from 'commonTypes';
 import useWrite from 'hooks/useWrite';
 import history from 'modules/History';
@@ -30,105 +30,22 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import './ReactTagStyle.css';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
+import ReactHtmlParser, { processNodes, convertNodeToElement, } from 'react-html-parser';
 
-const mardownText = `
-# Blog.Backend
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-### Git First Push.
-Use the package manager [composer](https://getcomposer.org/) to install foobar.
+import htmlReactParser from "html-react-parser";
 
-## Git Clone.
+const ReactMarkdownWithHtml = require("react-markdown");
 
-\`\`\`bash
-git clone https://github.com/psmever/blog.backend.git blog.backend
-\`\`\`
-
-## Git Clone (Single Branch).
-
-\`\`\`bash
-git clone -b develop --single-branch https://github.com/psmever/blog.backend.git
-\`\`\`
-
-## Composer.
-\`\`\`bash
-composer install
-
-\`\`\`
-
-## First Config.
-\`\`\`bash
-composer install
-cp .env.example .env
-\`\`\`
-
-## Local Develop Server.
-\`\`\`bash
-php artisan serve
-\`\`\`
-
-## Browser.
-\`\`\`bash
-http://127.0.0.1:8000 || http://localhost:8000/
-\`\`\`
-
-## Ex Site..
-\`\`\`bash
-repository-pattern
-https://medium.com/dev-genius/laravel-api-repository-pattern-make-your-code-more-structured-the-simple-guide-5b770da766d7
-
-deploy
-https://jeromejaglale.com/doc/php/laravel_github_webhook
-
-deploy - envoy
-https://github.com/appkr/envoy
-
-
-Rest-api-Response-Format
-https://github.com/cryptlex/rest-api-response-format
-
-\`\`\`
-
-## CustomException
-\`\`\`
-throw new \App\Exceptions\CustomException('Something Went Wrong.');
-
-\`\`\`
-
-## App Clear Script
-\`\`\`
-
-composer app:clear
-composer test:clear
-\`\`\`
-
-## Server Deploy
-\`\`\`
-> composer global require laravel/envoy
-
-envoy run deploy_prod
-envoy run deploy_stage
-
-\`\`\`
-
-## etc message
-github actions test
-\`\`\`
-
-SlackMessage notifications
-https://medium.com/@olayinka.omole/sending-slack-notifications-from-your-laravel-app-1bdb6e4e4127
-https://www.lesstif.com/php-and-laravel/sending-slack-notifications-from-laravel-36209045.html
-\`\`\`
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-`;
 
 export default function WritePage() {
+
+    // const parseHtml = htmlParser({
+    //     isValidNode: (node: any) => node.type !== 'script',
+    //     processingInstructions: [/* ... */]
+    //   })
 
     const KeyCodes = {
         comma: 188,
@@ -137,27 +54,17 @@ export default function WritePage() {
 
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-    const [markdown, setMarkdown] = useState(mardownText);
+    const [markdown, setMarkdown] = useState('');
 
     const {
         editorTitle,
         setEditorTitle,
         setEditorContents,
-        editorContents,
         editorTagContents,
         setEditorTagContents,
         editorTagSuggestions,
-        _handleEditorCategorySelectItem,
-
-        editorCategoryThumb,
-
         _handleClickSaveButton,
         _handleClickPublishButton,
-
-        post_create_state,
-        post_publish_state,
-
-        categoryThumbList
     } = useWrite();
 
     // 내용 수정시 데이터 업데이트
@@ -220,6 +127,37 @@ export default function WritePage() {
         _handleClickPublishButton();
     }
 
+    useEffect(() => {
+        console.debug(ReactHtmlParser(markdown));
+    }, [markdown]);
+
+
+    const onChangeContents = (contents: string) => {
+        // let _contents: string = '';
+        // // if (__ISMSIE__) {
+        //   if (contents.indexOf("<p><br></p>") > -1) {
+        //     _contents = contents.replace(/<p><br><\/p>/gi, "<p>&nbsp;</p>");
+        //   }
+        // // }
+        // console.debug(_contents);
+
+      };
+
+
+      const markdownTypesAllowed = [ 'text', 'strong', 'delete', 'emphasis', 'link' ];
+
+      const get_text_attr = (el: any) => {
+        if (el.type === 'some-tag') {
+          const text_attr =`<span>${el.props.text}</span>`;
+          return ReactHtmlParser(text_attr);
+        }
+        return '';
+     };
+
+     const parse = (el: any) => {
+         return get_text_attr(el) || el;
+     };
+
     // const markdownRenderText = (text: string) : string => {
     //     return mdParser.render(editorTitle + text);
     // }
@@ -237,27 +175,17 @@ export default function WritePage() {
                                     <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
                                     <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요." value={editorTitle} onChange={ e => setEditorTitle(e.target.value) } />
                                     <ReactTags tags={ editorTagContents } suggestions={editorTagSuggestions} handleDelete={handleTagDelete} handleAddition={handleTagAddition} handleDrag={handleTagDrag} delimiters={delimiters} handleTagClick={handleTagClick} placeholder={'테그를 입력해 주세요'}/>
-                                    <StyledEditorTextArea onChange={e => setMarkdown(e.target.value)} value={markdown} />
-
-
-<div className="sc-kafWEX eFDVNK">
-    <div className="sc-lhVmIH iWtevg"><button className="sc-jtRfpW kZfGaX"><svg stroke="currentColor" fill="currentColor"
-                stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
-            </svg><span>나가기</span></button>
-        <div className="sc-bYSBpT jTukdO"><button color="lightGray"
-                className="sc-dnqmqq fzKLng sc-elJkPf cDxJYR">임시저장</button><button color="teal"
-                className="sc-dnqmqq gzELJz sc-elJkPf cDxJYR">출간하기</button></div>
-    </div>
-</div>
+                                    {/* <ReactQuill theme="snow" value={markdown} onChange={onChangeContents}/> */}
+                                    <ReactQuill theme="snow" value={markdown} onChange={setMarkdown}/>
                                 </StyledEditor>
 
                                 <StyledPreviewBox>
-                                    <StyledPreviewTitle>하이</StyledPreviewTitle>
+                                    <StyledPreviewTitle>{editorTitle}</StyledPreviewTitle>
                                     <StyledPreviewC3>
-                                        <MarkdownRender
-                                            markdownText={mardownText}
-                                        />
+                                    {/* <ReactMarkdownWithHtml source={markdown} /> */}
+                                        <ReactMarkdownWithHtml source={ReactHtmlParser(markdown).map((el: any) => {
+          return parse(el);
+      })} allowedTypes={markdownTypesAllowed} unwrapDisallowed={true} />
                                     </StyledPreviewC3>
                                 </StyledPreviewBox>
 
