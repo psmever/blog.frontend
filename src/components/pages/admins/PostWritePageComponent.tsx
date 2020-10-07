@@ -1,204 +1,228 @@
-import React, { useState, useEffect } from 'react';
-import { editorContentsInterface } from 'commonTypes';
-import useWrite from 'hooks/useWrite';
-import history from 'modules/History';
-import { DefaultSelectBox } from 'components/elements';
+import React, {useState, useEffect, useRef} from 'react';
+
+import {
+    MarkdownEditor,
+    MarkdownRender
+} from 'components/elements';
+
 import {
     MainWrapper,
     BlogWrite,
     Container,
-    Header,
+    LeftEditorBox,
+    RightEditorPreviewBox,
     WriteTitleBox,
     WriteTitleLabel,
     WriteTitle,
-    CategorySelectBox,
-    WriteTagBox,
-    WriteBody,
-    PublishButton,
-    StyledApp,
-    StyledEditor,
-    StyledEditorTextArea,
-    StyledPreviewBox,
-    StyledPreviewC3,
+    TagBox,
+    EditorBox,
     StyledPreviewTitle,
-    ButtonContainer,
+    RightEditorPreviewContents,
 } from "styles/PostWriter";
-import { ButtonLoading } from 'components/elements';
-import { MarkdownRender } from 'components/elements';
-// https://stackblitz.com/edit/react-tag-input-1nelrc?file=index.js
+
+import useWrite from 'hooks/useWrite';
+
 import { WithContext as ReactTags } from 'react-tag-input';
 import './ReactTagStyle.css';
-import styled from 'styled-components';
-import ReactMarkdown from 'react-markdown';
-import ReactHtmlParser, { processNodes, convertNodeToElement, } from 'react-html-parser';
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
-import htmlReactParser from "html-react-parser";
+const KeyCodes = {
+    comma: 188,
+    enter: 13,
+};
 
-const ReactMarkdownWithHtml = require("react-markdown");
+
+
+const mardownText = `
+# Blog.Backend
+
+![image](https://picsum.photos/300)
+
+### Git First Push.
+Use the package manager [composer](https://getcomposer.org/) to install foobar.
+
+## Git Clone.
+
+\`\`\`bash
+git clone https://github.com/psmever/blog.backend.git blog.backend
+\`\`\`
+
+## Git Clone (Single Branch).
+
+\`\`\`bash
+git clone -b develop --single-branch https://github.com/psmever/blog.backend.git
+\`\`\`
+
+## Composer.
+\`\`\`bash
+composer install
+
+\`\`\`
+
+## First Config.
+\`\`\`bash
+composer install
+cp .env.example .env
+\`\`\`
+
+## Local Develop Server.
+\`\`\`bash
+php artisan serve
+\`\`\`
+
+## Browser.
+\`\`\`bash
+http://127.0.0.1:8000 || http://localhost:8000/
+\`\`\`
+
+## Ex Site..
+\`\`\`bash
+repository-pattern
+https://medium.com/dev-genius/laravel-api-repository-pattern-make-your-code-more-structured-the-simple-guide-5b770da766d7
+
+deploy
+https://jeromejaglale.com/doc/php/laravel_github_webhook
+
+deploy - envoy
+https://github.com/appkr/envoy
+
+
+Rest-api-Response-Format
+https://github.com/cryptlex/rest-api-response-format
+
+\`\`\`
+
+## CustomException
+\`\`\`
+throw new AppExceptionsCustomException('Something Went Wrong.');
+
+\`\`\`
+
+## App Clear Script
+\`\`\`
+
+composer app:clear
+composer test:clear
+\`\`\`
+
+## Server Deploy
+\`\`\`
+> composer global require laravel/envoy
+
+envoy run deploy_prod
+envoy run deploy_stage
+
+\`\`\`
+
+## etc message
+github actions test
+\`\`\`
+
+SlackMessage notifications
+https://medium.com/@olayinka.omole/sending-slack-notifications-from-your-laravel-app-1bdb6e4e4127
+https://www.lesstif.com/php-and-laravel/sending-slack-notifications-from-laravel-36209045.html
+\`\`\`
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+`;
 
 
 export default function WritePage() {
-
-    // const parseHtml = htmlParser({
-    //     isValidNode: (node: any) => node.type !== 'script',
-    //     processingInstructions: [/* ... */]
-    //   })
-
-    const KeyCodes = {
-        comma: 188,
-        enter: 13,
-    };
-
-    const delimiters = [KeyCodes.comma, KeyCodes.enter];
-
-    const [markdown, setMarkdown] = useState('');
-
     const {
-        editorTitle,
-        setEditorTitle,
-        setEditorContents,
         editorTagContents,
         setEditorTagContents,
         editorTagSuggestions,
-        _handleClickSaveButton,
-        _handleClickPublishButton,
     } = useWrite();
 
-    // 내용 수정시 데이터 업데이트
-    const handleEditorContentsChange = ({html, text}: editorContentsInterface) => {
-        setEditorContents({
-            html: html,
-            text: text
-        })
-    }
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    // 테그 삭제.
     const handleTagDelete = (e: any) => {
         setEditorTagContents(editorTagContents.filter((tag, index) => index !== e))
     }
 
-    // 테그 추가.
-    const handleTagAddition = (e: any) => {
-        setEditorTagContents([
-            ...editorTagContents,
-            e
-        ]);
-    }
+    const delimiters = [KeyCodes.comma, KeyCodes.enter];
+        // 테그 추가.
+        const handleTagAddition = (e: any) => {
+            setEditorTagContents([
+                ...editorTagContents,
+                e
+            ]);
+        }
 
-    // 테그 드레그 이벤트
-    const handleTagDrag = (tag: any, currPos: any, newPos:any) => {
-        console.debug({
-            tag:tag,
-            currPos:currPos,
-            newPos:newPos,
-        });
+        // 테그 드레그 이벤트
+        const handleTagDrag = (tag: any, currPos: any, newPos:any) => {
+            console.debug({
+                tag:tag,
+                currPos:currPos,
+                newPos:newPos,
+            });
 
-        const tags = [...editorTagContents];
-        const newTags = tags.slice();
+            const tags = [...editorTagContents];
+            const newTags = tags.slice();
 
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
+            newTags.splice(currPos, 1);
+            newTags.splice(newPos, 0, tag);
 
-        setEditorTagContents(newTags);
+            setEditorTagContents(newTags);
 
-    }
+        }
 
-    // 테그 클릭 이벤트
-    const handleTagClick = (e: any) => {
-        console.debug("TagClick : ",editorTagContents[e]);
-    }
+        // 테그 클릭 이벤트
+        const handleTagClick = (e: any) => {
+            console.debug("TagClick : ",editorTagContents[e]);
+        }
 
-    // 홈으로 이동 버튼 클릭 이벤트
-    const handleHomeButtonClick = () => {
-        history.push(process.env.PUBLIC_URL + '/');
-    }
-
-    // 저장 버튼 클릭 이벤트
-    const handleSaveButtonClick = () => {
-        _handleClickSaveButton();
-
-    }
-
-    // 게시 버튼 클릭 이벤트
-    const handlePublishButtonClick = () => {
-        _handleClickPublishButton();
-    }
 
     useEffect(() => {
-        console.debug(ReactHtmlParser(markdown));
-    }, [markdown]);
+        console.debug(inputRef.current?.clientHeight);
+      }, []);
 
 
-    const onChangeContents = (contents: string) => {
-        // let _contents: string = '';
-        // // if (__ISMSIE__) {
-        //   if (contents.indexOf("<p><br></p>") > -1) {
-        //     _contents = contents.replace(/<p><br><\/p>/gi, "<p>&nbsp;</p>");
-        //   }
-        // // }
-        // console.debug(_contents);
-
-      };
 
 
-      const markdownTypesAllowed = [ 'text', 'strong', 'delete', 'emphasis', 'link' ];
-
-      const get_text_attr = (el: any) => {
-        if (el.type === 'some-tag') {
-          const text_attr =`<span>${el.props.text}</span>`;
-          return ReactHtmlParser(text_attr);
-        }
-        return '';
-     };
-
-     const parse = (el: any) => {
-         return get_text_attr(el) || el;
-     };
-
-    // const markdownRenderText = (text: string) : string => {
-    //     return mdParser.render(editorTitle + text);
-    // }
-
-    // FIXME 2020-10-01 22:21  높이 스크롤 생기는 버그 수정.필요.
-    // https://codesandbox.io/s/nwm83w9y1l?file=/src/styles.css:0-91
     return (
         <>
             <MainWrapper>
                 <BlogWrite>
                     <Container>
-                        <WriteBody>
-                            <StyledApp>
-                                <StyledEditor>
-                                    <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
-                                    <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요." value={editorTitle} onChange={ e => setEditorTitle(e.target.value) } />
-                                    <ReactTags tags={ editorTagContents } suggestions={editorTagSuggestions} handleDelete={handleTagDelete} handleAddition={handleTagAddition} handleDrag={handleTagDrag} delimiters={delimiters} handleTagClick={handleTagClick} placeholder={'테그를 입력해 주세요'}/>
-                                    {/* <ReactQuill theme="snow" value={markdown} onChange={onChangeContents}/> */}
-                                    <ReactQuill theme="snow" value={markdown} onChange={setMarkdown}/>
-                                </StyledEditor>
-
-                                <StyledPreviewBox>
-                                    <StyledPreviewTitle>{editorTitle}</StyledPreviewTitle>
-                                    <StyledPreviewC3>
-                                    {/* <ReactMarkdownWithHtml source={markdown} /> */}
-                                        <ReactMarkdownWithHtml source={ReactHtmlParser(markdown).map((el: any) => {
-          return parse(el);
-      })} allowedTypes={markdownTypesAllowed} unwrapDisallowed={true} />
-                                    </StyledPreviewC3>
-                                </StyledPreviewBox>
-
-                            </StyledApp>
-
-                        </WriteBody>
-
+                        <LeftEditorBox ref={inputRef}>
+                            <WriteTitleBox>
+                                <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
+                                <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요."
+                                    value="Editor Title"
+                                    onChange={ e => console.debug(e) }
+                                />
+                            </WriteTitleBox>
+                            <TagBox>
+                                <ReactTags tags={ editorTagContents }
+                                    suggestions={editorTagSuggestions}
+                                    handleDelete={handleTagDelete}
+                                    handleAddition={handleTagAddition}
+                                    handleDrag={handleTagDrag}
+                                    delimiters={delimiters}
+                                    handleTagClick={handleTagClick}
+                                    placeholder={'테그를 입력해 주세요'}
+                                />
+                            </TagBox>
+                            <EditorBox>
+                                <MarkdownEditor/>
+                            </EditorBox>
+                        </LeftEditorBox>
+                        <RightEditorPreviewBox>
+                            <StyledPreviewTitle>Title</StyledPreviewTitle>
+                            <RightEditorPreviewContents>
+                                <MarkdownRender markdownText={mardownText}/>
+                            </RightEditorPreviewContents>
+                        </RightEditorPreviewBox>
                     </Container>
-                    {/* <!--//container--> */}
                 </BlogWrite>
             </MainWrapper>
-            {/* <!--//main-wrapper--> */}
         </>
-
     );
 }
