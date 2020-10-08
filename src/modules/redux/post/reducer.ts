@@ -5,6 +5,7 @@ import {
     apiPostCreateResultInterface,
     apiPostEditResultInterface,
     apiPostDetailResultInterface,
+    apiResultErrirInterface,
 } from 'commonTypes';
 import { SagaTypes, SagaAction } from 'modules/reduxActiontTypes';
 
@@ -47,12 +48,12 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             }
         };
     },
-    [SagaTypes.POST_CREATE_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<apiPostCreateResultInterface>) => {
+    [SagaTypes.POST_CREATE_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<apiResultErrirInterface>) => {
         return {
             ...state,
             create: {
                 status: 'failure',
-                message: action.message,
+                message: action.payload.message,
             }
         };
     },
