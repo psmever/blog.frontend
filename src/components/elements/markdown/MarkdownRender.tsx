@@ -38,7 +38,8 @@ export default function MarkdownRender({markdownText} : MarkdownRenderPros) {
     return (
         <div className='markdown-body'>
             <ReactMarkdown
-                // escapeHtml={true}
+                escapeHtml={true}
+                skipHtml={false}
                 source={markdownText}
                 renderers={{ code: CodeBlock }}
             />

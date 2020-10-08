@@ -54,7 +54,6 @@ export default function useDetail() {
     const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
 
     useEffect(() => {
-        console.debug('useDetail start');
         dispatch(postDetailAction(params.slug_title));
     // FIXME 2020-10-05 01:14  경고 disable 수정 필요.
     // eslint-disable-next-line

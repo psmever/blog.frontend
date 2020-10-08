@@ -233,7 +233,6 @@ declare module 'commonTypes' {
     // 글등록 인터페이스.
     export interface postRequestInterface {
         title: string | undefined
-        category_thumb: string | undefined
         tags: postTagsRequestInterface | undefined
         contents: {
             html: string | undefined

@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    editorContentsInterface,
     editorTagInterface,
-    defaultSelectBoxInterface,
-    defaultSelectBoxItems,
     postRequestInterface,
-    basicCodeItem,
 } from 'commonTypes';
 import {
     postCreateAction,
@@ -26,7 +22,6 @@ import * as Helper from 'lib/Helper';
 import { useHistory } from 'react-router-dom';
 import * as _ from "lodash";
 
-
 interface RouteParams {
     post_uuid: string;
 }
@@ -43,23 +38,18 @@ export default function useWrite() {
     const params = useParams<RouteParams>();
 
     // TODO 2020-09-28 21:22  스테이트명 정리.
-    const baseState = useSelector((state: RootState) => state.base);
     const post_create_state = useSelector((state: RootState) => state.post.create);
     const post_edit_state = useSelector((state: RootState) => state.post.edit);
     const post_update_state = useSelector((state: RootState) => state.post.update);
     const post_publish_state = useSelector((state: RootState) => state.post.publish);
 
     const [ editorTitle, setEditorTitle] = useState<string>('');
+    const [ editorContents, setEditorContents] = useState<string>('');
 
-    const [ editorContents, setEditorContents ] = useState<editorContentsInterface>({
-        html: '',
-        text: ''
-    });
-
-    // 리스트 이미지용 카테고리 select box options
-    const [ categoryThumbList, setCategoryThumbList ] = useState<defaultSelectBoxInterface>([
-        { value: '', label: '' }
-    ]);
+    // const [ editorContents, setEditorContents ] = useState<editorContentsInterface>({
+    //     html: '',
+    //     text: ''
+    // });
 
     // 글 쓰기 테그.
     const [ editorTagContents, setEditorTagContents ] = useState<editorTagInterface>([]);
@@ -73,20 +63,16 @@ export default function useWrite() {
         { id: 'PHP', text: 'PHP' },
     ]);
 
-    const [ editorCategoryThumb, setEditorCategoryThumb ] = useState<defaultSelectBoxItems>({value: 'S05000', label: 'blog-default' });
-
-
-    const _handleEditorCategorySelectItem = (selectitem:defaultSelectBoxItems ) => {
-        setEditorCategoryThumb(selectitem)
-    }
-
     // 글 저장 및 업데이트
-    const _handleClickSaveButton = () => {
+    const handleClickSaveButton = () => {
         const dataObject : postRequestInterface = {
             title: editorTitle,
-            category_thumb: editorCategoryThumb.value,
             tags: editorTagContents.map(({ id, text }) => ({ tag_id: id, tag_text: text })),
-            contents: editorContents
+            contents: {
+                html : editorContents,
+                text : editorContents
+            }
+
         };
         // post_uuid 가 있을경우 update saga 호출.
         if(params.post_uuid && !_.isUndefined(params.post_uuid)) {
@@ -96,20 +82,28 @@ export default function useWrite() {
         }
     }
 
+    const handleEditorContents = (contents: string) => {
+        setEditorContents(contents);
+    }
+
     // 게시 버튼 클릭
-    const _handleClickPublishButton = () => {
+    const handleClickPublishButton = () => {
         if(params.post_uuid && !_.isUndefined(params.post_uuid)) {
             dispatch(postPublishAction({post_uuid: params.post_uuid}));
         }
     }
 
+    // 나가기 버튼.
+    const handleClickExitButton = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/`,
+        });
+    }
+
     // 최초엔 내용들 초기화.
     useEffect(() => {
         setEditorTitle('');
-        setEditorContents({
-            html: '',
-            text: ''
-        });
+        setEditorContents('');
         setEditorTagContents([]);
     }, []);
 
@@ -121,7 +115,7 @@ export default function useWrite() {
         } else if(post_create_state.status === 'success') {
             // 저장 성공 했을때.
             setEditorTitle('');
-            setEditorContents({ html: '', text: '' });
+            setEditorContents('');
             setEditorTagContents([]);
 
             // 스테이트 리셋.
@@ -138,17 +132,13 @@ export default function useWrite() {
         if(post_edit_state.status === 'success' && post_edit_state.data !== undefined) {
 
             setEditorTitle(post_edit_state.data.post_title);
-            setEditorCategoryThumb({value: post_edit_state.data.category_thumb.code_id, label: post_edit_state.data.category_thumb.code_name});
             setEditorTagContents(post_edit_state.data.tags.map((element: any) => {
                 return {
                     id: element.tag_id,
                     text: element.tag_text
                 }
             }));
-            setEditorContents({
-                html: post_edit_state.data.contents_html,
-                text: post_edit_state.data.contents_text
-            });
+            setEditorContents(post_edit_state.data.contents_text);
             dispatch(postEditResetAction());
 
         }
@@ -181,17 +171,6 @@ export default function useWrite() {
     }, [dispatch, post_update_state]);
 
     useEffect(() => {
-        if(baseState.status === 'success') {
-            setCategoryThumbList(baseState.codes?.code_group.S05.map((e: basicCodeItem) => {
-                return {
-                    value: e.code_id,
-                    label: e.code_name
-                }
-            }));
-        }
-    }, [baseState]);
-
-    useEffect(() => {
         // console.debug(willMount);
         // console.debug(history.location.state);
         // willMount.current = false;
@@ -211,27 +190,25 @@ export default function useWrite() {
     }, []);
 
     useEffect(() => {
-        console.debug(editorTitle);
-    }, [editorTitle]);
+        // console.debug(typeof editorContents);
+        // console.debug(editorContents);
+    }, [editorContents]);
 
     return {
         editorTitle,
         setEditorTitle,
-        setEditorContents,
         editorContents,
+        handleEditorContents,
         editorTagContents,
         setEditorTagContents,
         editorTagSuggestions,
         setEditorTagSuggestions,
-        _handleEditorCategorySelectItem,
-        editorCategoryThumb,
 
-        _handleClickSaveButton,
-        _handleClickPublishButton,
+        handleClickExitButton,
+        handleClickSaveButton,
+        handleClickPublishButton,
 
         post_create_state,
         post_publish_state,
-
-        categoryThumbList,
     };
 }

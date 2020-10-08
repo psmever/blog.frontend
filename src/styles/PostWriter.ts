@@ -1,7 +1,12 @@
 import styled from 'styled-components';
-import { PublishButtonPropsInterface } from 'commonTypes';
 
 export const LeftEditorBox = styled.div`
+
+    @media (max-width: 1161px){
+        width: 100%;
+    }
+
+
     height: 100%;
     width: 50%;
     position: fixed;
@@ -14,6 +19,11 @@ export const LeftEditorBox = styled.div`
 `
 
 export const RightEditorPreviewBox = styled.div`
+
+    @media (max-width: 1161px){
+        display: none;
+    }
+
     height: 100%;
     width: 50%;
     position: fixed;
@@ -81,7 +91,7 @@ export const TagBox = styled.div`
         align-items: center;
     }
 
-    text-align: center !important;
+    text-align: left !important;
     box-sizing: border-box;
     margin-bottom: 1.5rem;
     padding: 0.375rem 0.75rem;
@@ -153,7 +163,6 @@ export const Container = styled.div`
 
 `
 
-
 export const WriteTitleBox = styled.div`
 
     @media (max-width: 767.98px) {
@@ -215,4 +224,26 @@ export const WriteTitleLabel = styled.label`
     white-space: nowrap;
     border: 0;
 
+`
+
+export const WriteButtonBox = styled.div`
+
+    @media (max-width: 767.98px) {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 576px) {
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    text-align: center !important;
+    box-sizing: border-box;
+`
+
+export const WriteButtonInner = styled.div`
+    margin: 0px 5px 0px 0px;
 `
