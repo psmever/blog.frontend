@@ -82,6 +82,7 @@ export default function useWrite() {
         }
     }
 
+    // 에디터 내용 업데이트
     const handleEditorContents = (contents: string) => {
         setEditorContents(contents);
     }
@@ -185,14 +186,9 @@ export default function useWrite() {
                 }
             });
         }
-        // FIXME 2020-10-06 13:45 리팩토리.
+    // FIXME 2020-10-06 13:45 리팩토리.
     // eslint-disable-next-line
     }, []);
-
-    useEffect(() => {
-        // console.debug(typeof editorContents);
-        // console.debug(editorContents);
-    }, [editorContents]);
 
     return {
         editorTitle,

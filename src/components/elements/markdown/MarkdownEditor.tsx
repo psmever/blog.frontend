@@ -7,11 +7,14 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 interface MarkdownEditorPros {
     EditorContents : string
     EditorContentsHandler : ( contents: string ) => void
+    EditorHeight: any
 }
 
 export default function MarkdownEditor({
     EditorContents,
-    EditorContentsHandler
+    EditorContentsHandler,
+    EditorHeight = 1000
+
 } : MarkdownEditorPros) {
 
     const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
@@ -76,33 +79,41 @@ export default function MarkdownEditor({
         // console.debug(EditorContents);
     }, [EditorContents]);
 
+
+    useEffect(() => {
+
+    }, [EditorHeight]);
+
     return (
-        <div className="container" style={{width:'100%'}}>
-            <ReactMde
-                minEditorHeight={1265-600}
-                maxEditorHeight={1000}
-                value={EditorContents}
-                onChange={EditorContentsHandler}
-                selectedTab={selectedTab}
-                onTabChange={setSelectedTab}
-                generateMarkdownPreview={markdown =>
-                    Promise.resolve(converter.makeHtml(markdown))
-                }
-                loadSuggestions={loadSuggestions}
-                childProps={{
-                    writeButton: {
-                        tabIndex: -1
-                    },
-                    textArea: {
-                        onKeyDown: (e) => {
-                            // FIXME 2020-10-08 13:17  TABLE 키 개선(?)
+        <div className="container" style={{width:'100%'}} key={EditorHeight}>
+            {EditorHeight > 0 &&
+                <ReactMde
+                    minEditorHeight={EditorHeight-300}
+                    maxEditorHeight={1000}
+                    value={EditorContents}
+                    onChange={EditorContentsHandler}
+                    selectedTab={selectedTab}
+                    onTabChange={setSelectedTab}
+                    generateMarkdownPreview={markdown =>
+                        Promise.resolve(converter.makeHtml(markdown))
+                    }
+                    loadSuggestions={loadSuggestions}
+                    childProps={{
+                        writeButton: {
+                            tabIndex: -1
+                        },
+                        textArea: {
+                            onKeyDown: (e) => {
+                                // FIXME 2020-10-08 13:17  TABLE 키 개선(?)
+                            }
                         }
-                      }
-                }}
-                paste={{
-                    saveImage: save
-                }}
-            />
+                    }}
+                    paste={{
+                        saveImage: save
+                    }}
+                />
+            }
+
         </div>
     );
 }

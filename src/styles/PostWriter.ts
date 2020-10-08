@@ -181,30 +181,6 @@ export const WriteTitleBox = styled.div`
     box-sizing: border-box;
 `
 
-
-
-export const EditorBox = styled.div`
-
-    @media (max-width: 767.98px) {
-        width: 100%;
-        /* margin-bottom: 0.5rem; */
-    }
-
-    @media (min-width: 576px) {
-        display: flex;
-        flex: 0 0 auto;
-        flex-flow: row wrap;
-        align-items: center;
-    }
-
-    width: 100%;
-    max-width:100%;
-    text-align: center !important;
-    box-sizing: border-box;
-    margin-bottom: 1.5rem;
-    padding: 0.375rem 0.75rem;
-
-`
 export const WriteTitleLabel = styled.label`
 
     @media (min-width: 576px){
@@ -226,6 +202,28 @@ export const WriteTitleLabel = styled.label`
 
 `
 
+export const EditorBox = styled.div`
+
+    @media (max-width: 767.98px) {
+        width: 100%;
+        /* margin-bottom: 0.5rem; */
+    }
+
+    @media (min-width: 576px) {
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    width: 100%;
+    max-width:100%;
+    text-align: center !important;
+    box-sizing: border-box;
+    padding: 0.375rem 0.75rem;
+
+`
+
 export const WriteButtonBox = styled.div`
 
     @media (max-width: 767.98px) {
@@ -242,6 +240,7 @@ export const WriteButtonBox = styled.div`
 
     text-align: center !important;
     box-sizing: border-box;
+    padding: 0.375rem 0.75rem;
 `
 
 export const WriteButtonInner = styled.div`

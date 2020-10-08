@@ -26,6 +26,11 @@ declare module 'commonTypes' {
         codes : baseDataCodeListInterface
     }
 
+    // 리덕스 사가 에러 메지시 인터페이스.
+    export interface apiResultErrirInterface {
+        message : string
+    }
+
     // 글 저장
     export interface apiPostCreateResultInterface {
         post_uuid: string

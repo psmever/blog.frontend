@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
 
 import {
     MarkdownEditor,
@@ -35,6 +35,37 @@ const KeyCodes = {
 };
 
 
+// Hook
+function useDimensions(targetRef: any) {
+    const getDimensions = () => {
+      return {
+        width: targetRef.current ? targetRef.current.offsetWidth : 0,
+        height: targetRef.current ? targetRef.current.offsetHeight : 0
+      };
+    };
+
+    const [dimensions, setDimensions] = useState(getDimensions);
+
+    const handleResize = () => {
+      setDimensions(getDimensions());
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    // FIXME 2020-10-08 18:24  esline 경고.
+    // eslint-disable-next-line
+    }, []);
+
+    useLayoutEffect(() => {
+        handleResize();
+
+    // FIXME 2020-10-08 18:24  esline 경고.
+    // eslint-disable-next-line
+    }, []);
+    return dimensions;
+  }
+
 export default function WritePage() {
     const {
         editorTitle,
@@ -52,6 +83,7 @@ export default function WritePage() {
         setEditorTagContents,
         editorTagSuggestions,
     } = useWrite();
+
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -88,9 +120,7 @@ export default function WritePage() {
         console.debug("TagClick : ",editorTagContents[e]);
     }
 
-    // useEffect(() => {
-    //     console.debug(inputRef.current?.clientHeight);
-    // }, []);
+    const size = useDimensions(inputRef);
 
     return (
         <>
@@ -120,6 +150,7 @@ export default function WritePage() {
                                 <MarkdownEditor
                                     EditorContents={editorContents}
                                     EditorContentsHandler={handleEditorContents}
+                                    EditorHeight={size.height}
                                 />
                             </EditorBox>
                             <WriteButtonBox>
