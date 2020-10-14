@@ -238,7 +238,7 @@ export const SocialListLink = styled.div`
     text-decoration: none;
     width: 32px;
     height: 32px;
-    padding-top: 5px;
+    padding-top: 1px;
     display: inline-block;
     text-align: center;
     border-radius: 50%;
