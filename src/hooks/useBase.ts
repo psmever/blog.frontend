@@ -42,7 +42,7 @@ export default function useBase() {
 
     const dispatch = useDispatch();
     const baseResuxState = useSelector((state: RootState) => state.base.status);
-    const [ baseLoading, setBaseLoading ] = useState<boolean>(false);
+    const [ baseLoading, setBaseLoading ] = useState<'yet' | true | 'success'>('yet');
 
     // 서버 상태 체크.
     const checkServerStatus = () => {
@@ -96,13 +96,19 @@ export default function useBase() {
     useEffect(() => {
         const baseStatus = BaseResuxState()
         if(baseStatus === 'success') {
-            setBaseLoading(false);
+            setBaseLoading('success');
             Helper.COLORLOG(':: App Check End ::', 'info');
         } else if(baseStatus === 'failure') {
             // FIXME Base Data 가지고 오기 실패 하면 어떻게 할껀지?
             Helper.COLORLOG(':: App Start Fail(002) ::', 'error');
         }
     }, [BaseResuxState]);
+
+    useEffect(() => {
+        startServerCheck();
+    // FIXME 2020-09-26 18:21 경고 수정필요.
+    // eslint-disable-next-line
+    }, []);
 
     return {
         startServerCheck,
