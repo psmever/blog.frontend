@@ -144,6 +144,34 @@ export const HeaderCommentLink = styled(Link)`
 
 `
 
+export const HeaderModify = styled.span`
+
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    color: #8f8f8f;
+    font-size: 0.8125rem;
+    box-sizing: border-box;
+    display: inline-block;
+
+`
+
+export const HeaderModifyLink = styled.div`
+    cursor: pointer;
+    font-weight: bolder;
+    line-height: 1.5;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    font-size: 0.8125rem;
+    box-sizing: border-box;
+    text-decoration: none;
+    background-color: transparent;
+    color: #8f8f8f;
+
+`
+
+
 export const PostBody = styled.div`
 
     font-size: 1rem;
