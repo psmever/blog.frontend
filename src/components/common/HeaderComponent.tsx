@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import {HeartIcon} from 'styles/StyledIcons';
 import {
     Header, BlogName, BlogNameLink, Nav, NavbarToggler, NavbarTogglerIcon, NavbarCollapse, ProfileSection, ProfileImage, Bio, SocialList, ListInlineItem,
-    SocialListLink, SocialListHr, NavbarNav, NavItem, NavItemLink, NavItemLinkTitle, GetInTouch, GetInTouchLink
+    SocialListLink, SocialListHr, NavbarNav, NavItem, NavItemLink, NavItemLinkTitle, GetInTouch, GetInTouchLink, CopyrightBox, Copyright
 } from "styles/Header";
 import { FacebookIcon, GithubIcon, HomeIcon, AboutIcon } from 'styles/StyledIcons';
 import * as Helper from 'lib/Helper';
@@ -94,13 +96,13 @@ export default function HeaderComponent() {
 
                             <NavItem>
                                 <NavItemLink activeState={nowPathname === '/' && true} onClick={handleClickHomeLink}>
-                                    <HomeIcon /> Blog Home <NavItemLinkTitle>(current)</NavItemLinkTitle>
+                                    <HomeIcon /> Home <NavItemLinkTitle>(current)</NavItemLinkTitle>
                                 </NavItemLink>
                             </NavItem>
 
                             <NavItem>
                                 <NavItemLink activeState={nowPathname === '/pages/about' && true} onClick={handleClickAboutMeLink}>
-                                    <AboutIcon /> About Me
+                                    <AboutIcon /> 민군은
                                 </NavItemLink>
                             </NavItem>
 
@@ -126,6 +128,14 @@ export default function HeaderComponent() {
 
                     </NavbarCollapse>
                 </Nav>
+                <CopyrightBox>
+                    {/* <!-- */}
+                        {/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */}
+                    {/* --> */}
+                    <Copyright>
+                        <HeartIcon/> Made in <Link to="/">@psmever</Link> <br /> Version: {process.env.REACT_APP_VERSION} Beta
+                    </Copyright>
+                </CopyrightBox>
             </Header>
         </>
     );

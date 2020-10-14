@@ -12,6 +12,16 @@ export const MainWarpper = styled.div`
     box-sizing: border-box;
     margin-left: 280px;
     background: #fff;
+    height: 200px;
+    overflow: visible;
+
+    height: 100%;
+    /* display: flex; */
+    /* flex-direction: row; */
+    border: 1px solid silver;
+    overflow: hidden;
+
+
 
 `
 
