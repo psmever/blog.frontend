@@ -9,8 +9,8 @@ import {
     apiPostEditResultInterface,
     apiPostListResultInterface,
     apiPostDetailResultInterface,
+    apiLoginCheckResultInterface,
 } from 'commonTypes';
-
 
 /**
  * 서버 상태 체크
@@ -48,12 +48,11 @@ export function logout() : Promise<axiosReturnInterface<any>> {
     return _Axios_.post('/api/v1/auth/logout', {data: {}});
 }
 
-
 /**
  * 로그인 유저 체크
  */
-export function loginCheck() : Promise<axiosReturnInterface<any>> {
-    return _Axios_.post('/api/v1/auth/login-check', {data: {}});
+export function loginCheck() : Promise<axiosReturnInterface<apiLoginCheckResultInterface>> {
+    return _Axios_.get('/api/v1/auth/login-check', {data: {}});
 };
 
 /**
@@ -77,13 +76,12 @@ export function postEdit(post_uuid: string) : Promise<axiosReturnInterface<apiPo
  * @param post_uuid
  */
 export function postPublish(post_uuid: string) : Promise<axiosReturnInterface<any>> {
-    return _Axios_.post(`/api/v1/post/${post_uuid}/publish`, {data: {}});
+    return _Axios_.put(`/api/v1/post/${post_uuid}/publish`, {data: {}});
 };
-
 
 // 글 수정.
 export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface<any>> {
-    return _Axios_.post(`/api/v1/post/${post_uuid}/update`, payload);
+    return _Axios_.put(`/api/v1/post/${post_uuid}/update`, payload);
 };
 
 // 글 리스트

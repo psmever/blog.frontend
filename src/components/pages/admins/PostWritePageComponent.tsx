@@ -67,6 +67,10 @@ function useDimensions(targetRef: any) {
   }
 
 export default function WritePage() {
+
+    const titleInputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const {
         editorTitle,
         setEditorTitle,
@@ -83,9 +87,6 @@ export default function WritePage() {
         setEditorTagContents,
         editorTagSuggestions,
     } = useWrite();
-
-
-    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleTagDelete = (e: any) => {
         setEditorTagContents(editorTagContents.filter((tag, index) => index !== e))
@@ -122,6 +123,11 @@ export default function WritePage() {
 
     const size = useDimensions(inputRef);
 
+    useEffect(() => {
+        titleInputRef.current?.focus();
+    }, []);
+
+
     return (
         <>
             <MainWrapper>
@@ -130,7 +136,7 @@ export default function WritePage() {
                         <LeftEditorBox ref={inputRef}>
                             <WriteTitleBox>
                                 <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
-                                <WriteTitle type="text" id="writeTitle" placeholder="제목을 입력해 주세요."
+                                <WriteTitle type="text" ref={titleInputRef} placeholder="제목을 입력해 주세요."
                                     value={editorTitle}
                                     onChange={ e => setEditorTitle(e.target.value) }
                                 />
@@ -153,6 +159,7 @@ export default function WritePage() {
                                     EditorHeight={size.height}
                                 />
                             </EditorBox>
+                            {/* FIXME 화면이 작을때 세로로 배치되는 문제 수정. */}
                             <WriteButtonBox>
                                 <WriteButtonInner><DefaultButton name={"나가기"} onClickHandler={handleClickExitButton}/></WriteButtonInner>
                                 <WriteButtonInner><DefaultButton name={"저장"} onClickHandler={handleClickSaveButton}/></WriteButtonInner>

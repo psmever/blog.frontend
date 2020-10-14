@@ -26,6 +26,12 @@ declare module 'commonTypes' {
         codes : baseDataCodeListInterface
     }
 
+    export interface apiLoginCheckResultInterface {
+        user_uuid: string
+        user_type: basicCodeItem
+        user_level: basicCodeItem
+    }
+
     // 리덕스 사가 에러 메지시 인터페이스.
     export interface apiResultErrirInterface {
         message : string
@@ -76,11 +82,7 @@ declare module 'commonTypes' {
         },
         post_title: string
         slug_title: string
-        category_thumb: {
-            code_id: string
-            code_name: string
-            category_thumb_url: string
-        }
+        thumb_url: string
         list_contents: string
         markdown: defaultYesNo
         tags: editorTagInterfaceItem[]

@@ -176,12 +176,20 @@ const errorInterceptor = (error: any) => {
                     // 토큰 Refresh Error
                     Helper.COLORLOG(':: Fail Token Refresh :: ', 'error');
                     Helper.removeLoginToken();
-                    processQueue(err, '');
-                    reject(err);
+                    // processQueue(err, '');
+                    // reject(err);
+                    _Alert_.thenGoHome({
+                        text: '로그인 유지 시간이 만료되었습니다.'
+                    });
                 })
                 .finally(() => {
                     isRefreshing = false;
                 })
+        });
+    } else if(status === 401) {
+        return Promise.resolve({
+            status: false,
+            message: error.response?.data.error.error_message
         });
     }
 };
