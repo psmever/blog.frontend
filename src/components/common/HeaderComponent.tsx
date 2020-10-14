@@ -91,23 +91,27 @@ export default function HeaderComponent() {
                         </ProfileSection>
 
                         <NavbarNav>
-                            <NavItem>
-                                <NavItemLink activeState={nowPathname === '/pages/about' && true} onClick={handleClickAboutMeLink}>
-                                    <AboutIcon /> About Me
-                                </NavItemLink>
-                            </NavItem>
+
                             <NavItem>
                                 <NavItemLink activeState={nowPathname === '/' && true} onClick={handleClickHomeLink}>
                                     <HomeIcon /> Blog Home <NavItemLinkTitle>(current)</NavItemLinkTitle>
                                 </NavItemLink>
                             </NavItem>
 
+                            <NavItem>
+                                <NavItemLink activeState={nowPathname === '/pages/about' && true} onClick={handleClickAboutMeLink}>
+                                    <AboutIcon /> About Me
+                                </NavItemLink>
+                            </NavItem>
+
                         { localstorage.login_state === true &&
+
                             <NavItem>
                                 <NavItemLink activeState={false} onClick={handleClickWritePageLink}>
                                     <AboutIcon /> Write
                                 </NavItemLink>
                             </NavItem>
+
                         }
 
                         </NavbarNav>
