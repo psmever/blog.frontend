@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import {
     postDetailAction
 } from 'modules/redux/post';
+import { incrementViewCount } from 'modules/API';
+
 import { apiPostDetailResultInterface } from 'commonTypes';
 
 // post 내용 초기화.
@@ -36,6 +38,7 @@ const postContentsInit : apiPostDetailResultInterface = {
             text: ''
         }
     ],
+    view_count: 0,
     detail_created: '',
     detail_updated: '',
 }
@@ -60,8 +63,14 @@ export default function useDetail() {
     }, [])
 
     useEffect(() => {
+
+        async function postIncrementViewCall(post_uuid : string) {
+            await incrementViewCount(post_uuid);
+        }
+
         if(postBaseStateDetailStatus === 'success' && baseStatePostDetailData !== undefined) {
             setPostContents(baseStatePostDetailData);
+            postIncrementViewCall(baseStatePostDetailData.post_uuid);
         }
 
     }, [postBaseStateDetailStatus, baseStatePostDetailData])
