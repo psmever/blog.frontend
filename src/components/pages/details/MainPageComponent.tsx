@@ -43,7 +43,7 @@ export default function MainPage() {
                     { postBaseStateLists.data?.posts.map((element) => {
                         return <ListItem key={element.post_id}>
                                 <ListMedia key={element.post_id}>
-                                    <ListImage src={'http://media.nicepage.pe.kr/blog/post-category/S05000.jpg'} alt="" />
+                                    <ListImage src={element.thumb_url} alt="" />
                                     <MegiaBody>
                                         <Title>
                                             <TitleLink to={process.env.PUBLIC_URL + `/pages/post/detail/${element.slug_title}`}>

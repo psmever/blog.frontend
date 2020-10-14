@@ -18,7 +18,7 @@ import { useParams } from 'react-router-dom';
 import { RootState } from 'modules';
 import _Alert_ from 'lib/_Alert_';
 import * as Helper from 'lib/Helper';
-
+import { loginCheck } from 'modules/API';
 import { useHistory } from 'react-router-dom';
 import * as _ from "lodash";
 
@@ -107,6 +107,22 @@ export default function useWrite() {
         setEditorContents('');
         setEditorTagContents([]);
     }, []);
+
+    // 최초 로그인 체크
+    useEffect(() => {
+        async function loginCheckApiCall() {
+            let response = await loginCheck();
+            if(response.status === false) {
+                // _Alert_.error({text: '로그인이 필요한 서비스 입니다.'});
+                history.push({
+                    pathname: process.env.PUBLIC_URL + `/`
+                });
+            }
+        }
+        loginCheckApiCall();
+    // FIXME 2020-10-13 16:38  eslint-disable
+    // eslint-disable-next-line
+    } , []);
 
     // 생성 모드 일떄 create saga 상태 처리.
     useEffect(() => {

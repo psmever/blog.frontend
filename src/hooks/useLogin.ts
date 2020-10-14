@@ -59,7 +59,8 @@ export default function useLogin() {
             case 'success':
                 Helper.saveLoginToken(loginStatus.data);
                 addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
-                history.push(process.env.PUBLIC_URL + '/');
+                // history.push(process.env.PUBLIC_URL + '/');
+                window.location.href = '/';
                 break;
           }
     }, [loginResuxStore, addToast])
