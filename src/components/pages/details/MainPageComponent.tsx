@@ -52,7 +52,7 @@ export default function MainPage() {
                                         </Title>
                                         <Meta>
                                             <MetaDate>{element.list_created}</MetaDate>
-                                            <MetaTime>0 min read</MetaTime>
+                                            <MetaTime>{element.view_count} read</MetaTime>
                                             <MetaComment>
                                                 <MetaCommentLink to="/">
                                                     0 comments

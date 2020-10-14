@@ -42,7 +42,7 @@ export default function PostDetailPage() {
                             <HeaderTitle>{postContents.post_title}</HeaderTitle>
                             <HeaderMeta>
                                 <HeaderDate>{postContents.detail_updated}&nbsp;</HeaderDate>
-                                <HeaderTime>0 min read&nbsp;</HeaderTime>
+                                <HeaderTime>{postContents.view_count} view&nbsp;</HeaderTime>
                                 <HeaderComment>
                                     <HeaderCommentLink to="/">0 comments&nbsp;</HeaderCommentLink>
                                 </HeaderComment>

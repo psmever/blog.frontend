@@ -93,3 +93,8 @@ export function getPostList({pageNumber} : {pageNumber : number}) : Promise<axio
 export const getPostDetail = ({slugTitle} : {slugTitle: string}) : Promise<axiosReturnInterface<apiPostDetailResultInterface>> => {
     return _Axios_.get(`/api/v1/post/${slugTitle}/detail`, {data: {}});
 }
+
+// 뷰카운트 증가.
+export const incrementViewCount = (post_uuid: string) : Promise<axiosReturnInterface<any>> => {
+    return _Axios_.put(`/api/v1/post/${post_uuid}/view-increment`, {data: {}});
+}

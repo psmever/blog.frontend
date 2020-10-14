@@ -33,7 +33,7 @@ declare module 'commonTypes' {
     }
 
     // 리덕스 사가 에러 메지시 인터페이스.
-    export interface apiResultErrirInterface {
+    export interface apiResultErrorInterface {
         message : string
     }
 
@@ -86,6 +86,7 @@ declare module 'commonTypes' {
         list_contents: string
         markdown: defaultYesNo
         tags: editorTagInterfaceItem[]
+        view_count: number
         post_active: defaultYesNo
         post_publish: defaultYesNo
         list_created: string
@@ -115,6 +116,7 @@ declare module 'commonTypes' {
         contents_text: string
         markdown: defaultYesNo
         tags: editorTagInterfaceItem[]
+        view_count: number
         detail_created: string
         detail_updated: string
     }
