@@ -19,6 +19,7 @@ export const LoginMain = styled.div`
         top: 30%;
         left: 0%;
         margin: 0 0 0 0;
+        padding: 0.375rem 3.75rem;
     }
     font-family: 'Open Sans', sans-serif;
     /* box-sizing: border-box; */
@@ -28,7 +29,7 @@ export const LoginMain = styled.div`
     margin: -150px 0 0 -150px;
     width: 300px;
     height: 300px;
-
+    padding: 0.375rem 0.75rem;
 `
 
 export const LoginTitle = styled.h1`
