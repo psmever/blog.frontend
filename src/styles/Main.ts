@@ -528,3 +528,164 @@ export const BlogArrowNext = styled.i`
     color: #fff;
 
 `
+
+/*
+    @media (min-width: 1200px){
+
+    }
+    @media (min-width: 992px){
+
+    }
+    @media (min-width: 768px){
+
+    }
+    @media (min-width: 576px){
+
+    }
+    @media (min-width: 992px){
+
+    }
+ */
+
+
+export const Band = styled.div`
+
+    @media (min-width: 30em) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (min-width: 60em) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    width: 90%;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+
+`
+
+export const BandItems = styled.div`
+    /* @media (min-width: 60em) {
+        grid-column: 1 / span 2;
+    } */
+`
+
+export const BandItemsCard = styled.div`
+    background: white;
+    text-decoration: none;
+    color: #444;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    min-height: 100%;
+    position: relative;
+    top: 0;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+`
+
+export const BandItemCardThumbBox = styled.div`
+    /* padding-bottom: 60%; */
+    background-size: cover;
+    background-position: center center;
+
+`
+
+export const BandItemCardThumbimg = styled.img`
+
+    @media (min-width: 768px){
+        display: flex !important;
+    }
+
+    line-height: 1.5;
+    text-align: center;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border-style: none;
+    height: auto;
+    margin-right: 1rem !important;
+    max-width: 255px;
+    border-radius: 2px;
+    display: none !important;
+`
+
+export const BandItemArticle = styled.article`
+    padding: 20px;
+    -webkit-box-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+`
+
+export const BandItemArticleTitle = styled.h1`
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+`
+
+export const BandItemArticleTitleSpan = styled.span`
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin: 2em 0 0 0;
+`
+
+export const BandItemArticleMetaDate = styled.span`
+
+    line-height: 1.5;
+    text-align: left;
+    color: #8f8f8f;
+    font-size: 0.8125rem;
+    box-sizing: border-box;
+    display: inline-block;
+
+    &:after {
+        content: "";
+        display: inline-block;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #8f8f8f;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        position: relative;
+        top: -3px;
+    }
+
+`
+export const BandItemArticleMetaTime = styled.span`
+
+    line-height: 1.5;
+    text-align: left;
+    color: #8f8f8f;
+    font-size: 0.8125rem;
+    box-sizing: border-box;
+    display: inline-block;
+
+    &:after {
+        content: "";
+        display: inline-block;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #8f8f8f;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        position: relative;
+        top: -3px;
+    }
+`
