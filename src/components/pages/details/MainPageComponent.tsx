@@ -1,7 +1,11 @@
 import React from 'react';
 import {
-    MainWarpper, CtaSection, CtaSectionContainer, Heading, Intro, Form, FormGroup, FormLabel, FormInput, FormSubmitButton, ListSection, ListContainer, ListItem, ListMedia, ListImage, MegiaBody,
-    Title, TitleLink, Meta, MetaDate, MetaTime, MetaComment, MetaCommentLink, ListItemIntro, MoreLink,
+    MainWarpper, CtaSection, CtaSectionContainer, Heading, Intro, Form, FormGroup, FormLabel, FormInput, FormSubmitButton, ListSection, ListContainer,
+    // ListItem, ListMedia, ListImage, MegiaBody, Title, TitleLink, Meta, MetaDate, MetaTime, MetaComment, MetaCommentLink, ListItemIntro, MoreLink,
+
+    Band,BandItems,BandItemsCard,BandItemArticle,BandItemCardThumbBox, BandItemCardThumbimg,BandItemArticleTitle, BandItemArticleTitleSpan
+    ,BandItemArticleMetaDate, BandItemArticleMetaTime
+
 } from "styles/Main";
 import useMain from 'hooks/useMain';
 import { useToasts } from 'react-toast-notifications';
@@ -38,45 +42,34 @@ export default function MainPage() {
                 </CtaSection>
 
                 <ListSection>
-                    <ListContainer>
+                    {/* <ListContainer> */}
 
-                    { postBaseStateLists.data?.posts.map((element) => {
-                        return <ListItem key={element.post_id}>
-                                <ListMedia key={element.post_id}>
-                                    <ListImage src={element.thumb_url} alt="" />
-                                    <MegiaBody>
-                                        <Title>
-                                            <TitleLink to={process.env.PUBLIC_URL + `/pages/post/detail/${element.slug_title}`}>
-                                                {element.post_title}
-                                            </TitleLink>
-                                        </Title>
-                                        <Meta>
-                                            <MetaDate>{element.list_created}</MetaDate>
-                                            <MetaTime>{element.view_count} read</MetaTime>
-                                            <MetaComment>
-                                                <MetaCommentLink to="/">
-                                                    0 comments
-                                                </MetaCommentLink>
-                                            </MetaComment>
-                                        </Meta>
-                                        <ListItemIntro>
-                                            {element.list_contents}
-                                        </ListItemIntro>
-                                        <MoreLink to={process.env.PUBLIC_URL + `/pages/post/detail/${element.slug_title}`}>
-                                            Read more &rarr;
-                                        </MoreLink>
-                                    </MegiaBody>
-                                    {/* <!--//media-body--> */}
-                                </ListMedia>
-                                {/* <!--//media--> */}
-                            </ListItem>
-                    })}
-                        {/* <BLogNav>
-                            <BlogNavLinkPrev to="/"><StyledIcons.ArrowLeftIcon/>Previous</BlogNavLinkPrev>
-                            <BlogNavLinkNext to="/">Next<StyledIcons.ArrowRightIcon/></BlogNavLinkNext>
-                        </BLogNav> */}
+                        <Band>
 
-                    </ListContainer>
+                            { postBaseStateLists.data?.posts.map((element) => {
+                                    return (
+                                        <BandItems>
+                                            <BandItemsCard>
+                                                <BandItemCardThumbBox>
+                                                    <BandItemCardThumbimg src={element.thumb_url} alt="" />
+                                                </BandItemCardThumbBox>
+                                                <BandItemArticle>
+                                                    <BandItemArticleTitle>{element.list_contents}</BandItemArticleTitle>
+                                                    <BandItemArticleTitleSpan>{element.post_title}</BandItemArticleTitleSpan>
+                                                    <BandItemArticleMetaDate>{element.list_created}</BandItemArticleMetaDate>
+                                                    <BandItemArticleMetaTime>{element.view_count} read</BandItemArticleMetaTime>
+                                                </BandItemArticle>
+                                            </BandItemsCard>
+                                        </BandItems>
+                                    )
+                                })
+                            }
+
+
+                        </Band>
+
+
+                    {/* </ListContainer> */}
                 </ListSection>
             </MainWarpper>
             {/* <!--//main-wrapper--> */}
