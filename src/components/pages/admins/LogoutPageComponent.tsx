@@ -1,27 +1,33 @@
 import React, {useEffect} from 'react';
 import { BodyLoading } from 'components/elements';
-import { useDispatch, useSelector } from 'react-redux';
-import { attemptLogoutAction } from 'modules/redux/authenticate';
 import _Alert_ from 'lib/_Alert_';
-import { RootState } from 'modules';
+import * as Helper from 'lib/Helper';
+import {logout}  from 'modules/API';
+import history from 'modules/History';
 
 export default function LogoutPage() {
 
-    const dispatch = useDispatch();
-    const logout_state = useSelector((state: RootState) => state.authenticate.logout.status);
-
-    useEffect(() => {
-        dispatch(attemptLogoutAction());
-        // FIXME 2020-10-06 13:44  리팩토리
-        // eslint-disable-next-line
-    }, []);
 
 
     useEffect(() => {
-        if(logout_state === 'success') {
-            _Alert_.thenGoHome({text:'로그아웃 되었습니다.'});
+        async function callLogout() {
+            const response = await logout();
+            if(response.status === true) {
+                Helper.removeLoginToken();
+                _Alert_.thenGoHome({text:'로그아웃 되었습니다.'});
+            } else {
+                history.push(process.env.PUBLIC_URL + '/');
+            }
         }
-    }, [logout_state]);
+
+        const checkResult = Helper.getLocalToken();
+        console.debug('logout login_state: ', checkResult.login_state);
+        if(checkResult.login_state === true) {
+            callLogout();
+        } else {
+            _Alert_.thenGoHome({text:'로그인 되어 있지 않습니다.'});
+        }
+    }, []);
 
     return (
         <>

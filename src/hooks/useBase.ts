@@ -6,7 +6,6 @@ import {
 } from 'commonTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBaseDataAction } from 'modules/redux/base';
-// import { attemptLocalTokenAction } from 'modules/redux/authenticate';
 import * as Helper from 'lib/Helper';
 import _Alert_ from 'lib/_Alert_';
 import * as _ from "lodash";
