@@ -9,19 +9,17 @@ import {
 } from "styles/AdminLogin";
 import useLogin from 'hooks/useLogin';
 import { LoginButtonLoading } from 'components/elements';
-import { useSelector } from 'react-redux';
-import { RootState } from 'modules';
 
 export default function LoginPage() {
 
     // focus 용 Ref.
     const inputPasswordRef = useRef<HTMLInputElement | null>(null);
 
-    const login_state = useSelector((state: RootState) => state.authenticate.login);
-
     const {
         inputEmail,
         inputPassword,
+
+        loginAttemptState,
 
         _handleInputEmailChange,
         _handleInputPasswordChange,
@@ -51,7 +49,6 @@ export default function LoginPage() {
 
                     <LoginUserName
                         type="text"
-                        name="u"
                         id="Email"
                         value={inputEmail}
                         onChange={ e => _handleInputEmailChange(e.target.value) }
@@ -61,7 +58,6 @@ export default function LoginPage() {
 
                     <LoginPassword
                         type="password"
-                        name="p"
                         id="Password"
                         value={inputPassword}
                         onChange={ e => _handleInputPasswordChange(e.target.value) }
@@ -69,7 +65,8 @@ export default function LoginPage() {
                         onKeyPress={e => onEnter(e)}
                         ref={inputPasswordRef}
                     />
-                    {login_state.status === 'loading'
+
+                    {loginAttemptState === 'attempt'
                         ? <LoginButtonLoading />
                         : <LoginButton
                                 type="button"

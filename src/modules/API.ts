@@ -1,4 +1,5 @@
-import _Axios_ from 'lib/_Axios_';
+import service from 'lib/Services';
+
 import {
     axiosReturnInterface,
     loginRequestInterface,
@@ -16,21 +17,21 @@ import {
  * 서버 상태 체크
  */
 export function checkServer() : Promise<axiosReturnInterface<any>> {
-    return _Axios_.get('/api/system/check-status', {data: {}});
+    return service({ method: "get", url: '/api/system/check-status', payload: {data: {}}});
 };
 
 /**
  * 서버 공지 사항 체크
  */
 export function checkServerNotice() : Promise<axiosReturnInterface<apiNoticeResultInterface>> {
-    return _Axios_.get('/api/system/check-notice', {data: {}});
+    return service({ method: "get", url: '/api/system/check-notice', payload: {data: {}}});
 };
 
 /**
  * 사이트 기본 데이터 처리.
  */
 export function getSiteBaseData() : Promise<axiosReturnInterface<apiSiteBaseDataInterface>> {
-    return _Axios_.get('/api/system/base-data', {data: {}});
+    return service({ method: "get", url: '/api/system/base-data', payload: {data: {}}});
 }
 
 /**
@@ -38,21 +39,21 @@ export function getSiteBaseData() : Promise<axiosReturnInterface<apiSiteBaseData
  * @param payload
  */
 export function login(payload: loginRequestInterface) : Promise<axiosReturnInterface<any>> {
-    return _Axios_.post('/api/v1/auth/login', payload);
+    return service({ method: "post", url: '/api/v1/auth/login', payload: payload});
 };
 
 /**
  * 로그아웃.
  */
 export function logout() : Promise<axiosReturnInterface<any>> {
-    return _Axios_.post('/api/v1/auth/logout', {data: {}});
+    return service({ method: "post", url: '/api/v1/auth/logout', payload: {data: {}}});
 }
 
 /**
  * 로그인 유저 체크
  */
 export function loginCheck() : Promise<axiosReturnInterface<apiLoginCheckResultInterface>> {
-    return _Axios_.get('/api/v1/auth/login-check', {data: {}});
+    return service({ method: "get", url: '/api/v1/auth/login-check', payload: {data: {}}});
 };
 
 /**
@@ -60,7 +61,8 @@ export function loginCheck() : Promise<axiosReturnInterface<apiLoginCheckResultI
  * @param payload
  */
 export function postCreate(payload: postRequestInterface) : Promise<axiosReturnInterface<apiPostCreateResultInterface>> {
-    return _Axios_.post('/api/v1/post', payload);
+    // return _Axios_.post('/api/v1/post', payload);
+    return service({ method: "post", url: '/api/v1/post', payload: payload});
 };
 
 /**
@@ -68,7 +70,7 @@ export function postCreate(payload: postRequestInterface) : Promise<axiosReturnI
  * @param post_uuid
  */
 export function postEdit(post_uuid: string) : Promise<axiosReturnInterface<apiPostEditResultInterface>> {
-    return _Axios_.get(`/api/v1/post/${post_uuid}/edit`, {data: {}});
+    return service({ method: "get", url: `/api/v1/post/${post_uuid}/edit`, payload: {data: {}}});
 };
 
 /**
@@ -76,25 +78,25 @@ export function postEdit(post_uuid: string) : Promise<axiosReturnInterface<apiPo
  * @param post_uuid
  */
 export function postPublish(post_uuid: string) : Promise<axiosReturnInterface<any>> {
-    return _Axios_.put(`/api/v1/post/${post_uuid}/publish`, {data: {}});
+    return service({ method: "put", url: `/api/v1/post/${post_uuid}/publish`, payload: {data: {}}});
 };
 
 // 글 수정.
 export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface<any>> {
-    return _Axios_.put(`/api/v1/post/${post_uuid}/update`, payload);
+    return service({ method: "put", url: `/api/v1/post/${post_uuid}/update`, payload: payload});
 };
 
 // 글 리스트
 export function getPostList({pageNumber} : {pageNumber : number}) : Promise<axiosReturnInterface<apiPostListResultInterface>> {
-    return _Axios_.get(`/api/v1/post/${pageNumber}`, {data: {}});
+    return service({ method: "get", url: `/api/v1/post/${pageNumber}`, payload: {data: {}}});
 }
 
 // 글보기 Detail
 export const getPostDetail = ({slugTitle} : {slugTitle: string}) : Promise<axiosReturnInterface<apiPostDetailResultInterface>> => {
-    return _Axios_.get(`/api/v1/post/${slugTitle}/detail`, {data: {}});
+    return service({ method: "get", url: `/api/v1/post/${slugTitle}/detail`, payload: {data: {}}});
 }
 
 // 뷰카운트 증가.
 export const incrementViewCount = (post_uuid: string) : Promise<axiosReturnInterface<any>> => {
-    return _Axios_.put(`/api/v1/post/${post_uuid}/view-increment`, {data: {}});
+    return service({ method: "put", url: `/api/v1/post/${post_uuid}/view-increment`, payload: {data: {}}});
 }

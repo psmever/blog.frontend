@@ -7,6 +7,7 @@ declare module 'commonTypes' {
     // saga start
     // 기본 사가 스테이트 Interface
     export type defaultSagaStatus = idle | loading | success | failure;
+    export type defaultRequestStatus = idle | loading | success | failure;
     export type defaultYesNo = 'Y' | 'N'
 
     // 통신 관련 타입.
