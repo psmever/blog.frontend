@@ -125,6 +125,7 @@ declare module 'commonTypes' {
     export interface apiPostListResultInterface {
         per_page: number,
         current_page: number,
+        hasmore: boolean,
         posts: apiPostListResultItemsInterface[]
     }
 
@@ -222,6 +223,7 @@ declare module 'commonTypes' {
         status: defaultSagaStatus,
         per_page: number
         current_page: number
+        hasmore: boolean
         posts: apiPostListResultItemsInterface[]
     }
 
