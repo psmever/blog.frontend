@@ -218,12 +218,19 @@ declare module 'commonTypes' {
         message?: string
     }
 
+    export interface getPostListSagaState {
+        status: defaultSagaStatus,
+        per_page: number
+        current_page: number
+        posts: apiPostListResultItemsInterface[]
+    }
+
     export interface postSagaState {
         create: desultSagaState
         edit: desultSagaState<apiPostEditResultInterface>
         publish: desultSagaState<any>
         update: desultSagaState
-        lists: desultSagaState<apiPostListResultInterface>
+        lists: getPostListSagaState
         detail: desultSagaState<apiPostDetailResultInterface>
     }
 
