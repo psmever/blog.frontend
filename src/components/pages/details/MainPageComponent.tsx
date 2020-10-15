@@ -8,6 +8,7 @@ import {
 import useMain from 'hooks/useMain';
 import { useToasts } from 'react-toast-notifications';
 import { useHistory } from 'react-router-dom';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function MainPage() {
 
@@ -15,7 +16,8 @@ export default function MainPage() {
     const history = useHistory();
 
     const {
-        postBaseStateLists
+        basePostListsState,
+        fetchMoreData
     } = useMain();
 
     // 검색 버튼.
@@ -51,9 +53,15 @@ export default function MainPage() {
                 <ListSection>
                     {/* <ListContainer> */}
 
-                        <Band>
 
-                            { postBaseStateLists.data?.posts.map((element, n) => {
+        <InfiniteScroll
+          dataLength={basePostListsState.status === 'success' ? basePostListsState.posts.length : 0}
+          next={fetchMoreData}
+          hasMore={true}
+          loader={<h4>Loading...</h4>}
+        >
+            <Band>
+                            { basePostListsState.status === 'success' && basePostListsState.posts.map((element, n) => {
                                     return (
                                         <BandItems key={n}>
                                             <BandItemsCard onClick={e=>handlePostCardCLick(element.slug_title)}>
@@ -73,7 +81,8 @@ export default function MainPage() {
                                     )
                                 })
                             }
-                        </Band>
+            </Band>
+        </InfiniteScroll>
 
                     {/* </ListContainer> */}
                 </ListSection>
