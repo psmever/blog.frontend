@@ -1,22 +1,15 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginRequestInterface } from 'commonTypes';
-import { attemptLoginAction } from 'modules/redux/authenticate';
-import { RootState } from 'modules';
+import { useState, useEffect } from 'react';
 import * as Helper from 'lib/Helper';
 import history from 'modules/History';
 import { useToasts } from 'react-toast-notifications'
-
+import { login } from 'modules/API';
 
 export default function useLogin() {
 
     const { addToast } = useToasts();
-
-    const dispatch = useDispatch();
-    const login_state = useSelector((state: RootState) => state.authenticate.login);
-
     const [ inputEmail, setInputEmail ] = useState<string>('');
     const [ inputPassword, setInputPassword ] = useState<string>('');
+    const [ loginAttemptState, setLoginAttemptState ] = useState<'attempt' | 'idle'>('idle');
 
     // email change event
     const _handleInputEmailChange = (email: string) => {
@@ -35,35 +28,8 @@ export default function useLogin() {
 
     // 로그인 처리.
     const _handelLogin = () => {
-        if(login_state.status === 'idle' || login_state.status === 'failure') {
-            const loginPayload : loginRequestInterface = {
-                email: inputEmail,
-                password: inputPassword,
-            }
-
-            dispatch(attemptLoginAction(loginPayload));
-        }
+        setLoginAttemptState('attempt');
     }
-
-    const loginResuxStore = useCallback(() => {
-        return login_state;
-    }, [login_state]);
-
-    // 로그인 스토어 변경 처리.
-    useEffect(() => {
-        const loginStatus = loginResuxStore()
-        switch (loginStatus.status) {
-            case 'failure':
-                addToast(loginStatus.message, { appearance: 'error', autoDismiss: true });
-                break;
-            case 'success':
-                Helper.saveLoginToken(loginStatus.data);
-                addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
-                // history.push(process.env.PUBLIC_URL + '/');
-                window.location.href = '/';
-                break;
-          }
-    }, [loginResuxStore, addToast])
 
     useEffect(() => {
         const localstorage = Helper.getLocalToken();
@@ -75,14 +41,38 @@ export default function useLogin() {
         // eslint-disable-next-line
     }, []);
 
+    // 로그인 시도 결과 처리.
+    useEffect(() => {
+        async function attemptLogin() {
+            const response = await login({
+                email: inputEmail,
+                password: inputPassword,
+            });
+
+            if(response.status === false) {
+                addToast(response.message, { appearance: 'error', autoDismiss: true });
+                setLoginAttemptState('idle');
+            } else {
+                Helper.saveLoginToken(response.payload);
+                addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
+                history.push(process.env.PUBLIC_URL + '/');
+            }
+        }
+
+        if(loginAttemptState === 'attempt') {
+            attemptLogin();
+        }
+    } , [addToast, inputEmail, inputPassword, loginAttemptState]);
+
     return {
         inputEmail,
         inputPassword,
+
+        loginAttemptState,
 
         _handleInputEmailChange,
         _handleInputPasswordChange,
         _handleLoginButtonClick,
         _handelLogin,
-
     };
 }
