@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom'
 
 export const MainWarpper = styled.div`
 
@@ -234,297 +233,161 @@ export const ListSection = styled.section`
 
 `
 
-export const ListContainer = styled.div`
+export const Band = styled.div`
 
-
-    max-width: 820px;
-
-    @media (min-width: 1200px){
-        /* max-width: 1140px; */
-    }
-    @media (min-width: 992px){
-        /* max-width: 960px; */
-    }
-    @media (min-width: 768px){
-        /* max-width: 720px; */
-    }
-    @media (min-width: 576px){
-        /* max-width: 540px; */
-    }
-    @media (min-width: 992px){
-        /* max-width: 960px; */
+    @media (min-width: 40em) {
+        grid-template-columns: 1fr 1fr;
     }
 
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+    @media (min-width: 60em) {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+    @media (min-width: 90em) {
+        grid-template-columns: repeat(3, 1fr);
+    }
 
+    @media (min-width: 120em) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 140em) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    width: 90%;
+    max-width: 1600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
 `
 
-export const ListItem = styled.div`
-
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
-    margin-bottom: 3rem !important;
-
+export const BandItems = styled.div`
+    /* @media (min-width: 60em) {
+        grid-column: 1 / span 2;
+    } */
+    /* grid-template-columns: repeat(auto-fill, minmax(20%, auto)); */
 `
 
-export const ListMedia = styled.div`
-
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
+export const BandItemsCard = styled.div`
+    cursor: pointer;
+    background: white;
+    text-decoration: none;
+    color: #444;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: -webkit-box;
     display: flex;
-    align-items: flex-start;
-
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    min-height: 100%;
+    max-height: 600px;
+    position: relative;
+    top: 0;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
 `
 
-export const ListImage = styled.img`
+export const BandItemCardThumbBox = styled.div`
+    /* padding-bottom: 60%; */
+    background-size: cover;
+    background-position: center center;
+`
+
+export const BandItemCardThumbimg = styled.img`
 
     @media (min-width: 768px){
         display: flex !important;
     }
 
+    width: 100%;
     line-height: 1.5;
-    text-align: left;
+    text-align: center;
     box-sizing: border-box;
     vertical-align: middle;
     border-style: none;
     height: auto;
     margin-right: 1rem !important;
-    max-width: 110px;
+    max-width: 500px;
+    min-width: 300px;
     border-radius: 2px;
     display: none !important;
-
 `
 
-export const MegiaBody = styled.div`
-
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
+export const BandItemArticle = styled.article`
+    padding: 20px;
+    -webkit-box-flex: 1;
     flex: 1;
-
-`
-
-export const Title = styled.h3`
-
-    text-align: left;
-    box-sizing: border-box;
-    margin-top: 0;
-    line-height: 1.2;
-    color: #292929;
-    font-weight: bold;
-    margin-bottom: 0.25rem !important;
-    font-size: 1.275rem;
-
-`
-
-export const TitleLink = styled(Link)`
-
-    text-align: left;
-    line-height: 1.2;
-    font-weight: bold;
-    font-size: 1.275rem;
-    box-sizing: border-box;
-    text-decoration: none;
-    background-color: transparent;
-    color: #292929;
-
-`
-
-export const Meta = styled.div`
-
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
-    margin-bottom: 0.25rem !important;
-    color: #8f8f8f;
-    font-size: 0.8125rem;
-
-`
-
-export const MetaDate = styled.span`
-
-    line-height: 1.5;
-    text-align: left;
-    color: #8f8f8f;
-    font-size: 0.8125rem;
-    box-sizing: border-box;
-    display: inline-block;
-
-    &:after {
-        content: "";
-        display: inline-block;
-        width: 3px;
-        height: 3px;
-        border-radius: 50%;
-        background: #8f8f8f;
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-        position: relative;
-        top: -3px;
-    }
-
-`
-
-export const MetaTime = styled.span`
-
-    line-height: 1.5;
-    text-align: left;
-    color: #8f8f8f;
-    font-size: 0.8125rem;
-    box-sizing: border-box;
-    display: inline-block;
-
-    &:after {
-        content: "";
-        display: inline-block;
-        width: 3px;
-        height: 3px;
-        border-radius: 50%;
-        background: #8f8f8f;
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-        position: relative;
-        top: -3px;
-    }
-`
-
-export const MetaComment = styled.span`
-
-    line-height: 1.5;
-    text-align: left;
-    color: #8f8f8f;
-    font-size: 0.8125rem;
-    box-sizing: border-box;
-    display: inline-block;
-
-`
-
-export const MetaCommentLink = styled(Link)`
-
-    line-height: 1.5;
-    text-align: left;
-    font-size: 0.8125rem;
-    box-sizing: border-box;
-    text-decoration: none;
-    background-color: transparent;
-    color: #8f8f8f;
-
-`
-
-export const ListItemIntro = styled.div`
-
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
-    font-size: 0.875rem;
-
-`
-
-export const MoreLink = styled(Link)`
-
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
-    color: #5469C9;
-    text-decoration: none;
-    background-color: transparent;
-    font-size: 0.8125rem;
-
-`
-
-export const BLogNav = styled.nav`
-
-    line-height: 1.5;
-    text-align: left;
-    box-sizing: border-box;
+    display: -webkit-box;
     display: flex;
-    flex-wrap: wrap;
-    padding-left: 0;
-    list-style: none;
-    margin-top: 3rem !important;
-    margin-bottom: 3rem !important;
-
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
 `
 
-export const BlogNavLinkPrev = styled(Link)`
-
-    line-height: 1.5;
-    list-style: none;
-    box-sizing: border-box;
-    text-decoration: none;
-    border-top-left-radius: 0.25rem !important;
-    border-bottom-left-radius: 0.25rem !important;
-    display: none !important;
-    flex-basis: 0;
-    flex-grow: 1;
-    text-align: center;
-    background: #5469C9;
-    color: #fff;
-    padding: 1rem;
-    font-weight: bold;
-    position: relative;
-    border-right: 1px solid #2c3d8b;
-
+export const BandItemArticleTitle = styled.h1`
+    font-size: 20px;
+    margin: 0;
+    color: #333;
 `
 
-export const BlogArrowPrev = styled.i`
-
-    line-height: 1.5;
-    list-style: none;
-    text-align: center;
+export const BandItemArticleTitleSpan = styled.span`
+    font-size: 12px;
     font-weight: bold;
-    box-sizing: border-box;
-    position: absolute;
-    left: 1rem;
-    top: 1.25rem;
-    color: #fff;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin: 2em 0 0 0;
+`
+export const BandItemArticleDateBox = styled.div`
 
 `
-
-export const BlogNavLinkNext = styled(Link)`
+export const BandItemArticleMetaDate = styled.span`
 
     line-height: 1.5;
-    list-style: none;
+    text-align: left;
+    color: #8f8f8f;
+    font-size: 0.8125rem;
     box-sizing: border-box;
-    text-decoration: none;
-    display: block;
-    border-radius: 0.25rem !important;
-    flex-basis: 0;
-    flex-grow: 1;
-    text-align: center;
-    background: #5469C9;
-    color: #fff;
-    padding: 1rem;
-    font-weight: bold;
-    position: relative;
+    display: inline-block;
+
+    &:after {
+        content: "";
+        display: inline-block;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #8f8f8f;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        position: relative;
+        top: -3px;
+    }
 
 `
-
-export const BlogArrowNext = styled.i`
+export const BandItemArticleMetaTime = styled.span`
 
     line-height: 1.5;
-    list-style: none;
-    text-align: center;
-    font-weight: bold;
+    text-align: left;
+    color: #8f8f8f;
+    font-size: 0.8125rem;
     box-sizing: border-box;
-    position: absolute;
-    right: 1rem;
-    top: 1.25rem;
-    color: #fff;
+    display: inline-block;
 
+    &:after {
+        content: "";
+        display: inline-block;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #8f8f8f;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        position: relative;
+        top: -3px;
+    }
 `
