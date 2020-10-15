@@ -18,11 +18,12 @@ export default function MainPage() {
         postBaseStateLists
     } = useMain();
 
-
+    // 검색 버튼.
     const handleClickSearchButton = () => {
         addToast('준비 중입니다.', { appearance: 'success', autoDismiss: true });
     }
 
+    // 리스트 링크 클릭.
     const handlePostCardCLick = (slugTitle: string) => {
         history.push({
             pathname: process.env.PUBLIC_URL + `/pages/post/detail/${slugTitle}`
