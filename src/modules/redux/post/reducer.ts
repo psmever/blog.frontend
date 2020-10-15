@@ -6,6 +6,7 @@ import {
     apiPostEditResultInterface,
     apiPostDetailResultInterface,
     apiResultErrorInterface,
+    apiPostListResultInterface,
 } from 'commonTypes';
 import { SagaTypes, SagaAction } from 'modules/reduxActiontTypes';
 
@@ -24,6 +25,10 @@ const initialState: postSagaState = {
     },
     lists: {
         status: 'idle',
+        per_page: 0,
+        current_page: 0,
+        hasmore: true,
+        posts: [],
     },
     detail: {
         status: 'idle',
@@ -173,25 +178,35 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
         return {
             ...state,
             lists: {
-                status: 'loading',
+                status: 'idle',
+                per_page: 0,
+                current_page: 0,
+                hasmore: true,
+                posts: Object.assign([], state.lists.posts, state.lists.posts)
             }
         }
     },
-    [SagaTypes.POST_LIST_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<any>) => {
+    [SagaTypes.POST_LIST_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<apiPostListResultInterface>) => {
         return {
             ...state,
-            lists: {
+            lists:{
                 status: 'success',
-                data: action.payload
+                per_page: action.payload.per_page,
+                current_page: action.payload.current_page,
+                hasmore: action.payload.hasmore,
+                posts : state.lists.posts.concat(action.payload.posts)
             }
         };
     },
-    [SagaTypes.POST_LIST_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<any>) => {
+    [SagaTypes.POST_LIST_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<apiPostListResultInterface>) => {
         return {
             ...state,
-            lists: {
-                status: 'failure',
-                message: action.message,
+            lists:{
+                status: 'idle',
+                per_page: action.payload.per_page,
+                current_page: action.payload.current_page,
+                hasmore: action.payload.hasmore,
+                posts : state.lists.posts.concat(action.payload.posts)
             }
         };
     },
@@ -200,6 +215,10 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             ...state,
             lists: {
                 status: 'idle',
+                per_page: 0,
+                current_page: 0,
+                hasmore: false,
+                posts: [],
             }
         };
     },

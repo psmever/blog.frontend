@@ -3,11 +3,12 @@ import {
     MainWarpper, CtaSection, CtaSectionContainer, Heading, Intro, Form, FormGroup, FormLabel, FormInput, FormSubmitButton, ListSection,
     Band,BandItems,BandItemsCard,BandItemArticle,BandItemCardThumbBox, BandItemCardThumbimg,BandItemArticleTitle, BandItemArticleTitleSpan
     ,BandItemArticleMetaDate, BandItemArticleMetaTime, BandItemArticleDateBox
-
 } from "styles/Main";
 import useMain from 'hooks/useMain';
 import { useToasts } from 'react-toast-notifications';
 import { useHistory } from 'react-router-dom';
+import InfiniteScroll from "react-infinite-scroll-component";
+import {PageLoginButtonLoading} from 'components/elements'
 
 export default function MainPage() {
 
@@ -15,7 +16,8 @@ export default function MainPage() {
     const history = useHistory();
 
     const {
-        postBaseStateLists
+        basePostListsState,
+        fetchMoreData
     } = useMain();
 
     // 검색 버튼.
@@ -45,15 +47,18 @@ export default function MainPage() {
                             <FormSubmitButton type="button" onClick={handleClickSearchButton}>검색</FormSubmitButton>
                         </Form>
                     </CtaSectionContainer>
-                    {/* <!--//container--> */}
                 </CtaSection>
 
+
                 <ListSection>
-                    {/* <ListContainer> */}
-
+                    <InfiniteScroll
+                        dataLength={basePostListsState.status === 'success' ? basePostListsState.posts.length : 0}
+                        next={fetchMoreData}
+                        hasMore={basePostListsState.hasmore}
+                        loader={<PageLoginButtonLoading/>}
+                        >
                         <Band>
-
-                            { postBaseStateLists.data?.posts.map((element, n) => {
+                            { basePostListsState.posts.map((element, n) => {
                                     return (
                                         <BandItems key={n}>
                                             <BandItemsCard onClick={e=>handlePostCardCLick(element.slug_title)}>
@@ -75,10 +80,11 @@ export default function MainPage() {
                             }
                         </Band>
 
-                    {/* </ListContainer> */}
+                    </InfiniteScroll>
+
                 </ListSection>
+
             </MainWarpper>
-            {/* <!--//main-wrapper--> */}
         </>
     );
 }

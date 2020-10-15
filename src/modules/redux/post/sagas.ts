@@ -47,7 +47,10 @@ function* postUpdateActionSaga({post_uuid , payload} : {post_uuid: string, paylo
 // 글 리스트 가지고 오기
 function* postGetListActionSaga( { pageNumber } : {pageNumber: number} ) {
     const response = yield call(getPostList, {pageNumber});
-    if(response.status === true) {
+    // console.debug(response);
+    // console.debug(response.payload);
+    // console.debug(response.payload.length);
+    if(response.status === true && response.payload) {
         yield put({ type: SagaTypes.POST_LIST_REQUEST_SUCCESS, payload: response.payload});
     } else {
         yield put({ type: SagaTypes.POST_LIST_REQUEST_ERROR, payload: response});
