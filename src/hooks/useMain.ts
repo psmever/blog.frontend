@@ -8,18 +8,21 @@ import {
 
 export default function useMain() {
     const dispatch = useDispatch();
-    const [ postItemList, setPostItemList] = useState('');
+    const [ fetchLoading, setFetchLoading] = useState<boolean>(false);
     const [ postListPageNumber, setPostListPageNumber] = useState<number>(1);
     const basePostListsState = useSelector((state: RootState) => state.post.lists);
 
-
     const fetchMoreData = () => {
-        // a fake async api call like which sends
-        // 20 more records in 1.5 secs
-        setTimeout(() => {
-            setPostListPageNumber(postListPageNumber+1)
-            // dispatch(postGetListAction(postListPageNumber+1));
-        }, 1500);
+        if(fetchLoading === false) {
+            setFetchLoading(true);
+
+            if(fetchLoading === false) {
+                setTimeout(() => {
+                    setPostListPageNumber(postListPageNumber+1)
+                }, 1500);
+                setFetchLoading(false);
+            }
+        }
     };
 
     useEffect(() => {
@@ -30,15 +33,19 @@ export default function useMain() {
 
     useEffect(() => {
         dispatch(postGetListAction(postListPageNumber));
+        // FIMEX 2020-10-16 00:34  disable 수정 필요.
+        // eslint-disable-next-line
     }, [postListPageNumber]);
 
     useEffect(() => {
-        // console.debug('status', basePostListsState.status);
-        // console.debug('posts', basePostListsState.posts);
-        // console.debug('length', basePostListsState.posts.length);
-    }, [basePostListsState]);
+        if(basePostListsState.hasmore === false) {
+            setFetchLoading(false);
+        }
+    } ,[basePostListsState]);
+
     return {
         basePostListsState,
-        fetchMoreData
+        fetchMoreData,
+        fetchLoading,
     }
 }

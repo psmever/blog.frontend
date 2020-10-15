@@ -27,6 +27,7 @@ const initialState: postSagaState = {
         status: 'idle',
         per_page: 0,
         current_page: 0,
+        hasmore: true,
         posts: [],
     },
     detail: {
@@ -180,68 +181,33 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
                 status: 'idle',
                 per_page: 0,
                 current_page: 0,
+                hasmore: true,
                 posts: Object.assign([], state.lists.posts, state.lists.posts)
             }
         }
     },
     [SagaTypes.POST_LIST_REQUEST_SUCCESS]: (state: postSagaState, action: axiosReturnInterface<apiPostListResultInterface>) => {
-        // return {
-        //     ...state,
-        //     lists: {
-        //         status: 'success',
-        //         data: {
-        //             per_page: action.payload.per_page,
-        //             current_page: action.payload.current_page,
-        //             posts: action.payload.posts
-        //         }
-        //     }
-        // };
-
-/*
-        Object.assign({}, state.users.user_list, {
-            state: 'success',
-            list: action.payload
-        })
-
-                    data: Object.assign({}, state.lists.data, {
-                        per_page: action.payload.per_page,
-                        current_page: action.payload.current_page,
-                        posts: action.payload.posts
-                    })
-*/
-// console.debug(state.lists.posts);
-console.debug(
-    Object.assign({}, state.lists, {
-        status: 'success',
-        per_page: action.payload.per_page,
-        current_page: action.payload.current_page,
-        posts: action.payload.posts
-    })
-);
-
-/*
-        return {
-            ...state,
-            users: {
-                ...state.users,
-                user_list : Object.assign({}, state.users.user_list, {
-                    state: 'success',
-                    list: action.payload
-                })
-            }
-        };
-*/
-// TODO 2020-10-15 18:26 기존거에 추가 해야 하는데 암댐.
         return {
             ...state,
             lists:{
                 status: 'success',
                 per_page: action.payload.per_page,
                 current_page: action.payload.current_page,
-                posts: action.payload.posts
+                hasmore: action.payload.hasmore,
+                posts : state.lists.posts.concat(action.payload.posts)
             }
-
-
+        };
+    },
+    [SagaTypes.POST_LIST_REQUEST_ERROR]: (state: postSagaState, action: axiosReturnInterface<apiPostListResultInterface>) => {
+        return {
+            ...state,
+            lists:{
+                status: 'idle',
+                per_page: action.payload.per_page,
+                current_page: action.payload.current_page,
+                hasmore: action.payload.hasmore,
+                posts : state.lists.posts.concat(action.payload.posts)
+            }
         };
     },
     [SagaTypes.POST_LIST_REQUEST_RESET]: (state: postSagaState) => {
@@ -251,6 +217,7 @@ console.debug(
                 status: 'idle',
                 per_page: 0,
                 current_page: 0,
+                hasmore: false,
                 posts: [],
             }
         };
