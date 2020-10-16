@@ -10,3 +10,7 @@ export { default as DefaultButton } from './button/DefaultButton';
 export { default as MarkdownEditor } from './markdown/MarkdownEditor';
 
 export { default as DefaultSelectBox } from './selectbox/DefaultSelectBox';
+
+
+export { default as MainPostList } from './lists/MainPostList';
+export { default as MainPostSearchList } from './lists/MainPostSearchList';

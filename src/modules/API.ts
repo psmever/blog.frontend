@@ -100,3 +100,8 @@ export const getPostDetail = ({slugTitle} : {slugTitle: string}) : Promise<axios
 export const incrementViewCount = (post_uuid: string) : Promise<axiosReturnInterface<any>> => {
     return service({ method: "put", url: `/api/v1/post/${post_uuid}/view-increment`, payload: {data: {}}});
 }
+
+// 검색
+export const postItemSearch = (searchItem: string) : Promise<axiosReturnInterface<any>> => {
+    return service({ method: "get", url: `/api/v1/post/${searchItem}/search`, payload: {data: {}}});
+}
