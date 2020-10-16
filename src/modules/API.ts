@@ -82,7 +82,7 @@ export function postPublish(post_uuid: string) : Promise<axiosReturnInterface<an
 };
 
 // 글 수정.
-export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface<any>> {
+export function postUpdate({post_uuid, payload} : {post_uuid: string, payload: postRequestInterface}) : Promise<axiosReturnInterface<apiPostCreateResultInterface>> {
     return service({ method: "put", url: `/api/v1/post/${post_uuid}/update`, payload: payload});
 };
 

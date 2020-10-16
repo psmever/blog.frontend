@@ -251,9 +251,9 @@ export const Band = styled.div`
         grid-template-columns: repeat(4, 1fr);
     }
 
-    @media (min-width: 140em) {
+    /* @media (min-width: 140em) {
         grid-template-columns: repeat(5, 1fr);
-    }
+    } */
 
     width: 90%;
     max-width: 1600px;
@@ -309,6 +309,7 @@ export const BandItemCardThumbimg = styled.img`
     vertical-align: middle;
     border-style: none;
     height: auto;
+    max-height: 200px;
     margin-right: 1rem !important;
     max-width: 500px;
     min-width: 300px;
