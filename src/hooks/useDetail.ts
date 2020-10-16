@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'modules';
 import { useParams } from 'react-router-dom';
-import {
-    postDetailAction
-} from 'modules/redux/post';
-import { incrementViewCount } from 'modules/API';
+import { incrementViewCount, getPostDetail } from 'modules/API';
 
 import { apiPostDetailResultInterface } from 'commonTypes';
 
@@ -48,19 +43,9 @@ interface RouteParams {
 }
 
 export default function useDetail() {
-    const dispatch = useDispatch();
     const params = useParams<RouteParams>();
 
-    const postBaseStateDetailStatus = useSelector((state: RootState) => state.post.detail.status);
-    const baseStatePostDetailData = useSelector((state: RootState) => state.post.detail.data);
-
     const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
-
-    useEffect(() => {
-        dispatch(postDetailAction(params.slug_title));
-    // FIXME 2020-10-05 01:14  경고 disable 수정 필요.
-    // eslint-disable-next-line
-    }, [])
 
     useEffect(() => {
 
@@ -68,12 +53,19 @@ export default function useDetail() {
             await incrementViewCount(post_uuid);
         }
 
-        if(postBaseStateDetailStatus === 'success' && baseStatePostDetailData !== undefined) {
-            setPostContents(baseStatePostDetailData);
-            postIncrementViewCall(baseStatePostDetailData.post_uuid);
+        async function doGetPostDetail() {
+            const getResult = await getPostDetail({ slugTitle: params.slug_title});
+            if(getResult.status === true) {
+                setPostContents(getResult.payload);
+                postIncrementViewCall(getResult.payload.post_uuid);
+            }
         }
 
-    }, [postBaseStateDetailStatus, baseStatePostDetailData])
+        doGetPostDetail();
+
+    // FIXME 2020-10-05 01:14  경고 disable 수정 필요.
+    // eslint-disable-next-line
+    }, [])
 
     return {
         postContents
