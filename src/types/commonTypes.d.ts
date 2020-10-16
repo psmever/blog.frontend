@@ -228,12 +228,7 @@ declare module 'commonTypes' {
     }
 
     export interface postSagaState {
-        create: desultSagaState
-        edit: desultSagaState<apiPostEditResultInterface>
-        publish: desultSagaState<any>
-        update: desultSagaState
         lists: getPostListSagaState
-        detail: desultSagaState<apiPostDetailResultInterface>
     }
 
     export interface postCreateContentsItemInterface {
