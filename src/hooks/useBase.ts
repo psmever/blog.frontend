@@ -84,7 +84,7 @@ export default function useBase() {
         }
     }
 
-    // 기본 베이트 스테이트
+    // 기본 베이스 스테이트
     // fix 경고 떄문에 이렇게 처리함.
     // FIXME 2020-09-26 18:17 리팩토리 필요.
     const BaseResuxState = useCallback(() => {
