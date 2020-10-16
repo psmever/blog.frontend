@@ -179,8 +179,8 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             ...state,
             lists: {
                 status: 'idle',
-                per_page: 0,
-                current_page: 0,
+                per_page: state.lists.per_page,
+                current_page: state.lists.current_page,
                 hasmore: true,
                 posts: Object.assign([], state.lists.posts, state.lists.posts)
             }
@@ -203,8 +203,8 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             ...state,
             lists:{
                 status: 'idle',
-                per_page: action.payload.per_page,
-                current_page: action.payload.current_page,
+                per_page: state.lists.per_page,
+                current_page: state.lists.current_page,
                 hasmore: action.payload.hasmore,
                 posts : state.lists.posts.concat(action.payload.posts)
             }
@@ -215,8 +215,8 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             ...state,
             lists: {
                 status: 'idle',
-                per_page: 0,
-                current_page: 0,
+                per_page: state.lists.per_page,
+                current_page: state.lists.current_page,
                 hasmore: false,
                 posts: [],
             }
