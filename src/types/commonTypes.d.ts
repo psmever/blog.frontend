@@ -122,12 +122,20 @@ declare module 'commonTypes' {
         detail_updated: string
     }
 
+    // 포스트 리스트 인터페이스
     export interface apiPostListResultInterface {
         per_page: number,
         current_page: number,
         hasmore: boolean,
         posts: apiPostListResultItemsInterface[]
     }
+
+    interface apiTagGroupListItem {
+        value: string
+        count: number
+    }
+
+    export interface apiTagGoupListInterface extends array<apiTagGroupListItem> {}
 
     // 기본 api 리턴 인테페이스
     export interface axiosReturnInterface<T> {
@@ -136,6 +144,7 @@ declare module 'commonTypes' {
         payload: T
     }
 
+    // 로그인 Request 인터페이스
     export interface loginRequestInterface {
         email: string,
         password: string
