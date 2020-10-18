@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
-<<<<<<< HEAD
-import { useParams } from 'react-router-dom';
 import { incrementViewCount, getPostDetail } from 'modules/API';
-
-=======
-import { incrementViewCount, getPostDetail } from 'modules/API';
->>>>>>> develop
 import { apiPostDetailResultInterface } from 'commonTypes';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -49,11 +43,6 @@ interface RouteParams {
 
 export default function useDetail() {
     const params = useParams<RouteParams>();
-<<<<<<< HEAD
-
-    const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
-
-=======
     const history = useHistory();
 
     const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
@@ -65,7 +54,6 @@ export default function useDetail() {
         });
     }
 
->>>>>>> develop
     useEffect(() => {
 
         async function postIncrementViewCall(post_uuid : string) {
