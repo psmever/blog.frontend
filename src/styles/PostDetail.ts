@@ -39,6 +39,12 @@ export const BlogPost = styled.article`
 
 export const Container = styled.div`
 
+    @media (min-width: 768px) {
+        max-width: 75%;
+    }
+
+    max-width: 100%;
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -51,7 +57,6 @@ export const Container = styled.div`
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    max-width: 85%;
 
 `
 
