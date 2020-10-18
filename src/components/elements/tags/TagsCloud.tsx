@@ -1,6 +1,5 @@
 import React from 'react'
 import { TagCloud } from 'react-tagcloud';
-import {apiTagGoupListInterface} from 'commonTypes';
 
 interface tagCloudPros {
     tagData : any,
@@ -14,8 +13,8 @@ export default function TagsCloud({
 
     return (
         <TagCloud
-            minSize={22}
-            maxSize={50}
+            minSize={30}
+            maxSize={90}
             tags={tagData}
             className="simple-cloud"
             onClick={(tag : any) => handleTagItemClick(tag.value)}

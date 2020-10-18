@@ -12,6 +12,7 @@ import {
     apiPostDetailResultInterface,
     apiLoginCheckResultInterface,
     apiTagGoupListInterface,
+    apiPostListResultItemsInterface,
 } from 'commonTypes';
 
 /**
@@ -111,7 +112,8 @@ export const postItemSearch = (searchItem: string) : Promise<axiosReturnInterfac
 export const getTagGroups = () : Promise<axiosReturnInterface<apiTagGoupListInterface>> => {
     return service({ method: 'get', url: `/api/v1/post/tag/tag-list`, payload: {data: {}}});
 }
+
 // 테그 아이템 검색.
-export const tagItemSearch = (search_tag_item: string) : Promise<axiosReturnInterface<apiTagGoupListInterface>> => {
+export const tagItemSearch = (search_tag_item: string) : Promise<axiosReturnInterface<apiPostListResultItemsInterface[]>> => {
     return service({ method: 'get', url: `/api/v1/post/tag/${search_tag_item}/tag-search`, payload: {data: {}}});
 }

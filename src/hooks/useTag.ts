@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import { getTagGroups, tagItemSearch } from 'modules/API';
-import { apiTagGoupListInterface} from 'commonTypes';
+import { apiTagGoupListInterface, apiPostListResultItemsInterface} from 'commonTypes';
 import { useHistory, useParams } from 'react-router-dom';
 
 interface RouteParams {
@@ -9,15 +9,13 @@ interface RouteParams {
 
 export default function useTag() {
 
-
     const history = useHistory();
     const { search_tag_item } = useParams<RouteParams>();
-    const [tagGroupList, setTagGoupList] = useState<apiTagGoupListInterface>([
-        {
-            value: '',
-            count: 0
-        }
-    ]);
+    const [tagGroupList, setTagGoupList] = useState<apiTagGoupListInterface>([{
+        value: '',
+        count: 0
+    }]);
+    const [ searchItemResult, setSearchItemResult] = useState<apiPostListResultItemsInterface[]>([]);
 
     const handleTegItemClick = (tagValue: string) => {
         history.push({
@@ -32,7 +30,7 @@ export default function useTag() {
             if(response.status === true) {
                 setTagGoupList(response.payload)
             } else {
-                // FIXME 2020-10-18 10:22 에러나 없을떄?
+                setTagGoupList([])
             }
         }
         getTagsGroupList();
@@ -41,7 +39,11 @@ export default function useTag() {
     useEffect(() => {
         const tagItemSearchCall = async () => {
             const response = await tagItemSearch(search_tag_item);
-            console.debug(response);
+            if(response.status === true && response.payload != null) {
+                setSearchItemResult(response.payload);
+            } else {
+                setSearchItemResult([]);
+            }
         }
         if(search_tag_item) {
             tagItemSearchCall();
@@ -50,6 +52,7 @@ export default function useTag() {
 
     return {
         tagGroupList,
-        handleTegItemClick
+        handleTegItemClick,
+        searchItemResult
     };
 }
