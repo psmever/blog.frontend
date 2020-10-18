@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { useParams } from 'react-router-dom';
 import { incrementViewCount, getPostDetail } from 'modules/API';
 
+=======
+import { incrementViewCount, getPostDetail } from 'modules/API';
+>>>>>>> develop
 import { apiPostDetailResultInterface } from 'commonTypes';
+import { useHistory, useParams } from 'react-router-dom';
 
 // post 내용 초기화.
 const postContentsInit : apiPostDetailResultInterface = {
@@ -44,9 +49,23 @@ interface RouteParams {
 
 export default function useDetail() {
     const params = useParams<RouteParams>();
+<<<<<<< HEAD
 
     const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
 
+=======
+    const history = useHistory();
+
+    const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
+
+    const handleTagItemClick = (tag_text: string) => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/pages/tags/${tag_text}/search`,
+            state: { list: true }
+        });
+    }
+
+>>>>>>> develop
     useEffect(() => {
 
         async function postIncrementViewCall(post_uuid : string) {
@@ -68,6 +87,7 @@ export default function useDetail() {
     }, [])
 
     return {
-        postContents
+        postContents,
+        handleTagItemClick
     }
 }

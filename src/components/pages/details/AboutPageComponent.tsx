@@ -25,7 +25,6 @@ export default function AboutPage() {
     return (
         <>
             <MainWrapper>
-
                 <AboutSection>
                     <Container>
                         <Title>민군은</Title>
@@ -49,10 +48,7 @@ export default function AboutPage() {
                         <AboutFigure><AboutContentsLink to="/"><AboutImage src="/assets/images/promo-banner.jpg" alt="" /></AboutContentsLink></AboutFigure>
                     </Container>
                 </AboutSection>
-                {/* <!--//about-section--> */}
-
             </MainWrapper>
-            {/* <!--//main-wrapper--> */}
         </>
     );
 }

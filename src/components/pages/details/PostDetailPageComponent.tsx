@@ -1,25 +1,9 @@
 import React from 'react';
 import {
-    MainWrapper,
-    BlogPost,
-    Container,
-    Header,
-    HeaderTitle,
-    HeaderMeta,
-    HeaderDate,
-    HeaderTime,
-    HeaderComment,
-    HeaderCommentLink,
-    HeaderModify,
-    HeaderModifyLink,
-    PostBody,
-    PromoSection,
-    PromoContainer,
-    PromoTitle,
-    PromoPtag,
-    PromoFigure,
-    PromoLink,
-    PromoImage
+    MainWrapper, BlogPost, Container, Header, HeaderTitle, HeaderMeta, HeaderDate, HeaderTime, HeaderComment, HeaderCommentLink,
+    HeaderModify, HeaderModifyLink, PostBody, PromoSection, PromoContainer, PromoTitle, PromoPtag, PromoFigure, PromoLink, PromoImage,
+    PostTag,PostTagMeta, PostTags, PostTagsItems, PostTagsItem
+
 } from "styles/PostDetail";
 import { MarkdownRender } from 'components/elements';
 import { useHistory } from 'react-router-dom';
@@ -30,7 +14,8 @@ import * as Helper from 'lib/Helper';
 export default function PostDetailPage() {
 
     const {
-        postContents
+        postContents,
+        handleTagItemClick
     } = useDetail();
 
     const history = useHistory();
@@ -48,9 +33,7 @@ export default function PostDetailPage() {
             <MainWrapper>
 
                 <BlogPost>
-
                     <Container>
-
                         <Header>
                             <HeaderTitle>{postContents.post_title}</HeaderTitle>
                             <HeaderMeta>
@@ -59,22 +42,27 @@ export default function PostDetailPage() {
                                 <HeaderComment>
                                     <HeaderCommentLink to="/">0 comments&nbsp;</HeaderCommentLink>
                                 </HeaderComment>
-                            {Helper.getLocalToken().login_state === true &&
-                                <HeaderModify>
-                                    <HeaderModifyLink onClick={handleClickModifyLink}>수정&nbsp;</HeaderModifyLink>
-                                </HeaderModify>
-                            }
+                                {Helper.getLocalToken().login_state === true &&
+                                    <HeaderModify>
+                                        <HeaderModifyLink onClick={handleClickModifyLink}>수정&nbsp;</HeaderModifyLink>
+                                    </HeaderModify>
+                                }
                             </HeaderMeta>
                         </Header>
-
+                        <PostTag>
+                            <PostTagMeta>
+                                <PostTags>
+                                    {postContents.tags.map((element, n) => {
+                                        return(<PostTagsItems key={n}><PostTagsItem onClick={() => handleTagItemClick(element.text)}>{element.text}</PostTagsItem></PostTagsItems>)
+                                    })}
+                                </PostTags>
+                            </PostTagMeta>
+                        </PostTag>
                         <PostBody>
-
                             <MarkdownRender
                                 markdownText={postContents.contents_text}
                             />
-
                         </PostBody>
-
                     </Container>
                     {/* <!--//container--> */}
                 </BlogPost>
@@ -89,13 +77,8 @@ export default function PostDetailPage() {
                             </PromoLink>
                         </PromoFigure>
                     </PromoContainer>
-                    {/* <!--//container--> */}
                 </PromoSection>
-                {/* <!--//promo-section--> */}
-
-
             </MainWrapper>
-            {/* <!--//main-wrapper--> */}
         </>
     );
 }

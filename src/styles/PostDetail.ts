@@ -24,6 +24,8 @@ export const BlogPost = styled.article`
         padding: 3rem !important;
     }
 
+    padding: 2rem !important;
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -37,6 +39,12 @@ export const BlogPost = styled.article`
 
 export const Container = styled.div`
 
+    @media (min-width: 768px) {
+        max-width: 75%;
+    }
+
+    max-width: 100%;
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -49,7 +57,6 @@ export const Container = styled.div`
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    max-width: 820px;
 
 `
 
@@ -171,6 +178,86 @@ export const HeaderModifyLink = styled.div`
 
 `
 
+export const PostTag = styled.div`
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    color: #4f4f4f;
+    box-sizing: border-box;
+    display: block;
+`
+
+export const PostTagMeta = styled.div`
+
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    margin-bottom: 1rem !important;
+    color: #8f8f8f;
+    font-size: 0.8125rem;
+
+`
+
+export const PostTags = styled.ul`
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+`
+export const PostTagsItems = styled.li`
+    float: left;
+`
+export const PostTagsItem = styled.div`
+    background: #eeeeee;
+    border-radius: 3px 0 0 3px;
+    color: #5469C9;
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 20px 0 23px;
+    position: relative;
+    margin: 0 10px 10px 0;
+    text-decoration: none;
+    -webkit-transition: color 0.2s;
+    cursor: pointer;
+
+    &:before {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+        content: '';
+        height: 6px;
+        left: 10px;
+        position: absolute;
+        width: 6px;
+        top: 10px;
+    }
+
+    &:after {
+        background: #fff;
+        border-bottom: 13px solid transparent;
+        border-left: 10px solid #eee;
+        border-top: 13px solid transparent;
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    &:hover {
+        background-color: #e0dede;
+        /* color: white; */
+    }
+
+    &:hover::after {
+        border-left-color: #e0dede;
+    }
+`
 
 export const PostBody = styled.div`
 
