@@ -48,9 +48,7 @@ export default function PostDetailPage() {
             <MainWrapper>
 
                 <BlogPost>
-
                     <Container>
-
                         <Header>
                             <HeaderTitle>{postContents.post_title}</HeaderTitle>
                             <HeaderMeta>
@@ -59,22 +57,18 @@ export default function PostDetailPage() {
                                 <HeaderComment>
                                     <HeaderCommentLink to="/">0 comments&nbsp;</HeaderCommentLink>
                                 </HeaderComment>
-                            {Helper.getLocalToken().login_state === true &&
-                                <HeaderModify>
-                                    <HeaderModifyLink onClick={handleClickModifyLink}>수정&nbsp;</HeaderModifyLink>
-                                </HeaderModify>
-                            }
+                                {Helper.getLocalToken().login_state === true &&
+                                    <HeaderModify>
+                                        <HeaderModifyLink onClick={handleClickModifyLink}>수정&nbsp;</HeaderModifyLink>
+                                    </HeaderModify>
+                                }
                             </HeaderMeta>
                         </Header>
-
                         <PostBody>
-
                             <MarkdownRender
                                 markdownText={postContents.contents_text}
                             />
-
                         </PostBody>
-
                     </Container>
                     {/* <!--//container--> */}
                 </BlogPost>
