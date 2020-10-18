@@ -77,13 +77,8 @@ export default function PostDetailPage() {
                             </PromoLink>
                         </PromoFigure>
                     </PromoContainer>
-                    {/* <!--//container--> */}
                 </PromoSection>
-                {/* <!--//promo-section--> */}
-
-
             </MainWrapper>
-            {/* <!--//main-wrapper--> */}
         </>
     );
 }
