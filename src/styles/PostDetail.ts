@@ -24,6 +24,8 @@ export const BlogPost = styled.article`
         padding: 3rem !important;
     }
 
+    padding: 2rem !important;
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -49,7 +51,7 @@ export const Container = styled.div`
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    max-width: 820px;
+    max-width: 85%;
 
 `
 
