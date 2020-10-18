@@ -6,22 +6,29 @@ import {
     TagsCloud
 } from 'components/elements';
 
+import useTag from 'hooks/useTag';
+
 export default function TagPage() {
+
+    const {
+        tagGroupList,
+        handleTegItemClick
+    } = useTag();
 
     return (
         <MainWarpper>
             <CtaSection>
                 <CtaSectionContainer>
                     <Heading> Tags 모음 </Heading>
-                    <Intro> Tags 모음 </Intro>
-
                 </CtaSectionContainer>
             </CtaSection>
             <ListSection>
                 <Container>
-                    <TagsCloud/>
+                    <TagsCloud
+                        tagData={tagGroupList}
+                        handleTagItemClick={handleTegItemClick}
+                    />
                 </Container>
-
             </ListSection>
         </MainWarpper>
     );
