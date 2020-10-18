@@ -59,7 +59,9 @@ export default function HeaderComponent() {
     }
 
     const handleClickTagLink = () => {
-        console.debug('handleClickTagLink');
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/pages/tags`
+        });
     }
 
     // 라우터 변경시 메뉴 닫기.
@@ -104,7 +106,7 @@ export default function HeaderComponent() {
                                 </NavItemLink>
                             </NavItem>
                             <NavItem>
-                                <NavItemLink activeState={nowPathname === '/' && true} onClick={handleClickTagLink}>
+                                <NavItemLink activeState={nowPathname === '/pages/tags' && true} onClick={handleClickTagLink}>
                                     <AboutIcon /> Tag
                                 </NavItemLink>
                             </NavItem>
