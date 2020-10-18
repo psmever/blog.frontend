@@ -14,4 +14,4 @@ export { default as DefaultSelectBox } from './selectbox/DefaultSelectBox';
 export { default as TagsCloud } from './tags/TagsCloud';
 
 export { default as MainPostList } from './lists/MainPostList';
-export { default as MainPostSearchList } from './lists/MainPostSearchList';
+export { default as PostSearchList } from './lists/PostSearchList';

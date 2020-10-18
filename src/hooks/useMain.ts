@@ -33,7 +33,6 @@ export default function useMain() {
             }
             setSearchLoading(true);
         }
-
     }
 
     const fetchMoreData = () => {
@@ -61,15 +60,11 @@ export default function useMain() {
         }
     } ,[basePostListsState]);
 
-
     useEffect(() => {
-
         const handleClickSearchButton = debounce (async () => {
-
             if(searchLoading === false) {
                 setSearchLoading(true);
                 const searchResult = await postItemSearch(searchItem);
-                console.debug(searchResult);
                 if(searchResult.status === true && searchResult.payload) {
                     setSearchItemResult(searchResult.payload);
                 } else {

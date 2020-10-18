@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios'
 import ReactMde, { Suggestion, SaveImageHandler } from "react-mde"; // https://uiwjs.github.io/react-md-editor/
 import * as Showdown from "showdown";
@@ -61,40 +61,10 @@ export default function MarkdownEditor({
         tasklists: true
     });
 
-    // const save: SaveImageHandler = async function*(data: ArrayBuffer) {
-
-    //     console.debug(data);
-    //     var bytes = new Uint8Array( data );
-
-
-
-    //     console.debug(bytes);
-
-    //     // Promise that waits for "time" milliseconds
-    //     const wait = function(time: number) {
-    //         return new Promise((a, r) => {
-    //             setTimeout(() => a(), time);
-    //         });
-    //     };
-
-    //     // Upload "data" to your server
-    //     // Use XMLHttpRequest.send to send a FormData object containing
-    //     // "data"
-    //     // Check this question: https://stackoverflow.com/questions/18055422/how-to-receive-php-image-data-over-copy-n-paste-javascript-with-xmlhttprequest
-
-    //     await wait(2000);
-    //     // yields the URL that should be inserted in the markdown
-    //     yield "https://picsum.photos/300";
-    //     await wait(2000);
-
-    //     // returns true meaning that the save was successful
-    //     return true;
-    // };
     const save: SaveImageHandler = async function*(arrayBuffer: ArrayBuffer) : any {
 
         const formData = new FormData();
         const blob = new Blob( [ arrayBuffer ] );
-        // const url = URL.createObjectURL( blob );
         formData.append('image', blob);
 
         const task : MarkdownImageUpload = await axios.post(process.env.REACT_APP_API_URL + `/api/v1/post/create-image`, formData, {
@@ -114,7 +84,6 @@ export default function MarkdownEditor({
             };
         })
         .catch(function (error) {
-            console.debug(error.response.data.error.error_message);
             return {
                 status: false,
                 media_url: '',
@@ -127,36 +96,8 @@ export default function MarkdownEditor({
         } else {
             _Alert_.error({text: task.message ? task.message: '다시 시도해 주세요.'});
         }
-
-        // Promise that waits for "time" milliseconds
-        // const wait = function(time: number) {
-        //     return new Promise((a, r) => {
-        //         setTimeout(() => a(), time);
-        //     });
-        // };
-
-        // Upload "data" to your server
-        // Use XMLHttpRequest.send to send a FormData object containing
-        // "data"
-        // Check this question: https://stackoverflow.com/questions/18055422/how-to-receive-php-image-data-over-copy-n-paste-javascript-with-xmlhttprequest
-
-        // await wait(2000);
-        // yields the URL that should be inserted in the markdown
-
-        // await wait(2000);
-
-        // returns true meaning that the save was successful
         return true;
     };
-
-    useEffect(() => {
-        // console.debug(EditorContents);
-    }, [EditorContents]);
-
-
-    useEffect(() => {
-
-    }, [EditorHeight]);
 
     return (
         <div className="container" style={{width:'100%'}} key={EditorHeight}>
@@ -183,7 +124,6 @@ export default function MarkdownEditor({
                     paste={{ saveImage: save }}
                 />
             }
-
         </div>
     );
 }
