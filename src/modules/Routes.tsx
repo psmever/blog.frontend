@@ -5,6 +5,7 @@ import MainLayoutComponents from 'components/MainLayoutComponents'
 import * as Pages from "components/pages";
 import useBase from "hooks/useBase";
 import { BodyLoading } from 'components/elements';
+
 interface RootProps  {
     Routerhistory: any
 };
@@ -35,6 +36,7 @@ const Routes = ({Routerhistory} : RootProps) => {
                                 <Route path={process.env.PUBLIC_URL + "/pages/about"} exact={true} component={ Pages.AboutPage } />
                                 {/* <Route path={process.env.PUBLIC_URL + "/pages/post"} exact={true} component={ Pages.PostDetailPage } /> */}
                                 <Route path={process.env.PUBLIC_URL + "/pages/post/detail/:slug_title"} exact={true} component={ Pages.PostDetailPage } />
+                                <Route path={process.env.PUBLIC_URL + "/pages/tags"} exact={true} component={ Pages.TagPage } />
                                 {/* <Redirect path="*" to="/pages" /> */}
                             </MainLayoutComponents>
                             {/* <Route exact path={process.env.PUBLIC_URL + "/"} render={() => (<Redirect to="/pages" />)} /> */}
