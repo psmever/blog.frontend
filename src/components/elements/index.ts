@@ -10,3 +10,8 @@ export { default as DefaultButton } from './button/DefaultButton';
 export { default as MarkdownEditor } from './markdown/MarkdownEditor';
 
 export { default as DefaultSelectBox } from './selectbox/DefaultSelectBox';
+
+export { default as TagsCloud } from './tags/TagsCloud';
+
+export { default as MainPostList } from './lists/MainPostList';
+export { default as PostSearchList } from './lists/PostSearchList';

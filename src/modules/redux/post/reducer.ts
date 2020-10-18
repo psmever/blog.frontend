@@ -49,7 +49,7 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
                 per_page: state.lists.per_page,
                 current_page: state.lists.current_page,
                 hasmore: action.payload.hasmore,
-                posts : state.lists.posts.concat(action.payload.posts)
+                posts: Object.assign([], state.lists.posts, state.lists.posts)
             }
         };
     },

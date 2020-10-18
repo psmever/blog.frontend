@@ -1,36 +1,22 @@
 import React from 'react';
 import {
-    MainWarpper, CtaSection, CtaSectionContainer, Heading, Intro, Form, FormGroup, FormLabel, FormInput, FormSubmitButton, ListSection,
-    Band,BandItems,BandItemsCard,BandItemArticle,BandItemCardThumbBox, BandItemCardThumbimg,BandItemArticleTitle, BandItemArticleTitleSpan
-    ,BandItemArticleMetaDate, BandItemArticleMetaTime, BandItemArticleDateBox
+    MainWarpper, CtaSection, CtaSectionContainer, Heading, Intro, Form, FormGroup, FormLabel, FormInput, ListSection
 } from "styles/Main";
 import useMain from 'hooks/useMain';
-import { useToasts } from 'react-toast-notifications';
-import { useHistory } from 'react-router-dom';
-import InfiniteScroll from "react-infinite-scroll-component";
-import {PageLoginButtonLoading} from 'components/elements'
+import {
+    MainPostList,
+    PostSearchList,
+} from 'components/elements'
 
 export default function MainPage() {
 
-    const { addToast } = useToasts();
-    const history = useHistory();
-
     const {
         basePostListsState,
-        fetchMoreData
+        fetchMoreData,
+        handleChangeSearchItem,
+        searchItem,
+        searchItemResult,
     } = useMain();
-
-    // 검색 버튼.
-    const handleClickSearchButton = () => {
-        addToast('준비 중입니다.', { appearance: 'success', autoDismiss: true });
-    }
-
-    // 리스트 링크 클릭.
-    const handlePostCardCLick = (slugTitle: string) => {
-        history.push({
-            pathname: process.env.PUBLIC_URL + `/pages/post/detail/${slugTitle}`
-        });
-    }
 
     return (
         <>
@@ -42,48 +28,29 @@ export default function MainPage() {
                         <Form>
                             <FormGroup>
                                 <FormLabel htmlFor="semail">Your email</FormLabel>
-                                <FormInput type="text" id="search" placeholder="검색어를 입력해 주세요." />
+                                <FormInput type="text" id="search" placeholder="검색어를 입력해 주세요."
+                                    onChange={e => handleChangeSearchItem(e.target.value)}
+                                    value={searchItem}
+                                />
                             </FormGroup>
-                            <FormSubmitButton type="button" onClick={handleClickSearchButton}>검색</FormSubmitButton>
                         </Form>
                     </CtaSectionContainer>
                 </CtaSection>
-
-
                 <ListSection>
-                    <InfiniteScroll
-                        dataLength={basePostListsState.status === 'success' ? basePostListsState.posts.length : 0}
-                        next={fetchMoreData}
-                        hasMore={basePostListsState.hasmore}
-                        loader={<PageLoginButtonLoading/>}
-                        >
-                        <Band>
-                            { basePostListsState.posts.map((element, n) => {
-                                    return (
-                                        <BandItems key={n}>
-                                            <BandItemsCard onClick={e=>handlePostCardCLick(element.slug_title)}>
-                                                <BandItemCardThumbBox>
-                                                    <BandItemCardThumbimg src={element.thumb_url} alt="" />
-                                                </BandItemCardThumbBox>
-                                                <BandItemArticle>
-                                                    <BandItemArticleTitle>{element.post_title}</BandItemArticleTitle>
-                                                    <BandItemArticleTitleSpan>{element.list_contents}</BandItemArticleTitleSpan>
-                                                    <BandItemArticleDateBox>
-                                                        <BandItemArticleMetaDate>{element.list_created}</BandItemArticleMetaDate>
-                                                        <BandItemArticleMetaTime>{element.view_count} read</BandItemArticleMetaTime>
-                                                    </BandItemArticleDateBox>
-                                                </BandItemArticle>
-                                            </BandItemsCard>
-                                        </BandItems>
-                                    )
-                                })
-                            }
-                        </Band>
-
-                    </InfiniteScroll>
-
+                    { searchItem.length > 0 && searchItemResult.length > 0
+                    ?
+                        <PostSearchList
+                            listData={searchItemResult}
+                        />
+                    :
+                        <MainPostList
+                            listDataLength={basePostListsState.status === 'success' ? basePostListsState.posts.length : 0}
+                            listNext={fetchMoreData}
+                            listHasMore={basePostListsState.hasmore}
+                            listData={basePostListsState.posts}
+                        />
+                    }
                 </ListSection>
-
             </MainWarpper>
         </>
     );
