@@ -5,7 +5,7 @@ import {
 import useMain from 'hooks/useMain';
 import {
     MainPostList,
-    MainPostSearchList,
+    PostSearchList,
 } from 'components/elements'
 
 export default function MainPage() {
@@ -13,7 +13,6 @@ export default function MainPage() {
     const {
         basePostListsState,
         fetchMoreData,
-
         handleChangeSearchItem,
         searchItem,
         searchItemResult,
@@ -37,12 +36,11 @@ export default function MainPage() {
                         </Form>
                     </CtaSectionContainer>
                 </CtaSection>
-
                 <ListSection>
                     { searchItem.length > 0 && searchItemResult.length > 0
                     ?
-                        <MainPostSearchList
-                        listData={searchItemResult}
+                        <PostSearchList
+                            listData={searchItemResult}
                         />
                     :
                         <MainPostList
@@ -53,7 +51,6 @@ export default function MainPage() {
                         />
                     }
                 </ListSection>
-
             </MainWarpper>
         </>
     );
