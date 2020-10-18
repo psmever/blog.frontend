@@ -58,6 +58,12 @@ export default function HeaderComponent() {
         }
     }
 
+    const handleClickTagLink = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/pages/tags`
+        });
+    }
+
     // 라우터 변경시 메뉴 닫기.
     useEffect(() => {
         setLeftMenuHide(false);
@@ -97,6 +103,11 @@ export default function HeaderComponent() {
                             <NavItem>
                                 <NavItemLink activeState={nowPathname === '/' && true} onClick={handleClickHomeLink}>
                                     <HomeIcon /> Home <NavItemLinkTitle>(current)</NavItemLinkTitle>
+                                </NavItemLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavItemLink activeState={nowPathname === '/pages/tags' && true} onClick={handleClickTagLink}>
+                                    <AboutIcon /> Tag
                                 </NavItemLink>
                             </NavItem>
 

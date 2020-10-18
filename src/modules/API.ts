@@ -11,6 +11,8 @@ import {
     apiPostListResultInterface,
     apiPostDetailResultInterface,
     apiLoginCheckResultInterface,
+    apiTagGoupListInterface,
+    apiPostListResultItemsInterface,
 } from 'commonTypes';
 
 /**
@@ -99,4 +101,19 @@ export const getPostDetail = ({slugTitle} : {slugTitle: string}) : Promise<axios
 // 뷰카운트 증가.
 export const incrementViewCount = (post_uuid: string) : Promise<axiosReturnInterface<any>> => {
     return service({ method: "put", url: `/api/v1/post/${post_uuid}/view-increment`, payload: {data: {}}});
+}
+
+// 검색
+export const postItemSearch = (searchItem: string) : Promise<axiosReturnInterface<any>> => {
+    return service({ method: "get", url: `/api/v1/post/${searchItem}/search`, payload: {data: {}}});
+}
+
+// 테그 그룹 리스트
+export const getTagGroups = () : Promise<axiosReturnInterface<apiTagGoupListInterface>> => {
+    return service({ method: 'get', url: `/api/v1/post/tag/tag-list`, payload: {data: {}}});
+}
+
+// 테그 아이템 검색.
+export const tagItemSearch = (search_tag_item: string) : Promise<axiosReturnInterface<apiPostListResultItemsInterface[]>> => {
+    return service({ method: 'get', url: `/api/v1/post/tag/${search_tag_item}/tag-search`, payload: {data: {}}});
 }
