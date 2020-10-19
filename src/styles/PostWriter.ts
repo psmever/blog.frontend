@@ -227,22 +227,28 @@ export const EditorBox = styled.div`
 export const WriteButtonBox = styled.div`
 
     @media (max-width: 767.98px) {
-        width: 100%;
+        /* width: 100%; */
         margin-bottom: 0.5rem;
     }
 
     @media (min-width: 576px) {
-        display: flex;
-        flex: 0 0 auto;
+        /* display: flex; */
+        /* flex: 0 0 auto; */
         flex-flow: row wrap;
         align-items: center;
     }
 
-    text-align: center !important;
+    text-align: left !important;
     box-sizing: border-box;
     padding: 0.375rem 0.75rem;
+    display: flex;
 `
-
+export const WriteButtonContainer = styled.div`
+    display: flex;
+`
 export const WriteButtonInner = styled.div`
-    margin: 0px 5px 0px 0px;
+    /* width: 20%; */
+    flex:1;
+    margin: 0px auto;
+    box-sizing: border-box;
 `
