@@ -29,9 +29,9 @@ export default function AboutPage() {
                     <Container>
                         <Title>민군은</Title>
 
-                        <AboutFigure><AboutImage src="/assets/images/about/about-me-20201005.jpg" alt="" /></AboutFigure>
+                        <AboutFigure><AboutImage src="/assets/images/about/about-me.jpg" alt="" /></AboutFigure>
                         <AboutContentsTitle>블러그</AboutContentsTitle>
-                        <AboutPTag><Link to='' onClick={handleClickFrontSouce}>Front-Source</Link> &nbsp; <Link to='' onClick={handleClickBackendSource}>Backend-Source</Link></AboutPTag>
+                        <AboutPTag><Link to='' onClick={handleClickFrontSouce}>Front Github</Link> &nbsp; <Link to='' onClick={handleClickBackendSource}>Backend Github</Link></AboutPTag>
                         <AboutContentsTitle>좋아하는것</AboutContentsTitle>
                         <AboutPTag>맥을 좋아하고, 맥을 사는것을 좋아하고(돈은 없음;;) 맥에 관해 대화(?) 하는것.. 해킨 커뮤니티가 없어지니 같이 대화할 사람이 없네...</AboutPTag>
                         <AboutPTag>php 를 좋아하고 php로 뭘 만들어 보는것</AboutPTag>
