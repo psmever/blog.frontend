@@ -269,6 +269,9 @@ export const BandItems = styled.div`
         grid-column: 1 / span 2;
     } */
     /* grid-template-columns: repeat(auto-fill, minmax(20%, auto)); */
+
+    max-width: 500px;
+    min-width: 300px;
 `
 
 export const BandItemsCard = styled.div`
@@ -303,6 +306,8 @@ export const BandItemCardThumbimg = styled.img`
     }
 
     width: 100%;
+    max-width: 500px;
+    min-width: 300px;
     line-height: 1.5;
     text-align: center;
     box-sizing: border-box;
@@ -311,8 +316,6 @@ export const BandItemCardThumbimg = styled.img`
     height: auto;
     max-height: 200px;
     margin-right: 1rem !important;
-    max-width: 500px;
-    min-width: 300px;
     border-radius: 2px;
     display: none !important;
 `
@@ -328,6 +331,7 @@ export const BandItemArticle = styled.article`
     flex-direction: column;
     -webkit-box-pack: justify;
     justify-content: space-between;
+    max-width: 500px;
 `
 
 export const BandItemArticleTitle = styled.h1`
@@ -343,6 +347,15 @@ export const BandItemArticleTitleSpan = styled.span`
     text-transform: uppercase;
     letter-spacing: .05em;
     margin: 2em 0 0 0;
+
+    /* width:250px; */
+    overflow:hidden;
+    /* white-space:nowrap; */
+    text-overflow:ellipsis;
+    padding:10px;
+    border:1px solid #e5e5e5;
+    /* background:#f5f5f5; */
+
 `
 export const BandItemArticleDateBox = styled.div`
 
