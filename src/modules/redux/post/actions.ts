@@ -7,3 +7,10 @@ export const postGetListAction = (pageNumber: number) => {
         pageNumber: pageNumber,
     }
 }
+
+// 글 리스트 리셋.
+export const postGetListResetAction = () => {
+    return {
+        type: SagaTypes.POST_LIST_REQUEST_RESET
+    }
+}
