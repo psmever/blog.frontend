@@ -8,6 +8,7 @@ import {
     postEdit,
     postPublish,
     postUpdate,
+    postWaitingList,
 } from 'modules/API';
 
 import { useParams } from 'react-router-dom';
@@ -17,6 +18,7 @@ import { loginCheck } from 'modules/API';
 import { useHistory } from 'react-router-dom';
 import * as _ from "lodash";
 import { useToasts } from 'react-toast-notifications';
+import Swal from 'sweetalert2';
 
 interface RouteParams {
     post_uuid: string;
@@ -129,6 +131,45 @@ export default function useWrite() {
                 history.push({
                     pathname: process.env.PUBLIC_URL + `/`
                 });
+            } else {
+                const waitingPost = await postWaitingList();
+                if(waitingPost.status === true && waitingPost.payload != null) {
+                    const selectBoxOptions = waitingPost.payload.map((e, n) => {
+                        return e.post_title;
+                    });
+
+                    const {
+                        value: selectValue,
+                    } = await Swal.fire({
+                        title: '작성 중인 글이 있습니다.',
+                        input: 'select',
+                        inputOptions: selectBoxOptions,
+                        inputPlaceholder: '작성중인 글',
+                        showCancelButton: true,
+                        confirmButtonText: '수정',
+                        cancelButtonText: '나중에',
+                        inputValidator: (value) => {
+                            return new Promise((resolve) => {
+                                if (value === 'oranges') {
+                                    resolve()
+                                } else {
+                                    //   resolve('You need to select oranges :)')
+                                    resolve()
+                                }
+                            })
+                        }
+                    })
+
+                    if(selectValue) {
+                        const selectPostUUID = waitingPost.payload[selectValue] ? waitingPost.payload[selectValue].post_uuid : null;
+                        if(selectPostUUID != null) {
+                            history.push({
+                                pathname: process.env.PUBLIC_URL + `/admin/${selectPostUUID}/edit`,
+                                state: { write: true }
+                            });
+                        }
+                    }
+                }
             }
         }
         loginCheckApiCall();
@@ -180,6 +221,7 @@ export default function useWrite() {
         setEditorTagContents,
         editorTagSuggestions,
         setEditorTagSuggestions,
+
 
         handleClickExitButton,
         handleClickSaveButton,

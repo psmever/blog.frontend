@@ -13,6 +13,7 @@ import {
     apiLoginCheckResultInterface,
     apiTagGoupListInterface,
     apiPostListResultItemsInterface,
+    apiPostWaitingListResultInterface,
 } from 'commonTypes';
 
 /**
@@ -116,4 +117,9 @@ export const getTagGroups = () : Promise<axiosReturnInterface<apiTagGoupListInte
 // 테그 아이템 검색.
 export const tagItemSearch = (search_tag_item: string) : Promise<axiosReturnInterface<apiPostListResultItemsInterface[]>> => {
     return service({ method: 'get', url: `/api/v1/post/tag/${search_tag_item}/tag-search`, payload: {data: {}}});
+}
+
+// 개시전 글 가지고 오기.
+export const postWaitingList = () : Promise<axiosReturnInterface<apiPostWaitingListResultInterface[]>> => {
+    return service({ method: 'get', url: `/api/v1/post/write/waiting-list`, payload: {data: {}}});
 }

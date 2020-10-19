@@ -43,6 +43,13 @@ declare module 'commonTypes' {
         post_uuid: string
         slug_title: string
     }
+
+    // 작성 대기중인글 결과 인터페이스.
+    export interface apiPostWaitingListResultInterface {
+        post_uuid: string
+        post_title: string
+    }
+
     // 글 에디트
     export interface apiPostEditResultInterface {
         post_uuid: string
