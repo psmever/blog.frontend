@@ -20,7 +20,8 @@ import {
     StyledPreviewTitle,
     RightEditorPreviewContents,
     WriteButtonBox,
-    WriteButtonInner,
+    WriteButtonContainer,
+    WriteButtonInner
 } from "styles/PostWriter";
 
 import useWrite from 'hooks/useWrite';
@@ -155,9 +156,11 @@ export default function WritePage() {
                         </EditorBox>
                         {/* FIXME 화면이 작을때 세로로 배치되는 문제 수정. */}
                         <WriteButtonBox>
-                            <WriteButtonInner><DefaultButton name={"나가기"} onClickHandler={handleClickExitButton}/></WriteButtonInner>
-                            <WriteButtonInner><DefaultButton name={"저장"} onClickHandler={handleClickSaveButton}/></WriteButtonInner>
-                            <WriteButtonInner><DefaultButton name={"개시"} onClickHandler={handleClickPublishButton}/></WriteButtonInner>
+                            <WriteButtonContainer>
+                                <WriteButtonInner><DefaultButton name={"나가기"} onClickHandler={handleClickExitButton}/></WriteButtonInner>
+                                <WriteButtonInner><DefaultButton name={"저장"} onClickHandler={handleClickSaveButton}/></WriteButtonInner>
+                                <WriteButtonInner><DefaultButton name={"개시"} onClickHandler={handleClickPublishButton}/></WriteButtonInner>
+                            </WriteButtonContainer>
                         </WriteButtonBox>
                     </LeftEditorBox>
                     <RightEditorPreviewBox>
