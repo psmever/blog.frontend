@@ -58,9 +58,9 @@ export const postagaReducer = createReducer<postSagaState>(initialState, {
             ...state,
             lists: {
                 status: 'idle',
-                per_page: state.lists.per_page,
-                current_page: state.lists.current_page,
-                hasmore: false,
+                per_page: 0,
+                current_page: 0,
+                hasmore: true,
                 posts: [],
             }
         };

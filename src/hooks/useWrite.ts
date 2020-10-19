@@ -11,6 +11,10 @@ import {
     postWaitingList,
 } from 'modules/API';
 
+import {
+    postGetListResetAction
+} from 'modules/redux/post';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import _Alert_ from 'lib/_Alert_';
 import * as Helper from 'lib/Helper';
@@ -30,6 +34,7 @@ export default function useWrite() {
     // 글을 세로 등록 할때 저장을 누르면 edit 모드로 변경 하는데.. 바꿔야 하나?
     // edit 모드 일떄 params 으로 체크를 하니 로딩이 두번됨.
 
+    const dispatch = useDispatch();
     const history = useHistory();
     const { addToast } = useToasts();
     const params = useParams<RouteParams>();
@@ -209,6 +214,14 @@ export default function useWrite() {
             });
         }
     // FIXME 2020-10-06 13:45 리팩토리.
+    // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        return function cleanup() {
+            dispatch(postGetListResetAction());
+        };
+    // FIXME 2020-10-19 22:21  리팩토리.
     // eslint-disable-next-line
     }, []);
 

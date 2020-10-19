@@ -49,6 +49,8 @@ export default function useMain() {
     useEffect(() => {
         if(basePostListsState.hasmore === true) {
             dispatch(postGetListAction(basePostListsState.current_page+1));
+        } else {
+            dispatch(postGetListAction(basePostListsState.current_page));
         }
     // FIXME 2020-10-05 01:13 경고 disable 수정 필요.
     // eslint-disable-next-line
