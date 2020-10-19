@@ -15,3 +15,5 @@ export { default as TagsCloud } from './tags/TagsCloud';
 
 export { default as MainPostList } from './lists/MainPostList';
 export { default as PostSearchList } from './lists/PostSearchList';
+
+export { default as WaitingPostModal } from './modal/WaitingPostModal';

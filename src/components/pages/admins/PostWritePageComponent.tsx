@@ -24,10 +24,8 @@ import {
 } from "styles/PostWriter";
 
 import useWrite from 'hooks/useWrite';
-
 import { WithContext as ReactTags } from 'react-tag-input';
 import './ReactTagStyle.css';
-
 
 const KeyCodes = {
     comma: 188,
@@ -82,7 +80,7 @@ export default function WritePage() {
         handleClickPublishButton,
 
         setEditorTagContents,
-        editorTagSuggestions,
+        editorTagSuggestions
     } = useWrite();
 
     const handleTagDelete = (e: any) => {
@@ -126,51 +124,51 @@ export default function WritePage() {
 
     return (
         <>
-            <MainWrapper>
-                <BlogWrite>
-                    <Container>
-                        <LeftEditorBox ref={inputRef}>
-                            <WriteTitleBox>
-                                <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
-                                <WriteTitle type="text" ref={titleInputRef} placeholder="제목을 입력해 주세요."
-                                    value={editorTitle}
-                                    onChange={ e => setEditorTitle(e.target.value) }
-                                />
-                            </WriteTitleBox>
-                            <TagBox>
-                                <ReactTags tags={ editorTagContents }
-                                    suggestions={editorTagSuggestions}
-                                    handleDelete={handleTagDelete}
-                                    handleAddition={handleTagAddition}
-                                    handleDrag={handleTagDrag}
-                                    delimiters={delimiters}
-                                    handleTagClick={handleTagClick}
-                                    placeholder={'테그를 입력해 주세요'}
-                                />
-                            </TagBox>
-                            <EditorBox>
-                                <MarkdownEditor
-                                    EditorContents={editorContents}
-                                    EditorContentsHandler={handleEditorContents}
-                                    EditorHeight={size.height}
-                                />
-                            </EditorBox>
-                            {/* FIXME 화면이 작을때 세로로 배치되는 문제 수정. */}
-                            <WriteButtonBox>
-                                <WriteButtonInner><DefaultButton name={"나가기"} onClickHandler={handleClickExitButton}/></WriteButtonInner>
-                                <WriteButtonInner><DefaultButton name={"저장"} onClickHandler={handleClickSaveButton}/></WriteButtonInner>
-                                <WriteButtonInner><DefaultButton name={"개시"} onClickHandler={handleClickPublishButton}/></WriteButtonInner>
-                            </WriteButtonBox>
-                        </LeftEditorBox>
-                        <RightEditorPreviewBox>
-                            <StyledPreviewTitle>{editorTitle ? editorTitle : "제목을 입력해 주세요."}</StyledPreviewTitle>
-                            <RightEditorPreviewContents>
-                                <MarkdownRender markdownText={editorContents}/>
-                            </RightEditorPreviewContents>
-                        </RightEditorPreviewBox>
-                    </Container>
-                </BlogWrite>
-            </MainWrapper>
+        <MainWrapper>
+            <BlogWrite>
+                <Container>
+                    <LeftEditorBox ref={inputRef}>
+                        <WriteTitleBox>
+                            <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
+                            <WriteTitle type="text" ref={titleInputRef} placeholder="제목을 입력해 주세요."
+                                value={editorTitle}
+                                onChange={ e => setEditorTitle(e.target.value) }
+                            />
+                        </WriteTitleBox>
+                        <TagBox>
+                            <ReactTags tags={ editorTagContents }
+                                suggestions={editorTagSuggestions}
+                                handleDelete={handleTagDelete}
+                                handleAddition={handleTagAddition}
+                                handleDrag={handleTagDrag}
+                                delimiters={delimiters}
+                                handleTagClick={handleTagClick}
+                                placeholder={'테그를 입력해 주세요'}
+                            />
+                        </TagBox>
+                        <EditorBox>
+                            <MarkdownEditor
+                                EditorContents={editorContents}
+                                EditorContentsHandler={handleEditorContents}
+                                EditorHeight={size.height}
+                            />
+                        </EditorBox>
+                        {/* FIXME 화면이 작을때 세로로 배치되는 문제 수정. */}
+                        <WriteButtonBox>
+                            <WriteButtonInner><DefaultButton name={"나가기"} onClickHandler={handleClickExitButton}/></WriteButtonInner>
+                            <WriteButtonInner><DefaultButton name={"저장"} onClickHandler={handleClickSaveButton}/></WriteButtonInner>
+                            <WriteButtonInner><DefaultButton name={"개시"} onClickHandler={handleClickPublishButton}/></WriteButtonInner>
+                        </WriteButtonBox>
+                    </LeftEditorBox>
+                    <RightEditorPreviewBox>
+                        <StyledPreviewTitle>{editorTitle ? editorTitle : "제목을 입력해 주세요."}</StyledPreviewTitle>
+                        <RightEditorPreviewContents>
+                            <MarkdownRender markdownText={editorContents}/>
+                        </RightEditorPreviewContents>
+                    </RightEditorPreviewBox>
+                </Container>
+            </BlogWrite>
+        </MainWrapper>
         </>
     );
 }
