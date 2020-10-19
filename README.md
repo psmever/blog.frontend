@@ -1,5 +1,6 @@
 # Blog.Frontend
 
+## psmever's Blog Fornt-End Source.
 
 #### Git Clone.
 
@@ -9,6 +10,7 @@ git clone https://github.com/psmever/blog.front.git blog.front
 
 #### Config
 ```
+cd ${project Root}
 cp config/sample.environment.env config/development.env
 cp config/sample.environment.env config/production.env
 ```
@@ -22,17 +24,20 @@ yarn install
 
 ```
 yarn start
+yarn start:stage
 yarn start:prod
 ```
 
 ### Build
 ```
 yarn build
+yarn build:stage
 yarn build:prod
 ```
 
 ### Server Deploy:prod
 ```
+yarn deploy:stage
 yarn deploy:prod
 ```
 
