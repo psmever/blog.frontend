@@ -358,7 +358,7 @@ export const BandItemArticleTitleSpan = styled.span`
 
 `
 export const BandItemArticleDateBox = styled.div`
-
+    padding: 11px 0 0 0;
 `
 export const BandItemArticleMetaDate = styled.span`
 
