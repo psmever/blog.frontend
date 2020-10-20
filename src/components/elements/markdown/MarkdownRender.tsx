@@ -12,6 +12,16 @@ interface MarkdownRenderPros  {
     markdownText: string
 };
 
+/**
+ * 이미지 렌더.
+ * @param props
+ */
+const imageRender = (props: any) : any => {
+    return (
+        <img {...props} style={{maxWidth: '100%'}} alt=""/>
+    );
+}
+
 export default function MarkdownRender({markdownText} : MarkdownRenderPros) {
 
 /**
@@ -41,7 +51,7 @@ export default function MarkdownRender({markdownText} : MarkdownRenderPros) {
                 escapeHtml={true}
                 skipHtml={false}
                 source={markdownText}
-                renderers={{ code: CodeBlock }}
+                renderers={{ code: CodeBlock, image: imageRender}}
             />
 
             {/* 렌더 테스트 소스. */}
