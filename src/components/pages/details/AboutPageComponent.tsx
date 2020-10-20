@@ -29,7 +29,7 @@ export default function AboutPage() {
                     <Container>
                         <Title>민군은</Title>
 
-                        <AboutFigure><AboutImage src="/assets/images/about/about-me.jpg" alt="" /></AboutFigure>
+                        <AboutFigure><AboutImage src={process.env.REACT_APP_MEDIA_URL+"/assets/blog/images/about/about-me.jpg"} alt="" /></AboutFigure>
                         <AboutContentsTitle>블러그</AboutContentsTitle>
                         <AboutPTag><Link to='' onClick={handleClickFrontSouce}>Front Github</Link> &nbsp; <Link to='' onClick={handleClickBackendSource}>Backend Github</Link></AboutPTag>
                         <AboutContentsTitle>좋아하는것</AboutContentsTitle>
@@ -45,7 +45,7 @@ export default function AboutPage() {
                         <AboutPTag>인스타 짝퉁</AboutPTag>
                         <AboutPTag>앱</AboutPTag>
 
-                        <AboutFigure><AboutContentsLink to="/"><AboutImage src="/assets/images/promo-banner.jpg" alt="" /></AboutContentsLink></AboutFigure>
+                        <AboutFigure><AboutContentsLink to="/"><AboutImage src={process.env.REACT_APP_MEDIA_URL+"/assets/blog/images/promo-banner.jpg"} alt="" /></AboutContentsLink></AboutFigure>
                     </Container>
                 </AboutSection>
             </MainWrapper>

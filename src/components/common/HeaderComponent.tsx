@@ -80,7 +80,7 @@ export default function HeaderComponent() {
 
                     <NavbarCollapse leftMenuView={leftMenuHide}>
                         <ProfileSection>
-                            <ProfileImage src="/assets/images/main_php.svg"/>
+                            <ProfileImage src={process.env.REACT_APP_MEDIA_URL+"/assets/blog/images/main_php.svg"}/>
 
                             <Bio>안녕 하세요.<br />< br/>PHP 를 좋아해서 PHP 개발을 하고 있는< br/>< br/> 박성민 입니다.< br/>< br/> 즐거운 하루 보내세요 ^^;;<br /></Bio>
                             <SocialList>
@@ -144,7 +144,7 @@ export default function HeaderComponent() {
                         {/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */}
                     {/* --> */}
                     <Copyright>
-                        <HeartIcon/> Made in <Link to="/">@psmever</Link> <br /> Version: {process.env.REACT_APP_VERSION} Beta
+                        <HeartIcon/> Made in <Link to="/">@psmever</Link> <br /> Version: {process.env.REACT_APP_VERSION}
                     </Copyright>
                 </CopyrightBox>
             </Header>
