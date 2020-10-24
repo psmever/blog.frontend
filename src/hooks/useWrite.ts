@@ -218,9 +218,7 @@ export default function useWrite() {
     }, []);
 
     useEffect(() => {
-        return function cleanup() {
-            dispatch(postGetListResetAction());
-        };
+        dispatch(postGetListResetAction());
     // FIXME 2020-10-19 22:21  리팩토리.
     // eslint-disable-next-line
     }, []);
