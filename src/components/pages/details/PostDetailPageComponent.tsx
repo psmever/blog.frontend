@@ -73,7 +73,7 @@ export default function PostDetailPage() {
                         <PromoPtag>You can use this section to promote your side projects etc. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </PromoPtag>
                         <PromoFigure>
                             <PromoLink to="/">
-                                <PromoImage src={"http://media.nicepage.pe.kr/assets/blog/images/promo-banner.jpg"}/>
+                                <PromoImage src={process.env.REACT_APP_MEDIA_URL+"/assets/blog/images/promo-banner.jpg"}/>
                             </PromoLink>
                         </PromoFigure>
                     </PromoContainer>
