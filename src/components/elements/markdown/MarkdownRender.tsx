@@ -18,7 +18,9 @@ interface MarkdownRenderPros  {
  */
 const imageRender = (props: any) : any => {
     return (
-        <img {...props} style={{maxWidth: '100%'}} alt=""/>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <img {...props} style={{maxWidth: '85%'}} alt=""/>
+        </div>
     );
 }
 
