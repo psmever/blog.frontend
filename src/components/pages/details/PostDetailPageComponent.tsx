@@ -37,7 +37,7 @@ export default function PostDetailPage() {
                         <Header>
                             <HeaderTitle>{postContents.post_title}</HeaderTitle>
                             <HeaderMeta>
-                                <HeaderDate>{postContents.detail_updated}&nbsp;</HeaderDate>
+                                <HeaderDate>{postContents.detail_created}&nbsp;</HeaderDate>
                                 <HeaderTime>{postContents.view_count} view&nbsp;</HeaderTime>
                                 <HeaderComment>
                                     <HeaderCommentLink to="/">0 comments&nbsp;</HeaderCommentLink>
