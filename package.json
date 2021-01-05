@@ -1,6 +1,6 @@
 {
   "name": "blog.front",
-  "version": "1.1.0",
+  "version": "2.0.1",
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.35",
