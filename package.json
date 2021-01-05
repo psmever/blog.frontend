@@ -25,7 +25,7 @@
     "@types/redux-logger": "^3.0.8",
     "@types/showdown": "^1.9.3",
     "@types/styled-components": "^5.1.0",
-    "axios": "^0.19.2",
+    "axios": ">=0.21.1",
     "connected-react-router": "^6.8.0",
     "lodash": "^4.17.20",
     "markdown-it": "^11.0.0",
