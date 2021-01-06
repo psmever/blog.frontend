@@ -30,3 +30,5 @@ config/*
 # idea
 .vscode
 .idea
+
+.eslintcache
