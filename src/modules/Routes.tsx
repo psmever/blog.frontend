@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import MainLayoutComponents from 'components/MainLayoutComponents';
+import MainLayoutComponents from 'components/common/MainLayoutComponents';
 import * as Pages from 'components/pages';
 import useBase from 'hooks/useBase';
 import { BodyLoading } from 'components/elements';
