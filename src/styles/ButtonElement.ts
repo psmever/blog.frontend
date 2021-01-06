@@ -16,7 +16,7 @@ const keyFrameRotate = keyframes`
     100% {
       transform: rotate(0deg) translate3d(0, 0, 0);
     }
-`
+`;
 
 const keyFrameStorm = keyframes`
     0% {
@@ -34,10 +34,9 @@ const keyFrameStorm = keyframes`
     100% {
       transform: translate3d(0, 0, 0) translateZ(0);
     }
-`
+`;
 
 export const Button = styled.button`
-
     position: relative;
     outline: none;
     text-decoration: none;
@@ -56,11 +55,9 @@ export const Button = styled.button`
     &:hover {
         animation: ${keyFrameRotate} 0.7s ease-in-out both;
     }
-
-`
+`;
 
 export const ButtonSpan = styled.span`
-
     color: #164ca7;
     font-size: 12px;
     font-weight: 500;
@@ -70,5 +67,4 @@ export const ButtonSpan = styled.span`
         animation: ${keyFrameStorm} 0.7s ease-in-out both;
         animation-delay: 0.06s;
     }
-
-`
+`;

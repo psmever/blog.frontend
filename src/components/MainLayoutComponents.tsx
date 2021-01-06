@@ -1,15 +1,15 @@
 import React from 'react';
-import HeaderComponent from './common/HeaderComponent'
+import HeaderComponent from './common/HeaderComponent';
 
-interface MainLayoutComponentsProps  {
-    children: any
-};
+interface MainLayoutComponentsProps {
+    children: any;
+}
 
-export default function MainLayoutComponents({ children } : MainLayoutComponentsProps) {
+export default function MainLayoutComponents({ children }: MainLayoutComponentsProps) {
     return (
         <>
-            <HeaderComponent/>
-                {children}
+            <HeaderComponent />
+            {children}
         </>
     );
 }

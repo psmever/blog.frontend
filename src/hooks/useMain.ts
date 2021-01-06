@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'modules';
-import {
-    postGetListAction
-} from 'modules/redux/post';
+import { postGetListAction } from 'modules/redux/post';
 import { postItemSearch } from 'modules/API';
 import { apiPostListResultItemsInterface } from 'commonTypes';
 import debounce from 'lodash/debounce';
@@ -12,34 +10,33 @@ export default function useMain() {
     const dispatch = useDispatch();
     const basePostListsState = useSelector((state: RootState) => state.post.lists);
 
-    const [ fetchLoading, setFetchLoading] = useState<boolean>(false);
-    const [ searchLoading, setSearchLoading] = useState<boolean>(false);
-    const [ searchItem, setSearchItem] = useState<string>('');
-    const [ searchItemResult, setSearchItemResult] = useState<apiPostListResultItemsInterface[]>([]);
+    const [fetchLoading, setFetchLoading] = useState<boolean>(false);
+    const [searchLoading, setSearchLoading] = useState<boolean>(false);
+    const [searchItem, setSearchItem] = useState<string>('');
+    const [searchItemResult, setSearchItemResult] = useState<apiPostListResultItemsInterface[]>([]);
 
     const handleChangeSearchItem = (item: string) => {
         setSearchItem(item);
-    }
+    };
 
     const handleClickSearchButton = async () => {
-
-        if(searchLoading === false) {
+        if (searchLoading === false) {
             setSearchLoading(true);
             const searchResult = await postItemSearch(searchItem);
-            if(searchResult.status === true && searchResult.payload.length > 0) {
+            if (searchResult.status === true && searchResult.payload.length > 0) {
                 setSearchItemResult(searchResult.payload);
             } else {
                 setSearchItemResult([]);
             }
             setSearchLoading(true);
         }
-    }
+    };
 
     const fetchMoreData = () => {
-        if(fetchLoading === false) {
-            if(fetchLoading === false) {
+        if (fetchLoading === false) {
+            if (fetchLoading === false) {
                 setTimeout(() => {
-                    dispatch(postGetListAction(basePostListsState.current_page+1));
+                    dispatch(postGetListAction(basePostListsState.current_page + 1));
                 }, 1500);
                 setFetchLoading(false);
             }
@@ -47,38 +44,38 @@ export default function useMain() {
     };
 
     useEffect(() => {
-        if(basePostListsState.hasmore === true) {
-            dispatch(postGetListAction(basePostListsState.current_page+1));
+        if (basePostListsState.hasmore === true) {
+            dispatch(postGetListAction(basePostListsState.current_page + 1));
         }
-    // FIXME 2020-10-05 01:13 경고 disable 수정 필요.
-    // eslint-disable-next-line
+        // FIXME 2020-10-05 01:13 경고 disable 수정 필요.
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
-        if(basePostListsState.hasmore === false) {
+        if (basePostListsState.hasmore === false) {
             setFetchLoading(false);
         }
-    } ,[basePostListsState]);
+    }, [basePostListsState]);
 
     useEffect(() => {
-        const handleClickSearchButton = debounce (async () => {
-            if(searchLoading === false) {
+        const handleClickSearchButton = debounce(async () => {
+            if (searchLoading === false) {
                 setSearchLoading(true);
                 const searchResult = await postItemSearch(searchItem);
-                if(searchResult.status === true && searchResult.payload) {
+                if (searchResult.status === true && searchResult.payload) {
                     setSearchItemResult(searchResult.payload);
                 } else {
                     setSearchItemResult([]);
                 }
                 setSearchLoading(false);
             }
-        }, 400)
+        }, 400);
 
-        if(searchItem.length > 0) {
+        if (searchItem.length > 0) {
             handleClickSearchButton();
         }
-    // FIXME 2020-10-16 18:10 경고 disable 수정 필요.
-    // eslint-disable-next-line
+        // FIXME 2020-10-16 18:10 경고 disable 수정 필요.
+        // eslint-disable-next-line
     }, [searchItem]);
 
     return {
@@ -92,5 +89,5 @@ export default function useMain() {
 
         searchLoading,
         searchItemResult,
-    }
+    };
 }

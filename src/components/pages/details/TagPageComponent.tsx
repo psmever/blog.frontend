@@ -1,21 +1,11 @@
 import React from 'react';
-import {
-    MainWarpper, ListSection, Container, CtaSection, CtaSectionContainer, Heading, Intro
-} from "styles/Tags";
-import {
-    TagsCloud,
-    PostSearchList
-} from 'components/elements';
+import { MainWarpper, ListSection, Container, CtaSection, CtaSectionContainer, Heading, Intro } from 'styles/Tags';
+import { TagsCloud, PostSearchList } from 'components/elements';
 
 import useTag from 'hooks/useTag';
 
 export default function TagPage() {
-
-    const {
-        tagGroupList,
-        handleTegItemClick,
-        searchItemResult
-    } = useTag();
+    const { tagGroupList, handleTegItemClick, searchItemResult } = useTag();
 
     return (
         <MainWarpper>
@@ -26,19 +16,13 @@ export default function TagPage() {
                 </CtaSectionContainer>
             </CtaSection>
             <ListSection>
-                {searchItemResult.length > 0
-                ?
-                    <PostSearchList
-                        listData={searchItemResult}
-                    />
-                :
+                {searchItemResult.length > 0 ? (
+                    <PostSearchList listData={searchItemResult} />
+                ) : (
                     <Container>
-                        <TagsCloud
-                            tagData={tagGroupList}
-                            handleTagItemClick={handleTegItemClick}
-                        />
+                        <TagsCloud tagData={tagGroupList} handleTagItemClick={handleTegItemClick} />
                     </Container>
-                }
+                )}
             </ListSection>
         </MainWarpper>
     );

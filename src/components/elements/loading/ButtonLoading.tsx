@@ -1,10 +1,8 @@
 import React from 'react';
-import { css } from "@emotion/core";
-import PulseLoader from "react-spinners/PulseLoader";
+import { css } from '@emotion/core';
+import PulseLoader from 'react-spinners/PulseLoader';
 
-import {
-    ButtonLoadingStyled
-} from "styles/Elements";
+import { ButtonLoadingStyled } from 'styles/Elements';
 
 const override = css`
     width: 100%;
@@ -17,12 +15,7 @@ const override = css`
 export default function ButtonLoading() {
     return (
         <ButtonLoadingStyled>
-            <PulseLoader
-                css={override}
-                size={10}
-                color={"#123abc"}
-                loading={true}
-            />
+            <PulseLoader css={override} size={10} color={'#123abc'} loading={true} />
         </ButtonLoadingStyled>
     );
 }

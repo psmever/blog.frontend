@@ -1,5 +1,5 @@
 // tslint:disable:interface-name
-import { createBrowserHistory } from "history";
+import { createBrowserHistory } from 'history';
 declare global {
     interface Window {
         dataLayer: any;

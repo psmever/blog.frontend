@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
 export const LeftEditorBox = styled.div`
-
-    @media (max-width: 1161px){
+    @media (max-width: 1161px) {
         width: 100%;
     }
-
 
     height: 100%;
     width: 50%;
@@ -16,11 +14,10 @@ export const LeftEditorBox = styled.div`
     padding-top: 20px;
     left: 0;
     background-color: rgb(255, 255, 255);
-`
+`;
 
 export const RightEditorPreviewBox = styled.div`
-
-    @media (max-width: 1161px){
+    @media (max-width: 1161px) {
         display: none;
     }
 
@@ -34,18 +31,18 @@ export const RightEditorPreviewBox = styled.div`
     right: 0;
     background-color: rgb(255, 255, 255);
     padding: 0.375rem 0.75rem;
-`
+`;
 
 export const WriteTitle = styled.input`
     width: 100%;
 
-    @media (min-width: 576px){
+    @media (min-width: 576px) {
         /* display: inline-block;
         width: auto;
         vertical-align: middle; */
     }
 
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         /* margin-right: 0.25rem !important; */
     }
 
@@ -67,18 +64,16 @@ export const WriteTitle = styled.input`
     border-color: #c2c2c2;
     font-size: 1.9rem;
 
-    border:none;
-    border-right:0px;
-    border-top:0px;
-    border-left:0px;
-    border-bottom:0px;
+    border: none;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-bottom: 0px;
     &:focus {
-        outline:none;
+        outline: none;
     }
-
-`
+`;
 export const TagBox = styled.div`
-
     @media (max-width: 767.98px) {
         width: 100%;
         margin-bottom: 0.5rem;
@@ -95,24 +90,21 @@ export const TagBox = styled.div`
     box-sizing: border-box;
     margin-bottom: 1.5rem;
     padding: 0.375rem 0.75rem;
-`
+`;
 
 export const StyledPreviewTitle = styled.h1`
     font-size: 2.5em;
     margin-bottom: 4rem;
     font-weight: 800;
-`
+`;
 
 export const RightEditorPreviewContents = styled.h1`
     font-size: 2.5em;
     margin-bottom: 4rem;
     font-weight: 800;
-`
-
-
+`;
 
 export const MainWrapper = styled.div`
-
     @media (max-width: 991.98px) {
         margin-left: 0;
     }
@@ -126,10 +118,8 @@ export const MainWrapper = styled.div`
     box-sizing: border-box;
     margin-left: 280px;
     background: #fff;
-
-`
+`;
 export const BlogWrite = styled.article`
-
     @media (min-width: 768px) {
         padding: 1rem !important;
     }
@@ -142,11 +132,9 @@ export const BlogWrite = styled.article`
     color: #4f4f4f;
     box-sizing: border-box;
     display: block;
-
-`
+`;
 
 export const Container = styled.div`
-
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -160,11 +148,9 @@ export const Container = styled.div`
     margin-right: auto;
     margin-left: auto;
     max-width: 820px; */
-
-`
+`;
 
 export const WriteTitleBox = styled.div`
-
     @media (max-width: 767.98px) {
         width: 100%;
         margin-bottom: 0.5rem;
@@ -179,11 +165,10 @@ export const WriteTitleBox = styled.div`
 
     text-align: center !important;
     box-sizing: border-box;
-`
+`;
 
 export const WriteTitleLabel = styled.label`
-
-    @media (min-width: 576px){
+    @media (min-width: 576px) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -199,11 +184,9 @@ export const WriteTitleLabel = styled.label`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
-
-`
+`;
 
 export const EditorBox = styled.div`
-
     @media (max-width: 767.98px) {
         width: 100%;
         /* margin-bottom: 0.5rem; */
@@ -217,15 +200,13 @@ export const EditorBox = styled.div`
     }
 
     width: 100%;
-    max-width:100%;
+    max-width: 100%;
     text-align: center !important;
     box-sizing: border-box;
     padding: 0.375rem 0.75rem;
-
-`
+`;
 
 export const WriteButtonBox = styled.div`
-
     @media (max-width: 767.98px) {
         /* width: 100%; */
         margin-bottom: 0.5rem;
@@ -242,13 +223,13 @@ export const WriteButtonBox = styled.div`
     box-sizing: border-box;
     padding: 0.375rem 0.75rem;
     display: flex;
-`
+`;
 export const WriteButtonContainer = styled.div`
     display: flex;
-`
+`;
 export const WriteButtonInner = styled.div`
     /* width: 20%; */
-    flex:1;
+    flex: 1;
     margin: 0px auto;
     box-sizing: border-box;
-`
+`;

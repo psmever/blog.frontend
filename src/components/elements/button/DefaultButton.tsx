@@ -1,18 +1,12 @@
-import React from "react";
-import {
-    Button,
-    ButtonSpan,
-} from "styles/ButtonElement";
-
+import React from 'react';
+import { Button, ButtonSpan } from 'styles/ButtonElement';
 
 interface DefaultButtonProps {
-    name : string
+    name: string;
     onClickHandler: () => void;
-
 }
 
-export default function DefaultButton({name, onClickHandler} : DefaultButtonProps) {
-
+export default function DefaultButton({ name, onClickHandler }: DefaultButtonProps) {
     return (
         <>
             <Button onClick={onClickHandler}>
