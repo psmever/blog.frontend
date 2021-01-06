@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderComponent from './common/HeaderComponent';
+import HeaderComponent from './HeaderComponent';
 
 interface MainLayoutComponentsProps {
     children: any;
