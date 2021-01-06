@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const MainWarpper = styled.div`
-
     @media (max-width: 991.98px) {
         margin-left: 0;
     }
@@ -19,13 +18,9 @@ export const MainWarpper = styled.div`
     /* flex-direction: row; */
     border: 1px solid silver;
     overflow: hidden;
-
-
-
-`
+`;
 
 export const CtaSection = styled.section`
-
     line-height: 1.5;
     text-align: left;
     box-sizing: border-box;
@@ -33,26 +28,24 @@ export const CtaSection = styled.section`
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
     background: #fafafa !important;
-
-`
+`;
 
 export const CtaSectionContainer = styled.div`
-
     max-width: 820px;
 
-    @media screen and (max-width:1200px) and (min-width:1200px) {
+    @media screen and (max-width: 1200px) and (min-width: 1200px) {
         /* max-width: 1140px; */
     }
 
-    @media screen and (max-width:1200px) and (min-width:992px) {
+    @media screen and (max-width: 1200px) and (min-width: 992px) {
         /* max-width: 960px; */
     }
 
-    @media screen and (max-width:992px) and (min-width:768px) {
+    @media screen and (max-width: 992px) and (min-width: 768px) {
         /* max-width: 720px; */
     }
 
-    @media screen and (max-width:768px) and (min-width:576px) {
+    @media screen and (max-width: 768px) and (min-width: 576px) {
         /* max-width: 540px; */
     }
 
@@ -62,11 +55,9 @@ export const CtaSectionContainer = styled.div`
     margin-right: auto;
     margin-left: auto;
     text-align: center !important;
-
-`
+`;
 
 export const Heading = styled.h2`
-
     text-align: center !important;
     box-sizing: border-box;
     margin-top: 0;
@@ -75,18 +66,14 @@ export const Heading = styled.h2`
     color: #292929;
     font-size: 2rem;
     font-weight: bold;
-
-`
+`;
 
 export const Intro = styled.div`
-
     text-align: center !important;
     box-sizing: border-box;
-
-`
+`;
 
 export const Form = styled.form`
-
     line-height: 1.5;
     text-align: center !important;
     box-sizing: border-box;
@@ -95,11 +82,9 @@ export const Form = styled.form`
     align-items: center;
     justify-content: center !important;
     padding-top: 1rem !important;
-
-`
+`;
 
 export const FormGroup = styled.div`
-
     @media (max-width: 767.98px) {
         width: 100%;
         margin-bottom: 0.5rem;
@@ -115,12 +100,10 @@ export const FormGroup = styled.div`
 
     text-align: center !important;
     box-sizing: border-box;
-
-`
+`;
 
 export const FormLabel = styled.label`
-
-    @media (min-width: 576px){
+    @media (min-width: 576px) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -136,33 +119,30 @@ export const FormLabel = styled.label`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
-
-`
+`;
 
 export const FormInput = styled.input`
-
-    @media (min-width: 576px){
+    @media (min-width: 576px) {
         display: inline-block;
         width: auto;
         vertical-align: middle;
     }
 
-    @media (max-width: 767.98px){
+    @media (max-width: 767.98px) {
         width: 100%;
     }
 
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         width: 360px;
     }
 
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         width: 360px;
     }
 
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         margin-right: 0.25rem !important;
     }
-
 
     box-sizing: border-box;
     margin: 0;
@@ -181,12 +161,10 @@ export const FormInput = styled.input`
     height: 2.75rem;
     border-color: #c2c2c2;
     width: 360px;
-
-`
+`;
 
 export const FormSubmitButton = styled.button`
-
-    @media (max-width: 767.98px){
+    @media (max-width: 767.98px) {
         width: 100%;
     }
 
@@ -212,12 +190,10 @@ export const FormSubmitButton = styled.button`
     color: #fff;
     background-color: #384eb2;
     border-color: #354aa8;
-
-`
+`;
 
 export const ListSection = styled.section`
-
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         padding: 3rem !important;
     }
 
@@ -228,13 +204,10 @@ export const ListSection = styled.section`
 
     padding-right: 1rem !important;
 
-
     display: block;
-
-`
+`;
 
 export const Band = styled.div`
-
     @media (min-width: 40em) {
         grid-template-columns: 1fr 1fr;
     }
@@ -262,7 +235,7 @@ export const Band = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-gap: 20px;
-`
+`;
 
 export const BandItems = styled.div`
     /* @media (min-width: 60em) {
@@ -272,7 +245,7 @@ export const BandItems = styled.div`
 
     max-width: 500px;
     min-width: 300px;
-`
+`;
 
 export const BandItemsCard = styled.div`
     cursor: pointer;
@@ -289,19 +262,18 @@ export const BandItemsCard = styled.div`
     max-height: 600px;
     position: relative;
     top: 0;
-    -webkit-transition: all .1s ease-in;
-    transition: all .1s ease-in;
-`
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+`;
 
 export const BandItemCardThumbBox = styled.div`
     /* padding-bottom: 60%; */
     background-size: cover;
     background-position: center center;
-`
+`;
 
 export const BandItemCardThumbimg = styled.img`
-
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         display: flex !important;
     }
 
@@ -318,7 +290,7 @@ export const BandItemCardThumbimg = styled.img`
     margin-right: 1rem !important;
     border-radius: 2px;
     display: none !important;
-`
+`;
 
 export const BandItemArticle = styled.article`
     padding: 20px;
@@ -332,36 +304,34 @@ export const BandItemArticle = styled.article`
     -webkit-box-pack: justify;
     justify-content: space-between;
     max-width: 500px;
-`
+`;
 
 export const BandItemArticleTitle = styled.h1`
     font-size: 20px;
     margin: 0;
     color: #333;
-`
+`;
 
 export const BandItemArticleTitleSpan = styled.span`
     font-size: 12px;
     font-weight: bold;
     color: #999;
     text-transform: uppercase;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     margin: 2em 0 0 0;
 
     /* width:250px; */
-    overflow:hidden;
+    overflow: hidden;
     /* white-space:nowrap; */
-    text-overflow:ellipsis;
-    padding:10px;
-    border:1px solid #e5e5e5;
+    text-overflow: ellipsis;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
     /* background:#f5f5f5; */
-
-`
+`;
 export const BandItemArticleDateBox = styled.div`
     padding: 11px 0 0 0;
-`
+`;
 export const BandItemArticleMetaDate = styled.span`
-
     line-height: 1.5;
     text-align: left;
     color: #8f8f8f;
@@ -370,7 +340,7 @@ export const BandItemArticleMetaDate = styled.span`
     display: inline-block;
 
     &:after {
-        content: "";
+        content: '';
         display: inline-block;
         width: 3px;
         height: 3px;
@@ -381,10 +351,8 @@ export const BandItemArticleMetaDate = styled.span`
         position: relative;
         top: -3px;
     }
-
-`
+`;
 export const BandItemArticleMetaTime = styled.span`
-
     line-height: 1.5;
     text-align: left;
     color: #8f8f8f;
@@ -393,7 +361,7 @@ export const BandItemArticleMetaTime = styled.span`
     display: inline-block;
 
     &:after {
-        content: "";
+        content: '';
         display: inline-block;
         width: 3px;
         height: 3px;
@@ -404,4 +372,4 @@ export const BandItemArticleMetaTime = styled.span`
         position: relative;
         top: -3px;
     }
-`
+`;

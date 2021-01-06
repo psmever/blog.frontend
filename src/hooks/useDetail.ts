@@ -4,7 +4,7 @@ import { apiPostDetailResultInterface } from 'commonTypes';
 import { useHistory, useParams } from 'react-router-dom';
 
 // post 내용 초기화.
-const postContentsInit : apiPostDetailResultInterface = {
+const postContentsInit: apiPostDetailResultInterface = {
     post_uuid: '',
     user: {
         user_uuid: '',
@@ -19,7 +19,7 @@ const postContentsInit : apiPostDetailResultInterface = {
         name: '',
         nickname: '',
         email: '',
-        active: 'N'
+        active: 'N',
     },
     post_title: '',
     slug_title: '',
@@ -29,13 +29,13 @@ const postContentsInit : apiPostDetailResultInterface = {
     tags: [
         {
             id: '',
-            text: ''
-        }
+            text: '',
+        },
     ],
     view_count: 0,
     detail_created: '',
     detail_updated: '',
-}
+};
 
 interface RouteParams {
     slug_title: string;
@@ -45,24 +45,23 @@ export default function useDetail() {
     const params = useParams<RouteParams>();
     const history = useHistory();
 
-    const [ postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
+    const [postContents, setPostContents] = useState<apiPostDetailResultInterface>(postContentsInit);
 
     const handleTagItemClick = (tag_text: string) => {
         history.push({
             pathname: process.env.PUBLIC_URL + `/pages/tags/${tag_text}/search`,
-            state: { list: true }
+            state: { list: true },
         });
-    }
+    };
 
     useEffect(() => {
-
-        async function postIncrementViewCall(post_uuid : string) {
+        async function postIncrementViewCall(post_uuid: string) {
             await incrementViewCount(post_uuid);
         }
 
         async function doGetPostDetail() {
-            const getResult = await getPostDetail({ slugTitle: params.slug_title});
-            if(getResult.status === true) {
+            const getResult = await getPostDetail({ slugTitle: params.slug_title });
+            if (getResult.status === true) {
                 setPostContents(getResult.payload);
                 postIncrementViewCall(getResult.payload.post_uuid);
             }
@@ -70,12 +69,12 @@ export default function useDetail() {
 
         doGetPostDetail();
 
-    // FIXME 2020-10-05 01:14  경고 disable 수정 필요.
-    // eslint-disable-next-line
-    }, [])
+        // FIXME 2020-10-05 01:14  경고 disable 수정 필요.
+        // eslint-disable-next-line
+    }, []);
 
     return {
         postContents,
-        handleTagItemClick
-    }
+        handleTagItemClick,
+    };
 }

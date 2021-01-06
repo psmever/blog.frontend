@@ -1,8 +1,6 @@
-
 import styled from 'styled-components';
 
 export const MainWarpper = styled.div`
-
     @media (max-width: 991.98px) {
         margin-left: 0;
     }
@@ -19,14 +17,9 @@ export const MainWarpper = styled.div`
     /* display: flex; */
     /* flex-direction: row; */
     overflow: hidden;
-
-
-
-`
-
+`;
 
 export const CtaSection = styled.section`
-
     line-height: 1.5;
     text-align: left;
     box-sizing: border-box;
@@ -34,26 +27,24 @@ export const CtaSection = styled.section`
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
     background: #fafafa !important;
-
-`
+`;
 
 export const CtaSectionContainer = styled.div`
-
     max-width: 820px;
 
-    @media screen and (max-width:1200px) and (min-width:1200px) {
+    @media screen and (max-width: 1200px) and (min-width: 1200px) {
         /* max-width: 1140px; */
     }
 
-    @media screen and (max-width:1200px) and (min-width:992px) {
+    @media screen and (max-width: 1200px) and (min-width: 992px) {
         /* max-width: 960px; */
     }
 
-    @media screen and (max-width:992px) and (min-width:768px) {
+    @media screen and (max-width: 992px) and (min-width: 768px) {
         /* max-width: 720px; */
     }
 
-    @media screen and (max-width:768px) and (min-width:576px) {
+    @media screen and (max-width: 768px) and (min-width: 576px) {
         /* max-width: 540px; */
     }
 
@@ -63,11 +54,9 @@ export const CtaSectionContainer = styled.div`
     margin-right: auto;
     margin-left: auto;
     text-align: center !important;
-
-`
+`;
 
 export const Heading = styled.h2`
-
     text-align: center !important;
     box-sizing: border-box;
     margin-top: 0;
@@ -76,18 +65,14 @@ export const Heading = styled.h2`
     color: #292929;
     font-size: 2rem;
     font-weight: bold;
-
-`
+`;
 
 export const Intro = styled.div`
-
     text-align: center !important;
     box-sizing: border-box;
-
-`
+`;
 
 export const ListSection = styled.section`
-
     @media (min-width: 768px) {
         padding: 3rem !important;
     }
@@ -100,12 +85,9 @@ export const ListSection = styled.section`
     color: #4f4f4f;
     box-sizing: border-box;
     display: block;
-
-`
-
+`;
 
 export const Container = styled.div`
-
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -119,5 +101,4 @@ export const Container = styled.div`
     margin-right: auto;
     margin-left: auto;
     max-width: 820px;
-
-`
+`;

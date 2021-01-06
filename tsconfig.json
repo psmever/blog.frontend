@@ -20,8 +20,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "types": ["node"],
-    "typeRoots": ["./node_modules/@types", "src/types"]
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "src/types"
+    ],
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"

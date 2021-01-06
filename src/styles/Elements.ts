@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { PublishButtonPropsInterface } from 'commonTypes';
 
 export const MainWrapper = styled.div`
-
     @media (max-width: 991.98px) {
         margin-left: 0;
     }
@@ -16,11 +15,9 @@ export const MainWrapper = styled.div`
     box-sizing: border-box;
     margin-left: 280px;
     background: #fff;
-
-`
+`;
 
 export const ButtonLoadingStyled = styled.div`
-
     text-align: center;
     display: flex;
     justify-content: center;
@@ -28,12 +25,8 @@ export const ButtonLoadingStyled = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-`
+`;
 
 export const ButtonLoadingBox = styled.div<PublishButtonPropsInterface>`
-
-
     margin-left: 0.1rem;
-
-`
+`;

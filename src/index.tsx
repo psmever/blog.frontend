@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { ToastProvider } from 'react-toast-notifications'
+import { ToastProvider } from 'react-toast-notifications';
 
 ReactDOM.render(
     // FIXME  React.Fragment 사용?

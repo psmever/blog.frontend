@@ -19,7 +19,7 @@ export enum SagaTypes {
 /**
  * 기본 액션 인터페이스.
  */
-export interface SagaAction<T>  {
+export interface SagaAction<T> {
     type: SagaTypes;
     payload: T;
 }

@@ -1,10 +1,6 @@
 import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
 
-import {
-    MarkdownEditor,
-    MarkdownRender,
-    DefaultButton
-} from 'components/elements';
+import { MarkdownEditor, MarkdownRender, DefaultButton } from 'components/elements';
 
 import {
     MainWrapper,
@@ -21,8 +17,8 @@ import {
     RightEditorPreviewContents,
     WriteButtonBox,
     WriteButtonContainer,
-    WriteButtonInner
-} from "styles/PostWriter";
+    WriteButtonInner,
+} from 'styles/PostWriter';
 
 import useWrite from 'hooks/useWrite';
 import { WithContext as ReactTags } from 'react-tag-input';
@@ -38,7 +34,7 @@ function useDimensions(targetRef: any) {
     const getDimensions = () => {
         return {
             width: targetRef.current ? targetRef.current.offsetWidth : 0,
-            height: targetRef.current ? targetRef.current.offsetHeight : 0
+            height: targetRef.current ? targetRef.current.offsetHeight : 0,
         };
     };
 
@@ -49,8 +45,8 @@ function useDimensions(targetRef: any) {
     };
 
     useEffect(() => {
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
         // FIXME 2020-10-08 18:24  esline 경고.
         // eslint-disable-next-line
     }, []);
@@ -64,7 +60,6 @@ function useDimensions(targetRef: any) {
 }
 
 export default function WritePage() {
-
     const titleInputRef = useRef<HTMLInputElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -81,26 +76,22 @@ export default function WritePage() {
         handleClickPublishButton,
 
         setEditorTagContents,
-        editorTagSuggestions
+        editorTagSuggestions,
     } = useWrite();
 
     const handleTagDelete = (e: any) => {
-        setEditorTagContents(editorTagContents.filter((tag, index) => index !== e))
-    }
+        setEditorTagContents(editorTagContents.filter((tag, index) => index !== e));
+    };
 
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
     // 테그 추가.
     const handleTagAddition = (e: any) => {
-        setEditorTagContents([
-            ...editorTagContents,
-            e
-        ]);
-    }
+        setEditorTagContents([...editorTagContents, e]);
+    };
 
     // 테그 드레그 이벤트
-    const handleTagDrag = (tag: any, currPos: any, newPos:any) => {
-
+    const handleTagDrag = (tag: any, currPos: any, newPos: any) => {
         const tags = [...editorTagContents];
         const newTags = tags.slice();
 
@@ -108,14 +99,13 @@ export default function WritePage() {
         newTags.splice(newPos, 0, tag);
 
         setEditorTagContents(newTags);
-
-    }
+    };
 
     // 테그 클릭 이벤트
     // FIXME 2020-10-08 11:24 테그 클릭시 어떻게 처리 할껀지?
     const handleTagClick = (e: any) => {
-        console.debug("TagClick : ",editorTagContents[e]);
-    }
+        console.debug('TagClick : ', editorTagContents[e]);
+    };
 
     const size = useDimensions(inputRef);
 
@@ -125,53 +115,65 @@ export default function WritePage() {
 
     return (
         <>
-        <MainWrapper>
-            <BlogWrite>
-                <Container>
-                    <LeftEditorBox ref={inputRef}>
-                        <WriteTitleBox>
-                            <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
-                            <WriteTitle type="text" ref={titleInputRef} placeholder="제목을 입력해 주세요."
-                                value={editorTitle}
-                                onChange={ e => setEditorTitle(e.target.value) }
-                            />
-                        </WriteTitleBox>
-                        <TagBox>
-                            <ReactTags tags={ editorTagContents }
-                                suggestions={editorTagSuggestions}
-                                handleDelete={handleTagDelete}
-                                handleAddition={handleTagAddition}
-                                handleDrag={handleTagDrag}
-                                delimiters={delimiters}
-                                handleTagClick={handleTagClick}
-                                placeholder={'테그를 입력해 주세요'}
-                            />
-                        </TagBox>
-                        <EditorBox>
-                            <MarkdownEditor
-                                EditorContents={editorContents}
-                                EditorContentsHandler={handleEditorContents}
-                                EditorHeight={size.height}
-                            />
-                        </EditorBox>
-                        {/* FIXME 화면이 작을때 세로로 배치되는 문제 수정. */}
-                        <WriteButtonBox>
-                            <WriteButtonContainer>
-                                <WriteButtonInner><DefaultButton name={"나가기"} onClickHandler={handleClickExitButton}/></WriteButtonInner>
-                                <WriteButtonInner><DefaultButton name={"저장"} onClickHandler={handleClickSaveButton}/></WriteButtonInner>
-                                <WriteButtonInner><DefaultButton name={"개시"} onClickHandler={handleClickPublishButton}/></WriteButtonInner>
-                            </WriteButtonContainer>
-                        </WriteButtonBox>
-                    </LeftEditorBox>
-                    <RightEditorPreviewBox>
-                        <StyledPreviewTitle>{editorTitle ? editorTitle : "제목을 입력해 주세요."}</StyledPreviewTitle>
-                        <RightEditorPreviewContents>
-                            <MarkdownRender markdownText={editorContents}/>
-                        </RightEditorPreviewContents>
-                    </RightEditorPreviewBox>
-                </Container>
-            </BlogWrite>
-        </MainWrapper>
+            <MainWrapper>
+                <BlogWrite>
+                    <Container>
+                        <LeftEditorBox ref={inputRef}>
+                            <WriteTitleBox>
+                                <WriteTitleLabel htmlFor="writeTitle"></WriteTitleLabel>
+                                <WriteTitle
+                                    type="text"
+                                    ref={titleInputRef}
+                                    placeholder="제목을 입력해 주세요."
+                                    value={editorTitle}
+                                    onChange={e => setEditorTitle(e.target.value)}
+                                />
+                            </WriteTitleBox>
+                            <TagBox>
+                                <ReactTags
+                                    tags={editorTagContents}
+                                    suggestions={editorTagSuggestions}
+                                    handleDelete={handleTagDelete}
+                                    handleAddition={handleTagAddition}
+                                    handleDrag={handleTagDrag}
+                                    delimiters={delimiters}
+                                    handleTagClick={handleTagClick}
+                                    placeholder={'테그를 입력해 주세요'}
+                                />
+                            </TagBox>
+                            <EditorBox>
+                                <MarkdownEditor
+                                    EditorContents={editorContents}
+                                    EditorContentsHandler={handleEditorContents}
+                                    EditorHeight={size.height}
+                                />
+                            </EditorBox>
+                            {/* FIXME 화면이 작을때 세로로 배치되는 문제 수정. */}
+                            <WriteButtonBox>
+                                <WriteButtonContainer>
+                                    <WriteButtonInner>
+                                        <DefaultButton name={'나가기'} onClickHandler={handleClickExitButton} />
+                                    </WriteButtonInner>
+                                    <WriteButtonInner>
+                                        <DefaultButton name={'저장'} onClickHandler={handleClickSaveButton} />
+                                    </WriteButtonInner>
+                                    <WriteButtonInner>
+                                        <DefaultButton name={'개시'} onClickHandler={handleClickPublishButton} />
+                                    </WriteButtonInner>
+                                </WriteButtonContainer>
+                            </WriteButtonBox>
+                        </LeftEditorBox>
+                        <RightEditorPreviewBox>
+                            <StyledPreviewTitle>
+                                {editorTitle ? editorTitle : '제목을 입력해 주세요.'}
+                            </StyledPreviewTitle>
+                            <RightEditorPreviewContents>
+                                <MarkdownRender markdownText={editorContents} />
+                            </RightEditorPreviewContents>
+                        </RightEditorPreviewBox>
+                    </Container>
+                </BlogWrite>
+            </MainWrapper>
         </>
     );
 }

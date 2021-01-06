@@ -1,16 +1,15 @@
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 interface headerLeftMenuInterface {
-    leftMenuView: boolean
+    leftMenuView: boolean;
 }
 
 interface headerNavItemLinkInterface {
-    activeState: boolean
+    activeState: boolean;
 }
 
 export const Header = styled.header`
-
     @media (max-width: 991.98px) {
         position: static;
         width: inherit;
@@ -24,14 +23,12 @@ export const Header = styled.header`
     top: 0;
     height: 100vh;
     width: 280px;
-    background: #5469C9;
+    background: #5469c9;
     color: #fff;
-
-`
+`;
 
 export const BlogName = styled.h1`
-
-    @media (max-width: 991.98px){
+    @media (max-width: 991.98px) {
         width: 100%;
         position: absolute;
         left: 0;
@@ -49,11 +46,9 @@ export const BlogName = styled.h1`
     font-weight: bold;
     font-size: 1.5rem;
     color: #fff;
-
-`
+`;
 
 export const BlogNameLink = styled(Link)`
-
     text-align: center !important;
     line-height: 1.2;
     font-weight: bold;
@@ -61,12 +56,10 @@ export const BlogNameLink = styled(Link)`
     text-decoration: none;
     background-color: transparent;
     color: #fff;
-
-`
+`;
 
 export const Nav = styled.nav`
-
-    @media (max-width: 991.98px){
+    @media (max-width: 991.98px) {
         padding: 1rem;
     }
 
@@ -78,12 +71,10 @@ export const Nav = styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 2rem 1rem;
-
-`
+`;
 
 export const NavbarToggler = styled.button`
-
-    @media (min-width: 992px){
+    @media (min-width: 992px) {
         display: none;
     }
 
@@ -101,11 +92,9 @@ export const NavbarToggler = styled.button`
     opacity: 0.8;
     border: 1px solid rgba(255, 255, 255, 0.8);
     padding: 0.25rem 0.6rem;
-
-`
+`;
 
 export const NavbarTogglerIcon = styled.span`
-
     margin: 0;
     padding: 0;
     border: 0;
@@ -115,26 +104,24 @@ export const NavbarTogglerIcon = styled.span`
     font-size: 1.25rem;
     line-height: 1;
     cursor: pointer;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
     vertical-align: middle;
-    content: "";
+    content: '';
     background: no-repeat center center;
     background-size: 100% 100%;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-
-`
+`;
 
 export const NavbarCollapse = styled.div<headerLeftMenuInterface>`
-
-    @media (min-width: 992px){
+    @media (min-width: 992px) {
         display: flex !important;
         flex-basis: auto;
     }
 
-    @media (max-width: 991.98px){
+    @media (max-width: 991.98px) {
         display: ${props => {
             if (props.leftMenuView === true) {
                 return 'block';
@@ -150,23 +137,19 @@ export const NavbarCollapse = styled.div<headerLeftMenuInterface>`
     flex-grow: 1;
     align-items: center;
     flex-direction: column !important;
-
-`
+`;
 
 export const ProfileSection = styled.div`
-
-    @media (min-width: 992px){
+    @media (min-width: 992px) {
         padding-top: 0 !important;
     }
 
     text-align: center !important;
     color: #fff;
     padding-top: 1rem !important;
-
-`
+`;
 
 export const ProfileImage = styled.img`
-
     text-align: center !important;
     color: #fff;
     vertical-align: middle;
@@ -176,29 +159,23 @@ export const ProfileImage = styled.img`
     margin-right: auto !important;
     margin-left: auto !important;
     max-width: 160px;
-
-`
+`;
 
 export const Bio = styled.div`
-
     text-align: center !important;
     color: #fff;
     margin-bottom: 1rem !important;
     font-size: 0.875rem;
-
-`
+`;
 
 export const BioLink = styled(Link)`
-
     text-align: center !important;
     font-size: 0.875rem;
     background-color: transparent;
     color: #fff;
     text-decoration: underline;
-
-`
+`;
 export const SocialList = styled.ul`
-
     text-align: center !important;
     color: #fff;
     margin-top: 0;
@@ -209,32 +186,26 @@ export const SocialList = styled.ul`
     padding-bottom: 1rem !important;
     margin-right: auto !important;
     margin-left: auto !important;
-
-`
+`;
 
 export const SocialListHr = styled.hr`
-
     color: #fff;
     box-sizing: content-box;
     height: 0;
     overflow: visible;
-
-`
+`;
 
 export const ListInlineItem = styled.li`
-
     color: #fff;
     list-style: none;
     display: inline-block;
     margin-right: 0.5rem;
-
-`
+`;
 
 export const SocialListLink = styled.div`
-
     cursor: pointer;
     list-style: none;
-    color: #5469C9;
+    color: #5469c9;
     text-decoration: none;
     width: 32px;
     height: 32px;
@@ -244,11 +215,9 @@ export const SocialListLink = styled.div`
     border-radius: 50%;
     transition: all 0.4s ease-in-out;
     background-color: #fff;
-
-`
+`;
 
 export const NavbarNav = styled.ul`
-
     color: #fff;
     margin-top: 0;
     display: flex;
@@ -257,19 +226,15 @@ export const NavbarNav = styled.ul`
     list-style: none;
     flex-direction: column !important;
     text-align: left !important;
-
-`
+`;
 
 export const NavItem = styled.li`
-
     color: #fff;
     list-style: none;
     font-weight: bold;
-
-`
+`;
 
 export const NavItemLink = styled.div<headerNavItemLinkInterface>`
-
     cursor: pointer;
     list-style: none;
     font-weight: bold;
@@ -286,10 +251,8 @@ export const NavItemLink = styled.div<headerNavItemLinkInterface>`
             return 'rgba(255, 255, 255, 0.8)';
         }
     }};
-
-`
+`;
 export const NavItemLinkTitle = styled.span`
-
     list-style: none;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.5);
@@ -302,19 +265,15 @@ export const NavItemLinkTitle = styled.span`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
-
-`
+`;
 
 export const GetInTouch = styled.div`
-
     text-align: center !important;
     color: #fff;
     margin-top: 1rem !important;
     margin-bottom: 1rem !important;
-
-`
+`;
 export const GetInTouchLink = styled(Link)`
-
     @media (max-width: 991.98px) {
         width: 100%;
     }
@@ -337,11 +296,9 @@ export const GetInTouchLink = styled(Link)`
     border-color: transparent;
     font-size: 1rem;
     padding-top: 0.5rem;
-
-`
+`;
 
 export const CopyrightBox = styled.div`
-
     box-sizing: border-box;
     display: block;
     padding-top: 0.5rem !important;
@@ -349,11 +306,9 @@ export const CopyrightBox = styled.div`
     text-align: center !important;
     background: #223142 !important;
     color: rgba(255, 255, 255, 0.7);
-
-`
+`;
 
 export const Copyright = styled.small`
-
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     text-align: center !important;
@@ -361,11 +316,9 @@ export const Copyright = styled.small`
     box-sizing: border-box;
     font-size: 80%;
     font-weight: 400;
-
-`
+`;
 
 export const CopyrightLink = styled(Link)`
-
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     text-align: center !important;
@@ -375,5 +328,4 @@ export const CopyrightLink = styled(Link)`
     text-decoration: none;
     background-color: transparent;
     color: #fff;
-
-`
+`;

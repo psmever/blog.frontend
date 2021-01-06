@@ -1,23 +1,23 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history'
-import configureStore from 'modules/configureStore'
-import Routes from "./modules/Routes";
-import History from "./modules/History";
-import GlobalStyle from "styles/GlobalStyle";
+import { createBrowserHistory } from 'history';
+import configureStore from 'modules/configureStore';
+import Routes from './modules/Routes';
+import History from './modules/History';
+import GlobalStyle from 'styles/GlobalStyle';
 
 const history = createBrowserHistory();
 
+declare let window: any;
 
-declare var window: any;
 const initialState = window.INITIAL_REDUX_STATE;
 const store = configureStore(history, initialState);
 
 const App = () => (
-    <Provider store={ store }>
-        <GlobalStyle/>
-        <Routes Routerhistory={ History }/>
+    <Provider store={store}>
+        <GlobalStyle />
+        <Routes Routerhistory={History} />
     </Provider>
-)
+);
 
 export default App;
