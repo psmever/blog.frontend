@@ -6,6 +6,8 @@ import * as Pages from 'components/pages';
 import useBase from 'hooks/useBase';
 import { BodyLoading } from 'components/elements';
 
+import { TestLayoutPage } from 'components/pages';
+
 interface RootProps {
     Routerhistory: any;
 }
@@ -18,6 +20,7 @@ const Routes = ({ Routerhistory }: RootProps) => {
             {baseLoading === 'success' ? (
                 <ConnectedRouter history={Routerhistory}>
                     <Switch>
+                        <Route path={process.env.PUBLIC_URL + '/test/layout'} exact={true} component={TestLayoutPage} />
                         <Route
                             path={process.env.PUBLIC_URL + '/admin/login'}
                             exact={true}

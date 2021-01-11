@@ -70,6 +70,7 @@
     "start:prod": "cp config/production.env .env && PORT=4000 craco start --reset-cache",
     "build": "cp config/stage.env .env && GENERATE_SOURCEMAP=false craco build",
     "build:prod": "cp config/production.env .env && GENERATE_SOURCEMAP=false craco build",
+    "build:test": "serve -s build",
     "test": "craco test",
     "eject": "craco eject",
     "deploy:prod": "cp config/production.env .env && GENERATE_SOURCEMAP=false craco build && ssh oracle_web \"rm -rf /var/www/site/nicepage/blog-web/*\" && scp -r ./build/* oracle_web:/var/www/site/nicepage/blog-web",
