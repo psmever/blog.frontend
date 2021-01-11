@@ -66,7 +66,7 @@
   },
   "scripts": {
     "start": "cp config/local.env .env && PORT=4000 craco start --reset-cache",
-    "start:stage": "cp config/local.env .env && PORT=4000 craco start --reset-cache",
+    "start:stage": "cp config/stage.env .env && PORT=4000 craco start --reset-cache",
     "start:prod": "cp config/production.env .env && PORT=4000 craco start --reset-cache",
     "build": "cp config/stage.env .env && GENERATE_SOURCEMAP=false craco build",
     "build:prod": "cp config/production.env .env && GENERATE_SOURCEMAP=false craco build",
