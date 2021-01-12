@@ -58,21 +58,43 @@ const NavbarComponent = () => {
                     </div>
                     <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
                         <div className="flex items-center flex-shrink-0">
-                            <img
+                            {/* <img
                                 className="block w-auto h-8 lg:hidden"
                                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                                alt="Workflow"
+                            /> */}
+                            <img
+                                className="block w-auto h-8 lg:hidden"
+                                src={process.env.PUBLIC_URL + `/assets/images/image_logo.png`}
+                                alt="Workflow"
+                            />
+                            {/* <img
+                                className="hidden w-auto h-8 lg:block"
+                                src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                                alt="Workflow"
+                            /> */}
+                            <img
+                                className="hidden w-auto h-8 lg:block"
+                                src={process.env.PUBLIC_URL + `/assets/images/image_logo.png`}
                                 alt="Workflow"
                             />
                             <img
                                 className="hidden w-auto h-8 lg:block"
-                                src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                                src={process.env.PUBLIC_URL + `/assets/images/text_logo.png`}
                                 alt="Workflow"
                             />
+
+                            {/* <p className="hidden w-auto h-8 lg:block px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">
+                                PHP - NicePage
+                            </p> */}
                         </div>
                         <div className="hidden sm:block sm:ml-6">
                             <div className="flex space-x-4">
                                 {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-                                <a href="#" className="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md">
+                                <a
+                                    href="#"
+                                    className="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                                >
                                     Dashboard
                                 </a>
                                 <a
@@ -128,7 +150,7 @@ const NavbarComponent = () => {
                                     <span className="sr-only">Open user menu</span>
                                     <img
                                         className="w-8 h-8 rounded-full"
-                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        src="https://media.nicepage.pe.kr/assets/blog/images/main_php.svg"
                                         alt=""
                                     />
                                 </button>
