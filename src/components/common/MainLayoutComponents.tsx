@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderComponent from './HeaderComponent';
+// import HeaderComponent from './HeaderComponent';
 import NavbarComponent from './NavbarComponent';
 
 interface MainLayoutComponentsProps {
