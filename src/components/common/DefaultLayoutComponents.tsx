@@ -2,11 +2,11 @@ import React from 'react';
 import NavbarComponent from './NavbarComponent';
 import { LeftMenu, RightMenu } from 'components/common';
 
-interface MainLayoutComponentsProps {
+interface DefaultLayoutComponentsProps {
     children: any;
 }
 
-export default function MainLayoutComponents({ children }: MainLayoutComponentsProps) {
+export default function DefaultLayoutComponents({ children }: DefaultLayoutComponentsProps) {
     return (
         <>
             <div className="">
