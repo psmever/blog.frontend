@@ -2,16 +2,10 @@ import React from 'react';
 
 export default function LeftMenuComponent() {
     return (
-        <div
-            className="relative flex flex-col hidden h-full transition-all duration-500 ease-in-out transform bg-white border-r border-gray-300 shadow-xl sm:block"
-            style={{ width: '24rem' }}
-        >
+        <div className="relative flex flex-col hidden h-full transition-all duration-500 ease-in-out transform bg-white border-r border-gray-300 shadow-xl sm:block w-96">
             <div className="relative mt-2 mb-4 overflow-x-hidden overflow-y-auto scrolling-touch lg:max-h-sm scrollbar-w-2 scrollbar-track-gray-lighter scrollbar-thumb-rounded scrollbar-thumb-gray">
                 <ul className="flex flex-col inline-block w-full h-screen px-2 select-none">
-                    <li
-                        className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200"
-                        style={{ paddingTop: '0.65rem', paddingBottom: '0.65rem' }}
-                    >
+                    <li className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200">
                         <div className="flex justify-between w-full focus:outline-none">
                             <div className="flex justify-between w-full">
                                 <div className="relative flex items-center justify-center w-12 h-12 ml-2 mr-3 text-xl font-semibold text-white bg-blue-500 rounded-full flex-no-shrink">
@@ -20,14 +14,8 @@ export default function LeftMenuComponent() {
                                         src="https://images.unsplash.com/photo-1433588616917-dcbcc63429f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w="
                                         alt=""
                                     />
-                                    <div
-                                        className="absolute bottom-0 right-0 flex items-center justify-center bg-white rounded-full"
-                                        style={{ width: '0.80rem', height: '0.80rem' }}
-                                    >
-                                        <div
-                                            className="bg-green-500 rounded-full"
-                                            style={{ width: '0.6rem', height: '0.6rem' }}
-                                        ></div>
+                                    <div className="absolute bottom-0 right-0 flex items-center justify-center bg-white rounded-full">
+                                        <div className="bg-green-500 rounded-full w-2.5 h-2.5"></div>
                                     </div>
                                 </div>
                                 <div className="items-center flex-1 min-w-0">
@@ -50,10 +38,7 @@ export default function LeftMenuComponent() {
                             </div>
                         </div>
                     </li>
-                    <li
-                        className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200"
-                        style={{ paddingTop: '0.65rem', paddingBottom: '0.65rem' }}
-                    >
+                    <li className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200 py-2.5">
                         <div className="flex justify-between w-full focus:outline-none">
                             <div className="flex justify-between w-full">
                                 <div className="relative flex items-center justify-center w-12 h-12 ml-2 mr-3 text-xl font-semibold text-white bg-blue-500 rounded-full flex-no-shrink">
@@ -62,14 +47,8 @@ export default function LeftMenuComponent() {
                                         src="https://images.unsplash.com/photo-1589349133269-183a6c90fbfc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100"
                                         alt=""
                                     />
-                                    <div
-                                        className="absolute bottom-0 right-0 flex items-center justify-center bg-white rounded-full"
-                                        style={{ width: '0.80rem', height: '0.80rem' }}
-                                    >
-                                        <div
-                                            className="bg-green-500 rounded-full"
-                                            style={{ width: '0.6rem', height: '0.6rem' }}
-                                        ></div>
+                                    <div className="absolute bottom-0 right-0 flex items-center justify-center bg-white rounded-full w-3.5 h-3.5">
+                                        <div className="bg-green-500 rounded-full w-3.5 h-3.5"></div>
                                     </div>
                                 </div>
                                 <div className="items-center flex-1 min-w-0">
@@ -105,10 +84,7 @@ export default function LeftMenuComponent() {
                             </div>
                         </div>
                     </li>
-                    <li
-                        className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200"
-                        style={{ paddingTop: '0.65rem', paddingBottom: '0.65rem' }}
-                    >
+                    <li className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200 py-2.5">
                         <div className="flex justify-between w-full focus:outline-none">
                             <div className="flex justify-between w-full">
                                 <div className="relative flex items-center justify-center w-12 h-12 ml-2 mr-3 text-xl font-semibold text-white bg-blue-500 rounded-full flex-no-shrink">
@@ -132,10 +108,7 @@ export default function LeftMenuComponent() {
                             </div>
                         </div>
                     </li>
-                    <li
-                        className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200"
-                        style={{ paddingTop: '0.65rem', paddingBottom: '0.65rem' }}
-                    >
+                    <li className="flex flex-no-wrap items-center pr-3 text-black rounded-lg cursor-pointer mt-200 py-65 hover:bg-gray-200 py-2.5">
                         <div className="flex justify-between w-full focus:outline-none">
                             <div className="flex justify-between w-full">
                                 <div className="relative flex items-center justify-center w-12 h-12 ml-2 mr-3 text-xl font-semibold text-white bg-blue-500 rounded-full flex-no-shrink">

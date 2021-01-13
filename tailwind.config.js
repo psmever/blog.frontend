@@ -6,6 +6,7 @@ module.exports = {
     darkMode: 'media', // or 'media' or 'class'
     theme: {
         screens: {
+            '2sm': '376px',
             // sm: '576px',
             // // => @media (min-width: 640px) { ... }
 
@@ -20,7 +21,7 @@ module.exports = {
 
             // '2xl': '1536px',
             // // => @media (min-width: 1536px) { ... }
-            sm: '576px',
+            sm: '676px',
             // => @media (min-width: 640px) { ... }
 
             md: '992px',
