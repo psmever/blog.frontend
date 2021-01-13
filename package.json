@@ -70,7 +70,7 @@
     "start:prod": "cp config/production.env .env && PORT=4000 craco start --reset-cache",
     "build": "cp config/stage.env .env && GENERATE_SOURCEMAP=false craco build",
     "build:prod": "cp config/production.env .env && GENERATE_SOURCEMAP=false craco build",
-    "build:test": "serve -s build",
+    "build:test": "yarn build && serve -s build",
     "test": "craco test",
     "eject": "craco eject",
     "deploy:prod": "cp config/production.env .env && GENERATE_SOURCEMAP=false craco build && ssh oracle_web \"rm -rf /var/www/site/nicepage/blog-web/*\" && scp -r ./build/* oracle_web:/var/www/site/nicepage/blog-web",
@@ -97,6 +97,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
+    "craco-alias": "^2.1.1",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
