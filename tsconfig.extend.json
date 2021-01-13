@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"paths": {
+            "@app": ["./App.tsx"],
+            "@common": ["./components/common"],
+            "@elements": ["./components/elements"],
+            "@pages": ["./components/pages"],
+            "@styles": ["./styles"]
+		}
+	}
+}
