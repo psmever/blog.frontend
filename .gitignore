@@ -23,8 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # environment config file
-config/*
-!config/sample.environment.env
+.config/*
+!.config/sample.environment.env
 .env
 
 # idea
