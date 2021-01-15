@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"paths": {
             "@app": ["./App.tsx"],
-            "@common": ["./components/common"],
+            "@layouts": ["./components/layouts"],
             "@elements": ["./components/elements"],
             "@pages": ["./components/pages"],
             "@styles": ["./styles"]
