@@ -1,0 +1,80 @@
+{
+  "name": "blog.frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4"
+  },
+  "original_scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "scripts": {
+    "start": "cp .config/local.env .env && PORT=4000 react-scripts start --reset-cache",
+    "start:stage": "cp .config/stage.env .env && PORT=4000 react-scripts start --reset-cache",
+    "start:prod": "cp .config/production.env .env && PORT=4000 react-scripts start --reset-cache",
+    "build": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false react-scripts build",
+    "build:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false react-scripts build",
+    "build:test": "yarn build && serve -s build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false yarn build:prod && ssh oracle_web \"rm -rf /var/www/site/nicepage/blog-web/*\" && scp -r ./build/* oracle_web:/var/www/site/nicepage/blog-web",
+    "deploy:stage": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false yarn build:stage && ssh local_server \"rm -rf /var/www/site/blog/front/*\" && scp -r ./build/* local_server:/var/www/site/blog/front"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.7",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,json,css,md}": [
+      "eslint --fix",
+      "prettier --single-quote --write"
+    ]
+  }
+}
