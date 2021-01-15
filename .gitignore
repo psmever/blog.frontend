@@ -32,3 +32,6 @@ config/*
 .idea
 
 .eslintcache
+
+# css
+/src/assets/styles.css
