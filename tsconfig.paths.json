@@ -1,7 +1,9 @@
 {
 	"compilerOptions": {
 		"paths": {
-            "@pages": ["components/pages"]
+            "@Pages": ["components/pages"],
+            "@Modules/*": ["modules/*"],
+            "@Styles": ["styles"]
 		}
 	}
 }

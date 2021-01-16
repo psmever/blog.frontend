@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import { TestPage } from '@pages';
+import { TestPage, DevPage } from '@Pages';
 
 const Routes = () => {
 
@@ -10,6 +10,7 @@ const Routes = () => {
             <Switch>
                 {/* <Route path={process.env.PUBLIC_URL + '/default'} exact={true} component={DefaultPage} /> */}
                 <Route path={process.env.PUBLIC_URL + '/test'} exact={true} component={TestPage} />
+                <Route path={process.env.PUBLIC_URL + '/dev'} exact={true} component={DevPage} />
                 {/* <Route path={process.env.PUBLIC_URL + '/layout'} exact={true} component={DefaultLayoutComponents} /> */}
                 {/* <Route path={process.env.PUBLIC_URL + '/test/layout'} exact={true} component={TestLayoutPage} /> */}
                 {/* <Route path={process.env.PUBLIC_URL + '/admin/login'} exact={true} component={Pages.AdminLoginPage} />
