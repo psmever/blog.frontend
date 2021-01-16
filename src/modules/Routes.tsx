@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import { TestPage } from '@Pages';
+import { TestPage } from '@pages';
 
 const Routes = () => {
 

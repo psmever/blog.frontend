@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -25,14 +26,12 @@
     "eject": "react-scripts eject"
   },
   "scripts": {
-    "start": "cp .config/local.env .env && PORT=4000 react-scripts start --reset-cache",
-    "start:stage": "cp .config/stage.env .env && PORT=4000 react-scripts start --reset-cache",
-    "start:prod": "cp .config/production.env .env && PORT=4000 react-scripts start --reset-cache",
-    "build": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false react-scripts build",
-    "build:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false react-scripts build",
+    "start": "cp .config/local.env .env && PORT=4000 craco start --reset-cache",
+    "start:stage": "cp .config/stage.env .env && PORT=4000 craco start --reset-cache",
+    "start:prod": "cp .config/production.env .env && PORT=4000 craco start --reset-cache",
+    "build": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false craco build",
+    "build:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false craco build",
     "build:test": "yarn build && serve -s build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "deploy:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false yarn build:prod && ssh oracle_web \"rm -rf /var/www/site/nicepage/blog-web/*\" && scp -r ./build/* oracle_web:/var/www/site/nicepage/blog-web",
     "deploy:stage": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false yarn build:stage && ssh local_server \"rm -rf /var/www/site/blog/front/*\" && scp -r ./build/* local_server:/var/www/site/blog/front"
   },
@@ -57,6 +56,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
+    "craco-alias": "^2.1.1",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
