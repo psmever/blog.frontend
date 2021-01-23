@@ -1,9 +1,13 @@
 {
 	"compilerOptions": {
 		"paths": {
+            "@Page/*": ["components/pages/*"],
             "@Pages": ["components/pages"],
+            "@Layout": ["components/layouts/*"],
+            "@Layouts": ["components/layouts"],
             "@Modules/*": ["modules/*"],
-            "@Styles": ["styles"]
+            "@Styles": ["styles"],
+            "@Style/*": ["styles/*"]
 		}
 	}
 }
