@@ -8,10 +8,7 @@ import {
     LeftSideBox,
     MainPageBox,
     RightSideBox,
-    SideLine,
 } from '@Style/MainLayoutStyles';
-
-import styled from 'styled-components';
 
 export default function MainLayoutComponent() {
     return (
@@ -23,9 +20,7 @@ export default function MainLayoutComponent() {
                 <MainWrapper>
                     {/* <!-- Left sidebar --> */}
                     <LeftSideBox>
-                        <SideLine>
-                            <LeftSidebar />
-                        </SideLine>
+                        <LeftSidebar />
                     </LeftSideBox>
 
                     {/* <!-- Main content --> */}
@@ -35,9 +30,7 @@ export default function MainLayoutComponent() {
 
                     {/* <!-- Right sidebar --> */}
                     <RightSideBox>
-                        <SideLine>
-                            <RightSidebar />
-                        </SideLine>
+                        <RightSidebar />
                     </RightSideBox>
                 </MainWrapper>
                 <footer>

@@ -14,23 +14,32 @@ export const MainHeaderBox = styled.div`
 
 export const MainWrapper = styled.div`
     display: -webkit-flex;
+    width: 100%;
     display: flex;
+
+    @media screen and (mix-width: 952px) {
+    }
 `;
 
 export const SideLine = styled.div`
     margin: 0px;
-    /* border: 1px dashed #bcbcbc; */
     height: calc(100vh - 80px);
-    /* width: 24rem; */
     border: 2px dotted #f44336;
 `;
 
 export const LeftSideBox = styled.div`
     padding: 1px;
-    width: 24rem;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    height: calc(100vh - 80px);
+    border: 2px dotted #f44336;
+    min-width: 20rem;
+    max-width: 25rem;
+
+    @media screen and (max-width: 952px) {
+        display: none;
+    }
 `;
 
 export const MainPageBox = styled.div`
@@ -44,4 +53,10 @@ export const RightSideBox = styled.div`
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    min-width: 10rem;
+    max-width: 15rem;
+
+    @media screen and (max-width: 1280px) {
+        display: none;
+    }
 `;
