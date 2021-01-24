@@ -33,19 +33,13 @@ export const LeftSideBox = styled.div`
     -ms-flex: 1;
     flex: 1;
     height: calc(100vh - 80px);
-    border: 2px dotted #f44336;
+    /* border: 2px dotted #f44336; */
     min-width: 20rem;
     max-width: 25rem;
 
     @media screen and (max-width: 952px) {
         display: none;
     }
-`;
-
-export const MainPageBox = styled.div`
-    -webkit-flex: 2;
-    -ms-flex: 2;
-    flex: 2;
 `;
 
 export const RightSideBox = styled.div`
@@ -59,4 +53,10 @@ export const RightSideBox = styled.div`
     @media screen and (max-width: 1280px) {
         display: none;
     }
+`;
+
+export const ContentsPageBox = styled.div`
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
 `;

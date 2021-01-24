@@ -1,16 +1,15 @@
 import React from 'react';
-import { MainContentPage } from '@Pages';
 import { TopMenu, LeftSidebar, RightSidebar, Footer } from '@Layouts';
 import {
     MainContainer,
     MainHeaderBox,
     MainWrapper,
     LeftSideBox,
-    MainPageBox,
+    ContentsPageBox,
     RightSideBox,
 } from '@Style/MainLayoutStyles';
 
-export default function MainLayoutComponent() {
+export default function MainLayoutComponent({ children }: { children: any }) {
     return (
         <>
             <MainContainer>
@@ -24,9 +23,7 @@ export default function MainLayoutComponent() {
                     </LeftSideBox>
 
                     {/* <!-- Main content --> */}
-                    <MainPageBox>
-                        <MainContentPage />
-                    </MainPageBox>
+                    <ContentsPageBox>{children}</ContentsPageBox>
 
                     {/* <!-- Right sidebar --> */}
                     <RightSideBox>

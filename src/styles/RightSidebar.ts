@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Default = styled.div``;
 
 export const Wrapper = styled.div`
-    background: antiquewhite;
+    background: #f1f1f1;
     transition: background 0.6s ease;
     border-radius: 10px;
     padding: 20px 20px 20px 20px;
@@ -103,7 +103,7 @@ export const MyIconButton = styled.button`
 
 export const VersionBox = styled.div`
     margin-top: 1rem;
-    background: antiquewhite;
+    background: #f1f1f1;
     transition: background 0.6s ease;
     border-radius: 10px;
     padding: 20px 20px 20px 20px;
