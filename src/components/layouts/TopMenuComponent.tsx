@@ -7,7 +7,7 @@ export default function TopMenuComponent() {
             <Navi>
                 <NaviInput type="checkbox" id="check" />
                 <MenuLabel htmlFor="check">MENU</MenuLabel>
-                <LogoText>NicePage-Blog</LogoText>
+                <LogoText>NicePage</LogoText>
                 <MenuUList>
                     <MenuElement>
                         <MenuLink href="#">Home</MenuLink>

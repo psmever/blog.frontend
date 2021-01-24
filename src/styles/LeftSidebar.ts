@@ -14,13 +14,13 @@ export const Card = styled.div`
     border-radius: 5px;
     overflow: hidden;
     z-index: 0;
-    width: 18rem;
+    width: 100%;
 
     &:hover {
         /* color: #5ad67d; */
     }
 
-    @media (min-width: 640px) {
+    @media screen and (min-width: 640px) {
         flex-direction: row;
         max-width: 700px;
     }
@@ -32,7 +32,7 @@ export const Description = styled.div`
     position: relative;
     z-index: 1;
 
-    @media (min-width: 640px) {
+    @media screen and (min-width: 640px) {
         /* flex-basis: 60%; */
 
         &:before {

@@ -102,9 +102,28 @@ export const MyIconButton = styled.button`
 `;
 
 export const VersionBox = styled.div`
+    margin-top: 1rem;
+    background: antiquewhite;
+    transition: background 0.6s ease;
+    border-radius: 10px;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 0 8px 40px rgba(#000000, 0.2);
+    color: #fff;
     text-align: center;
-    position: absolute;
-    /* bottom: 25px; */
+    position: relative;
+
+    &:after {
+        width: 100%;
+        height: 1px;
+        content: ' ';
+        display: block;
+        margin-top: 1.3em;
+        background: #e9eff6;
+    }
+`;
+
+export const MadeText = styled.div`
+    text-align: center;
     color: #aab0c4;
     font-size: 0.9em;
     font-weight: 400;

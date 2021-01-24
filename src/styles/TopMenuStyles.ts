@@ -21,7 +21,7 @@ export const MenuLabel = styled.label`
     cursor: pointer;
     display: none;
 
-    @media (max-width: 858px) {
+    @media screen and (max-width: 952px) {
         display: block;
     }
 `;
@@ -33,7 +33,7 @@ export const LogoText = styled.label`
     padding: 0 100px;
     font-weight: bold;
 
-    @media (max-width: 952px) {
+    @media screen and (max-width: 952px) {
         font-size: 30px;
         padding-left: 50px;
     }
@@ -42,8 +42,10 @@ export const LogoText = styled.label`
 export const MenuUList = styled.ul`
     float: right;
     margin-right: 20px;
+    line-height: 80px;
+    margin: 0 5px;
 
-    @media (max-width: 858px) {
+    @media screen and (max-width: 952px) {
         position: fixed;
         width: 100%;
         height: 100vh;
@@ -52,18 +54,22 @@ export const MenuUList = styled.ul`
         left: -100%;
         text-align: center;
         transition: all 0.5s;
+        left: 0;
+        margin: 0 0;
     }
 `;
 
 export const MenuElement = styled.li`
-    display: inline-block;
     line-height: 80px;
     margin: 0 5px;
 
-    @media (max-width: 858px) {
-        display: block;
+    @media screen and (max-width: 858px) {
         margin: 50px 0;
         line-height: 30px;
+    }
+
+    @media screen and (min-width: 952px) {
+        display: inline-block;
     }
 `;
 
@@ -80,10 +86,11 @@ export const MenuLink = styled.a`
         transition: 0.5s;
     }
 
-    @media (max-width: 858px) {
-        &:hover {
-            background: none;
-            color: #0082e6;
-        }
+    @media screen and (max-width: 952px) {
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: 858px) {
+        font-size: 20px;
     }
 `;
