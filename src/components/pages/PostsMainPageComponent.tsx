@@ -1,59 +1,209 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
-import '../../styles/CenterTemp.css';
+import {
+    PostCard,
+    PostCardMeta,
+    PostPhoto,
+    Details,
+    PostAuthor,
+    PostDate,
+    Tags,
+    TagsUList,
+    TagsList,
+    DetailList,
+    Description,
+    DescriptionMainText,
+    DescriptionSubText,
+    DescriptionContent,
+    DescriptionReadMore,
+    DescriptionReadMoreList,
+    PostCardWrapper,
+} from '@Style/PostMainPageStyles';
+
+import 'styles/CenterTemp.css';
 
 export default function PostsMainPageComponent() {
     return (
         <>
-<div className="blog-card">
-    <div className="meta">
-      <div className="photo" style={{backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)`}}></div>
-      <ul className="details">
-        <li className="author"><a href="#">John Doe</a></li>
-        <li className="date">Aug. 24, 2015</li>
-        <li className="tags">
-          <ul>
-            <li><a href="#">Learn</a></li>
-            <li><a href="#">Code</a></li>
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div className="description">
-      <h1>Learning to Code</h1>
-      <h2>Opening a door to the future</h2>
-      <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-      <p className="read-more">
-        <a href="#">Read More</a>
-      </p>
-    </div>
-  </div>
-  <div className="blog-card alt">
-    <div className="meta">
-      <div className="photo" style={{backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)`}}></div>
-      <ul className="details">
-        <li className="author"><a href="#">Jane Doe</a></li>
-        <li className="date">July. 15, 2015</li>
-        <li className="tags">
-          <ul>
-            <li><a href="#">Learn</a></li>
-            <li><a href="#">Code</a></li>
-            <li><a href="#">JavaScript</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div className="description">
-      <h1>Mastering the Language</h1>
-      <h2>Java is not the same as JavaScript</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-      <p className="read-more">
-        <a href="#">Read More</a>
-      </p>
-    </div>
-  </div>
+            <PostCardWrapper>
+                <PostCard alt={false}>
+                    <PostCardMeta>
+                        <PostPhoto
+                            id="PostPhoto"
+                            style={{
+                                backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)`,
+                            }}
+                        ></PostPhoto>
+                        <Details id="Details" alt={false}>
+                            <PostAuthor>
+                                <DetailList href="#">John Doe</DetailList>
+                            </PostAuthor>
+                            <PostDate>Aug. 24, 2015</PostDate>
+                            <Tags>
+                                <TagsUList>
+                                    <TagsList>
+                                        <DetailList href="#">Learn</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">Code</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">HTML</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">CSS</DetailList>
+                                    </TagsList>
+                                </TagsUList>
+                            </Tags>
+                        </Details>
+                    </PostCardMeta>
+                    <Description alt={false}>
+                        <DescriptionMainText>Learning to Code</DescriptionMainText>
+                        <DescriptionSubText>Opening a door to the future</DescriptionSubText>
+                        <DescriptionContent>
+                            {' '}
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto
+                            obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis,
+                            sit.
+                        </DescriptionContent>
+                        <DescriptionReadMore>
+                            {' '}
+                            <DescriptionReadMoreList href="#">Read More</DescriptionReadMoreList>{' '}
+                        </DescriptionReadMore>
+                    </Description>
+                </PostCard>
+                <PostCard alt={true}>
+                    <PostCardMeta>
+                        <PostPhoto
+                            id="PostPhoto"
+                            style={{
+                                backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)`,
+                            }}
+                        ></PostPhoto>
+                        <Details id="Details" alt={true}>
+                            <PostAuthor>
+                                <DetailList href="#">Jane Doe</DetailList>
+                            </PostAuthor>
+                            <PostDate>July. 15, 2015</PostDate>
+                            <Tags>
+                                <TagsUList>
+                                    <TagsList>
+                                        <DetailList href="#">Learn</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">Code</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">JavaScript</DetailList>
+                                    </TagsList>
+                                </TagsUList>
+                            </Tags>
+                        </Details>
+                    </PostCardMeta>
+                    <Description alt={true}>
+                        <DescriptionMainText>Mastering the Language</DescriptionMainText>
+                        <DescriptionSubText>Java is not the same as JavaScript</DescriptionSubText>
+                        <DescriptionContent>
+                            {' '}
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto
+                            obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis,
+                            sit.
+                        </DescriptionContent>
+                        <DescriptionReadMore>
+                            {' '}
+                            <DescriptionReadMoreList href="#">Read More</DescriptionReadMoreList>{' '}
+                        </DescriptionReadMore>
+                    </Description>
+                </PostCard>
+                <PostCard alt={false}>
+                    <PostCardMeta>
+                        <PostPhoto
+                            id="PostPhoto"
+                            style={{
+                                backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)`,
+                            }}
+                        ></PostPhoto>
+                        <Details id="Details" alt={false}>
+                            <PostAuthor>
+                                <DetailList href="#">John Doe</DetailList>
+                            </PostAuthor>
+                            <PostDate>Aug. 24, 2015</PostDate>
+                            <Tags>
+                                <TagsUList>
+                                    <TagsList>
+                                        <DetailList href="#">Learn</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">Code</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">HTML</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">CSS</DetailList>
+                                    </TagsList>
+                                </TagsUList>
+                            </Tags>
+                        </Details>
+                    </PostCardMeta>
+                    <Description alt={false}>
+                        <DescriptionMainText>Learning to Code</DescriptionMainText>
+                        <DescriptionSubText>Opening a door to the future</DescriptionSubText>
+                        <DescriptionContent>
+                            {' '}
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto
+                            obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis,
+                            sit.
+                        </DescriptionContent>
+                        <DescriptionReadMore>
+                            {' '}
+                            <DescriptionReadMoreList href="#">Read More</DescriptionReadMoreList>{' '}
+                        </DescriptionReadMore>
+                    </Description>
+                </PostCard>
+                <PostCard alt={true}>
+                    <PostCardMeta>
+                        <PostPhoto
+                            id="PostPhoto"
+                            style={{
+                                backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)`,
+                            }}
+                        ></PostPhoto>
+                        <Details id="Details" alt={true}>
+                            <PostAuthor>
+                                <DetailList href="#">Jane Doe</DetailList>
+                            </PostAuthor>
+                            <PostDate>July. 15, 2015</PostDate>
+                            <Tags>
+                                <TagsUList>
+                                    <TagsList>
+                                        <DetailList href="#">Learn</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">Code</DetailList>
+                                    </TagsList>
+                                    <TagsList>
+                                        <DetailList href="#">JavaScript</DetailList>
+                                    </TagsList>
+                                </TagsUList>
+                            </Tags>
+                        </Details>
+                    </PostCardMeta>
+                    <Description alt={true}>
+                        <DescriptionMainText>Mastering the Language</DescriptionMainText>
+                        <DescriptionSubText>Java is not the same as JavaScript</DescriptionSubText>
+                        <DescriptionContent>
+                            {' '}
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto
+                            obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis,
+                            sit.
+                        </DescriptionContent>
+                        <DescriptionReadMore>
+                            {' '}
+                            <DescriptionReadMoreList href="#">Read More</DescriptionReadMoreList>{' '}
+                        </DescriptionReadMore>
+                    </Description>
+                </PostCard>
+            </PostCardWrapper>
         </>
     );
 }
