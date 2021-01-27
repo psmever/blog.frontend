@@ -6,6 +6,23 @@ interface DefaultAltProps {
 
 export const PostCardWrapper = styled.div`
     /* width: 100%; */
+    /* width: 750px; */
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    /* height: 200px; */
+    /* background: #ccc; */
+
+    flex: 0 1 100px;
+    -webkit-flex: 0 1 100px;
+    -ms-flex: 0 1 100px;
+    /* background: darkblue; */
+    /* margin: 10px; */
+    /* font-size: 20px; */
+    /* color: #fff; */
 `;
 
 export const PostCard = styled.div<DefaultAltProps>`
@@ -21,9 +38,17 @@ export const PostCard = styled.div<DefaultAltProps>`
     overflow: hidden;
     z-index: 0;
 
-    @media screen and (min-width: 640px) {
+    &:hover #Details {
+        left: 0%;
+    }
+
+    &:hover #PostPhoto {
+        transform: scale(1.3) rotate(3deg);
+    }
+
+    @media all and (min-width: 640px) {
         flex-direction: row;
-        max-width: 30%;
+        max-width: 48%;
 
         ${({ alt }) =>
             alt === `true` &&
@@ -32,12 +57,9 @@ export const PostCard = styled.div<DefaultAltProps>`
             `}
     }
 
-    &:hover #Details {
-        left: 0%;
-    }
-
-    &:hover #PostPhoto {
-        transform: scale(1.3) rotate(3deg);
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+        /* flex-direction: row; */
+        max-width: 48%;
     }
 `;
 export const PostCardMeta = styled.div`
@@ -139,7 +161,7 @@ export const Description = styled.div<DefaultAltProps>`
     position: relative;
     z-index: 1;
 
-    @media screen and (min-width: 640px) {
+    @media all and (min-width: 640px) {
         flex-basis: 60%;
 
         &:before {

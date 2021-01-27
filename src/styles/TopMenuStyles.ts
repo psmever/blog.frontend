@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Default = styled.div``;
 
 export const Navi = styled.nav`
-    background: #0082e6;
+    background: #5eaeff;
     height: 80px;
     width: 100%;
 `;
@@ -46,6 +46,7 @@ export const MenuUList = styled.ul`
     margin: 0 5px;
 
     @media screen and (max-width: 952px) {
+        /* left: 0; */ // 메뉴 티어 나옴.
         position: fixed;
         width: 100%;
         height: 100vh;
@@ -54,7 +55,6 @@ export const MenuUList = styled.ul`
         left: -100%;
         text-align: center;
         transition: all 0.5s;
-        left: 0;
         margin: 0 0;
     }
 `;
