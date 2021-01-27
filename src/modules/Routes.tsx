@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { MainLayout } from '@Layouts';
-import { TestPage, DevPage, PostsMainPage, MainContentPage } from '@Pages';
+import { TestPage, DevPage, PostsMainPage } from '@Pages';
 
 const Routes = () => {
 
@@ -14,7 +14,6 @@ const Routes = () => {
                 <Route path={process.env.PUBLIC_URL + '/test/dev'} exact={true} component={DevPage} />
                 <Route path={process.env.PUBLIC_URL + '/test/main'} exact={true} component={MainLayout} />
                 <Route path={process.env.PUBLIC_URL + '/test/center'} exact={true} component={MainLayout} />
-                <Route path={process.env.PUBLIC_URL + '/test/posts'} exact={true} component={MainContentPage} />
                 {/* <Route path={process.env.PUBLIC_URL + '/layout'} exact={true} component={DefaultLayoutComponents} /> */}
                 {/* <Route path={process.env.PUBLIC_URL + '/test/layout'} exact={true} component={TestLayoutPage} /> */}
                 {/* <Route path={process.env.PUBLIC_URL + '/admin/login'} exact={true} component={Pages.AdminLoginPage} />

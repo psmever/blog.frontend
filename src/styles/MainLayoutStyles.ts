@@ -2,61 +2,72 @@ import styled from 'styled-components';
 
 export const Default = styled.div``;
 
-export const MainContainer = styled.div`
-    display: 'flex';
-    flex-direction: 'column';
-`;
-
-export const MainHeaderBox = styled.div`
-    background-color: #f1f1f1;
-    padding: 1px;
-`;
-
-export const MainWrapper = styled.div`
-    display: -webkit-flex;
-    width: 100%;
-    display: flex;
-
-    @media screen and (mix-width: 952px) {
+export const Warp = styled.div`
+    @media all and (min-width: 1025px) {
+        .wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
     }
 `;
 
-export const SideLine = styled.div`
-    margin: 0px;
-    height: calc(100vh - 80px);
-    border: 2px dotted #f44336;
+export const Header = styled.header``;
+
+export const Container = styled.div`
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 100px;
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
 `;
 
 export const LeftSideBox = styled.div`
-    padding: 1px;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    height: calc(100vh - 80px);
-    /* border: 2px dotted #f44336; */
-    min-width: 20rem;
-    max-width: 25rem;
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+        float: left;
+        width: 15%;
+    }
 
-    @media screen and (max-width: 952px) {
-        display: none;
+    @media all and (min-width: 1025px) {
+        float: left;
+        width: 15%;
+    }
+`;
+
+export const ContentBox = styled.div`
+    padding: 0px;
+
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+        float: left;
+        width: 85%;
+    }
+
+    @media all and (min-width: 1025px) {
+        float: left;
+        width: 71%;
     }
 `;
 
 export const RightSideBox = styled.div`
-    padding: 1px;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    min-width: 10rem;
-    max-width: 15rem;
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+        clear: both;
+    }
 
-    @media screen and (max-width: 1280px) {
-        display: none;
+    @media all and (min-width: 1025px) {
+        float: right;
+        width: 14%;
     }
 `;
 
-export const ContentsPageBox = styled.div`
-    -webkit-flex: 2;
-    -ms-flex: 2;
-    flex: 2;
+export const FooterBox = styled.footer`
+    width: 100%;
+    height: 2rem;
+    position: fixed;
+    bottom: 0;
+    background: #5eaeff;
+    text-align: center;
+    color: white;
 `;
