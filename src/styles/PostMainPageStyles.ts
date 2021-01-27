@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface DefaultAltProps {
-    alt: boolean;
+    alt: 'true' | 'false';
 }
 
 export const PostCardWrapper = styled.div`
@@ -26,7 +26,7 @@ export const PostCard = styled.div<DefaultAltProps>`
         max-width: 30%;
 
         ${({ alt }) =>
-            alt &&
+            alt === `true` &&
             css`
                 flex-direction: row-reverse;
             `}
@@ -155,7 +155,7 @@ export const Description = styled.div<DefaultAltProps>`
         }
 
         ${({ alt }) =>
-            alt
+            alt === `true`
                 ? css`
                       &:before {
                           left: inherit;
