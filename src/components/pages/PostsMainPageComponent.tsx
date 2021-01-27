@@ -25,7 +25,7 @@ export default function PostsMainPageComponent() {
     return (
         <>
             <PostCardWrapper>
-                <PostCard alt={false}>
+                <PostCard alt={'false'}>
                     <PostCardMeta>
                         <PostPhoto
                             id="PostPhoto"
@@ -33,7 +33,7 @@ export default function PostsMainPageComponent() {
                                 backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)`,
                             }}
                         ></PostPhoto>
-                        <Details id="Details" alt={false}>
+                        <Details id="Details" alt={'false'}>
                             <PostAuthor>
                                 <DetailList href="#">John Doe</DetailList>
                             </PostAuthor>
@@ -56,7 +56,7 @@ export default function PostsMainPageComponent() {
                             </Tags>
                         </Details>
                     </PostCardMeta>
-                    <Description alt={false}>
+                    <Description alt={'false'}>
                         <DescriptionMainText>Learning to Code</DescriptionMainText>
                         <DescriptionSubText>Opening a door to the future</DescriptionSubText>
                         <DescriptionContent>
@@ -71,7 +71,7 @@ export default function PostsMainPageComponent() {
                         </DescriptionReadMore>
                     </Description>
                 </PostCard>
-                <PostCard alt={true}>
+                <PostCard alt={'true'}>
                     <PostCardMeta>
                         <PostPhoto
                             id="PostPhoto"
@@ -79,7 +79,7 @@ export default function PostsMainPageComponent() {
                                 backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)`,
                             }}
                         ></PostPhoto>
-                        <Details id="Details" alt={true}>
+                        <Details id="Details" alt={'true'}>
                             <PostAuthor>
                                 <DetailList href="#">Jane Doe</DetailList>
                             </PostAuthor>
@@ -99,7 +99,7 @@ export default function PostsMainPageComponent() {
                             </Tags>
                         </Details>
                     </PostCardMeta>
-                    <Description alt={true}>
+                    <Description alt={'true'}>
                         <DescriptionMainText>Mastering the Language</DescriptionMainText>
                         <DescriptionSubText>Java is not the same as JavaScript</DescriptionSubText>
                         <DescriptionContent>
@@ -114,7 +114,7 @@ export default function PostsMainPageComponent() {
                         </DescriptionReadMore>
                     </Description>
                 </PostCard>
-                <PostCard alt={false}>
+                <PostCard alt={'false'}>
                     <PostCardMeta>
                         <PostPhoto
                             id="PostPhoto"
@@ -122,7 +122,7 @@ export default function PostsMainPageComponent() {
                                 backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)`,
                             }}
                         ></PostPhoto>
-                        <Details id="Details" alt={false}>
+                        <Details id="Details" alt={'false'}>
                             <PostAuthor>
                                 <DetailList href="#">John Doe</DetailList>
                             </PostAuthor>
@@ -145,7 +145,7 @@ export default function PostsMainPageComponent() {
                             </Tags>
                         </Details>
                     </PostCardMeta>
-                    <Description alt={false}>
+                    <Description alt={'false'}>
                         <DescriptionMainText>Learning to Code</DescriptionMainText>
                         <DescriptionSubText>Opening a door to the future</DescriptionSubText>
                         <DescriptionContent>
@@ -160,7 +160,7 @@ export default function PostsMainPageComponent() {
                         </DescriptionReadMore>
                     </Description>
                 </PostCard>
-                <PostCard alt={true}>
+                <PostCard alt={'true'}>
                     <PostCardMeta>
                         <PostPhoto
                             id="PostPhoto"
@@ -168,7 +168,7 @@ export default function PostsMainPageComponent() {
                                 backgroundImage: `url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)`,
                             }}
                         ></PostPhoto>
-                        <Details id="Details" alt={true}>
+                        <Details id="Details" alt={'true'}>
                             <PostAuthor>
                                 <DetailList href="#">Jane Doe</DetailList>
                             </PostAuthor>
@@ -188,7 +188,7 @@ export default function PostsMainPageComponent() {
                             </Tags>
                         </Details>
                     </PostCardMeta>
-                    <Description alt={true}>
+                    <Description alt={'true'}>
                         <DescriptionMainText>Mastering the Language</DescriptionMainText>
                         <DescriptionSubText>Java is not the same as JavaScript</DescriptionSubText>
                         <DescriptionContent>
