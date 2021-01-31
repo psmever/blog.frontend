@@ -8,7 +8,6 @@ import {
     WeatherTextBox,
     WatherText,
     WeatherFooterBox,
-    WeatherDetailTextBox,
     WeatherDetailTitleText,
     WeatherDetailText,
 } from '@Style/RightWeatherBoxStyles';
@@ -33,18 +32,12 @@ export default function RightWeatherBox() {
                 </WeatherTextBox>
             </WeatherCenterBox>
             <WeatherFooterBox>
-                <WeatherDetailTextBox>
-                    <WeatherDetailTitleText>현재 바람:</WeatherDetailTitleText>
-                    <WeatherDetailText>북서 3m/s</WeatherDetailText>
-                </WeatherDetailTextBox>
-                <WeatherDetailTextBox>
-                    <WeatherDetailTitleText>현재 습도:</WeatherDetailTitleText>
-                    <WeatherDetailText>31%</WeatherDetailText>
-                </WeatherDetailTextBox>
-                <WeatherDetailTextBox>
-                    <WeatherDetailTitleText>통합 대기:</WeatherDetailTitleText>
-                    <WeatherDetailText>좋음</WeatherDetailText>
-                </WeatherDetailTextBox>
+                <WeatherDetailTitleText>현재 바람:</WeatherDetailTitleText>
+                <WeatherDetailText>북서 3m/s</WeatherDetailText>
+                <WeatherDetailTitleText>현재 습도:</WeatherDetailTitleText>
+                <WeatherDetailText>31%</WeatherDetailText>
+                <WeatherDetailTitleText>통합 대기:</WeatherDetailTitleText>
+                <WeatherDetailText>좋음</WeatherDetailText>
             </WeatherFooterBox>
         </>
     );

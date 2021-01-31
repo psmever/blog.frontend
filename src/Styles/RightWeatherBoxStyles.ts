@@ -62,26 +62,23 @@ export const WatherText = styled.div`
 `;
 
 export const WeatherFooterBox = styled.div`
+    padding-top: 1rem;
     width: 100%;
     height: 100%;
-    padding-top: 1rem;
-`;
-
-export const WeatherDetailTextBox = styled.div`
-    width: 90%;
-    margin: 10px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 `;
 
 export const WeatherDetailTitleText = styled.div`
-    float: left;
-    width: 30%;
-    box-sizing: border-box;
+    /* float: left; */
+    /* width: 30%; */
+    /* box-sizing: border-box; */
 `;
 
 export const WeatherDetailText = styled.div`
-    margin: 0.25rem;
-    width: 50%;
-    text-align: left;
-    color: rgba(172, 25, 102, 1);
-    text-decoration: none;
+    /* margin: 0.25rem; */
+    /* width: 50%; */
+    /* text-align: left; */
+    /* color: rgba(172, 25, 102, 1); */
+    /* text-decoration: none; */
 `;
