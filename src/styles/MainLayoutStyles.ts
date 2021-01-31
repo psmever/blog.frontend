@@ -4,10 +4,9 @@ export const Default = styled.div``;
 
 export const Warp = styled.div`
     @media all and (min-width: 1025px) {
-        .wrap {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
+        /* max-width: 1280px; */
+        /* max-width: 1280px; */
+        margin: 0 auto;
     }
 `;
 
@@ -26,6 +25,7 @@ export const Container = styled.div`
 `;
 
 export const LeftSideBox = styled.div`
+    /* display: none; */
     @media all and (min-width: 768px) and (max-width: 1024px) {
         float: left;
         width: 15%;
@@ -38,12 +38,13 @@ export const LeftSideBox = styled.div`
 `;
 
 export const ContentBox = styled.div`
-    padding: 0px;
+    width: 100%;
+    padding: 0.4rem;
 
-    @media all and (min-width: 768px) and (max-width: 1024px) {
+    /* @media all and (min-width: 768px) and (max-width: 1024px) {
         float: left;
         width: 85%;
-    }
+    } */
 
     @media all and (min-width: 1025px) {
         float: left;
@@ -54,6 +55,7 @@ export const ContentBox = styled.div`
 export const RightSideBox = styled.div`
     @media all and (min-width: 768px) and (max-width: 1024px) {
         clear: both;
+        /* width: 14%; */
     }
 
     @media all and (min-width: 1025px) {

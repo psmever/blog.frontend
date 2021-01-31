@@ -9,11 +9,14 @@ import {
     ContectButton,
     MyIconBox,
     MyIcon,
-    MyIconButton,
+    // MyIconButton,
     VersionBox,
     MadeText,
     VersionText,
+    WeatherWapper,
 } from '@Style/RightSidebar';
+
+import { RightWeatherBox } from '@Elements';
 
 export default function RightSidebarComponent() {
     return (
@@ -28,15 +31,15 @@ export default function RightSidebarComponent() {
                 </ProfileBox>
 
                 <MyIconBox>
-                    <MyIcon>
-                        <MyIconButton>GitHub Icon</MyIconButton>
-                    </MyIcon>
+                    <MyIcon>{/* <MyIconButton>GitHub Icon</MyIconButton> */}</MyIcon>
 
-                    <MyIcon>
-                        <MyIconButton>FaceBook Icon</MyIconButton>
-                    </MyIcon>
+                    <MyIcon>{/* <MyIconButton>FaceBook Icon</MyIconButton> */}</MyIcon>
                 </MyIconBox>
             </Wrapper>
+
+            <WeatherWapper>
+                <RightWeatherBox />
+            </WeatherWapper>
 
             <VersionBox>
                 <MadeText>Made In @psmever</MadeText>

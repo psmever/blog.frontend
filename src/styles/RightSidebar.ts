@@ -3,12 +3,15 @@ import styled from 'styled-components';
 export const Default = styled.div``;
 
 export const Wrapper = styled.div`
-    background: #f1f1f1;
-    transition: background 0.6s ease;
-    border-radius: 10px;
-    padding: 20px 20px 20px 20px;
-    box-shadow: 0 8px 40px rgba(#000000, 0.2);
-    color: #fff;
+    flex-direction: column;
+    margin: 1rem auto;
+    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.6%;
+    background: #fff;
+    line-height: 1.4;
+    font-family: sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
 `;
 
 export const ProfileBox = styled.div`
@@ -102,13 +105,15 @@ export const MyIconButton = styled.button`
 `;
 
 export const VersionBox = styled.div`
-    margin-top: 1rem;
-    background: #f1f1f1;
-    transition: background 0.6s ease;
-    border-radius: 10px;
-    padding: 20px 20px 20px 20px;
-    box-shadow: 0 8px 40px rgba(#000000, 0.2);
-    color: #fff;
+    flex-direction: column;
+    margin: 1rem auto;
+    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.6%;
+    background: #fff;
+    line-height: 1.4;
+    font-family: sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
     text-align: center;
     position: relative;
 
@@ -133,4 +138,28 @@ export const VersionText = styled.div`
     text-align: center;
     color: rgba(172, 25, 102, 1);
     text-decoration: none;
+`;
+
+export const WeatherWapper = styled.div`
+    flex-direction: column;
+    margin: 1rem auto;
+    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.6%;
+    background: #fff;
+    line-height: 1.4;
+    font-family: sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    /* height: 5rem; */
+
+    &:after {
+        width: 100%;
+        /* height: 1px; */
+        content: ' ';
+        display: block;
+        margin-top: 1.3em;
+        background: #e9eff6;
+    }
 `;

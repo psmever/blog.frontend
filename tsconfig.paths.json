@@ -3,6 +3,8 @@
 		"paths": {
             "@Page/*": ["components/pages/*"],
             "@Pages": ["components/pages"],
+            "@Element/*": ["components/elements/*"],
+            "@Elements": ["components/elements"],
             "@Layout": ["components/layouts/*"],
             "@Layouts": ["components/layouts"],
             "@Modules/*": ["modules/*"],
