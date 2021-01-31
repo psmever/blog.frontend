@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MadeText, VersionText } from '@Style/FooterBoxStyles';
+import { MadeText } from '@Style/FooterBoxStyles';
 
 export default function FooterBox() {
     return (
