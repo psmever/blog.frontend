@@ -126,7 +126,7 @@ const MainNavliCheckBtn = styled.label`
     }
 `;
 
-export default function DevPageComponent() {
+export default function DevPage() {
     return (
         <>
             <MainContainer>

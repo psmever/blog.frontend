@@ -1,15 +1,15 @@
 {
 	"compilerOptions": {
 		"paths": {
-            "@Page/*": ["components/pages/*"],
-            "@Pages": ["components/pages"],
-            "@Element/*": ["components/elements/*"],
-            "@Elements": ["components/elements"],
-            "@Layout": ["components/layouts/*"],
-            "@Layouts": ["components/layouts"],
-            "@Modules/*": ["modules/*"],
-            "@Styles": ["styles"],
-            "@Style/*": ["styles/*"]
+            "@Element/*": ["Components/Elements/*"],
+            "@Elements": ["Components/Elements"],
+            "@Layout": ["Components/Layouts/*"],
+            "@Layouts": ["Components/Layouts"],
+            "@Page/*": ["Pages/*"],
+            "@Pages": ["Pages"],
+            "@Modules/*": ["Modules/*"],
+            "@Styles": ["Styles"],
+            "@Style/*": ["Styles/*"]
 		}
 	}
 }
