@@ -14,9 +14,10 @@ import {
     MadeText,
     VersionText,
     WeatherWapper,
+    CoronaWapper,
 } from '@Style/RightSidebar';
 
-import { RightWeatherBox } from '@Elements';
+import { RightWeatherBox, RightCoronaBox } from '@Elements';
 
 export default function RightSidebarComponent() {
     return (
@@ -40,6 +41,10 @@ export default function RightSidebarComponent() {
             <WeatherWapper>
                 <RightWeatherBox />
             </WeatherWapper>
+
+            <CoronaWapper>
+                <RightCoronaBox />
+            </CoronaWapper>
 
             <VersionBox>
                 <MadeText>Made In @psmever</MadeText>
