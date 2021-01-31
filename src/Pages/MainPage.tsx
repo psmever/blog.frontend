@@ -17,8 +17,8 @@ import {
     DescriptionReadMore,
     DescriptionReadMoreList,
     PostCardWrapper,
-} from '@Style/PostMainPageStyles';
-export default function PostsMainPageComponent() {
+} from '@Style/MainPageStyles';
+export default function MainPage() {
     return (
         <>
             <PostCardWrapper>
