@@ -1,2 +1,2 @@
-export { default as RightWeatherBox } from './weatherbox/RightWeatherBox';
-export { default as RightCoronaBox } from './corona/RightCoronaBox';
+export { default as RightWeatherBox } from './RightBox/RightWeatherBox';
+export { default as RightCoronaBox } from './RightBox/RightCoronaBox';
