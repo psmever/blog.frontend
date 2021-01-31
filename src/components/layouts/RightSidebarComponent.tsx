@@ -10,9 +10,6 @@ import {
     MyIconBox,
     MyIcon,
     // MyIconButton,
-    VersionBox,
-    MadeText,
-    VersionText,
     WeatherWapper,
     CoronaWapper,
 } from '@Style/RightSidebar';
@@ -45,11 +42,6 @@ export default function RightSidebarComponent() {
             <CoronaWapper>
                 <RightCoronaBox />
             </CoronaWapper>
-
-            <VersionBox>
-                <MadeText>Made In @psmever</MadeText>
-                <VersionText>Version 2.0.0</VersionText>
-            </VersionBox>
         </>
     );
 }

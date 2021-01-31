@@ -72,4 +72,6 @@ export const FooterBox = styled.footer`
     background: #5eaeff;
     text-align: center;
     color: white;
+    flex: center;
+    line-height: 2rem;
 `;

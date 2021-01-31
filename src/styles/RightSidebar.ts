@@ -127,19 +127,6 @@ export const VersionBox = styled.div`
     }
 `;
 
-export const MadeText = styled.div`
-    text-align: center;
-    color: #aab0c4;
-    font-size: 0.9em;
-    font-weight: 400;
-`;
-
-export const VersionText = styled.div`
-    text-align: center;
-    color: rgba(172, 25, 102, 1);
-    text-decoration: none;
-`;
-
 export const WeatherWapper = styled.div`
     flex-direction: column;
     margin: 1rem auto;
