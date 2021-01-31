@@ -13,7 +13,7 @@ export const PostCardWrapper = styled.div`
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
-    /* height: 200px; */
+    /* height: 1rem; */
     /* background: #ccc; */
 
     flex: 0 1 100px;
@@ -38,6 +38,10 @@ export const PostCard = styled.div<DefaultAltProps>`
     overflow: hidden;
     z-index: 0;
 
+    flex: 1 0 50%;
+    box-sizing: border-box;
+    margin: 1rem 0.25em;
+
     &:hover #Details {
         left: 0%;
     }
@@ -61,11 +65,23 @@ export const PostCard = styled.div<DefaultAltProps>`
         /* flex-direction: row; */
         max-width: 48%;
     }
+
+    @media all and (min-width: 1024px) {
+        ${({ alt }) =>
+            alt === `true`
+                ? css`
+                      max-width: calc(50% - 1em);
+                  `
+                : css`
+                      max-width: calc(50% - 0em);
+                  `}
+    }
 `;
 export const PostCardMeta = styled.div`
     position: relative;
     z-index: 0;
-    height: 200px;
+    height: 10rem;
+    /* max-height: 20rem; */
 
     @media screen and (min-width: 640px) {
         flex-basis: 40%;
