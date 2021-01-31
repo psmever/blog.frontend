@@ -18,6 +18,7 @@ import {
     DescriptionReadMoreList,
     PostCardWrapper,
 } from '@Style/MainPageStyles';
+
 export default function MainPage() {
     return (
         <>

@@ -78,12 +78,12 @@ export const MenuUList = styled.ul`
 `;
 
 export const MenuElement = styled.li`
-    line-height: 80px;
+    line-height: 1.2rem;
     margin: 0 5px;
 
     @media screen and (max-width: 858px) {
-        margin: 50px 0;
-        line-height: 30px;
+        /* margin: 50px 0; */
+        /* line-height: 30px; */
     }
 
     @media screen and (min-width: 952px) {
@@ -91,12 +91,13 @@ export const MenuElement = styled.li`
     }
 `;
 
-export const MenuLink = styled.a`
+export const MenuLink = styled.div`
     color: white;
     font-size: 17px;
     padding: 7px 13px;
     border-radius: 3px;
     text-transform: uppercase;
+    cursor: pointer;
 
     /* &:active */
     &:hover {

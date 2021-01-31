@@ -3,8 +3,8 @@
 		"paths": {
             "@Element/*": ["Components/Elements/*"],
             "@Elements": ["Components/Elements"],
-            "@Layout": ["Components/Layouts/*"],
-            "@Layouts": ["Components/Layouts"],
+            "@MainLayout": ["Components/MainLayouts/*"],
+            "@MainLayouts": ["Components/MainLayouts"],
             "@Page/*": ["Pages/*"],
             "@Pages": ["Pages"],
             "@Modules/*": ["Modules/*"],

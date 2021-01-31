@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopMenu, LeftSidebar, RightSidebar, Footer } from '@Layouts';
+import { MainTopMenu, MainLeftSidebar, MainRightSidebar, MainFooter } from '@MainLayouts';
 import { Warp, Header, Container, LeftSideBox, ContentBox, RightSideBox, FooterBox } from '@Style/MainLayoutStyles';
 
 export default function MainLayoutComponent({ children }: { children: any }) {
@@ -8,19 +8,19 @@ export default function MainLayoutComponent({ children }: { children: any }) {
     return (
         <Warp>
             <Header>
-                <TopMenu />
+                <MainTopMenu />
             </Header>
             <Container id="container">
                 <LeftSideBox>
-                    <LeftSidebar />
+                    <MainLeftSidebar />
                 </LeftSideBox>
                 <ContentBox>{children}</ContentBox>
                 <RightSideBox>
-                    <RightSidebar />
+                    <MainRightSidebar />
                 </RightSideBox>
             </Container>
             <FooterBox>
-                <Footer />
+                <MainFooter />
             </FooterBox>
         </Warp>
     );
