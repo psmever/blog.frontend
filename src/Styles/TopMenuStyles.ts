@@ -26,6 +26,24 @@ export const MenuLabel = styled.label`
     }
 `;
 
+export const MenuIcon = styled.div`
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    content: '';
+    background: no-repeat center center;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+`;
+
 export const LogoText = styled.label`
     color: white;
     font-size: 35px;

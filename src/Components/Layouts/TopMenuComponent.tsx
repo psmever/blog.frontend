@@ -1,28 +1,30 @@
 import React from 'react';
-import { Navi, NaviInput, MenuLabel, LogoText, MenuUList, MenuElement, MenuLink } from '@Style/TopMenuStyles';
+import { Navi, NaviInput, MenuLabel, LogoText, MenuUList, MenuElement, MenuLink, MenuIcon } from '@Style/TopMenuStyles';
 
 export default function TopMenuComponent() {
     return (
         <>
             <Navi>
                 <NaviInput type="checkbox" id="check" />
-                <MenuLabel htmlFor="check">MENU</MenuLabel>
+                <MenuLabel htmlFor="check">
+                    <MenuIcon />
+                </MenuLabel>
                 <LogoText>NicePage</LogoText>
                 <MenuUList>
                     <MenuElement>
-                        <MenuLink href="#">Home</MenuLink>
+                        <MenuLink href="#">홈</MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink href="#">About</MenuLink>
+                        <MenuLink href="#">태그들</MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink href="#">Services</MenuLink>
+                        <MenuLink href="#">최근</MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink href="#">Contact</MenuLink>
+                        <MenuLink href="#">블로그에 대해</MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink href="#">Feedback</MenuLink>
+                        <MenuLink href="#">정보</MenuLink>
                     </MenuElement>
                 </MenuUList>
             </Navi>
