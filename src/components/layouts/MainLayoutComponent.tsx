@@ -25,30 +25,3 @@ export default function MainLayoutComponent({ children }: { children: any }) {
         </Warp>
     );
 }
-
-// return (
-//     <>
-//         <MainContainer>
-//             <MainHeaderBox>
-//                 <TopMenu />
-//             </MainHeaderBox>
-//             <MainWrapper>
-//                 {/* <!-- Left sidebar --> */}
-//                 <LeftSideBox>
-//                     <LeftSidebar />
-//                 </LeftSideBox>
-
-//                 {/* <!-- Main content --> */}
-//                 <ContentsPageBox>{children}</ContentsPageBox>
-
-//                 {/* <!-- Right sidebar --> */}
-//                 <RightSideBox>
-//                     <RightSidebar />
-//                 </RightSideBox>
-//             </MainWrapper>
-//             <footer>
-//                 <Footer />
-//             </footer>
-//         </MainContainer>
-//     </>
-// );
