@@ -6,6 +6,8 @@ import { TestPage, DevPage, PostsMainPage, TagsPage, LatelyPage, BlogPage, Infom
 
 const Routes = () => {
 
+    // TODO: 2021-02-01 00:21 기본 페이지들 레이아웃 외에 관리페이지 레이아웃 생성 필요.
+    // 가칭 manage layouts
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Switch>
