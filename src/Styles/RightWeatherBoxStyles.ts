@@ -29,6 +29,9 @@ export const WeatherCenterBox = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 `;
 
 export const WeatherImageBox = styled.div`
@@ -41,7 +44,7 @@ export const WeatherImageBox = styled.div`
 
 export const WeatherTextBox = styled.div`
     position: relative;
-    width: 50%;
+    width: 100%;
     float: left;
     display: table;
     align-items: right;
@@ -49,13 +52,13 @@ export const WeatherTextBox = styled.div`
 
 export const WatherImage = styled.img`
     display: inline-block;
-    width: 3rem;
+    width: 4rem;
 `;
 
 export const WatherText = styled.div`
-    display: inline-block;
+    /* display: inline-block; */
     font-size: 2rem;
-    padding-right: 4rem;
+    /* padding-right: 4rem; */
 `;
 
 export const WeatherFooterBox = styled.div`

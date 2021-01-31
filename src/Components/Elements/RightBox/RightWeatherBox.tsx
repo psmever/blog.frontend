@@ -27,6 +27,8 @@ export default function RightWeatherBox() {
                 </WeatherImageBox>
                 <WeatherTextBox>
                     <WatherText>- 1</WatherText>
+                </WeatherTextBox>
+                <WeatherTextBox>
                     <WatherText>맑음</WatherText>
                 </WeatherTextBox>
             </WeatherCenterBox>

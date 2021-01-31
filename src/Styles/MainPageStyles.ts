@@ -61,9 +61,9 @@ export const PostCard = styled.div<DefaultAltProps>`
             `}
     }
 
-    @media all and (min-width: 768px) and (max-width: 1024px) {
+    @media all and (min-width: 640px) and (max-width: 1024px) {
         /* flex-direction: row; */
-        max-width: 48%;
+        max-width: 100%;
     }
 
     @media all and (min-width: 1024px) {
