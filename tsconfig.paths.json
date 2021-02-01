@@ -3,8 +3,9 @@
 		"paths": {
             "@Element/*": ["Components/Elements/*"],
             "@Elements": ["Components/Elements"],
-            "@MainLayout": ["Components/MainLayouts/*"],
-            "@MainLayouts": ["Components/MainLayouts"],
+            "@MainLayouts": ["Components/Layouts/MainLayouts"],
+            "@ManageLayouts": ["Components/Layouts/ManageLayouts"],
+            "@TestLayouts": ["Components/Layouts/TestLayouts"],
             "@Page/*": ["Pages/*"],
             "@Pages": ["Pages"],
             "@Modules/*": ["Modules/*"],
