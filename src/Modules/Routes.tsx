@@ -1,42 +1,85 @@
-/* eslint-disable */
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { MainLayout } from '@MainLayouts';
-import { TestPage, DevPage, PostsMainPage, TagsPage, LatelyPage, BlogPage, InfomationsPage } from '@Pages';
+import { ManageLayout } from '@ManageLayouts';
+import { TestLayout } from '@TestLayouts';
+import { TestPage, DevPage, PostsMainPage, TagsPage, LatelyPage, BlogPage, InfomationsPage, LoginPage } from '@Pages';
 
 const Routes = () => {
-
     // TODO: 2021-02-01 00:21 기본 페이지들 레이아웃 외에 관리페이지 레이아웃 생성 필요.
     // 가칭 manage layouts
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Switch>
-                <Route path={process.env.PUBLIC_URL + '/test/test'} exact={true} component={TestPage} />
-                <Route path={process.env.PUBLIC_URL + '/test/dev'} exact={true} component={DevPage} />
-                {/* <Route path={process.env.PUBLIC_URL + '/layout'} exact={true} component={DefaultLayoutComponents} /> */}
-                {/* <Route path={process.env.PUBLIC_URL + '/test/layout'} exact={true} component={TestLayoutPage} /> */}
-                {/* <Route path={process.env.PUBLIC_URL + '/admin/login'} exact={true} component={Pages.AdminLoginPage} />
-                <Route path={process.env.PUBLIC_URL + '/admin/logout'} exact={true} component={Pages.AdminLogoutPage} />
-                <Route path={process.env.PUBLIC_URL + '/admin/write'} exact={true} component={Pages.AdminWritePage} />
-                <Route path={process.env.PUBLIC_URL + '/admin/:post_uuid/edit'} exact={true} component={Pages.AdminWritePage} /> */}
-                <MainLayout>
-                    {/* <Route exact path="/" component={Pages.MainPage} />
-                    <Route path={process.env.PUBLIC_URL + '/pages'} exact={true} component={Pages.MainPage} />
-                    <Route path={process.env.PUBLIC_URL + '/pages/about'} exact={true} component={Pages.AboutPage} />
-                    <Route path={process.env.PUBLIC_URL + '/pages/post/detail/:slug_title'} exact={true} component={Pages.PostDetailPage} />
-                    <Route path={process.env.PUBLIC_URL + '/pages/tags'} exact={true} component={Pages.TagPage} />
-                    <Route path={process.env.PUBLIC_URL + '/pages/tags/:search_tag_item/search'} exact={true} component={Pages.TagPage} /> */}
-                    <Route path={process.env.PUBLIC_URL + '/infomations'} exact={true} component={InfomationsPage} />
-                    <Route path={process.env.PUBLIC_URL + '/blogs'} exact={true} component={BlogPage} />
-                    <Route path={process.env.PUBLIC_URL + '/lately'} exact={true} component={LatelyPage} />
-                    <Route path={process.env.PUBLIC_URL + '/tags'} exact={true} component={TagsPage} />
-                    <Route path={process.env.PUBLIC_URL + '/posts'} exact={true} component={PostsMainPage} />
-                    {/* <Redirect path="*" to="/pages" /> */}
-                </MainLayout>
-                {/* <Route exact path={process.env.PUBLIC_URL + "/"} render={() => (<Redirect to="/pages" />)} /> */}
+                <Route path={['/login']}>
+                    <Switch>
+                        <Route path={process.env.PUBLIC_URL + '/login'} exact={true} component={LoginPage} />
+                    </Switch>
+                </Route>
+                <Route path={['/test', '/test/test', '/test/dev']}>
+                    <TestLayout>
+                        <Switch>
+                            <Route path={process.env.PUBLIC_URL + '/test/dev'} exact={true} component={DevPage} />
+                            <Route path={process.env.PUBLIC_URL + '/test/test'} exact={true} component={TestPage} />
+                        </Switch>
+                    </TestLayout>
+                </Route>
+                <Route path={['/manage']}>
+                    <ManageLayout>
+                        <Switch>
+                            <Route path={process.env.PUBLIC_URL + '/manage'} exact={true} component={PostsMainPage} />
+                        </Switch>
+                    </ManageLayout>
+                </Route>
+                <Route path={['/posts', '/tags', '/lately', '/blogs', '/infomations']}>
+                    <MainLayout>
+                        <Switch>
+                            <Route
+                                path={process.env.PUBLIC_URL + '/infomations'}
+                                exact={true}
+                                component={InfomationsPage}
+                            />
+                            <Route path={process.env.PUBLIC_URL + '/blogs'} exact={true} component={BlogPage} />
+                            <Route path={process.env.PUBLIC_URL + '/lately'} exact={true} component={LatelyPage} />
+                            <Route path={process.env.PUBLIC_URL + '/tags'} exact={true} component={TagsPage} />
+                            <Route path={process.env.PUBLIC_URL + '/posts'} exact={true} component={PostsMainPage} />
+                        </Switch>
+                    </MainLayout>
+                </Route>
             </Switch>
         </BrowserRouter>
     );
 };
 
 export default Routes;
+
+{
+    /* <BrowserRouter basename={process.env.PUBLIC_URL}>
+<Switch>
+    <MainLayout>
+        <Route exact path="/" component={Pages.MainPage} />
+        <Route path={process.env.PUBLIC_URL + '/infomations'} exact={true} component={InfomationsPage} />
+        <Route path={process.env.PUBLIC_URL + '/blogs'} exact={true} component={BlogPage} />
+        <Route path={process.env.PUBLIC_URL + '/lately'} exact={true} component={LatelyPage} />
+        <Route path={process.env.PUBLIC_URL + '/tags'} exact={true} component={TagsPage} />
+        <Route path={process.env.PUBLIC_URL + '/posts'} exact={true} component={PostsMainPage} />
+        <Redirect path="*" to="/pages" />
+    </MainLayout>
+    <ManageLayout>
+        <Route path={process.env.PUBLIC_URL + '/manage'} exact={true} component={InfomationsPage} />
+    </ManageLayout>
+    <Route exact path={process.env.PUBLIC_URL + "/"} render={() => (<Redirect to="/pages" />)} />
+</Switch>
+</BrowserRouter> */
+}
+
+{
+    /* <Route path={process.env.PUBLIC_URL + '/test/test'} exact={true} component={TestPage} />
+<Route path={process.env.PUBLIC_URL + '/test/dev'} exact={true} component={DevPage} />
+<Route path={process.env.PUBLIC_URL + '/layout'} exact={true} component={DefaultLayoutComponents} />
+<Route path={process.env.PUBLIC_URL + '/test/layout'} exact={true} component={TestLayoutPage} />
+<Route path={process.env.PUBLIC_URL + '/admin/login'} exact={true} component={Pages.AdminLoginPage} />
+<Route path={process.env.PUBLIC_URL + '/admin/logout'} exact={true} component={Pages.AdminLogoutPage} />
+<Route path={process.env.PUBLIC_URL + '/admin/write'} exact={true} component={Pages.AdminWritePage} />
+<Route path={process.env.PUBLIC_URL + '/admin/:post_uuid/edit'} exact={true} component={Pages.AdminWritePage} /> */
+}
