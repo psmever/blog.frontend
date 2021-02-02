@@ -1,7 +1,9 @@
-import React, { KeyboardEvent, useRef } from 'react';
-import { LoginWrapper, LoginMain, LoginTitle, LoginUserName, LoginPassword, LoginButton } from '@Style/LoginPageStyles';
-
+import React, { MouseEvent, KeyboardEvent, useRef, useState } from 'react';
+import { LoginWrapper, LoginMain, LoginTitle, LoginUserName, LoginPassword } from '@Style/LoginPageStyles';
+import { LoginButton } from '@Element/Buttons';
 export default function LoginPage() {
+    const [loading, setLoding] = useState(false);
+
     const inputEmail = '';
     const inputPassword = '';
     const inputPasswordRef = useRef<HTMLInputElement | null>(null);
@@ -28,8 +30,13 @@ export default function LoginPage() {
         console.log(value);
     };
 
-    const _handleLoginButtonClick = () => {
-        console.log('_handleLoginButtonClick');
+    const _handleLoginButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+        console.log('_handleLoginButtonClick', event);
+        if (loading === true) {
+            setLoding(false);
+        } else {
+            setLoding(true);
+        }
     };
 
     return (
@@ -56,16 +63,7 @@ export default function LoginPage() {
                         onKeyPress={e => onEnter(e)}
                         ref={inputPasswordRef}
                     />
-                    <LoginButton type="button" onClick={() => _handleLoginButtonClick()}>
-                        로그인.
-                    </LoginButton>
-                    {/* {loginAttemptState === 'attempt' ? (
-                        <LoginButtonLoading />
-                    ) : (
-                        <LoginButton type="button" onClick={() => _handleLoginButtonClick()}>
-                            로그인.
-                        </LoginButton>
-                    )} */}
+                    <LoginButton onClick={event => _handleLoginButtonClick(event)} loading={loading} />
                 </LoginMain>
             </LoginWrapper>
         </>

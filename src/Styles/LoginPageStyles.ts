@@ -75,27 +75,3 @@ export const LoginPassword = styled.input`
     box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px rgba(255, 255, 255, 0.2);
     transition: box-shadow 0.5s ease;
 `;
-
-export const LoginButton = styled.button`
-    @media (max-width: 767.98px) {
-        width: 100%;
-    }
-    box-sizing: border-box;
-    margin-bottom: 0;
-    text-align: center;
-    /* vertical-align: middle; */
-    cursor: pointer;
-    padding: 9px 14px;
-    font-size: 15px;
-    line-height: normal;
-    border-radius: 5px;
-    color: #ffffff;
-    background-color: #4a77d4;
-    background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4);
-    background-repeat: repeat-x;
-    border: 1px solid #3762bc;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    display: block;
-`;
