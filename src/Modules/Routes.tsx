@@ -3,7 +3,17 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { MainLayout } from '@MainLayouts';
 import { ManageLayout } from '@ManageLayouts';
 import { TestLayout } from '@TestLayouts';
-import { TestPage, DevPage, PostsMainPage, TagsPage, LatelyPage, BlogPage, InfomationsPage, LoginPage } from '@Pages';
+import {
+    TestPage,
+    DevPage,
+    PostsMainPage,
+    TagsPage,
+    LatelyPage,
+    BlogPage,
+    InfomationsPage,
+    LoginPage,
+    LoadingPage,
+} from '@Pages';
 
 const Routes = () => {
     return (
@@ -19,6 +29,11 @@ const Routes = () => {
                         <Switch>
                             <Route path={process.env.PUBLIC_URL + '/test/dev'} exact={true} component={DevPage} />
                             <Route path={process.env.PUBLIC_URL + '/test/test'} exact={true} component={TestPage} />
+                            <Route
+                                path={process.env.PUBLIC_URL + '/test/loading'}
+                                exact={true}
+                                component={LoadingPage}
+                            />
                         </Switch>
                     </TestLayout>
                 </Route>
