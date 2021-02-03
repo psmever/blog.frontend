@@ -1,6 +1,9 @@
 {
 	"compilerOptions": {
 		"paths": {
+            "@Src/*": ["./*"],
+            "@Hook/*": ["Hooks/*"],
+            "@Hooks": ["Hooks"],
             "@Element/*": ["Components/Elements/*"],
             "@Elements": ["Components/Elements"],
             "@MainLayouts": ["Components/Layouts/MainLayouts"],
