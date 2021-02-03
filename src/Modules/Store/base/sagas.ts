@@ -1,4 +1,4 @@
-import { takeLatest, fork, put } from 'redux-saga/effects';
+import { takeLatest, fork } from 'redux-saga/effects';
 import { SagaTypes } from '@Module/reduxActiontTypes';
 // 사이트 기본 데이터.
 function* getBaseDataActionSaga() {
