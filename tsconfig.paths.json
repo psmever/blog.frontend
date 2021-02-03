@@ -17,7 +17,9 @@
             "@Styles": ["Styles"],
             "@Style/*": ["Styles/*"],
             "@Utils": ["Utils"],
-            "@Util/*": ["Utils/*"]
+            "@Util/*": ["Utils/*"],
+            "@Helper": ["Utils/helper"],
+            "@API": ["Modules/API"]
 		}
 	}
 }
