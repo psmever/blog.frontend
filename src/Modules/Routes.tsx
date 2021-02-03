@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { MainLayout } from '@MainLayouts';
 import { ManageLayout } from '@ManageLayouts';
 import { TestLayout } from '@TestLayouts';
@@ -15,51 +16,61 @@ import {
     LoadingPage,
 } from '@Pages';
 
-const Routes = () => {
+const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Switch>
-                <Route path={['/login']}>
-                    <Switch>
-                        <Route path={process.env.PUBLIC_URL + '/login'} exact={true} component={LoginPage} />
-                    </Switch>
-                </Route>
-                <Route path={['/test', '/test/test', '/test/dev']}>
-                    <TestLayout>
+            <ConnectedRouter history={Routerhistory}>
+                <Switch>
+                    <Route path={['/login']}>
                         <Switch>
-                            <Route path={process.env.PUBLIC_URL + '/test/dev'} exact={true} component={DevPage} />
-                            <Route path={process.env.PUBLIC_URL + '/test/test'} exact={true} component={TestPage} />
-                            <Route
-                                path={process.env.PUBLIC_URL + '/test/loading'}
-                                exact={true}
-                                component={LoadingPage}
-                            />
+                            <Route path={process.env.PUBLIC_URL + '/login'} exact={true} component={LoginPage} />
                         </Switch>
-                    </TestLayout>
-                </Route>
-                <Route path={['/manage']}>
-                    <ManageLayout>
-                        <Switch>
-                            <Route path={process.env.PUBLIC_URL + '/manage'} exact={true} component={PostsMainPage} />
-                        </Switch>
-                    </ManageLayout>
-                </Route>
-                <Route path={['/posts', '/tags', '/lately', '/blogs', '/infomations']}>
-                    <MainLayout>
-                        <Switch>
-                            <Route
-                                path={process.env.PUBLIC_URL + '/infomations'}
-                                exact={true}
-                                component={InfomationsPage}
-                            />
-                            <Route path={process.env.PUBLIC_URL + '/blogs'} exact={true} component={BlogPage} />
-                            <Route path={process.env.PUBLIC_URL + '/lately'} exact={true} component={LatelyPage} />
-                            <Route path={process.env.PUBLIC_URL + '/tags'} exact={true} component={TagsPage} />
-                            <Route path={process.env.PUBLIC_URL + '/posts'} exact={true} component={PostsMainPage} />
-                        </Switch>
-                    </MainLayout>
-                </Route>
-            </Switch>
+                    </Route>
+                    <Route path={['/test', '/test/test', '/test/dev']}>
+                        <TestLayout>
+                            <Switch>
+                                <Route path={process.env.PUBLIC_URL + '/test/dev'} exact={true} component={DevPage} />
+                                <Route path={process.env.PUBLIC_URL + '/test/test'} exact={true} component={TestPage} />
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/test/loading'}
+                                    exact={true}
+                                    component={LoadingPage}
+                                />
+                            </Switch>
+                        </TestLayout>
+                    </Route>
+                    <Route path={['/manage']}>
+                        <ManageLayout>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/manage'}
+                                    exact={true}
+                                    component={PostsMainPage}
+                                />
+                            </Switch>
+                        </ManageLayout>
+                    </Route>
+                    <Route path={['/posts', '/tags', '/lately', '/blogs', '/infomations']}>
+                        <MainLayout>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/infomations'}
+                                    exact={true}
+                                    component={InfomationsPage}
+                                />
+                                <Route path={process.env.PUBLIC_URL + '/blogs'} exact={true} component={BlogPage} />
+                                <Route path={process.env.PUBLIC_URL + '/lately'} exact={true} component={LatelyPage} />
+                                <Route path={process.env.PUBLIC_URL + '/tags'} exact={true} component={TagsPage} />
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/posts'}
+                                    exact={true}
+                                    component={PostsMainPage}
+                                />
+                            </Switch>
+                        </MainLayout>
+                    </Route>
+                </Switch>
+            </ConnectedRouter>
         </BrowserRouter>
     );
 };

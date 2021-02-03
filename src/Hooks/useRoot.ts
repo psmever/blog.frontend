@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react';
+import { getBaseDataAction } from '@Store/base';
+import { useDispatch } from 'react-redux';
 
 export default function useLogin() {
-    const [RootLoading, setRootLoading] = useState<boolean>(true);
-
-    const handleRootLoading = () => {
-        if (RootLoading === false) {
-            setRootLoading(true);
-        } else {
-            setRootLoading(false);
-        }
-    };
+    const dispatch = useDispatch();
+    const [AppBaseCheckState, setAppBaseCheckState] = useState<boolean>(false);
 
     useEffect(() => {
         const appStart = () => {
             console.log(':: AppStart ::');
+            dispatch(getBaseDataAction());
         };
 
         appStart();
@@ -21,16 +17,11 @@ export default function useLogin() {
 
     useEffect(() => {
         setTimeout(() => {
-            setRootLoading(false);
+            setAppBaseCheckState(true);
         }, 4000);
     }, []);
 
-    useEffect(() => {
-        console.log({ RootLoading: RootLoading });
-    }, [RootLoading]);
-
     return {
-        RootLoading,
-        handleRootLoading,
+        AppBaseCheckState,
     };
 }

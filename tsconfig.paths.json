@@ -11,7 +11,9 @@
             "@TestLayouts": ["Components/Layouts/TestLayouts"],
             "@Page/*": ["Pages/*"],
             "@Pages": ["Pages"],
-            "@Modules/*": ["Modules/*"],
+            "@Module/*": ["Modules/*"],
+            "@Modules": ["Modules"],
+            "@Store/*": ["Modules/Store/*"],
             "@Styles": ["Styles"],
             "@Style/*": ["Styles/*"]
 		}
