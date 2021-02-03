@@ -1,18 +1,18 @@
 import { createReducer } from 'typesafe-actions';
 import produce from 'immer';
-import { baseDataSagaState } from 'commonTypes';
+import { BaseDataSagaState } from 'commonTypes';
 import { SagaTypes } from '@Module/reduxActiontTypes';
 
 const { BASE_REQUEST_START } = SagaTypes;
 
-const initialState: baseDataSagaState = {
+const initialState: BaseDataSagaState = {
     status: 'idle',
     codes: [],
     global_loading: 'idle',
 };
 
-export const baseSagaReducer = createReducer<baseDataSagaState>(initialState, {
-    [BASE_REQUEST_START]: (state: baseDataSagaState) => {
+export const baseSagaReducer = createReducer<BaseDataSagaState>(initialState, {
+    [BASE_REQUEST_START]: (state: BaseDataSagaState) => {
         return produce(state, draft => {
             draft.status = 'loading';
         });

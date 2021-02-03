@@ -15,7 +15,9 @@
             "@Modules": ["Modules"],
             "@Store/*": ["Modules/Store/*"],
             "@Styles": ["Styles"],
-            "@Style/*": ["Styles/*"]
+            "@Style/*": ["Styles/*"],
+            "@Utils": ["Utils"],
+            "@Util/*": ["Utils/*"]
 		}
 	}
 }
