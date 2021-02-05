@@ -25,17 +25,19 @@ function App() {
     };
 
     return (
-        <Provider store={store}>
-            <GlobalStyles />
+        <React.StrictMode>
+            <Provider store={store}>
+                <GlobalStyles />
 
-            {(function () {
-                if (AppSpinner === true) {
-                    return <RootComponent handleAppSpinner={handleAppSpinner} />;
-                } else {
-                    return <Routes Routerhistory={History} />;
-                }
-            })()}
-        </Provider>
+                {(function () {
+                    if (AppSpinner === true) {
+                        return <RootComponent handleAppSpinner={handleAppSpinner} />;
+                    } else {
+                        return <Routes Routerhistory={History} />;
+                    }
+                })()}
+            </Provider>
+        </React.StrictMode>
     );
 }
 

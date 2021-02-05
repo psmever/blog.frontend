@@ -1,25 +1,15 @@
-export enum SagaTypes {
-    // base
-    BASE_REQUEST_START = 'base/BASE_REQUEST_START',
-    BASE_REQUEST_SUCCESS = 'base/BASE_REQUEST_SUCCESS',
-    BASE_REQUEST_ERROR = 'base/BASE_REQUEST_ERROR',
-    BASE_REQUEST_RESET = 'base/BASE_REQUEST_RESET',
-
-    // 전체 페이지 로딩
-    BASE_GLOBAL_LOADING_START = 'base/BASE_GLOBAL_LOADING_START',
-    BASE_GLOBAL_LOADING_END = 'base/BASE_GLOBAL_LOADING_END',
-
-    // 글 리스트.
-    POST_LIST_REQUEST_START = 'post/POST_LIST_REQUEST_START',
-    POST_LIST_REQUEST_SUCCESS = 'post/POST_LIST_REQUEST_SUCCESS',
-    POST_LIST_REQUEST_ERROR = 'post/POST_LIST_REQUEST_ERROR',
-    POST_LIST_REQUEST_RESET = 'post/POST_LIST_REQUEST_RESET',
-}
-
 /**
  * 기본 액션 인터페이스.
  */
 export interface SagaAction<T> {
     type: SagaTypes;
     payload: T;
+}
+
+export enum SagaTypes {
+    // Common
+    START_LOADING = 'common/START_LOADING',
+    END_LOADING = 'common/END_LOADING',
+
+    CHECK_SERVER_START = 'common/CHECK_SERVER_START',
 }

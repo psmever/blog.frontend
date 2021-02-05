@@ -13,12 +13,13 @@
             "@Pages": ["Pages"],
             "@Module/*": ["Modules/*"],
             "@Modules": ["Modules"],
-            "@Store/*": ["Modules/Store/*"],
+            "@Store/*": ["Store/*"],
             "@Styles": ["Styles"],
             "@Style/*": ["Styles/*"],
             "@Utils": ["Utils"],
             "@Util/*": ["Utils/*"],
             "@Helper": ["Utils/helper"],
+            "@_Alert_": ["Utils/_Alert_"],
             "@API": ["Modules/API"]
 		}
 	}
