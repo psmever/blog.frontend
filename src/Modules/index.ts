@@ -3,27 +3,27 @@ import { connectRouter, RouterState } from 'connected-react-router';
 
 import { History } from 'history';
 import { all } from 'redux-saga/effects';
-import { BaseDataSagaState } from 'commonTypes';
+import { CommonStoreState } from 'commonTypes';
 
-import base from './Store/base';
-import baseSagas from './Store/base/sagas';
+import common from '@Store/common';
+import commonSagas from '@Store/common/sagas';
 
 // import postSagas from './redux/post/sagas';
 
 export interface RootState {
     router: RouterState;
-    base: BaseDataSagaState;
+    common: CommonStoreState;
     // post: postSagaState;
 }
 
 export const createRootReducer = (history: History) =>
     combineReducers({
         router: connectRouter(history),
-        base: base,
+        common: common,
         // post: post,
     });
 
 export function* rootSaga() {
-    yield all([...baseSagas]);
+    yield all([...commonSagas]);
     // yield all([]);
 }

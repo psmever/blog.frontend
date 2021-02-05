@@ -7,7 +7,7 @@ declare module 'commonTypes' {
         code_name: string;
     }
     // 사이트 기본 데이터 정보 결과.
-    export interface BaseDataCodeListInterface {
+    export interface BaseCodeListInterface {
         code_name: any;
         code_group: {
             S01: BasicCodeItem[];
@@ -19,10 +19,11 @@ declare module 'commonTypes' {
     }
 
     // 기본 스토어 스테이트
-    export interface BaseDataSagaState {
-        status: DefaultSagaStatus;
-        codes: BaseDataCodeListInterface | any;
-        global_loading: DefaultSagaStatus;
+    export interface CommonStoreState {
+        loading: boolean;
+        check: boolean;
+        status: boolean;
+        codes: BaseCodeListInterface | any;
     }
 
     // 통신 관련 타입.
