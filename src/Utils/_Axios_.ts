@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { AccessTokenType, LocalTokenInterface } from 'commonTypes';
+import { AccessTokenType, LocalTokenInterface } from 'CommonTypes';
 import * as Helper from '@Util/Helper';
 import { _Alert_ } from '@Utils';
 import * as _ from 'lodash';
@@ -13,7 +13,8 @@ interface serviceInterface {
 const apiBaseURLL: string | undefined = _.isUndefined(process.env.REACT_APP_API_URL)
     ? 'http://localhost'
     : process.env.REACT_APP_API_URL;
-const axiosDefaultHeader: AxiosRequestConfig = {
+
+export const axiosDefaultHeader: AxiosRequestConfig = {
     baseURL: apiBaseURLL,
     timeout: 20000,
     headers: {
@@ -203,6 +204,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
                 message: error.response?.data.error.error_message,
             });
         }
+        console.log(1);
     };
 
     /**
@@ -231,6 +233,13 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
         response => successInterceptor(response),
         error => errorInterceptor(error)
     );
+
+    // _Axios_.interceptors.response.use(
+    //     response => successInterceptor(response),
+    //     function (error) {
+    //         return Promise.reject(error);
+    //     }
+    // );
 
     return _Axios_({
         url: url,

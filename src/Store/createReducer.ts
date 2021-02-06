@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { SagaAction } from '@Module/reduxActiontTypes';
+import { SagaAction } from '@Store/reduxActiontTypes';
 
 export default function createReducer<S>(initialState: S, handlers: any): Reducer<S> {
     const r = (state: S = initialState, action: SagaAction<S>): S => {

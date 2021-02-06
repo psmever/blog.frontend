@@ -1,37 +1,39 @@
 import { _Axios_ } from '@Utils';
 
 import {
-    ServerReturnInterface,
-    ServerBaseDataInterface,
-    ServerUserCheckInterface,
-    PostRequestInterface,
-    PostEditResultInterface,
-    ServerPostListResultInterface,
-    ServerPostDetailInterface,
-    ServerTagGoupListInterface,
-    ServerPostWaitingListInterface,
-} from 'commonTypes';
+    ServerDefaultResult,
+    ServerNotice,
+    AppBase,
+    // ServerBaseDataInterface,
+    // ServerUserCheckInterface,
+    // PostRequestInterface,
+    // PostEditResultInterface,
+    // ServerPostListResultInterface,
+    // ServerPostDetailInterface,
+    // ServerTagGoupListInterface,
+    // ServerPostWaitingListInterface,
+} from 'ServiceTypes';
 
 /**
- * 서버 상태 체크
+ * 서버 상태 체크 ( 사용 안함 )
  */
-export function checkServer(): Promise<ServerReturnInterface<any>> {
-    return _Axios_({ method: 'get', url: '/api/system/check-status', payload: { data: {} } });
-}
+// export function checkServer(): Promise<ServerDefaultResult<any>> {
+//     return _Axios_({ method: 'get', url: '/api/system/check-status', payload: { data: {} } });
+// }
 
 /**
  * 서버 공지 사항 체크
  */
-export function checkServerNotice(): Promise<ServerReturnInterface<{ notice_message: string }>> {
+export function checkServerNotice(): Promise<ServerDefaultResult<ServerNotice>> {
     return _Axios_({ method: 'get', url: '/api/system/check-notice', payload: { data: {} } });
 }
 
-// /**
-//  * 사이트 기본 데이터 처리.
-//  */
-// export function getSiteBaseData(): Promise<ServerReturnInterface<ServerBaseDataInterface>> {
-//     return _Axios_({ method: 'get', url: '/api/system/base-data', payload: { data: {} } });
-// }
+/**
+ * 사이트 기본 데이터 처리.
+ */
+export function getSiteBaseData(): Promise<ServerDefaultResult<AppBase>> {
+    return _Axios_({ method: 'get', url: '/api/system/base-data', payload: { data: {} } });
+}
 
 // /**
 //  * 로그인
