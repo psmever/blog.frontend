@@ -14,11 +14,12 @@
             "@Module/*": ["Modules/*"],
             "@Modules": ["Modules"],
             "@Store/*": ["Store/*"],
+            "@Stores": ["Store"],
             "@Styles": ["Styles"],
             "@Style/*": ["Styles/*"],
             "@Utils": ["Utils"],
             "@Util/*": ["Utils/*"],
-            "@Helper": ["Utils/helper"],
+            "@Helper": ["Utils/Helper"],
             "@_Alert_": ["Utils/_Alert_"],
             "@API": ["Modules/API"]
 		}

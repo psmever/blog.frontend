@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import configureStore from '@Module/configureStore';
+import configureStore from '@Store/configureStore';
 import History from '@Module/History';
 import Routes from '@Module/Routes';
 import GlobalStyles from '@Style/GlobalStyles';
@@ -16,6 +16,7 @@ const store = configureStore(history, initialState);
 function App() {
     const [AppSpinner, setAppSpinner] = useState<boolean>(true);
 
+    // 스피너 페이지.
     const handleAppSpinner = () => {
         if (AppSpinner === false) {
             setAppSpinner(true);
@@ -28,7 +29,6 @@ function App() {
         <React.StrictMode>
             <Provider store={store}>
                 <GlobalStyles />
-
                 {(function () {
                     if (AppSpinner === true) {
                         return <RootComponent handleAppSpinner={handleAppSpinner} />;

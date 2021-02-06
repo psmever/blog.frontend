@@ -22,6 +22,11 @@ const _Alert_ = {
     default: (alertOption: alertTypeInterface): void => {
         Swal.fire({
             text: alertOption.text,
+        });
+    },
+    defaultInfo: (alertOption: alertTypeInterface): void => {
+        Swal.fire({
+            text: alertOption.text,
             icon: 'info',
         });
     },

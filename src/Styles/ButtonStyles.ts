@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface loadingProps {
-    loading: boolean;
+    loading: string;
 }
 
 // export const LoginButtonStyle =
@@ -48,7 +48,7 @@ export const LoginLoadingBox = styled.div<loadingProps>`
     display: none;
 
     ${({ loading }) =>
-        loading
+        loading === 'true'
             ? css`
                   display: block;
               `
@@ -63,7 +63,7 @@ export const LoginTextBox = styled.div<loadingProps>`
     float: left;
 
     ${({ loading }) =>
-        loading
+        loading === 'true'
             ? css`
                   width: 50%;
               `

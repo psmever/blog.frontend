@@ -1,52 +1,50 @@
 import { useState, useEffect } from 'react';
-import { baseServerCheck } from '@Store/common';
+import { checkServerAction } from '@Store/App';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@Modules';
-import { checkServer, checkServerNotice } from '@API';
+import { RootState } from '@Stores';
+import { COLORLOG } from '@Helper';
+import _Alert_ from '@_Alert_';
 
 export default function useLogin() {
     const dispatch = useDispatch();
-    const { LOADING, CHECK } = useSelector((store: RootState) => ({
-        LOADING: store.common.loading,
-        CHECK: store.common.check,
+    const { loading, serverCheck, errorStatus, errorMessage } = useSelector((store: RootState) => ({
+        loading: store.app.loading,
+        serverCheck: store.app.serverCheck,
+        errorStatus: store.app.error.status,
+        errorMessage: store.app.error.message,
     }));
 
+    // 체크 상태.
     const [AppBaseCheckState, setAppBaseCheckState] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     console.log(LOADING);
-    // }, [LOADING]);
-
+    // 최초 로딩시 서버 체크.
     useEffect(() => {
         const appStart = async () => {
-            console.log(':: AppStart ::');
-
-            // baseServerCheck();
-            dispatch(baseServerCheck());
-
-            // const test = await checkServerNotice();
-
-            // console.log(test.status);
+            COLORLOG(':: App Start :: ', 'info');
+            dispatch(checkServerAction());
         };
 
         appStart();
     }, []);
 
+    // 체크시 에러 발생 하면 얼럿 창.
     useEffect(() => {
-        // TODO: 2021-02-04 00:07 서버 기본 체크, 정보 등록.
-        // const doCheckServer = async () => {
-        //     await checkServer();
+        const serverCheckError = () => {
+            _Alert_.serverStatusError({ text: errorMessage });
+        };
 
-        //     const baseData = await getSiteBaseData();
-        //     console.log(baseData);
-        // };
+        if (errorStatus === true) {
+            serverCheckError();
+        }
+    }, [errorStatus]);
 
-        // doCheckServer();
-
-        if (CHECK === true) {
+    // 체크 정상이면 앱 start
+    useEffect(() => {
+        if (loading === false && serverCheck === true) {
+            COLORLOG(':: Server Check Success :: ', 'success');
             setAppBaseCheckState(true);
         }
-    }, [CHECK]);
+    }, [serverCheck, loading]);
 
     return {
         AppBaseCheckState,

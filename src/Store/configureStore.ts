@@ -5,7 +5,7 @@ import { routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { History } from 'history';
 
-import { RootState, rootSaga, createRootReducer } from '@Modules';
+import { RootState, rootSaga, createRootReducer } from '@Stores';
 
 export default function configureStore(history: History, initialState: RootState): Store<RootState> {
     let compose;

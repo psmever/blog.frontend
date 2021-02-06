@@ -11,10 +11,12 @@ export default function LoginButton({
 }) {
     return (
         <>
-            <LoginButtonStyle loading={loading} onClick={event => onClick(event)}>
+            <LoginButtonStyle loading={loading.toString()} onClick={event => onClick(event)}>
                 <LoginButtonBox>
-                    <LoginLoadingBox loading={loading}>{loading === true && <ButtonSpinner />}</LoginLoadingBox>
-                    <LoginTextBox loading={loading}>{`로그인`}</LoginTextBox>
+                    <LoginLoadingBox loading={loading.toString()}>
+                        {loading === true && <ButtonSpinner />}
+                    </LoginLoadingBox>
+                    <LoginTextBox loading={loading.toString()}>{`로그인`}</LoginTextBox>
                 </LoginButtonBox>
             </LoginButtonStyle>
         </>
