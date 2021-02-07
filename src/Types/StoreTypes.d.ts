@@ -11,6 +11,7 @@ declare module 'StoreTypes' {
 
     export interface AppState {
         loading: boolean;
+        appInit: boolean;
         serverCheck: boolean;
         error: {
             status: boolean;

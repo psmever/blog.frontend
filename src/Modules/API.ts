@@ -4,6 +4,7 @@ import {
     ServerDefaultResult,
     ServerNotice,
     AppBase,
+    LoginCheck,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -53,9 +54,10 @@ export function logout(): Promise<ServerDefaultResult<any>> {
 // /**
 //  * 로그인 유저 체크
 //  */
-// export function loginCheck(): Promise<ServerReturnInterface<ServerUserCheckInterface>> {
-//     return _Axios_({ method: 'get', url: '/api/v1/auth/login-check', payload: { data: {} } });
-// }
+
+export function loginCheck(): Promise<ServerDefaultResult<LoginCheck>> {
+    return _Axios_({ method: 'get', url: '/api/v1/auth/login-check', payload: { data: {} } });
+}
 
 // /**
 //  * 글 저장

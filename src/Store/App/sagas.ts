@@ -1,23 +1,36 @@
 import { takeLatest, fork, put, call } from 'redux-saga/effects';
 import _Alert_ from '@_Alert_';
-import { checkServerNotice, getSiteBaseData } from '@API';
+import { checkServerNotice, getSiteBaseData, loginCheck } from '@API';
 import { ServerDefaultResult, ServerNotice, AppBase } from 'ServiceTypes';
 import { SagaTypes } from '@Store/reduxActiontTypes';
-import { COLORLOG } from '@Helper';
+import { COLORLOG, getLocalToken, isEmpty, removeLoginToken } from '@Helper';
 import { axiosDefaultHeader } from '@Util/_Axios_';
 import axios from 'axios';
 
-const { START_LOADING, END_LOADING, COMMON_CODES, CHECK_SERVER_START, APP_ERROR, CHECK_SERVER_END } = SagaTypes;
+const {
+    START_LOADING,
+    END_LOADING,
+    COMMON_CODES,
+    APP_ERROR,
+    APP_INIT_START,
+    APP_INIT_END,
+    CHECK_LOGIN,
+    SERVER_CHECK_START,
+    SERVER_CHECK_END,
+} = SagaTypes;
 
 // 서버 통신 체크만 따로 뺴서..
 const checkServerStatus = async () => {
     return axios.get('/api/system/check-status', axiosDefaultHeader);
 };
 
-function* checkServerSaga() {
+function* appInitSaga() {
     yield put({ type: START_LOADING }); // 공통 로딩 시작.
 
     try {
+        // 서버 체크 종료 전달.
+        yield put({ type: SERVER_CHECK_START });
+
         // 서버 상태 체크.
         yield call(checkServerStatus);
 
@@ -40,7 +53,30 @@ function* checkServerSaga() {
         });
 
         // 서버 체크 종료 전달.
-        yield put({ type: CHECK_SERVER_END });
+        yield put({ type: SERVER_CHECK_END });
+
+        // 로그인 체크.
+        const localToken = getLocalToken();
+        const { login_access_token, login_expires_in, login_refresh_token, login_state } = localToken;
+
+        // 로컬 토큰이 없으면 다시 한번 초기화 하고 있으면 로그인 체크.
+        // 로그인 체크시 에러가 발생하면 로컬 토큰 초기화.
+        if (
+            !isEmpty(login_access_token) &&
+            !isEmpty(login_expires_in) &&
+            !isEmpty(login_refresh_token) &&
+            !isEmpty(login_state)
+        ) {
+            const { status } = yield call(loginCheck);
+
+            if (status === false) {
+                removeLoginToken();
+            }
+        } else {
+            removeLoginToken();
+        }
+
+        yield put({ type: APP_INIT_END });
 
         // 공통 로딩 종료.
         yield put({ type: END_LOADING });
@@ -55,9 +91,14 @@ function* checkServerSaga() {
     }
 }
 
+function* checkLoginSaga() {
+    console.log('checkLoginSaga');
+}
+
 function* onBaseSagaWatcher() {
     // yield takeLatest(CHECK_SERVER_START as any, getBaseDataActionSaga);
-    yield takeLatest(CHECK_SERVER_START as any, checkServerSaga);
+    yield takeLatest(APP_INIT_START as any, appInitSaga);
+    yield takeLatest(CHECK_LOGIN as any, checkLoginSaga);
 }
 
 export default [fork(onBaseSagaWatcher)];

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { checkServerAction } from '@Store/App';
 import { useDispatch, useSelector } from 'react-redux';
+import { appInitAction } from '@Store/App';
 import { RootState } from '@Stores';
 import { COLORLOG } from '@Helper';
 import _Alert_ from '@_Alert_';
@@ -17,11 +17,12 @@ export default function useLogin() {
     // 체크 상태.
     const [AppBaseCheckState, setAppBaseCheckState] = useState<boolean>(false);
 
-    // 최초 로딩시 서버 체크.
+    // App Init.
     useEffect(() => {
         const appStart = async () => {
             COLORLOG(':: App Start :: ', 'info');
-            dispatch(checkServerAction());
+            dispatch(appInitAction());
+            // dispatch(checkLoginAction());
         };
 
         appStart();
