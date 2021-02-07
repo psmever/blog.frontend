@@ -1,16 +1,28 @@
-import React, { MouseEvent, KeyboardEvent, useRef, useState } from 'react';
+import React, { KeyboardEvent, useRef, useState, useEffect } from 'react';
 import { LoginWrapper, LoginMain, LoginTitle, LoginUserName, LoginPassword } from '@Style/LoginPageStyles';
 import { LoginButton } from '@Element/Buttons';
 import { loginInputState } from '@Module/InitializeConst';
 import { isValidEmail } from '@Helper';
 import _Alert_ from '@_Alert_';
+import { useLoading } from '@Hooks';
+import { login } from '@API';
+import { useToasts } from 'react-toast-notifications';
+import * as Helper from '@Util/Helper';
+import History from '@Module/History';
 
 export default function LoginPage() {
+    const { addToast } = useToasts();
+
+    // const { loading, setLoading } = useLogin();
+    // const [loadingState, controller] = useLoading();
+    const { loadingState, loadingControl } = useLoading();
+
     const [loginInputValue, setLoginInputValue] = useState(loginInputState);
-    const [loading, setLoding] = useState(false);
+    // const [loading, setLoding] = useState(false);
 
     const inputPasswordRef = useRef<HTMLInputElement | null>(null);
 
+    // 엔터 키 이벤트.
     const onEnter = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== 'Enter') return;
 
@@ -33,33 +45,106 @@ export default function LoginPage() {
         });
     };
 
+    // 로그인 버튼 클릭시 벨리데이션 및 api 콜
     const handleClickLoginButton = () => {
-        const checkInputValue = async ({ email, password }: { email: string; password: string }) => {
+        loadingControl({
+            type: 'start',
+        });
+
+        // 로그인 벨리데이션 체크.
+        function checkInputValue({ email, password }: { email: string; password: string }) {
             if (email === '' || email.length === 0) {
-                _Alert_.defaultInfo({ text: '로그인 이메일을 입력해 주세요.' });
-                return;
+                loadingControl({
+                    type: 'error',
+                    message: '로그인 이메일을 입력해 주세요.',
+                });
+                return false;
             }
-
             if (password === '' || password.length === 0) {
-                _Alert_.defaultInfo({ text: '로그인 비밀 번호를 입력해 주세요.' });
-                return;
+                loadingControl({
+                    type: 'error',
+                    message: '로그인 비밀 번호를 입력해 주세요.',
+                });
+                return false;
+            }
+            if (!isValidEmail(email)) {
+                loadingControl({
+                    type: 'error',
+                    message: '올바른 이메일 형식을 입력해주세요.',
+                });
+                return false;
             }
 
-            if (!isValidEmail(email)) {
-                _Alert_.defaultInfo({ text: '올바른 이메일 형식을 입력해주세요.' });
-                return;
+            return true;
+        }
+
+        // 로그인 시도
+        async function attemptLogin() {
+            const response = await login({
+                email: loginInputValue.email,
+                password: loginInputValue.password,
+            });
+
+            const { status, message, payload } = response;
+
+            if (status) {
+                const {
+                    access_token,
+                    refresh_token,
+                    expires_in,
+                }: { access_token: string; refresh_token: string; expires_in: number } = payload;
+                Helper.saveLoginToken({
+                    access_token,
+                    refresh_token,
+                    expires_in,
+                });
+                addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
+                History.push(process.env.PUBLIC_URL + '/');
+            } else {
+                addToast(message, { appearance: 'error', autoDismiss: true });
+            }
+
+            loadingControl({
+                type: 'end',
+            });
+        }
+
+        if (checkInputValue(loginInputValue)) {
+            attemptLogin();
+        }
+    };
+
+    // 체크 에러 발생시 얼럿.
+    useEffect(() => {
+        const setLadingErrorAlert = ({ message }: { state: boolean; message: string; error: boolean }) => {
+            _Alert_.test({
+                position: 'top-end',
+                text: message,
+                callBack: () => {
+                    loadingControl({
+                        type: 'end',
+                    });
+                },
+            });
+        };
+
+        if (loadingState.error === true) {
+            setLadingErrorAlert(loadingState);
+        }
+    }, [loadingState]);
+
+    // 최초 로딩때 로컬 토큰 체크.
+    useEffect(() => {
+        const checkStartLoginCheck = async () => {
+            const localstorage = Helper.getLocalToken();
+            if (localstorage.login_state === true) {
+                addToast('이미 로그인이 되어 있습니다.', { appearance: 'info', autoDismiss: true });
+                History.push(process.env.PUBLIC_URL + '/');
             }
         };
 
-        checkInputValue(loginInputValue);
-
-        // isValidEmail();
-        // if (loading === true) {
-        //     setLoding(false);
-        // } else {
-        //     setLoding(true);
-        // }
-    };
+        checkStartLoginCheck();
+    }, []);
 
     return (
         <>
@@ -87,7 +172,7 @@ export default function LoginPage() {
                         onKeyPress={e => onEnter(e)}
                         ref={inputPasswordRef}
                     />
-                    <LoginButton onClick={() => handleClickLoginButton()} loading={loading} />
+                    <LoginButton onClick={() => handleClickLoginButton()} loading={loadingState.state} />
                 </LoginMain>
             </LoginWrapper>
         </>
