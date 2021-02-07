@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ToastProvider } from 'react-toast-notifications';
 
 ReactDOM.render(
     <React.Fragment>
-        <App />
+        <ToastProvider>
+            <App />
+        </ToastProvider>
     </React.Fragment>,
     document.getElementById('root')
 );

@@ -6,6 +6,24 @@ interface alertTypeInterface {
     text: string;
     footer?: string;
     push_router?: string;
+    position?:
+        | 'top-end'
+        | 'top'
+        | 'top-start'
+        | 'top-left'
+        | 'top-right'
+        | 'center'
+        | 'center-start'
+        | 'center-end'
+        | 'center-left'
+        | 'center-right'
+        | 'bottom'
+        | 'bottom-start'
+        | 'bottom-end'
+        | 'bottom-left'
+        | 'bottom-right'
+        | undefined;
+    callBack?: (result: { isConfirmed: boolean; isDenied: boolean; isDismissed: boolean; value: boolean }) => any;
 }
 
 const _Alert_ = {
@@ -66,6 +84,22 @@ const _Alert_ = {
         Swal.fire({
             icon: 'error',
             text: alertOption.text,
+        });
+    },
+    test: (alertOption: alertTypeInterface): void => {
+        Swal.fire({
+            // position: alertOption.position ? alertOption.position : 'top-center',
+            icon: 'error',
+            text: alertOption.text,
+        }).then(result => {
+            if (alertOption.callBack) {
+                alertOption.callBack({
+                    isConfirmed: result.isConfirmed,
+                    isDenied: result.isDenied,
+                    isDismissed: result.isDismissed,
+                    value: result.value,
+                });
+            }
         });
     },
 };

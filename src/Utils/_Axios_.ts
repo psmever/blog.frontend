@@ -27,8 +27,12 @@ export const axiosDefaultHeader: AxiosRequestConfig = {
 };
 
 // const setTokenData = (tokenData: AccessTokenType, axiosClient: AxiosInstance): void => {
-const setTokenData = (tokenData: AccessTokenType): void => {
-    Helper.saveRefreshToken(tokenData);
+const setTokenData = ({ expires_in, access_token, refresh_token }: LocalTokenInterface): void => {
+    Helper.saveRefreshToken({
+        expires_in,
+        access_token,
+        refresh_token,
+    });
 };
 
 /**

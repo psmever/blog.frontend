@@ -94,11 +94,19 @@ export const cookieManager = {
  * 로그인 토큰 저장.
  * @param payload
  */
-export function saveLoginToken(payload: any): void {
+export function saveLoginToken({
+    expires_in,
+    access_token,
+    refresh_token,
+}: {
+    expires_in: number;
+    access_token: string;
+    refresh_token: string;
+}): void {
     storageManager.set('login_state', 'true');
-    storageManager.set('login_expires_in', payload.expires_in);
-    storageManager.set('login_access_token', payload.access_token);
-    storageManager.set('login_refresh_token', payload.refresh_token);
+    storageManager.set('login_expires_in', expires_in);
+    storageManager.set('login_access_token', access_token);
+    storageManager.set('login_refresh_token', refresh_token);
 }
 
 /**
@@ -146,10 +154,18 @@ export function getRefreshToken() {
  * RefreshToken 저장.
  * @param payload
  */
-export function saveRefreshToken(payload: any) {
-    storageManager.set('login_expires_in', payload.expires_in);
-    storageManager.set('login_access_token', payload.access_token);
-    storageManager.set('login_refresh_token', payload.refresh_token);
+export function saveRefreshToken({
+    expires_in,
+    access_token,
+    refresh_token,
+}: {
+    expires_in: number;
+    access_token: string;
+    refresh_token: string;
+}): void {
+    storageManager.set('login_expires_in', expires_in);
+    storageManager.set('login_access_token', access_token);
+    storageManager.set('login_refresh_token', refresh_token);
 }
 
 /**

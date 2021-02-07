@@ -39,9 +39,9 @@ export function getSiteBaseData(): Promise<ServerDefaultResult<AppBase>> {
 //  * 로그인
 //  * @param payload
 //  */
-// export function login(payload: { email: string; password: string }): Promise<ServerReturnInterface<any>> {
-//     return _Axios_({ method: 'post', url: '/api/v1/auth/login', payload: payload });
-// }
+export function login(payload: { email: string; password: string }): Promise<ServerDefaultResult<any>> {
+    return _Axios_({ method: 'post', url: '/api/v1/auth/login', payload: payload });
+}
 
 // /**
 //  * 로그아웃.
