@@ -18,3 +18,4 @@ export { default as LoginPage } from './Auths/LoginPage';
 export { default as LogoutPage } from './Auths/LogoutPage';
 
 export { default as LoadingPage } from './Defaults/LoadingPage';
+export { default as NotFoundPage } from './NotFoundPage';

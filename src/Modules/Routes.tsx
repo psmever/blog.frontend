@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { MainLayout } from '@MainLayouts';
 import { ManageLayout } from '@ManageLayouts';
@@ -15,6 +15,7 @@ import {
     LoginPage,
     LogoutPage,
     LoadingPage,
+    NotFoundPage,
 } from '@Pages';
 
 // TODO: 2021-02-05 00:57  404 페이지, 서버 에러 페이지 퍼블리싱.
@@ -23,6 +24,7 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <ConnectedRouter history={Routerhistory}>
                 <Switch>
+                    <Route path={process.env.PUBLIC_URL + '/notfound'} exact={true} component={NotFoundPage} />
                     <Route path={['/login', '/logout']}>
                         <Switch>
                             <Route path={process.env.PUBLIC_URL + '/logout'} exact={true} component={LogoutPage} />
@@ -72,6 +74,8 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </MainLayout>
                     </Route>
+                    <Redirect path="*" to="/notfound" />
+                    <Redirect path="/" to="/posts" />
                 </Switch>
             </ConnectedRouter>
         </BrowserRouter>
