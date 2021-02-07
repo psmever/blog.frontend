@@ -1,15 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const PageBox = styled.div`
-    /* isplay: flex;
-    width: 100%;
-    height: 100%;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    flex-direction: column; */
-
+    position: relative;
     margin: 4;
     position: absolute;
     top: 50%;
@@ -21,9 +13,21 @@ export const PageBox = styled.div`
     display: block;
     margin: 0 auto;
     text-align: center;
-    /* border-color: red; */
 `;
+
+export const NotFoundImageBox = styled.div``;
+
 export const NotFoundImage = styled.img`
     width: 20rem;
     height: auto;
+`;
+
+export const NotFoundTextBox = styled.div`
+    font-size: 1.5rem;
+`;
+export const NotFoundButtonBox = styled.div`
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
 `;
