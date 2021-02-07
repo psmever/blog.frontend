@@ -17,11 +17,11 @@ declare module 'CommonTypes' {
     export interface Codes {
         code_name: any;
         code_group: {
-            S01: basicCodeItem[];
-            S02: basicCodeItem[];
-            S03: basicCodeItem[];
-            S04: basicCodeItem[];
-            S05: basicCodeItem[];
+            S01: CodeItem[];
+            S02: CodeItem[];
+            S03: CodeItem[];
+            S04: CodeItem[];
+            S05: CodeItem[];
         };
     }
 }

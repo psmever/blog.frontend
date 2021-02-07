@@ -176,7 +176,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
         }
 
         // 인증 에러시 토큰 리프레쉬 시도.
-        if (status === 401 && Authorization.length > 0) {
+        if (originalRequest.url !== `/api/v1/auth/login-check` && status === 401 && Authorization.length > 0) {
             originalRequest._retry = true;
             isRefreshing = true;
             return new Promise(resolve => {
@@ -208,7 +208,6 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
                 message: error.response?.data.error.error_message,
             });
         }
-        console.log(1);
     };
 
     /**

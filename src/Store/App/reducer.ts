@@ -3,10 +3,11 @@ import produce from 'immer';
 // import { ErrorMessage } from 'CommonTypes';
 import { AppState, ErrorMessage } from 'StoreTypes';
 import { SagaTypes, SagaAction } from '@Store/reduxActiontTypes';
-const { START_LOADING, END_LOADING, APP_ERROR, CHECK_SERVER_END } = SagaTypes;
+const { START_LOADING, END_LOADING, APP_ERROR, SERVER_CHECK_END, APP_INIT_END } = SagaTypes;
 
 const initialState: AppState = {
     loading: false,
+    appInit: false,
     serverCheck: false,
     error: {
         status: false,
@@ -28,9 +29,15 @@ export const CommonSagaReducer = createReducer<AppState>(initialState, {
         });
     },
     // 서버 체크 종료.
-    [CHECK_SERVER_END]: (state: AppState) => {
+    [SERVER_CHECK_END]: (state: AppState) => {
         return produce(state, draft => {
             draft.serverCheck = true;
+        });
+    },
+    // App Init 종료.
+    [APP_INIT_END]: (state: AppState) => {
+        return produce(state, draft => {
+            draft.appInit = true;
         });
     },
     // APP 에러.
