@@ -45,6 +45,10 @@ const GlobalStyles = createGlobalStyle`
         font-family:'Maven Pro', sans-serif;
     }
 
+    .swal2-popup {
+        font-size: 0.85rem !important;
+    }
+
 
     /* h1 {
         font-size: 25px;
