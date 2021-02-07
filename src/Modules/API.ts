@@ -43,12 +43,12 @@ export function login(payload: { email: string; password: string }): Promise<Ser
     return _Axios_({ method: 'post', url: '/api/v1/auth/login', payload: payload });
 }
 
-// /**
-//  * 로그아웃.
-//  */
-// export function logout(): Promise<ServerReturnInterface<any>> {
-//     return _Axios_({ method: 'post', url: '/api/v1/auth/logout', payload: { data: {} } });
-// }
+/**
+ * 로그아웃.
+ */
+export function logout(): Promise<ServerDefaultResult<any>> {
+    return _Axios_({ method: 'post', url: '/api/v1/auth/logout', payload: { data: {} } });
+}
 
 // /**
 //  * 로그인 유저 체크

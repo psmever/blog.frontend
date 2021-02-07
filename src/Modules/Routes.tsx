@@ -13,6 +13,7 @@ import {
     BlogPage,
     InfomationsPage,
     LoginPage,
+    LogoutPage,
     LoadingPage,
 } from '@Pages';
 
@@ -22,8 +23,9 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <ConnectedRouter history={Routerhistory}>
                 <Switch>
-                    <Route path={['/login']}>
+                    <Route path={['/login', '/logout']}>
                         <Switch>
+                            <Route path={process.env.PUBLIC_URL + '/logout'} exact={true} component={LogoutPage} />
                             <Route path={process.env.PUBLIC_URL + '/login'} exact={true} component={LoginPage} />
                         </Switch>
                     </Route>
