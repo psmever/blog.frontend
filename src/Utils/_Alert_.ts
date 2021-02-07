@@ -1,6 +1,5 @@
-// const Swal = require('sweetalert2');
 import Swal from 'sweetalert2';
-// import * as Helper from './Helper';
+// import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 interface alertTypeInterface {
     title?: string;
@@ -28,6 +27,9 @@ const _Alert_ = {
         Swal.fire({
             text: alertOption.text,
             icon: 'info',
+            inputAttributes: {
+                autocapitalize: 'off',
+            },
         });
     },
     // 얼럿 띄우고 페이지 이동.
