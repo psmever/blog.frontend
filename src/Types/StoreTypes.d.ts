@@ -1,5 +1,5 @@
 declare module 'StoreTypes' {
-    import { Codes } from 'CommonTypes';
+    import { DefaultStatus, Codes } from 'CommonTypes';
 
     export interface ErrorMessage {
         message: string;
@@ -11,8 +11,13 @@ declare module 'StoreTypes' {
 
     export interface AppState {
         loading: boolean;
-        appInit: boolean;
         serverCheck: boolean;
+        loginState: boolean;
+        appInit: boolean;
+        loginUser: {
+            access_token: string;
+            refresh_token: string;
+        };
         error: {
             status: boolean;
             message: string;

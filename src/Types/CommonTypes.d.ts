@@ -1,4 +1,6 @@
 declare module 'CommonTypes' {
+    export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
+
     export type AccessTokenType = string;
 
     export interface LocalTokenInterface {

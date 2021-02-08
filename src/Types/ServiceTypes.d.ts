@@ -23,4 +23,35 @@ declare module 'ServiceTypes' {
         user_type: CodeItem;
         user_level: CodeItem;
     }
+
+    export interface PostListItem {
+        post_id: number;
+        post_uuid: string;
+        user: {
+            user_uuid: string;
+            user_type: basicCodeItem;
+            user_level: basicCodeItem;
+            name: string;
+            nickname: string;
+            email: string;
+            active: defaultYesNo;
+        };
+        post_title: string;
+        slug_title: string;
+        thumb_url: string;
+        list_contents: string;
+        markdown: defaultYesNo;
+        tags: editorTagInterfaceItem[];
+        view_count: number;
+        post_active: defaultYesNo;
+        post_publish: defaultYesNo;
+        list_created: string;
+    }
+
+    export interface PostList {
+        per_page: number;
+        current_page: number;
+        hasmore: boolean;
+        posts: PostListItem[];
+    }
 }

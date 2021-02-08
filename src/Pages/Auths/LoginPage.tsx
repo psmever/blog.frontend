@@ -9,9 +9,12 @@ import { login } from '@API';
 import { useToasts } from 'react-toast-notifications';
 import * as Helper from '@Util/Helper';
 import History from '@Module/History';
+import { useDispatch } from 'react-redux';
+import { loginSetAction } from '@Store/App';
 
 export default function LoginPage() {
     const { addToast } = useToasts();
+    const dispatch = useDispatch();
 
     // const { loading, setLoading } = useLogin();
     // const [loadingState, controller] = useLoading();
@@ -98,6 +101,7 @@ export default function LoginPage() {
                     refresh_token,
                     expires_in,
                 });
+                dispatch(loginSetAction());
                 addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
                 History.push(process.env.PUBLIC_URL + '/');
             } else {
