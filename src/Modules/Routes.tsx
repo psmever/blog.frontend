@@ -7,7 +7,7 @@ import { TestLayout } from '@TestLayouts';
 import {
     TestPage,
     DevPage,
-    PostsMainPage,
+    PostsPage,
     TagsPage,
     LatelyPage,
     BlogPage,
@@ -42,7 +42,7 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                     <Route path={['/manage']}>
                         <ManageLayout>
                             <Switch>
-                                <Route path={process.env.PUBLIC_URL + '/manage'} component={PostsMainPage} />
+                                <Route path={process.env.PUBLIC_URL + '/manage'} component={PostsPage} />
                             </Switch>
                         </ManageLayout>
                     </Route>
@@ -53,8 +53,8 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                                 <Route path={process.env.PUBLIC_URL + '/blogs'} component={BlogPage} />
                                 <Route path={process.env.PUBLIC_URL + '/lately'} component={LatelyPage} />
                                 <Route path={process.env.PUBLIC_URL + '/tags'} component={TagsPage} />
-                                <Route path={process.env.PUBLIC_URL + '/posts'} component={PostsMainPage} />
-                                <Route path={process.env.PUBLIC_URL + '/'} component={PostsMainPage} exact />
+                                <Route path={process.env.PUBLIC_URL + '/posts'} component={PostsPage} />
+                                <Route path={process.env.PUBLIC_URL + '/'} component={PostsPage} exact />
                             </Switch>
                         </MainLayout>
                     </Route>

@@ -4,6 +4,7 @@ import * as Helper from '@Util/Helper';
 import { _Alert_ } from '@Utils';
 import * as _ from 'lodash';
 
+// FIXME: 2021-02-09 00:04  console 에 에러 메시지 안보이게 처리...
 interface serviceInterface {
     method: 'get' | 'post' | 'delete' | 'put';
     url: string;
@@ -232,18 +233,11 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
     axiosDefaultHeader.headers.Authorization = defaultHeaderToken;
 
     const _Axios_: AxiosInstance = axios.create(axiosDefaultHeader);
+
     _Axios_.interceptors.response.use(
         response => successInterceptor(response),
         error => errorInterceptor(error)
     );
-
-    // _Axios_.interceptors.response.use(
-    //     response => successInterceptor(response),
-    //     function (error) {
-    //         return Promise.reject(error);
-    //     }
-    // );
-
     return _Axios_({
         url: url,
         method: method,
