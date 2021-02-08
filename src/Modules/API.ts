@@ -5,6 +5,7 @@ import {
     ServerNotice,
     AppBase,
     LoginCheck,
+    PostList,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -59,6 +60,11 @@ export function loginCheck(): Promise<ServerDefaultResult<LoginCheck>> {
     return _Axios_({ method: 'get', url: '/api/v1/auth/login-check', payload: { data: {} } });
 }
 
+// // 글 리스트
+export function getPostList({ pageNumber }: { pageNumber: number }): Promise<ServerDefaultResult<PostList>> {
+    return _Axios_({ method: 'get', url: `/api/v1/post/${pageNumber}`, payload: { data: {} } });
+}
+
 // /**
 //  * 글 저장
 //  * @param payload
@@ -105,15 +111,6 @@ export function loginCheck(): Promise<ServerDefaultResult<LoginCheck>> {
 //     }>
 // > {
 //     return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/update`, payload: payload });
-// }
-
-// // 글 리스트
-// export function getPostList({
-//     pageNumber,
-// }: {
-//     pageNumber: number;
-// }): Promise<ServerReturnInterface<ServerPostListResultInterface>> {
-//     return _Axios_({ method: 'get', url: `/api/v1/post/${pageNumber}`, payload: { data: {} } });
 // }
 
 // // 글보기 Detail
