@@ -3,11 +3,11 @@
   "compilerOptions": {
     "declaration": true,
     "baseUrl": "./src",
-    "target": "es5",
+    "target": "es2018",
     "lib": [
+      "es2018",
       "dom",
-      "dom.iterable",
-      "esnext"
+      "scripthost"
     ],
     "allowJs": true,
     "skipLibCheck": true,
