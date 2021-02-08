@@ -4,13 +4,17 @@ import history from '@Module/History';
 import { useToasts } from 'react-toast-notifications';
 import { logout } from '@API';
 import { removeLoginToken, getLocalToken } from '@Helper';
+import { useDispatch } from 'react-redux';
+import { logoutSetAction } from '@Store/App';
 
 export default function LogoutPage() {
     const { addToast } = useToasts();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function callLogout() {
             const response = await logout();
+            dispatch(logoutSetAction());
             if (response.status === true) {
                 removeLoginToken();
                 addToast('로그아웃 되었습니다.', { appearance: 'success', autoDismiss: true });

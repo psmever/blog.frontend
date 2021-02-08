@@ -14,7 +14,11 @@ const {
     APP_ERROR,
     APP_INIT_START,
     APP_INIT_END,
-    CHECK_LOGIN,
+    CHECK_LOGIN_START,
+    CHECK_LOGIN_SUCCESS,
+    CHECK_LOGIN_FAILURE,
+    LOGIN_SET_START,
+    LOGIN_SET_END,
     SERVER_CHECK_START,
     SERVER_CHECK_END,
 } = SagaTypes;
@@ -55,26 +59,32 @@ function* appInitSaga() {
         // 서버 체크 종료 전달.
         yield put({ type: SERVER_CHECK_END });
 
-        // 로그인 체크.
-        const localToken = getLocalToken();
-        const { login_access_token, login_expires_in, login_refresh_token, login_state } = localToken;
+        yield put({ type: CHECK_LOGIN_START });
 
-        // 로컬 토큰이 없으면 다시 한번 초기화 하고 있으면 로그인 체크.
-        // 로그인 체크시 에러가 발생하면 로컬 토큰 초기화.
-        if (
-            !isEmpty(login_access_token) &&
-            !isEmpty(login_expires_in) &&
-            !isEmpty(login_refresh_token) &&
-            !isEmpty(login_state)
-        ) {
-            const { status } = yield call(loginCheck);
+        // // 로그인 체크.
+        // const localToken = getLocalToken();
+        // const { login_access_token, login_expires_in, login_refresh_token, login_state } = localToken;
 
-            if (status === false) {
-                removeLoginToken();
-            }
-        } else {
-            removeLoginToken();
-        }
+        // // 로컬 토큰이 없으면 다시 한번 초기화 하고 있으면 로그인 체크.
+        // // 로그인 체크시 에러가 발생하면 로컬 토큰 초기화.
+        // if (
+        //     !isEmpty(login_access_token) &&
+        //     !isEmpty(login_expires_in) &&
+        //     !isEmpty(login_refresh_token) &&
+        //     !isEmpty(login_state)
+        // ) {
+        //     const { status } = yield call(loginCheck);
+
+        //     if (status === false) {
+        //         removeLoginToken();
+        //         yield put({ type: CHECK_LOGIN_FAILURE });
+        //     } else {
+        //         yield put({ type: CHECK_LOGIN_SUCCESS });
+        //     }
+        // } else {
+        //     removeLoginToken();
+        //     yield put({ type: CHECK_LOGIN_FAILURE });
+        // }
 
         yield put({ type: APP_INIT_END });
 
@@ -92,13 +102,54 @@ function* appInitSaga() {
 }
 
 function* checkLoginSaga() {
-    console.log('checkLoginSaga');
+    const localToken = getLocalToken();
+    const { login_access_token, login_expires_in, login_refresh_token, login_state } = localToken;
+
+    // 로컬 토큰이 없으면 다시 한번 초기화 하고 있으면 로그인 체크.
+    // 로그인 체크시 에러가 발생하면 로컬 토큰 초기화.
+    if (
+        !isEmpty(login_access_token) &&
+        !isEmpty(login_expires_in) &&
+        !isEmpty(login_refresh_token) &&
+        !isEmpty(login_state)
+    ) {
+        const { status } = yield call(loginCheck);
+        if (status === false) {
+            removeLoginToken();
+            yield put({ type: CHECK_LOGIN_FAILURE });
+        } else {
+            yield put({
+                type: CHECK_LOGIN_SUCCESS,
+                payload: {
+                    access_token: login_access_token,
+                    refresh_token: login_refresh_token,
+                },
+            });
+        }
+    } else {
+        removeLoginToken();
+        yield put({ type: CHECK_LOGIN_FAILURE });
+    }
+}
+
+function* loginSetSaga() {
+    const localToken = getLocalToken();
+    const { login_access_token, login_refresh_token } = localToken;
+
+    yield put({
+        type: LOGIN_SET_END,
+        payload: {
+            access_token: login_access_token,
+            refresh_token: login_refresh_token,
+        },
+    });
 }
 
 function* onBaseSagaWatcher() {
     // yield takeLatest(CHECK_SERVER_START as any, getBaseDataActionSaga);
     yield takeLatest(APP_INIT_START as any, appInitSaga);
-    yield takeLatest(CHECK_LOGIN as any, checkLoginSaga);
+    yield takeLatest(CHECK_LOGIN_START as any, checkLoginSaga);
+    yield takeLatest(LOGIN_SET_START as any, loginSetSaga);
 }
 
 export default [fork(onBaseSagaWatcher)];
