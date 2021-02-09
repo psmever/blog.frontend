@@ -223,6 +223,17 @@ export const DescriptionMainText = styled.h1`
     line-height: 1;
     margin: 0;
     font-size: 1.7rem;
+
+    min-height: 3.5rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: box;
+    overflow: hidden;
+    vertical-align: top;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 `;
 export const DescriptionSubText = styled.h2`
     font-family: Poppins, sans-serif;
@@ -237,6 +248,18 @@ export const DescriptionSubText = styled.h2`
 export const DescriptionContent = styled.p`
     position: relative;
     margin: 1rem 0 0;
+    min-height: 3rem;
+    max-height: 5rem;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: box;
+    overflow: hidden;
+    vertical-align: top;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 
     &:first-of-type {
         margin-top: 1.25rem;
@@ -253,7 +276,7 @@ export const DescriptionContent = styled.p`
     }
 `;
 
-export const DescriptionReadMore = styled.p`
+export const DescriptionReadMore = styled.div`
     position: relative;
     margin: 1rem 0 0;
 
@@ -274,10 +297,11 @@ export const DescriptionReadMore = styled.p`
     }
 `;
 
-export const DescriptionReadMoreList = styled.a`
+export const DescriptionReadMoreList = styled.div`
     color: #5ad67d;
     display: inline-block;
     position: relative;
+    cursor: pointer;
 
     &:after {
         content: '';
