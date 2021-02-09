@@ -1,24 +1,32 @@
 import { useReducer, useEffect, useState } from 'react';
 import { getPostList } from '@API';
+import { DefaultStatus } from 'CommonTypes';
+import { PostList } from 'ServiceTypes';
 
-function getReducer(state: any, action: any) {
+type State = {
+    state: DefaultStatus;
+    payload: PostList | null;
+    error: Error | null;
+};
+
+function getReducer(state: any, action: any): State {
     switch (action.type) {
         case 'LOADING':
             return {
-                loading: true,
-                posts: null,
+                state: 'loading',
+                payload: null,
                 error: null,
             };
         case 'SUCCESS':
             return {
-                loading: false,
-                posts: action.data,
+                state: 'success',
+                payload: action.posts,
                 error: null,
             };
         case 'ERROR':
             return {
-                loading: false,
-                posts: null,
+                state: 'failure',
+                payload: null,
                 error: action.error,
             };
         default:
@@ -28,16 +36,16 @@ function getReducer(state: any, action: any) {
 
 export default function usePost() {
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [state, getDispatch] = useReducer(getReducer, {
-        loading: false,
-        posts: null,
+    const [postState, getDispatch] = useReducer(getReducer, {
+        state: 'idle',
+        payload: null,
         error: null,
     });
 
     const getPostLists = async () => {
         getDispatch({ type: 'LOADING' });
 
-        setPageNumber(pageNumber + 1);
+        setPageNumber(pageNumber);
 
         const { status, payload } = await getPostList({ pageNumber: pageNumber });
 
@@ -49,10 +57,10 @@ export default function usePost() {
     };
 
     useEffect(() => {
-        console.log('start');
+        console.log('get start');
 
         getPostLists();
     }, []);
 
-    return [state, getPostLists] as const;
+    return [postState, getPostLists] as const;
 }
