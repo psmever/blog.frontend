@@ -57,8 +57,6 @@ export default function usePost() {
     };
 
     useEffect(() => {
-        console.log('get start');
-
         getPostLists();
     }, []);
 

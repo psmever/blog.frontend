@@ -59,33 +59,10 @@ function* appInitSaga() {
         // 서버 체크 종료 전달.
         yield put({ type: SERVER_CHECK_END });
 
+        // 로그인 체크
         yield put({ type: CHECK_LOGIN_START });
 
-        // // 로그인 체크.
-        // const localToken = getLocalToken();
-        // const { login_access_token, login_expires_in, login_refresh_token, login_state } = localToken;
-
-        // // 로컬 토큰이 없으면 다시 한번 초기화 하고 있으면 로그인 체크.
-        // // 로그인 체크시 에러가 발생하면 로컬 토큰 초기화.
-        // if (
-        //     !isEmpty(login_access_token) &&
-        //     !isEmpty(login_expires_in) &&
-        //     !isEmpty(login_refresh_token) &&
-        //     !isEmpty(login_state)
-        // ) {
-        //     const { status } = yield call(loginCheck);
-
-        //     if (status === false) {
-        //         removeLoginToken();
-        //         yield put({ type: CHECK_LOGIN_FAILURE });
-        //     } else {
-        //         yield put({ type: CHECK_LOGIN_SUCCESS });
-        //     }
-        // } else {
-        //     removeLoginToken();
-        //     yield put({ type: CHECK_LOGIN_FAILURE });
-        // }
-
+        // APP INIT
         yield put({ type: APP_INIT_END });
 
         // 공통 로딩 종료.
