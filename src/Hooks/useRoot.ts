@@ -20,9 +20,8 @@ export default function useLogin() {
     // App Init.
     useEffect(() => {
         const appStart = async () => {
-            COLORLOG(':: App Start :: ', 'info');
+            COLORLOG(':: App Init Start :: ', 'info');
             dispatch(appInitAction());
-            // dispatch(checkLoginAction());
         };
 
         appStart();
@@ -42,7 +41,7 @@ export default function useLogin() {
     // 체크 정상이면 앱 start
     useEffect(() => {
         if (loading === false && serverCheck === true) {
-            COLORLOG(':: Server Check Success :: ', 'success');
+            COLORLOG(':: App Init Success :: ', 'success');
             setAppBaseCheckState(true);
         }
     }, [serverCheck, loading]);
