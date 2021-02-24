@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Wrapper,
     ProfileBox,
@@ -13,10 +13,16 @@ import {
     WeatherWapper,
     CoronaWapper,
 } from '@Style/RightSidebar';
-
+import { useDispatch } from 'react-redux';
+import { getWeather } from '@Store/Specialty';
 import { RightWeatherBox, RightCoronaBox } from '@Elements';
 
 export default function RightSidebarComponent() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getWeather());
+    }, []);
+
     return (
         <>
             <Wrapper>

@@ -28,7 +28,11 @@ export enum SagaTypes {
 
     SET_LOGOUT = 'app/SET_LOGOUT',
 
+    // Common
     COMMON_CODES = 'common/COMMON_CODES',
 
-    // Common
+    // Specialty
+    GET_WEATHER = 'specialty/GET_WEATHER',
+    GET_WEATHER_SUCCESS = 'specialty/GET_WEATHER_SUCCESS',
+    GET_WEATHER_FAILURE = 'specialty/GET_WEATHER_FAILURE',
 }

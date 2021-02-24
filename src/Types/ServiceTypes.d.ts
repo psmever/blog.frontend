@@ -1,5 +1,6 @@
 declare module 'ServiceTypes' {
-    import { CodeItem, Codes } from 'CommonTypes';
+    import { CodeItem, Codes, WeatherItem } from 'CommonTypes';
+    import { WeatherBox } from '../Styles/RightWeatherBoxStyles';
 
     // 기본 api 리턴 인테페이스
     export interface ServerDefaultResult<T> {
@@ -18,12 +19,14 @@ declare module 'ServiceTypes' {
         codes: Codes[];
     }
 
+    // 로그인 체크 결과.
     export interface LoginCheck {
         user_uuid: string;
         user_type: CodeItem;
         user_level: CodeItem;
     }
 
+    // 글 리스트 아이템
     export interface PostListItem {
         post_id: number;
         post_uuid: string;
@@ -48,10 +51,14 @@ declare module 'ServiceTypes' {
         list_created: string;
     }
 
+    // 글 리스트 결과.
     export interface PostList {
         per_page: number;
         current_page: number;
         hasmore: boolean;
         posts: PostListItem[];
     }
+
+    // 날씨 결과.
+    export type WeatherResult = WeatherItem[];
 }
