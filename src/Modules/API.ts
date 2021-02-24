@@ -6,6 +6,7 @@ import {
     AppBase,
     LoginCheck,
     PostList,
+    WeatherResult,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -37,10 +38,10 @@ export function getSiteBaseData(): Promise<ServerDefaultResult<AppBase>> {
     return _Axios_({ method: 'get', url: '/api/system/base-data', payload: { data: {} } });
 }
 
-// /**
-//  * 로그인
-//  * @param payload
-//  */
+/**
+ * 로그인
+ * @param payload
+ */
 export function login(payload: { email: string; password: string }): Promise<ServerDefaultResult<any>> {
     return _Axios_({ method: 'post', url: '/api/v1/auth/login', payload: payload });
 }
@@ -52,15 +53,14 @@ export function logout(): Promise<ServerDefaultResult<any>> {
     return _Axios_({ method: 'post', url: '/api/v1/auth/logout', payload: { data: {} } });
 }
 
-// /**
-//  * 로그인 유저 체크
-//  */
-
+/**
+ * 로그인 유저 체크
+ */
 export function loginCheck(): Promise<ServerDefaultResult<LoginCheck>> {
     return _Axios_({ method: 'get', url: '/api/v1/auth/login-check', payload: { data: {} } });
 }
 
-// // 글 리스트
+// 글 리스트
 export function getPostList({ pageNumber }: { pageNumber: number }): Promise<ServerDefaultResult<PostList>> {
     return _Axios_({ method: 'get', url: `/api/v1/post/${pageNumber}`, payload: { data: {} } });
 }
@@ -148,3 +148,8 @@ export function getPostList({ pageNumber }: { pageNumber: number }): Promise<Ser
 // export const postWaitingList = (): Promise<ServerReturnInterface<ServerPostWaitingListInterface[]>> => {
 //     return _Axios_({ method: 'get', url: `/api/v1/post/write/waiting-list`, payload: { data: {} } });
 // };
+
+// 날씨 정보.
+export const weathers = (): Promise<ServerDefaultResult<WeatherResult>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/specialty/weather`, payload: { data: {} } });
+};

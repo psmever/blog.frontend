@@ -1,5 +1,5 @@
 declare module 'StoreTypes' {
-    import { DefaultStatus, Codes } from 'CommonTypes';
+    import { DefaultStatus, Codes, WeatherItem } from 'CommonTypes';
 
     export interface ErrorMessage {
         message: string;
@@ -9,6 +9,7 @@ declare module 'StoreTypes' {
         codes: any;
     }
 
+    // 앱 스토어.
     export interface AppState {
         loading: boolean;
         serverCheck: boolean;
@@ -21,6 +22,15 @@ declare module 'StoreTypes' {
         error: {
             status: boolean;
             message: string;
+        };
+    }
+
+    // 스페셜 스토어.
+    export interface SpecialtyState {
+        weather: {
+            state: DefaultStatus;
+            message: string;
+            weathers: WeatherItem[];
         };
     }
 }

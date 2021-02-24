@@ -26,4 +26,35 @@ declare module 'CommonTypes' {
             S05: CodeItem[];
         };
     }
+
+    export interface WeatherItem {
+        vilage: {
+            area_code: string;
+            step1: string;
+            step2: string;
+            step3: string;
+            vilage_name: string;
+            vilage_short_name: string;
+        };
+        fcst: {
+            fcstdate: string;
+            fcstdate_time: string;
+            fcstdate_string: string;
+            fcsttime: string;
+            fcsttime_time: string;
+            fcsttime_string: string;
+        };
+        T1H: string;
+        RN1: string;
+        SKY: string;
+        UUU: string;
+        VVV: string;
+        REH: string;
+        PTY: string;
+        LGT: string;
+        VEC: string;
+        WSD: string;
+        created: string;
+        updated: string;
+    }
 }
