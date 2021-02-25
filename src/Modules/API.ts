@@ -7,6 +7,7 @@ import {
     LoginCheck,
     PostList,
     WeatherResult,
+    CovidResult,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -152,4 +153,9 @@ export function getPostList({ pageNumber }: { pageNumber: number }): Promise<Ser
 // 날씨 정보.
 export const weathers = (): Promise<ServerDefaultResult<WeatherResult>> => {
     return _Axios_({ method: 'get', url: `/api/v1/specialty/weather`, payload: { data: {} } });
+};
+
+// 코로나 현황.
+export const covides = (): Promise<ServerDefaultResult<CovidResult>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/specialty/covid`, payload: { data: {} } });
 };

@@ -1,5 +1,5 @@
 declare module 'ServiceTypes' {
-    import { CodeItem, Codes, WeatherItem } from 'CommonTypes';
+    import { CodeItem, Codes, WeatherItem, CovidItem } from 'CommonTypes';
     import { WeatherBox } from '../Styles/RightWeatherBoxStyles';
 
     // 기본 api 리턴 인테페이스
@@ -61,4 +61,7 @@ declare module 'ServiceTypes' {
 
     // 날씨 결과.
     export type WeatherResult = WeatherItem[];
+
+    // Covid 결과.
+    export type CovidResult = CovidItem[];
 }

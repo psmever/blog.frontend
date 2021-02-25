@@ -1,5 +1,6 @@
 declare module 'StoreTypes' {
-    import { DefaultStatus, Codes, WeatherItem } from 'CommonTypes';
+    import { DefaultStatus, Codes, WeatherItem, CovidItem } from 'CommonTypes';
+    import { covides } from '../Modules/API';
 
     export interface ErrorMessage {
         message: string;
@@ -27,10 +28,15 @@ declare module 'StoreTypes' {
 
     // 스페셜 스토어.
     export interface SpecialtyState {
-        weather: {
+        weathers: {
             state: DefaultStatus;
             message: string;
             weathers: WeatherItem[];
+        };
+        covides: {
+            state: DefaultStatus;
+            message: string;
+            covides: CovidItem[];
         };
     }
 }
