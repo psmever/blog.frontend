@@ -13,14 +13,25 @@ import {
     WeatherWapper,
     CoronaWapper,
 } from '@Style/RightSidebar';
-import { useDispatch } from 'react-redux';
-import { getWeather } from '@Store/Specialty';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWeathers, getCovids } from '@Store/Specialty';
 import { RightWeatherBox, RightCoronaBox } from '@Elements';
+import { RootState } from '@Stores';
 
 export default function RightSidebarComponent() {
     const dispatch = useDispatch();
+
+    const { weathers } = useSelector((store: RootState) => ({
+        weathers: store.specialty.weathers,
+    }));
+
     useEffect(() => {
-        dispatch(getWeather());
+        console.log(weathers);
+    }, [weathers]);
+
+    useEffect(() => {
+        dispatch(getWeathers());
+        dispatch(getCovids());
     }, []);
 
     return (

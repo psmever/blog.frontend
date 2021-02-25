@@ -27,6 +27,7 @@ declare module 'CommonTypes' {
         };
     }
 
+    // 날짜 아이템.
     export interface WeatherItem {
         vilage: {
             area_code: string;
@@ -56,5 +57,27 @@ declare module 'CommonTypes' {
         WSD: string;
         created: string;
         updated: string;
+    }
+
+    export interface CovidItem {
+        title: string;
+        gubun: string;
+        gubun_en: string;
+        state: {
+            seq: number;
+            createdt: string;
+            deathcnt: string;
+            incdec: string;
+            isolclearcnt: string;
+            qurrate: string;
+            stdday: string;
+            updatedt: string;
+            defcnt: string;
+            isolingcnt: string;
+            overflowcnt: string;
+            localocccnt: string;
+            created_at: string;
+            updated_a: string;
+        };
     }
 }
