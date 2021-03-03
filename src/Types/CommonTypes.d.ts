@@ -29,55 +29,19 @@ declare module 'CommonTypes' {
 
     // 날짜 아이템.
     export interface WeatherItem {
-        vilage: {
-            area_code: string;
-            step1: string;
-            step2: string;
-            step3: string;
-            vilage_name: string;
-            vilage_short_name: string;
-        };
-        fcst: {
-            fcstdate: string;
-            fcstdate_time: string;
-            fcstdate_string: string;
-            fcsttime: string;
-            fcsttime_time: string;
-            fcsttime_string: string;
-        };
-        T1H: string;
-        RN1: string;
-        SKY: string;
-        UUU: string;
-        VVV: string;
-        REH: string;
-        PTY: string;
-        LGT: string;
-        VEC: string;
-        WSD: string;
-        created: string;
-        updated: string;
+        time: string;
+        vilage_name: string;
+        sky_icon: string;
+        temperature: string;
+        sky: string;
+        wind: string;
+        humidity: string;
     }
 
     export interface CovidItem {
-        title: string;
-        gubun: string;
-        gubun_en: string;
-        state: {
-            seq: number;
-            createdt: string;
-            deathcnt: string;
-            incdec: string;
-            isolclearcnt: string;
-            qurrate: string;
-            stdday: string;
-            updatedt: string;
-            defcnt: string;
-            isolingcnt: string;
-            overflowcnt: string;
-            localocccnt: string;
-            created_at: string;
-            updated_a: string;
-        };
+        defcnt: string;
+        isolclearcnt: string;
+        deathcnt: string;
+        incdec: string;
     }
 }
