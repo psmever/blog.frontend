@@ -1,5 +1,5 @@
 declare module 'StoreTypes' {
-    import { DefaultStatus, Codes, WeatherItem, CovidItem } from 'CommonTypes';
+    import { DefaultStatus, Codes, WeatherItem, CovidItem, PostListItem } from 'CommonTypes';
     import { covides } from '../Modules/API';
 
     export interface ErrorMessage {
@@ -37,6 +37,15 @@ declare module 'StoreTypes' {
             state: DefaultStatus;
             message: string;
             covides: CovidItem[];
+        };
+    }
+
+    export interface PostsState {
+        list: {
+            pageNumber: number;
+            state: DefaultStatus;
+            message: string;
+            posts: PostListItem[];
         };
     }
 }
