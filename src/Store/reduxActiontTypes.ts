@@ -39,4 +39,9 @@ export enum SagaTypes {
     GET_COVID = 'specialty/GET_COVID',
     GET_COVID_SUCCESS = 'specialty/GET_COVID_SUCCESS',
     GET_COVID_FAILURE = 'specialty/GET_COVID_FAILURE',
+
+    // posts
+    GET_POSTS = 'posts/GET_POSTS',
+    GET_POSTS_SUCCESS = 'posts/GET_POSTS_SUCCESS',
+    GET_POSTS_FAILURE = 'posts/GET_POSTS_FAILURE',
 }

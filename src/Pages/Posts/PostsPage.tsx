@@ -1,48 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { PageSpinner } from '@Element/Spinners';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@Stores';
 import { PostCardWrapper } from '@Style/PostPageStyles';
-import { usePost } from '@Hooks';
-import { PostListItem } from 'ServiceTypes';
-import { PostsCard } from '@Elements';
+import { PageSpinner } from '@Element/Spinners';
+import { PostList } from './Dtls';
+import { getPostList } from '@Store/Posts';
 
 export default function PostsPage() {
-    const [pageLoading, setPageLoging] = useState<boolean>(false);
-    const [postLists, setPostLists] = useState<PostListItem[] | null>();
-    const [postState] = usePost();
+    const dispatch = useDispatch();
+    const { postState } = useSelector((store: RootState) => ({
+        postState: store.posts.list.state,
+    }));
 
     useEffect(() => {
-        const { state, payload } = postState;
-
-        const setPageLoading = () => {
-            if (state === 'loading') {
-                setPageLoging(true);
-            } else {
-                setPageLoging(false);
-            }
-        };
-
-        const setPostListState = (list: PostListItem[]) => {
-            setPostLists(list);
-        };
-
-        setPageLoading();
-
-        if (state === 'success' && payload !== null) {
-            setPostListState(payload.posts);
-        }
-    }, [postState]);
+        dispatch(getPostList());
+    }, []);
 
     return (
-        <PostCardWrapper>
-            {(function () {
-                if (pageLoading === true) {
-                    return <PageSpinner />;
-                } else {
-                    return postLists?.map((element: PostListItem, index) => {
-                        return <PostsCard key={index} elementIndex={index} postData={element} />;
-                    });
-                }
-            })()}
-        </PostCardWrapper>
+        <>
+            <PostCardWrapper>
+                {(function () {
+                    if (postState === 'success') {
+                        return <PostList />;
+                    } else if (postState === 'loading') {
+                        return (
+                            <>
+                                <PageSpinner />
+                            </>
+                        );
+                    }
+                })()}
+            </PostCardWrapper>
+        </>
     );
 }
