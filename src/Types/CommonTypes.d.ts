@@ -44,4 +44,69 @@ declare module 'CommonTypes' {
         deathcnt: string;
         incdec: string;
     }
+
+    export interface TagItem {
+        id: string;
+        text: string;
+    }
+
+    export interface PostListItem {
+        post_id: number;
+        post_uuid: string;
+        user: {
+            user_uuid: string;
+            user_type: basicCodeItem;
+            user_level: basicCodeItem;
+            name: string;
+            nickname: string;
+            email: string;
+            active: defaultYesNo;
+        };
+        post_title: string;
+        slug_title: string;
+        thumb_url: string;
+        list_contents: string;
+        markdown: defaultYesNo;
+        tags: TagItem[];
+        view_count: number;
+        post_active: defaultYesNo;
+        post_publish: defaultYesNo;
+        list_created: string;
+    }
+
+    export interface PostCardItem {
+        post_title: string;
+        list_contents: string;
+        tags: TagItem[];
+        slug_title: string;
+        thumb_url: string;
+    }
+
+    export interface PostDetailItem {
+        post_uuid: string;
+        user: {
+            user_uuid: string;
+            user_type: {
+                code_id: string;
+                code_name: string;
+            };
+            user_level: {
+                code_id: string;
+                code_name: string;
+            };
+            name: string;
+            nickname: string;
+            email: string;
+            active: defaultYesNo;
+        };
+        post_title: string;
+        slug_title: string;
+        contents_html: string;
+        contents_text: string;
+        markdown: defaultYesNo;
+        tags: TagItem[];
+        view_count: number;
+        detail_created: string;
+        detail_updated: string;
+    }
 }

@@ -17,17 +17,17 @@ import {
     DescriptionReadMore,
     DescriptionReadMoreList,
 } from '@Style/PostPageStyles';
-import { PostListItem } from 'ServiceTypes';
+import { PostCardItem } from 'CommonTypes';
 import History from '@Module/History';
 
-export default function PostsCard({ elementIndex, postData }: { elementIndex: number; postData: PostListItem }) {
-    const { post_title, list_contents, tags, slug_title } = postData;
+export default function PostsCard({ elementIndex, postData }: { elementIndex: number; postData: PostCardItem }) {
+    const { post_title, list_contents, tags, slug_title, thumb_url } = postData;
     const optionAlt = elementIndex % 2 === 0 ? 'false' : 'true';
     const postTitle = post_title;
     const postListContents = list_contents.replace(/[^\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/gi, '');
     const postTags = tags
         .map(e => {
-            return e.tag_text;
+            return e.text;
         })
         .join(', ');
 
@@ -43,7 +43,7 @@ export default function PostsCard({ elementIndex, postData }: { elementIndex: nu
                 <PostPhoto
                     id="PostPhoto"
                     style={{
-                        backgroundImage: `url(${postData.thumb_url})`,
+                        backgroundImage: `url(${thumb_url})`,
                     }}
                 ></PostPhoto>
                 <Details id="Details" alt={optionAlt}>
