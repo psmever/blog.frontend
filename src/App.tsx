@@ -4,7 +4,6 @@ import { createBrowserHistory } from 'history';
 import configureStore from '@Store/configureStore';
 import History from '@Module/History';
 import Routes from '@Module/Routes';
-import GlobalStyles from '@Style/GlobalStyles';
 import RootComponent from '@Src/Components/RootComponent';
 
 const history = createBrowserHistory();
@@ -28,7 +27,6 @@ function App() {
     return (
         <React.StrictMode>
             <Provider store={store}>
-                <GlobalStyles />
                 {(function () {
                     if (AppSpinner === true) {
                         return <RootComponent handleAppSpinner={handleAppSpinner} />;

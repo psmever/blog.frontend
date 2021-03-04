@@ -8,6 +8,7 @@ import {
     PostList,
     WeatherResult,
     CovidResult,
+    PostDetailResult,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -65,6 +66,11 @@ export function loginCheck(): Promise<ServerDefaultResult<LoginCheck>> {
 export function getPostList({ pageNumber }: { pageNumber: number }): Promise<ServerDefaultResult<PostList>> {
     return _Axios_({ method: 'get', url: `/api/v1/post/${pageNumber}`, payload: { data: {} } });
 }
+
+// post 정보 가지고 오기.
+export const getPostDetail = ({ slugTitle }: { slugTitle: string }): Promise<ServerDefaultResult<PostDetailResult>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/post/${slugTitle}/detail`, payload: { data: {} } });
+};
 
 // /**
 //  * 글 저장
