@@ -2,6 +2,9 @@ declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
 
     export type AccessTokenType = string;
+    export interface LayouTypes {
+        layoutColor: 'main' | 'view';
+    }
 
     export interface LocalTokenInterface {
         access_token: string;

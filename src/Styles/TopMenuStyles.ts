@@ -1,9 +1,17 @@
 import styled from 'styled-components';
+import { LayouTypes } from 'CommonTypes';
 
 export const Default = styled.div``;
 
-export const Navi = styled.nav`
-    background: #5eaeff;
+export const Navi = styled.nav<LayouTypes>`
+    background: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `#5eaeff`;
+        } else if (layoutColor === 'view') {
+            return `#fff`;
+        }
+    }};
+
     height: 80px;
     width: 100%;
 `;
@@ -44,8 +52,15 @@ export const MenuIcon = styled.div`
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 `;
 
-export const LogoText = styled.label`
-    color: white;
+export const LogoText = styled.label<LayouTypes>`
+    color: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `white`;
+        } else if (layoutColor === 'view') {
+            return `#5eaeff`;
+        }
+    }};
+
     font-size: 35px;
     line-height: 80px;
     padding: 0 100px;
@@ -91,8 +106,15 @@ export const MenuElement = styled.li`
     }
 `;
 
-export const MenuLink = styled.div`
-    color: white;
+export const MenuLink = styled.div<LayouTypes>`
+    color: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `white`;
+        } else if (layoutColor === 'view') {
+            return `#5eaeff`;
+        }
+    }};
+
     font-size: 17px;
     padding: 7px 13px;
     border-radius: 3px;
@@ -101,7 +123,14 @@ export const MenuLink = styled.div`
 
     /* &:active */
     &:hover {
-        background: #1b9bff;
+        /* background: #1b9bff; */
+        background: ${({ layoutColor }) => {
+            if (layoutColor === 'main') {
+                return `#1b9bff`;
+            } else if (layoutColor === 'view') {
+                return `#f1f1f1`;
+            }
+        }};
         transition: 0.5s;
     }
 

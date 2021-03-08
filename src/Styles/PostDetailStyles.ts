@@ -27,7 +27,7 @@ export const PostDetailBox = styled.article`
     margin: 1rem auto;
     box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
     margin-bottom: 1.6%;
-    background: #fff;
+    background: white;
     line-height: 1.4;
     font-family: sans-serif;
     border-radius: 5px;

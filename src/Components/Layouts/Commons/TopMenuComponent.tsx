@@ -1,9 +1,9 @@
 import React from 'react';
+import { LayouTypes } from 'CommonTypes';
 import { useHistory } from 'react-router-dom';
-
 import { Navi, NaviInput, MenuLabel, LogoText, MenuUList, MenuElement, MenuLink, MenuIcon } from '@Style/TopMenuStyles';
 
-export default function TopMenuComponent() {
+export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes }) {
     const history = useHistory();
 
     // 홈
@@ -42,27 +42,37 @@ export default function TopMenuComponent() {
 
     return (
         <>
-            <Navi>
+            <Navi layoutColor={LayouType.layoutColor}>
                 <NaviInput type="checkbox" id="check" />
                 <MenuLabel htmlFor="check">
                     <MenuIcon />
                 </MenuLabel>
-                <LogoText>NicePage</LogoText>
+                <LogoText layoutColor={LayouType.layoutColor}>NicePage</LogoText>
                 <MenuUList>
                     <MenuElement>
-                        <MenuLink onClick={() => handleClickHomeLink()}>홈</MenuLink>
+                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickHomeLink()}>
+                            홈
+                        </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink onClick={() => handleClickTagsLink()}>태그들</MenuLink>
+                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickTagsLink()}>
+                            태그들
+                        </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink onClick={() => handleClickLatelyLink()}>최근</MenuLink>
+                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickLatelyLink()}>
+                            최근
+                        </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink onClick={() => handleClickBlogsLink()}>블로그에 대해</MenuLink>
+                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickBlogsLink()}>
+                            블로그에 대해
+                        </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink onClick={() => handleClickInfomationLink()}>정보</MenuLink>
+                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickInfomationLink()}>
+                            정보
+                        </MenuLink>
                     </MenuElement>
                 </MenuUList>
             </Navi>

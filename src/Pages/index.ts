@@ -12,8 +12,6 @@ export { default as LatelyPage } from './Lately/LatelyPage';
 
 export { default as TagsPage } from './Tags/TagsPage';
 
-export { default as PostsMainPage } from './MainPage';
-
 export { default as LoginPage } from './Auths/LoginPage';
 export { default as LogoutPage } from './Auths/LogoutPage';
 
