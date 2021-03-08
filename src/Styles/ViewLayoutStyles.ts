@@ -3,7 +3,11 @@ import styled from 'styled-components';
 export const Default = styled.div``;
 
 export const Warp = styled.div`
-    /* background: #f1f1f1; */
+    /* width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    background: white; */
+
     @media all and (min-width: 1025px) {
         /* max-width: 1280px; */
         /* max-width: 1280px; */
@@ -18,6 +22,10 @@ export const Container = styled.div`
     position: relative;
     padding-bottom: 100px;
 
+    width: 75%;
+    height: 100%;
+    margin: 0 auto;
+
     &:after {
         content: '';
         display: block;
@@ -25,44 +33,14 @@ export const Container = styled.div`
     }
 `;
 
-export const LeftSideBox = styled.div`
-    /* display: none; */
-    @media all and (min-width: 768px) and (max-width: 1024px) {
-        float: left;
-        width: 15%;
-    }
-
-    @media all and (min-width: 1025px) {
-        float: left;
-        width: 15%;
-    }
-`;
-
 export const ContentBox = styled.div`
-    width: 100%;
+    /* width: 85%; */
     padding: 0.4rem;
 
     /* @media all and (min-width: 768px) and (max-width: 1024px) {
         float: left;
         width: 85%;
     } */
-
-    @media all and (min-width: 1025px) {
-        float: left;
-        width: 71%;
-    }
-`;
-
-export const RightSideBox = styled.div`
-    @media all and (min-width: 768px) and (max-width: 1024px) {
-        clear: both;
-        /* width: 14%; */
-    }
-
-    @media all and (min-width: 1025px) {
-        float: right;
-        width: 14%;
-    }
 `;
 
 export const FooterBox = styled.footer`
