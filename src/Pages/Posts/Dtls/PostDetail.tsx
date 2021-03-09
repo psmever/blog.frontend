@@ -5,7 +5,19 @@ import { useParams } from 'react-router-dom';
 import { isEmpty } from '@Helper';
 import { getPostDetail } from '@Store/Posts';
 import { PostDetailItem, TagItem } from 'CommonTypes';
-import { PostDetailBox, Header, HeaderTitle } from '@Style/PostDetailStyles';
+import {
+    PostDetailBox,
+    Header,
+    HeaderTitle,
+    HeaderMeta,
+    HeaderDate,
+    PostTag,
+    PostTagMeta,
+    PostTags,
+    PostTagsItems,
+    PostTagsItem,
+} from '@Style/PostDetailStyles';
+import MarkdownRender from '@Element/Markdown/MarkdownRender';
 
 interface RouteParams {
     slug_title: string;
@@ -67,13 +79,27 @@ export default function PostDetail() {
             <PostDetailBox>
                 <Header>
                     <HeaderTitle>{postInfo.post_title}</HeaderTitle>
+                    <HeaderMeta>
+                        <HeaderDate>{postInfo.detail_created}</HeaderDate>
+                    </HeaderMeta>
                 </Header>
+                <PostTag>
+                    <PostTagMeta>
+                        <PostTags>
+                            {postInfo.tags.map((element, n) => {
+                                return (
+                                    <PostTagsItems key={n}>
+                                        <PostTagsItem onClick={() => console.debug(element.text)}>
+                                            {element.text}
+                                        </PostTagsItem>
+                                    </PostTagsItems>
+                                );
+                            })}
+                        </PostTags>
+                    </PostTagMeta>
+                </PostTag>
 
-                {postInfo.detail_created}
-                {postInfo.tags.map((element, index) => {
-                    return <div key={index}>{element.text}</div>;
-                })}
-                {postInfo.contents_text}
+                <MarkdownRender markdownText={postInfo.contents_text} />
             </PostDetailBox>
         </>
     );
