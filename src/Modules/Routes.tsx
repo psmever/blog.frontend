@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { MainLayout } from '@MainLayouts';
@@ -21,11 +20,7 @@ import {
 } from '@Pages';
 
 // FIXME: 2021-02-05 00:57  404 페이지, 서버 에러 페이지 퍼블리싱.
-// TODO: 2021-03-05 00:07 글 뷰 페이지 레이아웃 다르게 하기. 퍼블리싱
 const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
-    useEffect(() => {
-        console.log(Routerhistory);
-    }, [Routerhistory]);
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <ConnectedRouter history={Routerhistory}>
