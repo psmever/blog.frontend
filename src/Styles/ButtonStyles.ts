@@ -96,3 +96,30 @@ export const GoHomeButtonStyle = styled.button`
         width: 100%;
     }
 `;
+
+export const FooterLoginButtonWarp = styled.div`
+    /* position: absolute; */
+    text-align: center;
+`;
+
+export const FooterLoginButtonMain = styled.div`
+    -webkit-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+    -moz-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+    -ms-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+    -o-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+    transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+    display: block;
+    margin: 1px auto;
+    max-width: 180px;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 2px 8px 10px 12px;
+
+    color: rgba(30, 22, 54, 0.6);
+    /* box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 1px inset; */
+
+    &:hover {
+        color: rgba(255, 255, 255, 0.85);
+        box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+    }
+`;
