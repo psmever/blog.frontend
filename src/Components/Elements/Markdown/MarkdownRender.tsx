@@ -1,29 +1,25 @@
-import React from 'react';
-import CodeBlock from './CodeBlock';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import '@Style/GithubMarkdown.css';
-
-/**
- * 이미지 렌더.
- * @param props
- */
-const imageRender = (props: any): any => {
-    return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <img {...props} style={{ maxWidth: '85%' }} alt="" />
-        </div>
-    );
-};
+import { imageRender, CodeBlock } from './MarkdownRenderer';
 
 export default function MarkdownRender({ markdownText }: { markdownText: string }) {
     return (
         <div className="markdown-body">
             <ReactMarkdown
                 disallowedTypes={[]}
-                escapeHtml={true}
+                escapeHtml={false}
                 // skipHtml={false}
                 source={markdownText}
                 renderers={{ code: CodeBlock, image: imageRender }}
+                // renderers={{ paragraph: props => <div {...props} /> }}
+                // renderers={{
+                //     paragraph: props =>
+                //         props.children[0].type.name === 'image' ? (
+                //             <img {...props} style={{ maxWidth: '15%' }} alt="" />
+                //         ) : (
+                //             <img {...props} />
+                //         ),
+                // }}
             />
         </div>
     );
