@@ -6,9 +6,9 @@ export { default as PostsDetailPage } from './Posts/PostsDetailPage';
 
 export { default as BlogPage } from './Blogs/BlogPage';
 
-export { default as InfomationsPage } from './Infomations/InfomationsPage';
+export { default as MingunPage } from './Mingun/MingunPage';
 
-export { default as LatelyPage } from './Lately/LatelyPage';
+export { default as ScribblePage } from './Scribble/ScribblePage';
 
 export { default as TagsPage } from './Tags/TagsPage';
 
