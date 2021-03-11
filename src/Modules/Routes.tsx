@@ -10,9 +10,9 @@ import {
     PostsPage,
     PostsDetailPage,
     TagsPage,
-    LatelyPage,
+    ScribblePage,
     BlogPage,
-    InfomationsPage,
+    MingunPage,
     LoginPage,
     LogoutPage,
     LoadingPage,
@@ -53,12 +53,12 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </ViewLayout>
                     </Route>
-                    <Route path={['/posts', '/tags', '/lately', '/blogs', '/infomations']}>
+                    <Route path={['/posts', '/tags', '/scribble', '/blog', '/mingun']}>
                         <MainLayout LayouType={{ layoutColor: 'main' }}>
                             <Switch>
-                                <Route path={process.env.PUBLIC_URL + '/infomations'} component={InfomationsPage} />
-                                <Route path={process.env.PUBLIC_URL + '/blogs'} component={BlogPage} />
-                                <Route path={process.env.PUBLIC_URL + '/lately'} component={LatelyPage} />
+                                <Route path={process.env.PUBLIC_URL + '/mingun'} component={MingunPage} />
+                                <Route path={process.env.PUBLIC_URL + '/blog'} component={BlogPage} />
+                                <Route path={process.env.PUBLIC_URL + '/scribble'} component={ScribblePage} />
                                 <Route path={process.env.PUBLIC_URL + '/tags'} component={TagsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/posts'} component={PostsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/'} component={PostsPage} exact />
