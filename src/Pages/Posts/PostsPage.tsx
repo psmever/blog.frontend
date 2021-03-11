@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
-import { PostCardWrapper } from '@Style/PostPageStyles';
 import { PageSpinner } from '@Element/Spinners';
+import { PostCardWrapper } from '@Style/PostPageStyles';
 
 const DtlPage = React.lazy(() => import('./Dtls/PostList'));
 
