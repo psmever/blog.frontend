@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function FooterLogtinButton() {
+export default function FooterLoginButton() {
     const history = useHistory();
 
     const handleClickLoginButton = () => {
@@ -14,12 +14,10 @@ export default function FooterLogtinButton() {
     };
 
     return (
-        <>
-            <FooterLoginButtonWarp onClick={() => handleClickLoginButton()}>
-                <FooterLoginButtonMain>
-                    <FontAwesomeIcon icon={faSignInAlt} /> 로그인
-                </FooterLoginButtonMain>
-            </FooterLoginButtonWarp>
-        </>
+        <FooterLoginButtonWarp onClick={() => handleClickLoginButton()}>
+            <FooterLoginButtonMain>
+                <FontAwesomeIcon icon={faSignInAlt} /> 로그인
+            </FooterLoginButtonMain>
+        </FooterLoginButtonWarp>
     );
 }

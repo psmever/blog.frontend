@@ -1,3 +1,4 @@
 export { default as LoginButton } from './LoginButton';
 export { default as GoHomeButton } from './GoHomeButton';
-export { default as FooterLogtinButton } from './FooterLogtinButton';
+export { default as FooterLoginButton } from './FooterLoginButton';
+export { default as FooterLogoutButton } from './FooterLogoutButton';

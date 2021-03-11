@@ -16,13 +16,10 @@ export default function Login() {
     const { addToast } = useToasts();
     const dispatch = useDispatch();
 
-    // const { loading, setLoading } = useLogin();
-    // const [loadingState, controller] = useLoading();
+    const [loginDone, setLoginDone] = useState(false);
+
     const { loadingState, loadingControl } = useLoading();
-
     const [loginInputValue, setLoginInputValue] = useState(loginInputState);
-    // const [loading, setLoding] = useState(false);
-
     const inputPasswordRef = useRef<HTMLInputElement | null>(null);
 
     // 엔터 키 이벤트.
@@ -103,7 +100,7 @@ export default function Login() {
                 });
                 dispatch(loginSetAction());
                 addToast('로그인이 완료 되었습니다.', { appearance: 'success', autoDismiss: true });
-                History.push(process.env.PUBLIC_URL + '/');
+                setLoginDone(true);
             } else {
                 addToast(message, { appearance: 'error', autoDismiss: true });
             }
@@ -137,13 +134,21 @@ export default function Login() {
         }
     }, [loadingState]);
 
+    useEffect(() => {
+        if (loginDone === true) {
+            setTimeout(() => {
+                History.push(process.env.PUBLIC_URL + '/');
+            }, 10);
+        }
+    }, [loginDone]);
+
     // 최초 로딩때 로컬 토큰 체크.
     useEffect(() => {
         const checkStartLoginCheck = async () => {
             const localstorage = Helper.getLocalToken();
             if (localstorage.login_state === true) {
                 addToast('이미 로그인이 되어 있습니다.', { appearance: 'info', autoDismiss: true });
-                History.push(process.env.PUBLIC_URL + '/');
+                // History.push(process.env.PUBLIC_URL + '/');
             }
         };
 
