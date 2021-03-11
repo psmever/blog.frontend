@@ -25,12 +25,6 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <ConnectedRouter history={Routerhistory}>
                 <Switch>
-                    <Route path={['/login', '/logout']}>
-                        <Switch>
-                            <Route path={process.env.PUBLIC_URL + '/logout'} component={LogoutPage} />
-                            <Route path={process.env.PUBLIC_URL + '/login'} component={LoginPage} />
-                        </Switch>
-                    </Route>
                     <Route path={['/test', '/test/test', '/test/dev']}>
                         <TestLayout>
                             <Switch>
@@ -40,10 +34,12 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </TestLayout>
                     </Route>
-                    <Route path={['/manage']}>
-                        <ManageLayout>
+                    <Route path={['/manage', '/login', '/logout']}>
+                        <ManageLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
                                 <Route path={process.env.PUBLIC_URL + '/manage'} component={PostsPage} />
+                                <Route path={process.env.PUBLIC_URL + '/logout'} component={LogoutPage} />
+                                <Route path={process.env.PUBLIC_URL + '/login'} component={LoginPage} />
                             </Switch>
                         </ManageLayout>
                     </Route>
