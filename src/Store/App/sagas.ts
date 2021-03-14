@@ -2,15 +2,15 @@ import { takeLatest, fork, put, call } from 'redux-saga/effects';
 import _Alert_ from '@_Alert_';
 import { checkServerNotice, getSiteBaseData, loginCheck } from '@API';
 import { ServerDefaultResult, ServerNotice, AppBase } from 'ServiceTypes';
-import { SagaTypes } from '@Store/reduxActiontTypes';
+
 import { COLORLOG, getLocalToken, isEmpty, removeLoginToken } from '@Helper';
 import { axiosDefaultHeader } from '@Util/_Axios_';
 import axios from 'axios';
 
-const {
+import { COMMON_CODES } from '@Store/Common/actions';
+import {
     START_LOADING,
     END_LOADING,
-    COMMON_CODES,
     APP_ERROR,
     APP_INIT_START,
     APP_INIT_END,
@@ -21,7 +21,7 @@ const {
     LOGIN_SET_END,
     SERVER_CHECK_START,
     SERVER_CHECK_END,
-} = SagaTypes;
+} from './actions';
 
 // 서버 통신 체크만 따로 뺴서..
 const checkServerStatus = async () => {

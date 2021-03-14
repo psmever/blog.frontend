@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { appInitAction } from '@Store/App';
-import { RootState } from '@Stores';
+import { RootState } from 'StoreTypes';
 import { COLORLOG } from '@Helper';
 import _Alert_ from '@_Alert_';
 

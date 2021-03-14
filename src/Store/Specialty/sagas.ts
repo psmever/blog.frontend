@@ -1,16 +1,14 @@
 import { takeLatest, fork, put, call } from 'redux-saga/effects';
 import { weathers, covides } from '@API';
 import { ServerDefaultResult, WeatherResult, CovidResult } from 'ServiceTypes';
-import { SagaTypes } from '@Store/reduxActiontTypes';
-
-const {
+import {
     GET_WEATHER,
     GET_WEATHER_SUCCESS,
     GET_WEATHER_FAILURE,
     GET_COVID,
     GET_COVID_SUCCESS,
     GET_COVID_FAILURE,
-} = SagaTypes;
+} from './actions';
 
 function* getWeatherSaga() {
     const response: ServerDefaultResult<WeatherResult> = yield call(weathers);

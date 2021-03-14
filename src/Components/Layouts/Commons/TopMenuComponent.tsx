@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LayouTypes } from 'CommonTypes';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '@Stores';
+import { RootState } from 'StoreTypes';
 import { Navi, NaviInput, MenuLabel, LogoText, MenuUList, MenuElement, MenuLink, MenuIcon } from '@Style/TopMenuStyles';
 
 export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes }) {

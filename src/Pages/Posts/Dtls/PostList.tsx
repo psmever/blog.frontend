@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@Stores';
+import { RootState } from 'StoreTypes';
 import { PostCardItem } from 'CommonTypes';
 import { getPostList } from '@Store/Posts';
 import PostsCard from './PostsCard';

@@ -4,9 +4,14 @@ import produce from 'immer';
 import { PostList } from 'ServiceTypes';
 import { PostDetailItem } from 'CommonTypes';
 import { PostsState } from 'StoreTypes';
-import { SagaTypes } from '@Store/reduxActiontTypes';
-const { GET_POSTS, GET_POSTS_SUCCESS, GET_POSTS_FAILURE } = SagaTypes;
-const { GET_POST_DETAIL, GET_POST_DETAIL_SUCCESS, GET_POST_DETAIL_FAILURE } = SagaTypes;
+import {
+    GET_POSTS,
+    GET_POSTS_SUCCESS,
+    GET_POSTS_FAILURE,
+    GET_POST_DETAIL,
+    GET_POST_DETAIL_SUCCESS,
+    GET_POST_DETAIL_FAILURE,
+} from './actions';
 
 // 스토어 init.
 const initialState: PostsState = {

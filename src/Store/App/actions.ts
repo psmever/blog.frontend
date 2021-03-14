@@ -1,4 +1,4 @@
-import { createAction, action, deprecated } from 'typesafe-actions';
+import { deprecated } from 'typesafe-actions';
 const { createStandardAction } = deprecated;
 
 // const { APP_INIT_START, CHECK_LOGIN_START, LOGIN_SET_START, SET_LOGOUT } = SagaTypes;
@@ -27,19 +27,13 @@ export const SET_LOGOUT = 'app/SET_LOGOUT';
 //     return { type: APP_INIT_START };
 // };
 
-export const appInitAction = () => action(APP_INIT_START);
+export const appInitAction = createStandardAction(APP_INIT_START)();
 
 // 로그인 체크.
-export const checkLoginAction = () => {
-    return { type: CHECK_LOGIN_START };
-};
+export const checkLoginAction = createStandardAction(CHECK_LOGIN_START)();
 
 // 로그인 정보 저장.
-export const loginSetAction = () => {
-    return { type: LOGIN_SET_START };
-};
+export const loginSetAction = createStandardAction(LOGIN_SET_START)();
 
 // 로그아웃시 store reset
-export const logoutSetAction = () => {
-    return { type: SET_LOGOUT };
-};
+export const logoutSetAction = createStandardAction(SET_LOGOUT)();

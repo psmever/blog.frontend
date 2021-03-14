@@ -3,15 +3,14 @@ import { SagaAction } from 'CommonTypes';
 import produce from 'immer';
 import { WeatherResult, CovidResult } from 'ServiceTypes';
 import { SpecialtyState } from 'StoreTypes';
-import { SagaTypes } from '@Store/reduxActiontTypes';
-const {
+import {
     GET_WEATHER,
     GET_WEATHER_SUCCESS,
     GET_WEATHER_FAILURE,
     GET_COVID,
     GET_COVID_SUCCESS,
     GET_COVID_FAILURE,
-} = SagaTypes;
+} from './actions';
 
 // 스토어 init.
 const initialState: SpecialtyState = {
