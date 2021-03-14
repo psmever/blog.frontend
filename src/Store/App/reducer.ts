@@ -1,8 +1,9 @@
 import { createReducer } from 'typesafe-actions';
+import { SagaAction } from 'CommonTypes';
 import produce from 'immer';
 // import { ErrorMessage } from 'CommonTypes';
 import { AppState, ErrorMessage } from 'StoreTypes';
-import { SagaTypes, SagaAction } from '@Store/reduxActiontTypes';
+import { SagaTypes } from '@Store/reduxActiontTypes';
 const {
     START_LOADING,
     END_LOADING,

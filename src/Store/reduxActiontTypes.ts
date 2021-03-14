@@ -1,11 +1,3 @@
-/**
- * 기본 액션 인터페이스.
- */
-export interface SagaAction<T> {
-    type: SagaTypes;
-    payload: T;
-}
-
 export enum SagaTypes {
     //  APP
     START_LOADING = 'app/START_LOADING',
