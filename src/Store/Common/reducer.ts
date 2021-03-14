@@ -1,11 +1,10 @@
 import { createReducer } from 'typesafe-actions';
 import { SagaAction } from 'CommonTypes';
 import produce from 'immer';
-import { CommonState } from 'StoreTypes';
 import { AppBase } from 'ServiceTypes';
-import { SagaTypes } from '@Store/reduxActiontTypes';
+import { CommonState } from 'StoreTypes';
 
-const { COMMON_CODES } = SagaTypes;
+import { COMMON_CODES } from './actions';
 
 const initialState: CommonState = {
     codes: [],

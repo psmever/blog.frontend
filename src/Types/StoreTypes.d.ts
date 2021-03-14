@@ -1,15 +1,12 @@
 declare module 'StoreTypes' {
     import { covides } from '../Modules/API';
+    import { RouterState } from 'connected-react-router';
 
     export interface ErrorMessage {
         message: string;
     }
 
-    export interface CommonState {
-        codes: any;
-    }
-
-    // 앱 스토어.
+    // 스토어 init.
     export interface AppState {
         loading: boolean;
         serverCheck: boolean;
@@ -25,18 +22,8 @@ declare module 'StoreTypes' {
         };
     }
 
-    // 스페셜 스토어.
-    export interface SpecialtyState {
-        weathers: {
-            state: DefaultStatus;
-            message: string;
-            weathers: WeatherItem[];
-        };
-        covides: {
-            state: DefaultStatus;
-            message: string;
-            covides: CovidItem[];
-        };
+    export interface CommonState {
+        codes: any;
     }
 
     export interface PostsState {
@@ -52,5 +39,26 @@ declare module 'StoreTypes' {
             message: string;
             info: PostDetailItem;
         };
+    }
+
+    export interface SpecialtyState {
+        weathers: {
+            state: DefaultStatus;
+            message: string;
+            weathers: WeatherItem[];
+        };
+        covides: {
+            state: DefaultStatus;
+            message: string;
+            covides: CovidItem[];
+        };
+    }
+
+    export interface RootState {
+        router: RouterState;
+        common: CommonState;
+        app: AppState;
+        specialty: SpecialtyState;
+        posts: PostsState;
     }
 }

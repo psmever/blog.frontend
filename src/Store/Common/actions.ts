@@ -1,1 +1,1 @@
-import {} from '@Store/reduxActiontTypes';
+export const COMMON_CODES = 'common/COMMON_CODES';

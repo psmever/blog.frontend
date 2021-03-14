@@ -1,10 +1,9 @@
 import { createReducer } from 'typesafe-actions';
 import { SagaAction } from 'CommonTypes';
 import produce from 'immer';
-// import { ErrorMessage } from 'CommonTypes';
-import { AppState, ErrorMessage } from 'StoreTypes';
-import { SagaTypes } from '@Store/reduxActiontTypes';
-const {
+import { ErrorMessage } from 'StoreTypes';
+import { AppState } from 'StoreTypes';
+import {
     START_LOADING,
     END_LOADING,
     APP_ERROR,
@@ -15,7 +14,7 @@ const {
     LOGIN_SET_START,
     LOGIN_SET_END,
     SET_LOGOUT,
-} = SagaTypes;
+} from './actions';
 
 // 스토어 init.
 const initialState: AppState = {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FooterLoginButton, FooterLogoutButton } from '@Element/Buttons';
 import { FooterInfoBox, TextBox, MadeText, LoginButton } from '@Style/FooterBoxStyles';
 import { useSelector } from 'react-redux';
-import { RootState } from '@Stores';
+import { RootState } from 'StoreTypes';
 
 export default function FooterBox() {
     const { loginState } = useSelector((store: RootState) => ({

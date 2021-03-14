@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@Stores';
+import { RootState } from 'StoreTypes';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from '@Helper';
 import { getPostDetail } from '@Store/Posts';
