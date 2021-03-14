@@ -43,11 +43,19 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </ManageLayout>
                     </Route>
-                    <Route path={['/post/:slug_title/detail']}>
+                    <Route
+                        path={[
+                            '/posts/:slug_title/detail',
+                            '/tags/:slug_title/detail',
+                            '/scribble/:slug_title/detail',
+                            '/blog/:slug_title/detail',
+                            '/mingun/:slug_title/detail',
+                        ]}
+                    >
                         <ViewLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
                                 <Route
-                                    path={process.env.PUBLIC_URL + '/post/:slug_title/detail'}
+                                    path={process.env.PUBLIC_URL + '/posts/:slug_title/detail'}
                                     component={PostsDetailPage}
                                 />
                             </Switch>
