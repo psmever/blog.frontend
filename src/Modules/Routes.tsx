@@ -1,9 +1,7 @@
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { MainLayout } from '@MainLayouts';
-import { ViewLayout } from '@ViewLayouts';
-import { ManageLayout } from '@ManageLayouts';
-import { TestLayout } from '@TestLayouts';
+import { WriteLayout, MainLayout, ViewLayout, ManageLayout, TestLayout } from '@Layouts';
+
 import {
     TestPage,
     DevPage,
@@ -17,6 +15,7 @@ import {
     LogoutPage,
     LoadingPage,
     NotFoundPage,
+    WritePage,
 } from '@Pages';
 
 // FIXME: 2021-02-05 00:57  404 페이지, 서버 에러 페이지 퍼블리싱.
@@ -43,15 +42,14 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </ManageLayout>
                     </Route>
-                    <Route
-                        path={[
-                            '/posts/:slug_title/detail',
-                            '/tags/:slug_title/detail',
-                            '/scribble/:slug_title/detail',
-                            '/blog/:slug_title/detail',
-                            '/mingun/:slug_title/detail',
-                        ]}
-                    >
+                    <Route path={['/:write_gubun/write']}>
+                        <WriteLayout LayouType={{ layoutColor: 'view' }}>
+                            <Switch>
+                                <Route path={process.env.PUBLIC_URL + '/:write_gubun/write'} component={WritePage} />
+                            </Switch>
+                        </WriteLayout>
+                    </Route>
+                    <Route path={['/posts/:slug_title/detail', '/posts/detail']}>
                         <ViewLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
                                 <Route
