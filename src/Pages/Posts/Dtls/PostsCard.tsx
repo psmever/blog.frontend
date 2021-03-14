@@ -33,7 +33,7 @@ export default function PostsCard({ elementIndex, postData }: { elementIndex: nu
 
     const handleOnClickReadMore = () => {
         History.push({
-            pathname: process.env.PUBLIC_URL + `/post/${slug_title}/detail`,
+            pathname: process.env.PUBLIC_URL + `/posts/${slug_title}/detail`,
         });
     };
 
