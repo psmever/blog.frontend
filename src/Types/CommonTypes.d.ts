@@ -1,6 +1,12 @@
 declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
 
+    // 사가 기본 타입.
+    export interface SagaAction<T> {
+        type: SagaTypes;
+        payload: T;
+    }
+
     export type AccessTokenType = string;
     export interface LayouTypes {
         layoutColor: 'main' | 'view';
