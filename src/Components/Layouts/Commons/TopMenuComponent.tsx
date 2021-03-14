@@ -84,27 +84,47 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                 <LogoText layoutColor={LayouType.layoutColor}>NicePage</LogoText>
                 <MenuUList>
                     <MenuElement>
-                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickHomeLink()}>
+                        <MenuLink
+                            layoutColor={LayouType.layoutColor}
+                            menuActive={postGubun === 'posts' ? 'true' : 'false'}
+                            onClick={() => handleClickHomeLink()}
+                        >
                             홈
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickTagsLink()}>
+                        <MenuLink
+                            layoutColor={LayouType.layoutColor}
+                            menuActive={postGubun === 'tags' ? 'true' : 'false'}
+                            onClick={() => handleClickTagsLink()}
+                        >
                             태그들
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickScribbleLink()}>
+                        <MenuLink
+                            layoutColor={LayouType.layoutColor}
+                            menuActive={postGubun === 'scribble' ? 'true' : 'false'}
+                            onClick={() => handleClickScribbleLink()}
+                        >
                             끄적끄적
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickBlogsLink()}>
+                        <MenuLink
+                            layoutColor={LayouType.layoutColor}
+                            menuActive={postGubun === 'blog' ? 'true' : 'false'}
+                            onClick={() => handleClickBlogsLink()}
+                        >
                             블로그 소개
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
-                        <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickMingunLink()}>
+                        <MenuLink
+                            layoutColor={LayouType.layoutColor}
+                            menuActive={postGubun === 'mingun' ? 'true' : 'false'}
+                            onClick={() => handleClickMingunLink()}
+                        >
                             주인장은
                         </MenuLink>
                     </MenuElement>

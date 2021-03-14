@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { LayouTypes } from 'CommonTypes';
 
+export interface MenuActive {
+    Active: 'true' | 'false';
+}
+
 export const Default = styled.div``;
 
 export const Navi = styled.nav<LayouTypes>`
@@ -120,6 +124,17 @@ export const MenuLink = styled.div<LayouTypes>`
     border-radius: 3px;
     text-transform: uppercase;
     cursor: pointer;
+    background: ${({ layoutColor, menuActive }) => {
+        if (layoutColor === 'main') {
+            if (menuActive === 'true') {
+                return `#1b9bff`;
+            }
+        } else if (layoutColor === 'view') {
+            if (menuActive === 'true') {
+                return `#f1f1f1`;
+            }
+        }
+    }};
 
     /* &:active */
     &:hover {
