@@ -70,7 +70,8 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
         };
 
         if (pathName) {
-            setPagePathName(pathName.replace('/', ''));
+            const pathArray = pathName.split('/').filter(e => e);
+            setPagePathName(pathArray[0]);
         }
     }, [pathName]);
 
