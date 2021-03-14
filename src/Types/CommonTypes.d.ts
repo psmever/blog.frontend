@@ -119,4 +119,10 @@ declare module 'CommonTypes' {
         detail_created: string;
         detail_updated: string;
     }
+
+    export interface editorTagInterfaceItem {
+        id: string;
+        text: string;
+    }
+    export interface editorTagInterface extends Array<editorTagInterfaceItem> {}
 }
