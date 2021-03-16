@@ -5,6 +5,8 @@ export const WriteWrapper = styled.div`
         margin-left: 0;
     }
 
+    /* height: calc(100vh - 80px - 32px); */
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -17,9 +19,9 @@ export const WriteWrapper = styled.div`
 `;
 
 export const WriteBox = styled.article`
-    @media (min-width: 768px) {
-        padding: 1rem !important;
-    }
+    padding: 0rem !important;
+
+    height: calc(100vh - 0rem);
 
     font-size: 1rem;
     font-weight: 400;
@@ -32,6 +34,8 @@ export const WriteBox = styled.article`
 `;
 
 export const WriteContainer = styled.div`
+    height: 100%;
+
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -43,25 +47,30 @@ export const WriteContainer = styled.div`
 `;
 
 export const LeftEditorBox = styled.div`
+    height: 100%;
+
     @media (max-width: 1161px) {
         width: 100%;
     }
 
-    height: 100%;
+    /* height: calc(100vh); */
+    /* height: 100%; */
+
     width: 50%;
     /* position: fixed; */
     z-index: 1;
     top: 0;
     overflow-x: hidden;
-    padding-top: 0rem;
+    padding-top: 1rem;
     left: 0;
     background-color: rgb(255, 255, 255);
 `;
 
 export const WriteTitleBox = styled.div`
+    /* margin-bottom: 0.5rem; */
     @media (max-width: 767.98px) {
         width: 100%;
-        margin-bottom: 0.5rem;
+        /* margin-bottom: 0.5rem; */
     }
 
     @media (min-width: 576px) {
@@ -78,7 +87,7 @@ export const WriteTitleBox = styled.div`
 export const TagBox = styled.div`
     @media (max-width: 767.98px) {
         width: 100%;
-        margin-bottom: 0.5rem;
+        /* margin-bottom: 0.5rem; */
     }
 
     @media (min-width: 576px) {
@@ -90,7 +99,7 @@ export const TagBox = styled.div`
 
     text-align: left !important;
     box-sizing: border-box;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0rem;
     padding: 0.375rem 0.75rem;
 `;
 
@@ -112,6 +121,40 @@ export const MarkdownEditorBox = styled.div`
     text-align: center !important;
     box-sizing: border-box;
     padding: 0.375rem 0.75rem;
+`;
+
+export const ButtonBox = styled.div`
+    @media (max-width: 767.98px) {
+        width: 100%;
+        /* margin-bottom: 0.5rem; */
+    }
+
+    @media (min-width: 576px) {
+        display: flex;
+        flex: 0 0 auto;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    width: 100%;
+    max-width: 100%;
+    text-align: center !important;
+    box-sizing: border-box;
+    padding: 0rem 0.75rem;
+`;
+
+export const Buttons = styled.div`
+    /* border-style: dotted; */
+    /* border: 1px solid #c8ccd0; */
+    /* border-radius: 1px; */
+
+    /* height: 2.23rem; */
+    width: 100%;
+    max-width: 100%;
+    text-align: center !important;
+    box-sizing: border-box;
+    padding: 0.1rem 0rem;
+    display: flex;
 `;
 
 export const WriteTitleLabel = styled.label`
@@ -171,10 +214,11 @@ export const RightEditorPreviewBox = styled.div`
 
     /* padding-top: 10rem; */
     /* height: 70%; */
+    height: 100%;
     width: 50%;
     position: fixed;
     z-index: 1;
-    top: 4rem;
+    top: 0rem;
     overflow-x: hidden;
     padding-top: 20px;
     right: 0;

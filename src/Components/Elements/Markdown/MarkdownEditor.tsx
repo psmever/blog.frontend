@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { DimensionsResult } from 'CommonTypes';
 import axios from 'axios';
 import ReactMde, { Suggestion, SaveImageHandler } from 'react-mde'; // https://uiwjs.github.io/react-md-editor/
 import * as Showdown from 'showdown';
 import { getAccessToken } from '@Helper';
-import 'react-mde/lib/styles/css/react-mde-all.css';
 import _Alert_ from '@_Alert_';
-
-interface MarkdownEditorPros {
-    EditorContents: string;
-    EditorContentsHandler: (contents: string) => void;
-    EditorHeight: any;
-}
+import 'react-mde/lib/styles/css/react-mde-all.css';
 
 interface MarkdownImageUpload {
     status: boolean;
@@ -21,13 +16,21 @@ interface MarkdownImageUpload {
 export default function MarkdownEditor({
     EditorContents,
     EditorContentsHandler,
-    EditorHeight = 1000,
-}: MarkdownEditorPros) {
+    editBoxSizeState,
+}: {
+    EditorContents: string;
+    EditorContentsHandler: (contents: string) => void;
+    editBoxSizeState: DimensionsResult;
+}) {
     const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write');
+    const [editorHeight, setEditorHeight] = useState<{ min: number; max: number }>({
+        min: 0,
+        max: 0,
+    });
 
     // FIXME 2020-10-08 11:31 추천 단어 개발.
     const loadSuggestions = async (text: string) => {
-        return new Promise<Suggestion[]>((accept, reject) => {
+        return new Promise<Suggestion[]>(accept => {
             setTimeout(() => {
                 const suggestions: Suggestion[] = [
                     {
@@ -97,12 +100,34 @@ export default function MarkdownEditor({
         return true;
     };
 
+    useEffect(() => {
+        const setHeightsize = ({ width, height }: { width: number; height: number }) => {
+            if (width < 530) {
+                setEditorHeight({
+                    min: height - 290,
+                    max: height - 290,
+                });
+            } else {
+                setEditorHeight({
+                    min: height - 250,
+                    max: height - 250,
+                });
+            }
+        };
+
+        if (editBoxSizeState.state === 'success') {
+            setHeightsize(editBoxSizeState.data);
+        }
+
+        // setHeightsize(EditorSize);
+    }, [editBoxSizeState]);
+
     return (
-        <div className="container" style={{ width: '100%' }} key={EditorHeight}>
-            {EditorHeight > 0 && (
+        <div className="container" style={{ width: '100%', height: '100%' }} key={editorHeight.min}>
+            {editBoxSizeState.state === 'success' && (
                 <ReactMde
-                    minEditorHeight={EditorHeight - 300}
-                    maxEditorHeight={1000}
+                    minEditorHeight={editorHeight.min}
+                    maxEditorHeight={editorHeight.max}
                     value={EditorContents}
                     onChange={EditorContentsHandler}
                     selectedTab={selectedTab}
@@ -114,6 +139,7 @@ export default function MarkdownEditor({
                             tabIndex: -1,
                         },
                         textArea: {
+                            // eslint-disable-next-line @typescript-eslint/no-unused-vars
                             onKeyDown: e => {
                                 // FIXME 2020-10-08 13:17  TAB 키 개선(?)
                             },

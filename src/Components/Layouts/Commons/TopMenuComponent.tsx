@@ -14,7 +14,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
     }));
 
     const [loginDone, setLoginDone] = useState<boolean>(false);
-    const [postGubun, setPostGubun] = useState<string>('');
+    const [menuGubun, setMenuGubun] = useState<string>('');
 
     // 홈
     const handleClickHomeLink = () => {
@@ -52,7 +52,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     const handleClickPostWriteLink = () => {
         history.push({
-            pathname: `${process.env.PUBLIC_URL}/${postGubun}/write`,
+            pathname: `${process.env.PUBLIC_URL}/${menuGubun}/write`,
         });
     };
 
@@ -68,7 +68,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     useEffect(() => {
         const setPagePathName = (pathname: string) => {
-            setPostGubun(pathname);
+            setMenuGubun(pathname);
         };
 
         if (pathName) {
@@ -89,7 +89,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
-                            menuActive={postGubun === 'posts' ? 'true' : 'false'}
+                            menuActive={menuGubun === 'posts' ? 'true' : 'false'}
                             onClick={() => handleClickHomeLink()}
                         >
                             홈
@@ -98,7 +98,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
-                            menuActive={postGubun === 'tags' ? 'true' : 'false'}
+                            menuActive={menuGubun === 'tags' ? 'true' : 'false'}
                             onClick={() => handleClickTagsLink()}
                         >
                             태그들
@@ -107,7 +107,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
-                            menuActive={postGubun === 'scribble' ? 'true' : 'false'}
+                            menuActive={menuGubun === 'scribble' ? 'true' : 'false'}
                             onClick={() => handleClickScribbleLink()}
                         >
                             끄적끄적
@@ -116,7 +116,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
-                            menuActive={postGubun === 'blog' ? 'true' : 'false'}
+                            menuActive={menuGubun === 'blog' ? 'true' : 'false'}
                             onClick={() => handleClickBlogsLink()}
                         >
                             블로그 소개
@@ -125,7 +125,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
-                            menuActive={postGubun === 'mingun' ? 'true' : 'false'}
+                            menuActive={menuGubun === 'mingun' ? 'true' : 'false'}
                             onClick={() => handleClickMingunLink()}
                         >
                             주인장은

@@ -1,5 +1,19 @@
 declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
+    export type PostsGubunItem = 'posts' | 'scribble' | 'blog' | 'mingun';
+
+    export interface editorTagsItem {
+        id: string;
+        text: string;
+    }
+
+    export interface DimensionsResult {
+        state: 'loading' | 'success' | 'error';
+        data: {
+            width: number;
+            height: number;
+        };
+    }
 
     // 사가 기본 타입.
     export interface SagaAction<T> {
@@ -120,9 +134,15 @@ declare module 'CommonTypes' {
         detail_updated: string;
     }
 
-    export interface editorTagInterfaceItem {
+    export interface EditorTagsItem {
         id: string;
         text: string;
     }
-    export interface editorTagInterface extends Array<editorTagInterfaceItem> {}
+    export interface EditorTag extends Array<EditorTagsItem> {}
+
+    export interface EditorData {
+        title: string;
+        tags: editorTagItem[];
+        content: string;
+    }
 }
