@@ -47,6 +47,11 @@ declare module 'StoreTypes' {
                 tags: [] | editorTagsItem[];
                 content: string;
             };
+            contentsGubun: {
+                post_uuid: string;
+                slug_title: string;
+            };
+            buttonAction: PostButtonAction;
         };
     }
 

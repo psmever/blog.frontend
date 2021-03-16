@@ -1,6 +1,7 @@
 declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
     export type PostsGubunItem = 'posts' | 'scribble' | 'blog' | 'mingun';
+    export type PostButtonAction = 'idle' | 'exit' | 'save' | 'publish';
 
     export interface editorTagsItem {
         id: string;

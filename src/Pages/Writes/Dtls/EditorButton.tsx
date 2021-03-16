@@ -1,30 +1,38 @@
 import React from 'react';
-import { RootState } from 'StoreTypes';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { changePostButtonAction } from '@Store/Posts';
 
 import { ButtonBox, Buttons } from '@Style/WrtePageStyle';
 import { EditorActionButton } from '@Element/Buttons';
 
 export default function EditorButton() {
-    const { ContentsGubun } = useSelector((store: RootState) => ({
-        ContentsGubun: store.posts.contents.gubun,
-    }));
+    const dispatch = useDispatch();
 
-    const history = useHistory();
-
+    // 글 등록 하단 나가기 버튼 처리.
     const handleClickExitButton = () => {
-        history.push({
-            pathname: process.env.PUBLIC_URL + `/${ContentsGubun}`,
-        });
+        dispatch(
+            changePostButtonAction({
+                buttonAction: 'exit',
+            })
+        );
     };
 
+    // 글 등록 하단 저장 버튼 처리.
     const handleClickSaveButton = () => {
-        console.debug('handleClickSaveButton');
+        dispatch(
+            changePostButtonAction({
+                buttonAction: 'save',
+            })
+        );
     };
 
+    // 글 등록 하단 개시 버튼 처리.
     const handleClickPublishButton = () => {
-        console.debug('handleClickPublishButton');
+        dispatch(
+            changePostButtonAction({
+                buttonAction: 'publish',
+            })
+        );
     };
 
     return (

@@ -9,6 +9,7 @@ import {
     WeatherResult,
     CovidResult,
     PostDetailResult,
+    PostRequest,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -72,21 +73,20 @@ export const getPostDetail = ({ slugTitle }: { slugTitle: string }): Promise<Ser
     return _Axios_({ method: 'get', url: `/api/v1/post/${slugTitle}/detail`, payload: { data: {} } });
 };
 
-// /**
-//  * 글 저장
-//  * @param payload
-//  */
-// export function postCreate(
-//     payload: PostRequestInterface
-// ): Promise<
-//     ServerReturnInterface<{
-//         post_uuid: string;
-//         slug_title: string;
-//     }>
-// > {
-//     // return _Axios_.post('/api/v1/post', payload);
-//     return _Axios_({ method: 'post', url: '/api/v1/post', payload: payload });
-// }
+/**
+ * 글 저장
+ * @param payload
+ */
+export function postCreate(
+    payload: PostRequest
+): Promise<
+    ServerDefaultResult<{
+        post_uuid: string;
+        slug_title: string;
+    }>
+> {
+    return _Axios_({ method: 'post', url: '/api/v1/post', payload: payload });
+}
 
 // /**
 //  * 글 보기 ( 수정용 )
@@ -96,13 +96,20 @@ export const getPostDetail = ({ slugTitle }: { slugTitle: string }): Promise<Ser
 //     return _Axios_({ method: 'get', url: `/api/v1/post/${post_uuid}/edit`, payload: { data: {} } });
 // }
 
-// /**
-//  * 글 게시.
-//  * @param post_uuid
-//  */
-// export function postPublish(post_uuid: string): Promise<ServerReturnInterface<any>> {
-//     return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/publish`, payload: { data: {} } });
-// }
+/**
+ * 글 게시.
+ * @param post_uuid
+ */
+export function postPublish(
+    post_uuid: string
+): Promise<
+    ServerDefaultResult<{
+        post_uuid: string;
+        slug_title: string;
+    }>
+> {
+    return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/publish`, payload: { data: {} } });
+}
 
 // // 글 수정.
 // export function postUpdate({
