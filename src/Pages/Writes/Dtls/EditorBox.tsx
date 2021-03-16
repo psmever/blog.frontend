@@ -1,104 +1,103 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { DimensionsResult, EditorData } from 'CommonTypes';
+import { RootState } from 'StoreTypes';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePostContents } from '@Store/Posts';
 import { WriteTitleBox, WriteTitleLabel, WriteTitle, TagBox, MarkdownEditorBox } from '@Style/WrtePageStyle';
 import MarkdownEditor from '@Element/Markdown/MarkdownEditor';
-import TagsInput from 'react-tagsinput';
+import ReactTagsinput from 'react-tagsinput';
 
 import '@Style/ReactTagStyle.css';
-// import { editorTagInterface } from 'CommonTypes';
 
 // https://github.com/olahol/react-tagsinput
-export default function EditorBox({ editorBoxSize }: { editorBoxSize: { width: number; height: number } }) {
-    const inputRef = useRef<HTMLInputElement>(null);
+export default function EditorBox({ editBoxSizeState }: { editBoxSizeState: DimensionsResult }) {
+    const ContentsState = useSelector((store: RootState) => store.posts.contents.state);
+
+    const { contentsInfo } = useSelector((store: RootState) => ({
+        contentsInfo: store.posts.contents.info,
+    }));
+
+    const dispatch = useDispatch();
 
     const titleInputRef = useRef<HTMLInputElement>(null);
 
-    const [editorTitle, setEditorTitle] = useState<string>('');
-    const [tagsData, setTagsData] = useState<string[]>([]);
     const [tagData, setTagData] = useState<string>('');
 
-    const handleChangesTags = useCallback((e: any) => {
-        setTagsData(e);
-    }, []);
+    const [editorData, setEditorData] = useState<EditorData>({
+        title: '',
+        tags: [],
+        content: '',
+    });
 
-    const handleChangesTagsinput = useCallback((e: any) => {
+    const handleChangesTag = useCallback((e: any) => {
         setTagData(e);
     }, []);
 
-    const handleEditorContents = (e: any) => {
-        console.log(e);
-    };
-
     useEffect(() => {
-        console.log({
-            tagsData: tagsData,
-            tagData: tagData,
-        });
-    }, [tagsData, tagData]);
+        const setStorePostContent = (element: EditorData) => {
+            dispatch(
+                changePostContents({
+                    ...contentsInfo,
+                    title: element.title,
+                    tags: element.tags,
+                    content: element.content,
+                })
+            );
+        };
 
-    useEffect(() => {
-        console.log(editorBoxSize);
-    }, [editorBoxSize]);
+        setStorePostContent(editorData);
+    }, [editorData]);
 
     return (
-        <div ref={inputRef}>
-            <WriteTitleBox>
-                <WriteTitleLabel htmlFor="writeTitle">
-                    <WriteTitle
-                        type="text"
-                        ref={titleInputRef}
-                        placeholder="제목을 입력해 주세요."
-                        value={editorTitle}
-                        onChange={e => setEditorTitle(e.target.value)}
-                    />
-                </WriteTitleLabel>
-            </WriteTitleBox>
-            <TagBox>
-                <TagsInput
-                    value={tagsData}
-                    onChange={handleChangesTags}
-                    inputValue={tagData}
-                    onChangeInput={handleChangesTagsinput}
-                    inputProps={{
-                        placeholder: '테그를 입력해 주세요.',
-                    }}
-                />
-            </TagBox>
-            <MarkdownEditorBox>
-                <MarkdownEditor EditorContents={``} EditorContentsHandler={handleEditorContents} EditorHeight={926} />
-            </MarkdownEditorBox>
-        </div>
+        <>
+            {ContentsState === 'ready' && (
+                <>
+                    <WriteTitleBox>
+                        <WriteTitleLabel htmlFor="writeTitle">
+                            <WriteTitle
+                                type="text"
+                                ref={titleInputRef}
+                                placeholder="제목을 입력해 주세요."
+                                value={editorData.title}
+                                onChange={e => {
+                                    setEditorData({
+                                        ...editorData,
+                                        title: e.target.value,
+                                    });
+                                }}
+                            />
+                        </WriteTitleLabel>
+                    </WriteTitleBox>
+                    <TagBox>
+                        <ReactTagsinput
+                            value={editorData.tags}
+                            onChange={e => {
+                                setEditorData({
+                                    ...editorData,
+                                    tags: e,
+                                });
+                            }}
+                            inputValue={tagData}
+                            onChangeInput={handleChangesTag}
+                            inputProps={{
+                                placeholder: '태그를 입력해 주세요.',
+                            }}
+                        />
+                    </TagBox>
+                    <MarkdownEditorBox>
+                        <MarkdownEditor
+                            EditorContents={editorData.content}
+                            EditorContentsHandler={e => {
+                                setEditorData({
+                                    ...editorData,
+                                    content: e,
+                                });
+                            }}
+                            editBoxSizeState={editBoxSizeState}
+                        />
+                    </MarkdownEditorBox>
+                </>
+            )}
+        </>
     );
 }
-
-/**
-
-const [editorTagSuggestions, setEditorTagSuggestions] = useState<editorTagInterface>([
-        { id: 'Develop', text: 'Develop' },
-        { id: 'Linux', text: 'Linux' },
-        { id: 'Javascript', text: 'Javascript' },
-        { id: 'PHP', text: 'PHP' },
-    ]);
-    const handleTagDelete = (e: any) => {
-        setEditorTagContents(editorTagContents.filter((tag, index) => index !== e));
-    };
-
-    const handleTagAddition = (e: any) => {
-        setEditorTagContents([...editorTagContents, e]);
-    };
-
-    const handleTagDrag = (tag: any, currPos: any, newPos: any) => {
-        const tags = [...editorTagContents];
-        const newTags = tags.slice();
-
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
-
-        setEditorTagContents(newTags);
-    };
-    const delimiters = [KeyCodes.comma, KeyCodes.enter];
-    const handleTagClick = (e: any) => {
-        console.debug('TagClick : ', editorTagContents[e]);
-    };
-
-
- */

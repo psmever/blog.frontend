@@ -1,5 +1,5 @@
 import { createReducer } from 'typesafe-actions';
-import { SagaAction } from 'CommonTypes';
+import { SagaAction, EditorData } from 'CommonTypes';
 import produce from 'immer';
 import { PostList } from 'ServiceTypes';
 import { PostDetailItem } from 'CommonTypes';
@@ -11,6 +11,9 @@ import {
     GET_POST_DETAIL,
     GET_POST_DETAIL_SUCCESS,
     GET_POST_DETAIL_FAILURE,
+    CHANGE_POST_GUBUN,
+    CHANGE_POST_CONTENTS,
+    CLEAR_POST_CONTENTS,
 } from './actions';
 
 // 스토어 init.
@@ -26,6 +29,15 @@ const initialState: PostsState = {
         state: 'idle',
         message: '',
         info: {},
+    },
+    contents: {
+        state: 'idle',
+        gubun: '',
+        info: {
+            title: '',
+            tags: [],
+            content: '',
+        },
     },
 };
 
@@ -53,25 +65,43 @@ export const PostsSagaReducer = createReducer<PostsState>(initialState, {
             draft.list.message = action.payload.message;
         });
     },
-    // 글정보 가지고 오기
+    // 글 내용 가지고 오기
     [GET_POST_DETAIL]: (state: PostsState) => {
         return produce(state, draft => {
             draft.detail.state = 'loading';
         });
     },
-    // 글정보 가지고 오기 성공.
+    // 글 내용 가지고 오기 성공.
     [GET_POST_DETAIL_SUCCESS]: (state: PostsState, action: SagaAction<PostDetailItem>) => {
         return produce(state, draft => {
             draft.detail.state = 'success';
             draft.detail.info = action.payload;
         });
     },
-    // 글정보 가지고 오기 실패.
+    // 글 내용 가지고 오기 실패.
     [GET_POST_DETAIL_FAILURE]: (state: PostsState, action: SagaAction<{ message: string }>) => {
         return produce(state, draft => {
             draft.detail.state = 'failure';
             draft.detail.info = initialState.detail.info;
             draft.detail.message = action.payload.message;
+        });
+    },
+
+    // 글 구분 처리.
+    [CLEAR_POST_CONTENTS]: (state: PostsState) => {
+        return produce(state, draft => {
+            draft.contents = initialState.contents;
+        });
+    },
+    [CHANGE_POST_GUBUN]: (state: PostsState, action: SagaAction<{ gubun: string }>) => {
+        return produce(state, draft => {
+            draft.contents.state = 'ready';
+            draft.contents.gubun = action.payload.gubun;
+        });
+    },
+    [CHANGE_POST_CONTENTS]: (state: PostsState, action: SagaAction<EditorData>) => {
+        return produce(state, draft => {
+            draft.contents.info = action.payload;
         });
     },
 });

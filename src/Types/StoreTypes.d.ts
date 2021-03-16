@@ -39,6 +39,15 @@ declare module 'StoreTypes' {
             message: string;
             info: PostDetailItem;
         };
+        contents: {
+            state: 'idle' | 'ready';
+            gubun: PostsGubunItem;
+            info: {
+                title: string;
+                tags: [] | editorTagsItem[];
+                content: string;
+            };
+        };
     }
 
     export interface SpecialtyState {
