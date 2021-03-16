@@ -37,6 +37,7 @@ export default function Write() {
         }
     }, [pathName]);
 
+    // TODO: 2021-03-17 00:19 글 수정 처리및, 등록 중인 포스트 보여 주기 추라.
     useEffect(() => {
         const doWritePageAction = (buttonAction: PostButtonAction) => {
             if (buttonAction === 'exit') {
@@ -55,6 +56,8 @@ export default function Write() {
                 }).then(result => {
                     if (result.isConfirmed) {
                         postSaveAction();
+                    } else {
+                        dispatch(clearPostButtonAction());
                     }
                 });
             } else if (buttonAction === 'publish') {
@@ -69,6 +72,8 @@ export default function Write() {
                 }).then(result => {
                     if (result.isConfirmed) {
                         postSaveAction();
+                    } else {
+                        dispatch(clearPostButtonAction());
                     }
                 });
             }
@@ -90,7 +95,7 @@ export default function Write() {
                     })
                 );
             }
-            Swal.fire('저장되었습니다.', '', 'success');
+            Swal.fire('처리 되었습니다.', '', 'success');
         } else if (postActionState.state === 'failure') {
             Swal.fire({
                 icon: 'error',
