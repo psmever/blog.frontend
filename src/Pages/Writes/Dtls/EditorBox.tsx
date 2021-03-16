@@ -1,38 +1,46 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { WriteTitleBox, WriteTitleLabel, WriteTitle, TagBox } from '@Style/WrtePageStyle';
-// import MarkdownEditor from '@Element/Markdown/MarkdownEditor';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { WriteTitleBox, WriteTitleLabel, WriteTitle, TagBox, MarkdownEditorBox } from '@Style/WrtePageStyle';
+import MarkdownEditor from '@Element/Markdown/MarkdownEditor';
 import TagsInput from 'react-tagsinput';
 
 import '@Style/ReactTagStyle.css';
 // import { editorTagInterface } from 'CommonTypes';
 
 // https://github.com/olahol/react-tagsinput
-export default function EditorBox() {
+export default function EditorBox({ editorBoxSize }: { editorBoxSize: { width: number; height: number } }) {
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const titleInputRef = useRef<HTMLInputElement>(null);
 
     const [editorTitle, setEditorTitle] = useState<string>('');
+    const [tagsData, setTagsData] = useState<string[]>([]);
+    const [tagData, setTagData] = useState<string>('');
 
-    // const [editorTagContents, setEditorTagContents] = useState<editorTagInterface>([]);
+    const handleChangesTags = useCallback((e: any) => {
+        setTagsData(e);
+    }, []);
 
-    const [tagsData, setTagsData] = useState({ tags: [] });
-    // const [tagData, setTagData] = useState('');
+    const handleChangesTagsinput = useCallback((e: any) => {
+        setTagData(e);
+    }, []);
 
-    const handleChangesTags = (e: any) => {
+    const handleEditorContents = (e: any) => {
         console.log(e);
-        setTagsData({ tags: e });
     };
 
-    // const handleChangesTagsinput = (e: any) => {
-    //     console.log(e);
-    //     setTagData(e);
-    // };
+    useEffect(() => {
+        console.log({
+            tagsData: tagsData,
+            tagData: tagData,
+        });
+    }, [tagsData, tagData]);
 
     useEffect(() => {
-        console.log(tagsData);
-    }, [tagsData]);
+        console.log(editorBoxSize);
+    }, [editorBoxSize]);
 
     return (
-        <>
+        <div ref={inputRef}>
             <WriteTitleBox>
                 <WriteTitleLabel htmlFor="writeTitle">
                     <WriteTitle
@@ -46,13 +54,19 @@ export default function EditorBox() {
             </WriteTitleBox>
             <TagBox>
                 <TagsInput
-                    value={tagsData.tags}
+                    value={tagsData}
                     onChange={handleChangesTags}
-                    // inputValue={tagData}
-                    // onChangeInput={handleChangesTagsinput}
+                    inputValue={tagData}
+                    onChangeInput={handleChangesTagsinput}
+                    inputProps={{
+                        placeholder: '테그를 입력해 주세요.',
+                    }}
                 />
             </TagBox>
-        </>
+            <MarkdownEditorBox>
+                <MarkdownEditor EditorContents={``} EditorContentsHandler={handleEditorContents} EditorHeight={926} />
+            </MarkdownEditorBox>
+        </div>
     );
 }
 

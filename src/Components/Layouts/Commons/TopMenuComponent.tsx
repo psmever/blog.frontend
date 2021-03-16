@@ -51,7 +51,9 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
     };
 
     const handleClickPostWriteLink = () => {
-        console.debug(`handleClickPostWriteLink ${postGubun}`);
+        history.push({
+            pathname: `${process.env.PUBLIC_URL}/${postGubun}/write`,
+        });
     };
 
     useEffect(() => {
