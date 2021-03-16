@@ -2,7 +2,7 @@ import { createReducer } from 'typesafe-actions';
 import { SagaAction, EditorData } from 'CommonTypes';
 import produce from 'immer';
 import { PostList } from 'ServiceTypes';
-import { PostDetailItem } from 'CommonTypes';
+import { PostDetailItem, PostButtonAction } from 'CommonTypes';
 import { PostsState } from 'StoreTypes';
 import {
     GET_POSTS,
@@ -14,6 +14,9 @@ import {
     CHANGE_POST_GUBUN,
     CHANGE_POST_CONTENTS,
     CLEAR_POST_CONTENTS,
+    CHANGE_POST_BUTTON_ACTION,
+    CLEAR_POST_BUTTON_ACTION,
+    CHANGE_POST_CONTENTS_GUBUN,
 } from './actions';
 
 // 스토어 init.
@@ -38,6 +41,11 @@ const initialState: PostsState = {
             tags: [],
             content: '',
         },
+        contentsGubun: {
+            post_uuid: '',
+            slug_title: '',
+        },
+        buttonAction: 'idle',
     },
 };
 
@@ -93,15 +101,37 @@ export const PostsSagaReducer = createReducer<PostsState>(initialState, {
             draft.contents = initialState.contents;
         });
     },
+    // 글 구분 값 처리.
     [CHANGE_POST_GUBUN]: (state: PostsState, action: SagaAction<{ gubun: string }>) => {
         return produce(state, draft => {
             draft.contents.state = 'ready';
             draft.contents.gubun = action.payload.gubun;
         });
     },
+    // 글 정보 변경 처리.
     [CHANGE_POST_CONTENTS]: (state: PostsState, action: SagaAction<EditorData>) => {
         return produce(state, draft => {
             draft.contents.info = action.payload;
+        });
+    },
+    // 글 등록 버튼 액션 구분.
+    [CHANGE_POST_BUTTON_ACTION]: (state: PostsState, action: SagaAction<{ buttonAction: PostButtonAction }>) => {
+        return produce(state, draft => {
+            draft.contents.buttonAction = action.payload.buttonAction;
+        });
+    },
+    [CLEAR_POST_BUTTON_ACTION]: (state: PostsState) => {
+        return produce(state, draft => {
+            draft.contents.buttonAction = initialState.contents.buttonAction;
+        });
+    },
+    [CHANGE_POST_CONTENTS_GUBUN]: (
+        state: PostsState,
+        action: SagaAction<{ post_uuid: string; slug_title: string }>
+    ) => {
+        return produce(state, draft => {
+            draft.contents.contentsGubun.post_uuid = action.payload.post_uuid;
+            draft.contents.contentsGubun.slug_title = action.payload.slug_title;
         });
     },
 });

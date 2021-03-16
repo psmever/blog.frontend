@@ -40,4 +40,14 @@ declare module 'ServiceTypes' {
     export type CovidResult = CovidItem[];
 
     export type PostDetailResult = PostDetailItem;
+
+    // 글등록 인터페이스.
+    export interface PostRequest {
+        title: string;
+        tags: EditorTagsItem[];
+        contents: {
+            html: string;
+            text: string;
+        };
+    }
 }
