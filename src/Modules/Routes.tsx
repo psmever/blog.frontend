@@ -15,7 +15,7 @@ import {
     LogoutPage,
     LoadingPage,
     NotFoundPage,
-    WritePage,
+    PostsWritePage,
 } from '@Pages';
 
 // FIXME: 2021-02-05 00:57  404 페이지, 서버 에러 페이지 퍼블리싱.
@@ -52,14 +52,14 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </ViewLayout>
                     </Route>
-                    <Route path={['/:write_gubun/write', '/:write_gubun/:post_uuid/:write_mode']}>
+                    <Route path={['/posts/write', '/posts/:post_uuid/:write_mode']}>
                         <WriteLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
                                 <Route
-                                    path={process.env.PUBLIC_URL + '/:write_gubun/:post_uuid/:write_mode'}
-                                    component={WritePage}
+                                    path={process.env.PUBLIC_URL + '/posts/:post_uuid/:write_mode'}
+                                    component={PostsWritePage}
                                 />
-                                <Route path={process.env.PUBLIC_URL + '/:write_gubun/write'} component={WritePage} />
+                                <Route path={process.env.PUBLIC_URL + '/posts/write'} component={PostsWritePage} />
                             </Switch>
                         </WriteLayout>
                     </Route>

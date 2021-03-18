@@ -42,7 +42,6 @@ declare module 'StoreTypes' {
         };
         contents: {
             state: 'idle' | 'loading' | 'ready';
-            gubun: PostsGubunItem;
             info: {
                 title: string;
                 tags: [] | editorTagsItem[];
