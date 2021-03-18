@@ -58,7 +58,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
         // 게시전 글이 있다면 선택후 수정 페이지로 이동.
         const checkPostsWaitingList = async () => {
             const waitingPost = await postWaitingList();
-            if (waitingPost.status === true && waitingPost.payload.length > 0) {
+            if (waitingPost.status === true && !isEmpty(waitingPost.payload) && waitingPost.payload.length > 0) {
                 const selectBoxOptions = waitingPost.payload.map(e => {
                     return e.post_title;
                 });

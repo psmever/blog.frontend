@@ -76,8 +76,10 @@ export default function EditorBox({
             );
         };
 
-        if (writeMode === 'edit' && detailState === 'success') {
-            editDataSet();
+        if (writeMode === 'edit') {
+            if (detailState === 'success') {
+                editDataSet();
+            }
         }
     }, [detailState, writeMode]);
 

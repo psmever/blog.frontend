@@ -18,4 +18,4 @@ export { default as LogoutPage } from './Auths/LogoutPage';
 export { default as LoadingPage } from './Defaults/LoadingPage';
 export { default as NotFoundPage } from './NotFoundPage';
 
-export { default as WritePage } from './Writes/WritePage';
+export { default as PostsWritePage } from './Posts/PostsWritePage';

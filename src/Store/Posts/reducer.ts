@@ -11,7 +11,6 @@ import {
     GET_POST_DETAIL,
     GET_POST_DETAIL_SUCCESS,
     GET_POST_DETAIL_FAILURE,
-    CHANGE_POST_GUBUN,
     CHANGE_POST_CONTENTS,
     CLEAR_POST_CONTENTS,
     CLEAR_POST_DETAIL,
@@ -22,6 +21,7 @@ import {
     GET_POST_EDIT_SUCCESS,
     GET_POST_EDIT_FAILURE,
     CLEAR_POST_CONTENTS_INFO,
+    CLEAR_POST_CONTENTS_STATE,
 } from './actions';
 
 // 스토어 init.
@@ -73,7 +73,6 @@ const initialState: PostsState = {
     },
     contents: {
         state: 'idle',
-        gubun: '',
         info: {
             title: '',
             tags: [],
@@ -151,11 +150,16 @@ export const PostsSagaReducer = createReducer<PostsState>(initialState, {
             draft.contents.info = initialState.contents.info;
         });
     },
-    // 글 구분 값 처리.
-    [CHANGE_POST_GUBUN]: (state: PostsState, action: SagaAction<{ gubun: string }>) => {
+    // 글 정보 변경 처리.
+    [CLEAR_POST_CONTENTS_STATE]: (state: PostsState, action: SagaAction<{ state: 'idle' | 'loading' | 'ready' }>) => {
         return produce(state, draft => {
-            draft.contents.state = 'ready';
-            draft.contents.gubun = action.payload.gubun;
+            draft.contents.state = action.payload.state;
+        });
+    },
+    // 글 정보 변경 처리.
+    [CHANGE_POST_CONTENTS]: (state: PostsState, action: SagaAction<EditorData>) => {
+        return produce(state, draft => {
+            draft.contents.info = action.payload;
         });
     },
     // 글 정보 변경 처리.
