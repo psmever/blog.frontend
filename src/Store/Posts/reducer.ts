@@ -1,5 +1,5 @@
 import { createReducer } from 'typesafe-actions';
-import { SagaAction, EditorData } from 'CommonTypes';
+import { SagaAction, EditorData, DefaultPostSaveResult } from 'CommonTypes';
 import produce from 'immer';
 import { PostList } from 'ServiceTypes';
 import { PostDetailItem, PostButtonAction } from 'CommonTypes';
@@ -14,9 +14,14 @@ import {
     CHANGE_POST_GUBUN,
     CHANGE_POST_CONTENTS,
     CLEAR_POST_CONTENTS,
+    CLEAR_POST_DETAIL,
     CHANGE_POST_BUTTON_ACTION,
     CLEAR_POST_BUTTON_ACTION,
     CHANGE_POST_CONTENTS_GUBUN,
+    GET_POST_EDIT,
+    GET_POST_EDIT_SUCCESS,
+    GET_POST_EDIT_FAILURE,
+    CLEAR_POST_CONTENTS_INFO,
 } from './actions';
 
 // 스토어 init.
@@ -31,7 +36,40 @@ const initialState: PostsState = {
         slug_title: '',
         state: 'idle',
         message: '',
-        info: {},
+        info: {
+            post_uuid: '',
+            user: {
+                user_uuid: '',
+                user_type: {
+                    code_id: '',
+                    code_name: '',
+                },
+                user_level: {
+                    code_id: '',
+                    code_name: '',
+                },
+                name: '',
+                nickname: '',
+                email: '',
+                active: 'N',
+            },
+            post_title: '',
+            slug_title: '',
+            contents_html: '',
+            contents_text: '',
+            markdown: 'N',
+            tags: [
+                {
+                    tag_id: '',
+                    tag_text: '',
+                },
+            ],
+            view_count: 0,
+            post_active: 'N',
+            post_publish: 'N',
+            detail_created: '',
+            detail_updated: '',
+        },
     },
     contents: {
         state: 'idle',
@@ -44,6 +82,8 @@ const initialState: PostsState = {
         contentsGubun: {
             post_uuid: '',
             slug_title: '',
+            post_active: 'N',
+            post_publish: 'N',
         },
         buttonAction: 'idle',
     },
@@ -101,6 +141,16 @@ export const PostsSagaReducer = createReducer<PostsState>(initialState, {
             draft.contents = initialState.contents;
         });
     },
+    [CLEAR_POST_DETAIL]: (state: PostsState) => {
+        return produce(state, draft => {
+            draft.detail = initialState.detail;
+        });
+    },
+    [CLEAR_POST_CONTENTS_INFO]: (state: PostsState) => {
+        return produce(state, draft => {
+            draft.contents.info = initialState.contents.info;
+        });
+    },
     // 글 구분 값 처리.
     [CHANGE_POST_GUBUN]: (state: PostsState, action: SagaAction<{ gubun: string }>) => {
         return produce(state, draft => {
@@ -120,18 +170,48 @@ export const PostsSagaReducer = createReducer<PostsState>(initialState, {
             draft.contents.buttonAction = action.payload.buttonAction;
         });
     },
+    // 버튼 모드 클리어.
     [CLEAR_POST_BUTTON_ACTION]: (state: PostsState) => {
         return produce(state, draft => {
             draft.contents.buttonAction = initialState.contents.buttonAction;
         });
     },
-    [CHANGE_POST_CONTENTS_GUBUN]: (
-        state: PostsState,
-        action: SagaAction<{ post_uuid: string; slug_title: string }>
-    ) => {
+    // 글쓰기 모드에서 저장 눌렀을 경우 수정모드 처리 위해.
+    [CHANGE_POST_CONTENTS_GUBUN]: (state: PostsState, action: SagaAction<DefaultPostSaveResult>) => {
         return produce(state, draft => {
+            draft.contents.contentsGubun = action.payload;
+        });
+    },
+    // 글 상세 정보 가지고 오기 로딩 처리.
+    [GET_POST_EDIT]: (state: PostsState) => {
+        return produce(state, draft => {
+            draft.detail.state = 'loading';
+        });
+    },
+    // 수정 모드 일때 각 Store 정보들 업데이트 처리.
+    [GET_POST_EDIT_SUCCESS]: (state: PostsState, action: SagaAction<PostDetailItem>) => {
+        return produce(state, draft => {
+            draft.detail.state = 'success';
+            draft.contents.state = 'ready';
+
+            draft.detail.info = action.payload;
+
             draft.contents.contentsGubun.post_uuid = action.payload.post_uuid;
             draft.contents.contentsGubun.slug_title = action.payload.slug_title;
+            draft.contents.contentsGubun.post_active = action.payload.post_active;
+            draft.contents.contentsGubun.post_publish = action.payload.post_publish;
+
+            draft.contents.info.title = action.payload.post_title;
+            draft.contents.info.tags = action.payload.tags;
+            draft.contents.info.content = action.payload.contents_text;
+        });
+    },
+    // 수정 모드 일때 정보 가지고 오기 실패.
+    [GET_POST_EDIT_FAILURE]: (state: PostsState, action: SagaAction<{ message: string }>) => {
+        return produce(state, draft => {
+            draft.detail.state = 'failure';
+            draft.detail.info = initialState.detail.info;
+            draft.detail.message = action.payload.message;
         });
     },
 });

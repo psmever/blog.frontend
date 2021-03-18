@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from '@Helper';
-import { getPostDetail } from '@Store/Posts';
+import { getPostDetail, clearPostContents, clearPostDetail } from '@Store/Posts';
 import { PostDetailItem, TagItem } from 'CommonTypes';
 import {
     PostDetailBox,
@@ -11,12 +11,14 @@ import {
     HeaderTitle,
     HeaderMeta,
     HeaderDate,
+    ModifyButton,
     PostTag,
     PostTagMeta,
     PostTags,
     PostTagsItems,
     PostTagsItem,
 } from '@Style/PostDetailStyles';
+import { PostEditButton } from '@Element/Buttons';
 import MarkdownRender from '@Element/Markdown/MarkdownRender';
 
 interface RouteParams {
@@ -31,12 +33,12 @@ const initPostInfo = {
 };
 
 export default function PostDetail() {
-    const dispatch = useDispatch();
-    const parmas = useParams<RouteParams>();
-
     const { detailInfo } = useSelector((store: RootState) => ({
         detailInfo: store.posts.detail.info,
     }));
+
+    const dispatch = useDispatch();
+    const parmas = useParams<RouteParams>();
 
     const [postInfo, setPostInfo] = useState<{
         post_title: string;
@@ -44,6 +46,8 @@ export default function PostDetail() {
         tags: TagItem[];
         contents_text: string;
     }>(initPostInfo);
+
+    const [editButtonLink, SetEditButtonLink] = useState<string>(``);
 
     useEffect(() => {
         const getPostDeailtInfo = (slug_title: string) => {
@@ -63,6 +67,8 @@ export default function PostDetail() {
                 tags: info.tags,
                 contents_text: info.contents_text,
             });
+
+            SetEditButtonLink(`/posts/${detailInfo.post_uuid}/edit`);
         };
 
         if (!isEmpty(detailInfo)) {
@@ -74,6 +80,14 @@ export default function PostDetail() {
         // console.log('details');
     }, []);
 
+    useEffect(() => {
+        return () => {
+            // 나갈때 초기화.
+            dispatch(clearPostContents());
+            dispatch(clearPostDetail());
+        };
+    }, []);
+
     return (
         <>
             <PostDetailBox>
@@ -81,6 +95,9 @@ export default function PostDetail() {
                     <HeaderTitle>{postInfo.post_title}</HeaderTitle>
                     <HeaderMeta>
                         <HeaderDate>{postInfo.detail_created}</HeaderDate>
+                        <ModifyButton>
+                            <PostEditButton EditLink={editButtonLink} />
+                        </ModifyButton>
                     </HeaderMeta>
                 </Header>
                 <PostTag>
@@ -89,8 +106,8 @@ export default function PostDetail() {
                             {postInfo.tags.map((element, n) => {
                                 return (
                                     <PostTagsItems key={n}>
-                                        <PostTagsItem onClick={() => console.debug(element.text)}>
-                                            {element.text}
+                                        <PostTagsItem onClick={() => console.debug(element.tag_text)}>
+                                            {element.tag_text}
                                         </PostTagsItem>
                                     </PostTagsItems>
                                 );

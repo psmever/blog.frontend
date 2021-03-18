@@ -42,13 +42,6 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </ManageLayout>
                     </Route>
-                    <Route path={['/:write_gubun/write']}>
-                        <WriteLayout LayouType={{ layoutColor: 'view' }}>
-                            <Switch>
-                                <Route path={process.env.PUBLIC_URL + '/:write_gubun/write'} component={WritePage} />
-                            </Switch>
-                        </WriteLayout>
-                    </Route>
                     <Route path={['/posts/:slug_title/detail', '/posts/detail']}>
                         <ViewLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
@@ -58,6 +51,17 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                                 />
                             </Switch>
                         </ViewLayout>
+                    </Route>
+                    <Route path={['/:write_gubun/write', '/:write_gubun/:post_uuid/:write_mode']}>
+                        <WriteLayout LayouType={{ layoutColor: 'view' }}>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/:write_gubun/:post_uuid/:write_mode'}
+                                    component={WritePage}
+                                />
+                                <Route path={process.env.PUBLIC_URL + '/:write_gubun/write'} component={WritePage} />
+                            </Switch>
+                        </WriteLayout>
                     </Route>
                     <Route path={['/posts', '/tags', '/scribble', '/blog', '/mingun']}>
                         <MainLayout LayouType={{ layoutColor: 'main' }}>

@@ -1,7 +1,8 @@
 declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
     export type PostsGubunItem = 'posts' | 'scribble' | 'blog' | 'mingun';
-    export type PostButtonAction = 'idle' | 'exit' | 'save' | 'publish';
+    export type PostButtonAction = 'idle' | 'exit' | 'save' | 'update' | 'publish' | 'hide';
+    export type defaultYesNo = 'Y' | 'N';
 
     export interface editorTagsItem {
         id: string;
@@ -71,8 +72,8 @@ declare module 'CommonTypes' {
     }
 
     export interface TagItem {
-        id: string;
-        text: string;
+        tag_id: string;
+        tag_text: string;
     }
 
     export interface PostListItem {
@@ -80,8 +81,8 @@ declare module 'CommonTypes' {
         post_uuid: string;
         user: {
             user_uuid: string;
-            user_type: basicCodeItem;
-            user_level: basicCodeItem;
+            user_type: CodeItem;
+            user_level: CodeItem;
             name: string;
             nickname: string;
             email: string;
@@ -131,6 +132,8 @@ declare module 'CommonTypes' {
         markdown: defaultYesNo;
         tags: TagItem[];
         view_count: number;
+        post_active: defaultYesNo;
+        post_publish: defaultYesNo;
         detail_created: string;
         detail_updated: string;
     }
@@ -145,5 +148,12 @@ declare module 'CommonTypes' {
         title: string;
         tags: editorTagItem[];
         content: string;
+    }
+
+    export interface DefaultPostSaveResult {
+        post_uuid: string;
+        slug_title: string;
+        post_active: defaultYesNo;
+        post_publish: defaultYesNo;
     }
 }

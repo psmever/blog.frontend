@@ -1,22 +1,34 @@
 import React, { useRef, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import { PostButtonAction } from 'CommonTypes';
 import { RootState } from 'StoreTypes';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDimensions, usePostSave } from '@Hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearPostContents, changePostGubun, clearPostButtonAction, changePostContentsGubun } from '@Store/Posts';
+import { clearPostContents, clearPostDetail, changePostGubun, clearPostButtonAction, getPostEdit } from '@Store/Posts';
 import { WriteBox, WriteContainer, LeftEditorBox, RightEditorPreviewBox } from '@Style/WrtePageStyle';
+
+import { isEmpty } from '@Helper';
+
 import EditorBox from './EditorBox';
 import PriviewBox from './PriviewBox';
 import EditorButton from './EditorButton';
-import Swal from 'sweetalert2';
 
 export default function Write() {
-    const { pathName, contentsButtonAction, contentsGubun } = useSelector((store: RootState) => ({
-        pathName: store.router.location.pathname,
-        contentsGubun: store.posts.contents.gubun,
-        contentsButtonAction: store.posts.contents.buttonAction,
-    }));
+    const { pathName, contentsButtonAction, contentsGubun, contentsContentsGubun } = useSelector(
+        (store: RootState) => ({
+            pathName: store.router.location.pathname,
+            contentsGubun: store.posts.contents.gubun,
+            contentsContentsGubun: store.posts.contents.contentsGubun,
+            contentsButtonAction: store.posts.contents.buttonAction,
+        })
+    );
+
+    const params = useParams<{
+        write_gubun: string;
+        post_uuid: string;
+        write_mode: string;
+    }>();
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -60,14 +72,46 @@ export default function Write() {
                         dispatch(clearPostButtonAction());
                     }
                 });
-            } else if (buttonAction === 'publish') {
+            } else if (buttonAction === 'update') {
                 Swal.fire({
-                    title: '개시 하시겠습니까?',
+                    title: '수정 하시겠습니까?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: '저장',
+                    confirmButtonText: '수정',
+                    cancelButtonText: '취소',
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        postSaveAction();
+                    } else {
+                        dispatch(clearPostButtonAction());
+                    }
+                });
+            } else if (buttonAction === 'publish') {
+                Swal.fire({
+                    title: '개시 처리 하시겠습니까?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '개시',
+                    cancelButtonText: '취소',
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        postSaveAction();
+                    } else {
+                        dispatch(clearPostButtonAction());
+                    }
+                });
+            } else if (buttonAction === 'hide') {
+                Swal.fire({
+                    title: '숨김 처리 하시겠습니까?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '숨김',
                     cancelButtonText: '취소',
                 }).then(result => {
                     if (result.isConfirmed) {
@@ -85,17 +129,23 @@ export default function Write() {
     }, [contentsButtonAction]);
 
     useEffect(() => {
-        dispatch(clearPostButtonAction());
         if (postActionState.state === 'success') {
-            if (postActionState.payload) {
-                dispatch(
-                    changePostContentsGubun({
-                        post_uuid: postActionState.payload.post_uuid,
-                        slug_title: postActionState.payload.slug_title,
-                    })
-                );
-            }
             Swal.fire('처리 되었습니다.', '', 'success');
+            if (contentsButtonAction === 'save' || contentsButtonAction === 'update') {
+                dispatch(clearPostButtonAction());
+                if (postActionState.payload && postActionState.payload.post_uuid) {
+                    history.push({
+                        pathname: `/${contentsGubun}/${postActionState.payload.post_uuid}/edit`,
+                    });
+                } else {
+                    throw new Error(`Error: 등록 처리중 문제가 발생했습니다.`);
+                }
+            } else if (contentsButtonAction === 'publish' || contentsButtonAction === 'hide') {
+                dispatch(clearPostButtonAction());
+                history.push({
+                    pathname: `/${contentsGubun}/${contentsContentsGubun.post_uuid}/edit`,
+                });
+            }
         } else if (postActionState.state === 'failure') {
             Swal.fire({
                 icon: 'error',
@@ -105,8 +155,33 @@ export default function Write() {
     }, [postActionState]);
 
     useEffect(() => {
+        const checkRouterPostInfo = ({
+            write_gubun,
+            post_uuid,
+            write_mode,
+        }: {
+            write_gubun: string;
+            post_uuid: string;
+            write_mode: string;
+        }) => {
+            if (write_mode === 'edit') {
+                if (write_gubun === 'posts' && !isEmpty(post_uuid)) {
+                    // 포스트 정보 가지고 오기.
+                    dispatch(getPostEdit({ post_uuid: post_uuid }));
+                }
+            }
+        };
+
+        if (!isEmpty(params)) {
+            checkRouterPostInfo(params);
+        }
+    }, [params]);
+
+    useEffect(() => {
         return () => {
+            // 나갈때 초기화.
             dispatch(clearPostContents());
+            dispatch(clearPostDetail());
         };
     }, []);
 
@@ -114,7 +189,7 @@ export default function Write() {
         <WriteBox ref={inputRef}>
             <WriteContainer>
                 <LeftEditorBox>
-                    <EditorBox editBoxSizeState={editBoxSizeState} />
+                    <EditorBox editBoxSizeState={editBoxSizeState} writeMode={params.write_mode} />
                     <EditorButton />
                 </LeftEditorBox>
                 <RightEditorPreviewBox>

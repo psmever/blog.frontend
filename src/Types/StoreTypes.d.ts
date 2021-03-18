@@ -1,6 +1,7 @@
 declare module 'StoreTypes' {
     import { covides } from '../Modules/API';
     import { RouterState } from 'connected-react-router';
+    import { PostDetailItem, defaultYesNo } from 'CommonTypes';
 
     export interface ErrorMessage {
         message: string;
@@ -40,7 +41,7 @@ declare module 'StoreTypes' {
             info: PostDetailItem;
         };
         contents: {
-            state: 'idle' | 'ready';
+            state: 'idle' | 'loading' | 'ready';
             gubun: PostsGubunItem;
             info: {
                 title: string;
@@ -50,6 +51,8 @@ declare module 'StoreTypes' {
             contentsGubun: {
                 post_uuid: string;
                 slug_title: string;
+                post_active: defaultYesNo;
+                post_publish: defaultYesNo;
             };
             buttonAction: PostButtonAction;
         };

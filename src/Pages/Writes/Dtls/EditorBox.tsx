@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { DimensionsResult, EditorData } from 'CommonTypes';
+import { DimensionsResult, EditorData, TagItem } from 'CommonTypes';
 import { RootState } from 'StoreTypes';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePostContents } from '@Store/Posts';
+import { changePostContents, changePostContentsGubun } from '@Store/Posts';
 import { WriteTitleBox, WriteTitleLabel, WriteTitle, TagBox, MarkdownEditorBox } from '@Style/WrtePageStyle';
 import MarkdownEditor from '@Element/Markdown/MarkdownEditor';
 import ReactTagsinput from 'react-tagsinput';
@@ -10,19 +10,24 @@ import ReactTagsinput from 'react-tagsinput';
 import '@Style/ReactTagStyle.css';
 
 // https://github.com/olahol/react-tagsinput
-export default function EditorBox({ editBoxSizeState }: { editBoxSizeState: DimensionsResult }) {
+export default function EditorBox({
+    editBoxSizeState,
+    writeMode,
+}: {
+    editBoxSizeState: DimensionsResult;
+    writeMode: string;
+}) {
     const ContentsState = useSelector((store: RootState) => store.posts.contents.state);
 
-    const { contentsInfo } = useSelector((store: RootState) => ({
+    const { contentsInfo, detailState, detailInfo } = useSelector((store: RootState) => ({
         contentsInfo: store.posts.contents.info,
+        detailState: store.posts.detail.state,
+        detailInfo: store.posts.detail.info,
     }));
 
     const dispatch = useDispatch();
-
     const titleInputRef = useRef<HTMLInputElement>(null);
-
     const [tagData, setTagData] = useState<string>('');
-
     const [editorData, setEditorData] = useState<EditorData>({
         title: '',
         tags: [],
@@ -47,6 +52,34 @@ export default function EditorBox({ editBoxSizeState }: { editBoxSizeState: Dime
 
         setStorePostContent(editorData);
     }, [editorData]);
+
+    // 수정 모드 일때 Store 에 글 상세 정보 스테이트 확인추 내용 업데이트.
+    useEffect(() => {
+        const editDataSet = () => {
+            setEditorData({
+                ...editorData,
+                title: detailInfo.post_title,
+                tags: detailInfo.tags.map((e: TagItem) => {
+                    return e.tag_text;
+                }),
+                content: detailInfo.contents_text,
+            });
+
+            // 글 구분값 설정.
+            dispatch(
+                changePostContentsGubun({
+                    post_uuid: detailInfo.post_uuid,
+                    slug_title: detailInfo.slug_title,
+                    post_active: detailInfo.post_active,
+                    post_publish: detailInfo.post_publish,
+                })
+            );
+        };
+
+        if (writeMode === 'edit' && detailState === 'success') {
+            editDataSet();
+        }
+    }, [detailState, writeMode]);
 
     return (
         <>

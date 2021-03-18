@@ -27,7 +27,7 @@ export default function PostsCard({ elementIndex, postData }: { elementIndex: nu
     const postListContents = list_contents.replace(/[^\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/gi, '');
     const postTags = tags
         .map(e => {
-            return e.text;
+            return e.tag_text;
         })
         .join(', ');
 

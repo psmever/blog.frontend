@@ -1,5 +1,5 @@
 import { _Axios_ } from '@Utils';
-
+import { DefaultPostSaveResult } from 'CommonTypes';
 import {
     ServerDefaultResult,
     ServerNotice,
@@ -77,55 +77,49 @@ export const getPostDetail = ({ slugTitle }: { slugTitle: string }): Promise<Ser
  * 글 저장
  * @param payload
  */
-export function postCreate(
-    payload: PostRequest
-): Promise<
-    ServerDefaultResult<{
-        post_uuid: string;
-        slug_title: string;
-    }>
-> {
+export function postCreate(payload: PostRequest): Promise<ServerDefaultResult<DefaultPostSaveResult>> {
     return _Axios_({ method: 'post', url: '/api/v1/post', payload: payload });
 }
 
-// /**
-//  * 글 보기 ( 수정용 )
-//  * @param post_uuid
-//  */
-// export function postEdit(post_uuid: string): Promise<ServerReturnInterface<PostEditResultInterface>> {
-//     return _Axios_({ method: 'get', url: `/api/v1/post/${post_uuid}/edit`, payload: { data: {} } });
-// }
+// 글 수정.
+export function postUpdate({
+    post_uuid,
+    payload,
+}: {
+    post_uuid: string;
+    payload: PostRequest;
+}): Promise<
+    ServerDefaultResult<{
+        post_uuid: string;
+        payload: DefaultPostSaveResult;
+    }>
+> {
+    return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/update`, payload: payload });
+}
+
+/**
+ * 글 보기 ( 수정용 )
+ * @param post_uuid
+ */
+export function postEdit({ post_uuid }: { post_uuid: string }): Promise<ServerDefaultResult<PostDetailResult>> {
+    return _Axios_({ method: 'get', url: `/api/v1/post/${post_uuid}/edit`, payload: { data: {} } });
+}
 
 /**
  * 글 게시.
  * @param post_uuid
  */
-export function postPublish(
-    post_uuid: string
-): Promise<
-    ServerDefaultResult<{
-        post_uuid: string;
-        slug_title: string;
-    }>
-> {
+export function postPublish(post_uuid: string): Promise<ServerDefaultResult<DefaultPostSaveResult>> {
     return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/publish`, payload: { data: {} } });
 }
 
-// // 글 수정.
-// export function postUpdate({
-//     post_uuid,
-//     payload,
-// }: {
-//     post_uuid: string;
-//     payload: PostRequestInterface;
-// }): Promise<
-//     ServerReturnInterface<{
-//         post_uuid: string;
-//         payload: PostRequestInterface;
-//     }>
-// > {
-//     return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/update`, payload: payload });
-// }
+/**
+ * 글 숨김.
+ * @param post_uuid
+ */
+export function postHide(post_uuid: string): Promise<ServerDefaultResult<DefaultPostSaveResult>> {
+    return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/hide`, payload: { data: {} } });
+}
 
 // // 글보기 Detail
 // export const getPostDetail = ({

@@ -1,4 +1,4 @@
-import { PostsGubunItem, EditorData, PostButtonAction } from 'CommonTypes';
+import { PostsGubunItem, EditorData, PostButtonAction, DefaultPostSaveResult } from 'CommonTypes';
 import { createAction } from 'typesafe-actions';
 
 export const GET_POSTS = 'posts/GET_POSTS';
@@ -9,7 +9,13 @@ export const GET_POST_DETAIL = 'posts/GET_POST_DETAIL';
 export const GET_POST_DETAIL_SUCCESS = 'posts/GET_POST_DETAIL_SUCCESS';
 export const GET_POST_DETAIL_FAILURE = 'posts/GET_POST_DETAIL_FAILURE';
 
+export const GET_POST_EDIT = 'posts/GET_POST_EDIT';
+export const GET_POST_EDIT_SUCCESS = 'posts/GET_POST_EDIT_SUCCESS';
+export const GET_POST_EDIT_FAILURE = 'posts/GET_POST_EDIT_FAILURE';
+
 export const CLEAR_POST_CONTENTS = 'posts/CLEAR_POST_CONTENTS';
+export const CLEAR_POST_CONTENTS_INFO = 'posts/CLEAR_POST_CONTENTS_INFO';
+export const CLEAR_POST_DETAIL = 'posts/CLEAR_POST_DETAIL';
 export const CLEAR_POST_BUTTON_ACTION = 'posts/CLEAR_POST_BUTTON_ACTION';
 export const CHANGE_POST_GUBUN = 'posts/CHANGE_POST_GUBUN';
 export const CHANGE_POST_CONTENTS = 'posts/CHANGE_POST_CONTENTS';
@@ -32,6 +38,8 @@ export const clearPostButtonAction = createAction(CLEAR_POST_BUTTON_ACTION)();
  */
 // 초기화
 export const clearPostContents = createAction(CLEAR_POST_CONTENTS)();
+export const clearPostDetail = createAction(CLEAR_POST_DETAIL)();
+export const clearPostContentsInfo = createAction(CLEAR_POST_CONTENTS_INFO)();
 
 // 글 구분.
 export const changePostGubun = createAction(CHANGE_POST_GUBUN, ({ gubun }: { gubun: PostsGubunItem }) => ({
@@ -53,10 +61,18 @@ export const changePostButtonAction = createAction(
     })
 )();
 
+// post 정보 변경 처리.
 export const changePostContentsGubun = createAction(
     CHANGE_POST_CONTENTS_GUBUN,
-    ({ post_uuid, slug_title }: { post_uuid: string; slug_title: string }) => ({
+    ({ post_uuid, slug_title, post_active, post_publish }: DefaultPostSaveResult) => ({
         post_uuid,
         slug_title,
+        post_active,
+        post_publish,
     })
 )();
+
+// 글 상세 정보 (수정)
+export const getPostEdit = createAction(GET_POST_EDIT, ({ post_uuid }: { post_uuid: string }) => ({
+    post_uuid,
+}))();
