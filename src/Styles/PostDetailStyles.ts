@@ -71,6 +71,14 @@ export const HeaderDate = styled.span`
     box-sizing: border-box;
     display: inline-block;
 `;
+
+export const ModifyButton = styled.span`
+    cursor: pointer;
+    float: right;
+    padding-right: 1rem;
+    display: block;
+`;
+
 export const PostTag = styled.div`
     color: #4f4f4f;
     box-sizing: border-box;

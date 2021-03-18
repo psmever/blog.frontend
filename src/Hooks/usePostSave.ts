@@ -1,15 +1,12 @@
 import { useReducer } from 'react';
-import { postCreate, postPublish } from '@API';
-import { DefaultStatus } from 'CommonTypes';
+import { postCreate, postUpdate, postPublish, postHide } from '@API';
+import { DefaultStatus, DefaultPostSaveResult } from 'CommonTypes';
 import { RootState } from 'StoreTypes';
 import { useSelector } from 'react-redux';
 
 type State = {
     state: DefaultStatus;
-    payload: {
-        post_uuid: string;
-        slug_title: string;
-    } | null;
+    payload: DefaultPostSaveResult | null;
     message: string;
     error: Error | null;
 };
@@ -90,6 +87,42 @@ export default function usePostSave() {
             }
         };
 
+        const doPostUpdate = async () => {
+            saveDispatch({ type: 'LOADING' });
+
+            try {
+                const response = await postUpdate({
+                    post_uuid: contentsGubun.post_uuid,
+                    payload: {
+                        title: contentsInfo.title,
+                        tags: contentsInfo.tags.map((e: string) => {
+                            return {
+                                tag_id: e,
+                                tag_text: e,
+                            };
+                        }),
+                        contents: {
+                            html: contentsInfo.content,
+                            text: contentsInfo.content,
+                        },
+                    },
+                });
+
+                if (response.status === true) {
+                    saveDispatch({
+                        type: 'SUCCESS',
+                        payload: response.payload,
+                        message: response.message,
+                    });
+                } else {
+                    saveDispatch({ type: 'ERROR', message: response.message, error: response.message });
+                }
+            } catch (e) {
+                saveDispatch({ type: 'ERROR', message: '알수 없는 문제가 발생했습니다.', error: e });
+                throw new Error(`Error: ${e}`);
+            }
+        };
+
         const doPostPublish = async () => {
             saveDispatch({ type: 'LOADING' });
 
@@ -111,10 +144,35 @@ export default function usePostSave() {
             }
         };
 
+        const doPostHide = async () => {
+            saveDispatch({ type: 'LOADING' });
+
+            try {
+                const response = await postHide(contentsGubun.post_uuid);
+
+                if (response.status === true) {
+                    saveDispatch({
+                        type: 'SUCCESS',
+                        payload: response.payload,
+                        message: response.message,
+                    });
+                } else {
+                    saveDispatch({ type: 'ERROR', message: response.message, error: response.message });
+                }
+            } catch (e) {
+                saveDispatch({ type: 'ERROR', message: '알수 없는 문제가 발생했습니다.', error: e });
+                throw new Error(`Error: ${e}`);
+            }
+        };
+
         if (contentsButtonAction === 'save') {
             doPostSave();
+        } else if (contentsButtonAction === 'update') {
+            doPostUpdate();
         } else if (contentsButtonAction === 'publish') {
             doPostPublish();
+        } else if (contentsButtonAction === 'hide') {
+            doPostHide();
         }
     };
 
