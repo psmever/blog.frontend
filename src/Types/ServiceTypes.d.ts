@@ -1,4 +1,5 @@
 declare module 'ServiceTypes' {
+    import { WaitingPostResultItem } from 'CommonTypes';
     import { WeatherBox } from '../Styles/RightWeatherBoxStyles';
 
     // 기본 api 리턴 인테페이스
@@ -50,4 +51,6 @@ declare module 'ServiceTypes' {
             text: string;
         };
     }
+
+    // 게시전 글 결과.
 }

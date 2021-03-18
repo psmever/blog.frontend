@@ -1,5 +1,5 @@
 import { _Axios_ } from '@Utils';
-import { DefaultPostSaveResult } from 'CommonTypes';
+import { DefaultPostSaveResult, WaitingPostResultItem } from 'CommonTypes';
 import {
     ServerDefaultResult,
     ServerNotice,
@@ -121,6 +121,11 @@ export function postHide(post_uuid: string): Promise<ServerDefaultResult<Default
     return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/hide`, payload: { data: {} } });
 }
 
+// // 개시전 글 가지고 오기.
+export const postWaitingList = (): Promise<ServerDefaultResult<WaitingPostResultItem[]>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/post/write/waiting-list`, payload: { data: {} } });
+};
+
 // // 글보기 Detail
 // export const getPostDetail = ({
 //     slugTitle,
@@ -150,11 +155,6 @@ export function postHide(post_uuid: string): Promise<ServerDefaultResult<Default
 //     search_tag_item: string
 // ): Promise<ServerReturnInterface<ServerTagGoupListInterface[]>> => {
 //     return _Axios_({ method: 'get', url: `/api/v1/post/tag/${search_tag_item}/tag-search`, payload: { data: {} } });
-// };
-
-// // 개시전 글 가지고 오기.
-// export const postWaitingList = (): Promise<ServerReturnInterface<ServerPostWaitingListInterface[]>> => {
-//     return _Axios_({ method: 'get', url: `/api/v1/post/write/waiting-list`, payload: { data: {} } });
 // };
 
 // 날씨 정보.
