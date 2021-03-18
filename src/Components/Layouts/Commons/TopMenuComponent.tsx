@@ -3,6 +3,9 @@ import { LayouTypes } from 'CommonTypes';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
+import { postWaitingList } from '@API';
+import { isEmpty } from '@Helper';
+import Swal from 'sweetalert2';
 import { Navi, NaviInput, MenuLabel, LogoText, MenuUList, MenuElement, MenuLink, MenuIcon } from '@Style/TopMenuStyles';
 
 export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes }) {
@@ -50,12 +53,64 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
         });
     };
 
+    // 글 등록.
     const handleClickPostWriteLink = () => {
-        history.push({
-            pathname: `${process.env.PUBLIC_URL}/${menuGubun}/write`,
-        });
+        // 게시전 글이 있다면 선택후 수정 페이지로 이동.
+        const checkPostsWaitingList = async () => {
+            const waitingPost = await postWaitingList();
+            if (waitingPost.status === true && waitingPost.payload.length > 0) {
+                const selectBoxOptions = waitingPost.payload.map(e => {
+                    return e.post_title;
+                });
+
+                const { value: selectValue } = await Swal.fire({
+                    title: '작성 중인 글이 있습니다.',
+                    input: 'select',
+                    inputOptions: selectBoxOptions,
+                    inputPlaceholder: '선택후 이동',
+                    showCancelButton: true,
+                    confirmButtonText: '수정',
+                    cancelButtonText: '나중에',
+                });
+
+                if (isEmpty(selectValue)) {
+                    history.push({
+                        pathname: process.env.PUBLIC_URL + `/posts/write`,
+                    });
+                    return;
+                }
+
+                const selectPostUUID = waitingPost.payload[selectValue]
+                    ? waitingPost.payload[selectValue].post_uuid
+                    : null;
+
+                if (isEmpty(selectPostUUID)) {
+                    history.push({
+                        pathname: process.env.PUBLIC_URL + `/posts/write`,
+                    });
+                    return;
+                }
+
+                history.push({
+                    pathname: process.env.PUBLIC_URL + `/posts/${selectPostUUID}/edit`,
+                });
+            } else {
+                history.push({
+                    pathname: process.env.PUBLIC_URL + `/posts/write`,
+                });
+            }
+        };
+
+        if (menuGubun === 'posts') {
+            checkPostsWaitingList();
+        } else {
+            history.push({
+                pathname: `${process.env.PUBLIC_URL}/${menuGubun}/write`,
+            });
+        }
     };
 
+    // 로그인 상태 처리.
     useEffect(() => {
         const setLoginCheckSuccess = () => {
             setLoginDone(true);
@@ -66,6 +121,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
         }
     }, [loginState]);
 
+    // 라우터를 기준으로 글 구분 처리.
     useEffect(() => {
         const setPagePathName = (pathname: string) => {
             setMenuGubun(pathname);

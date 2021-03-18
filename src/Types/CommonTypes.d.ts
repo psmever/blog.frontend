@@ -156,4 +156,10 @@ declare module 'CommonTypes' {
         post_active: defaultYesNo;
         post_publish: defaultYesNo;
     }
+
+    // 기시전 글 아이템.
+    export interface WaitingPostResultItem {
+        post_uuid: string;
+        post_title: string;
+    }
 }
