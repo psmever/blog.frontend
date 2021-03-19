@@ -1,5 +1,4 @@
-import React from 'react';
-import { PageBox, NotFoundImageBox, NotFoundImage, NotFoundTextBox, NotFoundButtonBox } from '@Style/NotFoundStyles';
+import { PageBox, NotFoundTextBox, NotFoundButtonBox } from '@Style/NotFoundStyles';
 import { GoHomeButton } from '@Element/Buttons';
 import History from '@Module/History';
 
