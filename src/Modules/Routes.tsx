@@ -15,6 +15,7 @@ import {
     PostsWritePage,
     SectionsWritePage,
     SectionsPage,
+    SearchPage,
 } from '@Pages';
 
 // FIXME: 2021-02-05 00:57  404 페이지, 서버 에러 페이지 퍼블리싱.
@@ -60,6 +61,24 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                                 />
                             </Switch>
                         </WriteLayout>
+                    </Route>
+                    <Route
+                        path={[
+                            process.env.PUBLIC_URL + '/search/tags/:search_str',
+                            process.env.PUBLIC_URL + '/search/tags',
+                            process.env.PUBLIC_URL + '/search/posts/:search_str',
+                            process.env.PUBLIC_URL + '/search/posts',
+                        ]}
+                    >
+                        <ViewLayout LayouType={{ layoutColor: 'view' }}>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/search/:search_gubun/:search_str'}
+                                    component={SearchPage}
+                                />
+                                <Route path={process.env.PUBLIC_URL + '/search/:search_gubun'} component={SearchPage} />
+                            </Switch>
+                        </ViewLayout>
                     </Route>
                     <Route path={['/posts/write', '/posts/:post_uuid/:write_mode']}>
                         <WriteLayout LayouType={{ layoutColor: 'view' }}>

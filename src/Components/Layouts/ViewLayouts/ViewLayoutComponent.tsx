@@ -1,4 +1,3 @@
-import React from 'react';
 import { LayouTypes } from 'CommonTypes';
 import GlobalStyles from '@Style/GlobalStyles';
 import { TopMenu, Footer } from '@CommonLayouts';
