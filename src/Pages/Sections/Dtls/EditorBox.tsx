@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { SectionGubunItem, DimensionsResult } from 'CommonTypes';
 import { WriteTitleBox, WriteTitleLabel, WriteTitle, MarkdownEditorBox } from '@Style/WrtePageStyle';
 import MarkdownEditor from '@Element/Markdown/MarkdownEditor';
+import { getSectionDetail } from '@API';
+import _Alert_ from '@_Alert_';
 
 export default function EditorBox({
     editBoxSizeState,
@@ -17,7 +19,7 @@ export default function EditorBox({
     const [contentsData, setContentsData] = useState<string>('');
 
     useEffect(() => {
-        const setEditorTitle = (gubun: string) => {
+        const setEditorTitle = (gubun: SectionGubunItem) => {
             if (gubun === 'scribble') {
                 setSectionTitle('끄적끄적');
             } else if (gubun === 'blog') {
@@ -27,8 +29,18 @@ export default function EditorBox({
             }
         };
 
+        const fetchesSectionData = async (gubun: SectionGubunItem) => {
+            const { status, payload } = await getSectionDetail({ section: gubun });
+            if (status) {
+                setContentsData(payload.contents_text);
+            } else {
+                _Alert_.defaultInfo({ text: '데이터를 가지고 오는데 실패 했습니다.' });
+            }
+        };
+
         if (SectionGubun) {
             setEditorTitle(SectionGubun);
+            fetchesSectionData(SectionGubun);
         }
     }, [SectionGubun]);
 

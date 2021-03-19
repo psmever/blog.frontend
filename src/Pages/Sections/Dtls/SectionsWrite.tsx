@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { SectionGubunItem } from 'CommonTypes';
 import { useHistory, useParams } from 'react-router-dom';
 import { WriteBox, WriteContainer, LeftEditorBox, RightEditorPreviewBox } from '@Style/WrtePageStyle';
@@ -62,7 +62,7 @@ export default function SectionsWrite() {
                         });
                     } else {
                         console.log({ error: payload });
-                        throw new Error(`Error: 등록 처리중 문제가 발생했습니다.`);
+                        // throw new Error(`Error: 등록 처리중 문제가 발생했습니다.`);
                     }
                 } else {
                 }
