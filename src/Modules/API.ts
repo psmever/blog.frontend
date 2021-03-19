@@ -12,6 +12,7 @@ import {
     PostRequest,
     SectionPostRequest,
     SectionSaveResult,
+    GetTagGroupResult,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -148,6 +149,11 @@ export function getSectionDetail({
     return _Axios_({ method: 'get', url: `/api/v1/section-post/${section}`, payload: {} });
 }
 
+// 테그 그룹 리스트
+export const getTagGroups = (): Promise<ServerDefaultResult<GetTagGroupResult>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/post/tag/tag-list`, payload: { data: {} } });
+};
+
 // // 글보기 Detail
 // export const getPostDetail = ({
 //     slugTitle,
@@ -165,11 +171,6 @@ export function getSectionDetail({
 // // 검색
 // export const postItemSearch = (searchItem: string): Promise<ServerReturnInterface<any>> => {
 //     return _Axios_({ method: 'get', url: `/api/v1/post/${searchItem}/search`, payload: { data: {} } });
-// };
-
-// // 테그 그룹 리스트
-// export const getTagGroups = (): Promise<ServerReturnInterface<ServerTagGoupListInterface>> => {
-//     return _Axios_({ method: 'get', url: `/api/v1/post/tag/tag-list`, payload: { data: {} } });
 // };
 
 // // 테그 아이템 검색.

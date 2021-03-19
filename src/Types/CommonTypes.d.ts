@@ -171,4 +171,9 @@ declare module 'CommonTypes' {
         markdown: defaultYesNo;
         created: string;
     }
+
+    export interface TagGroupItem {
+        value: string;
+        count: number;
+    }
 }
