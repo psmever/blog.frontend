@@ -1,5 +1,5 @@
 import { _Axios_ } from '@Utils';
-import { DefaultPostSaveResult, WaitingPostResultItem, SectionGubunItem } from 'CommonTypes';
+import { DefaultPostSaveResult, WaitingPostResultItem, SectionGubunItem, SectionPostItem } from 'CommonTypes';
 import {
     ServerDefaultResult,
     ServerNotice,
@@ -137,6 +137,15 @@ export function postSectionCreate({
     payload: SectionPostRequest;
 }): Promise<ServerDefaultResult<SectionSaveResult>> {
     return _Axios_({ method: 'post', url: `/api/v1/section-post/${section}`, payload: payload });
+}
+
+// 섹션 정보 가지고 오기.
+export function getSectionDetail({
+    section,
+}: {
+    section: SectionGubunItem;
+}): Promise<ServerDefaultResult<SectionPostItem>> {
+    return _Axios_({ method: 'get', url: `/api/v1/section-post/${section}`, payload: {} });
 }
 
 // // 글보기 Detail
