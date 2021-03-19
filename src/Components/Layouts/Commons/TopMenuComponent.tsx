@@ -19,6 +19,12 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
     const [loginDone, setLoginDone] = useState<boolean>(false);
     const [menuGubun, setMenuGubun] = useState<string>('');
 
+    // 검색 버튼
+    const handleClickSearchLink = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/search/posts`,
+        });
+    };
     // 홈
     const handleClickHomeLink = () => {
         history.push({
@@ -126,6 +132,8 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
         const setPagePathName = (pathname: string[]) => {
             if (pathname[0] === 'posts') {
                 setMenuGubun(pathname[0]);
+            } else if (pathname[0] === 'search') {
+                setMenuGubun(pathname[0]);
             } else {
                 // 섹션 일경우 .
                 setMenuGubun(pathname[1]);
@@ -147,6 +155,15 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                 </MenuLabel>
                 <LogoText layoutColor={LayouType.layoutColor}>NicePage</LogoText>
                 <MenuUList>
+                    <MenuElement>
+                        <MenuLink
+                            layoutColor={LayouType.layoutColor}
+                            menuActive={menuGubun === 'search' ? 'true' : 'false'}
+                            onClick={() => handleClickSearchLink()}
+                        >
+                            검색
+                        </MenuLink>
+                    </MenuElement>
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}

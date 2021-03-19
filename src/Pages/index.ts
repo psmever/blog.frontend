@@ -16,3 +16,5 @@ export { default as PostsWritePage } from './Posts/PostsWritePage';
 
 export { default as SectionsWritePage } from './Sections/SectionsWritePage';
 export { default as SectionsPage } from './Sections/SectionsPage';
+
+export { default as SearchPage } from './Search/SearchPage';

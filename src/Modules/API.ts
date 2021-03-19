@@ -154,6 +154,11 @@ export const getTagGroups = (): Promise<ServerDefaultResult<GetTagGroupResult>> 
     return _Axios_({ method: 'get', url: `/api/v1/post/tag/tag-list`, payload: { data: {} } });
 };
 
+// 검색
+export const postSearch = (searchItem: string): Promise<ServerDefaultResult<PostList>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/post/${searchItem}/search`, payload: { data: {} } });
+};
+
 // // 글보기 Detail
 // export const getPostDetail = ({
 //     slugTitle,
@@ -166,11 +171,6 @@ export const getTagGroups = (): Promise<ServerDefaultResult<GetTagGroupResult>> 
 // // 뷰카운트 증가.
 // export const incrementViewCount = (post_uuid: string): Promise<ServerReturnInterface<any>> => {
 //     return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/view-increment`, payload: { data: {} } });
-// };
-
-// // 검색
-// export const postItemSearch = (searchItem: string): Promise<ServerReturnInterface<any>> => {
-//     return _Axios_({ method: 'get', url: `/api/v1/post/${searchItem}/search`, payload: { data: {} } });
 // };
 
 // // 테그 아이템 검색.
