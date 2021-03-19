@@ -62,37 +62,28 @@ export default function EditorButton() {
     };
 
     return (
-        <>
-            <ButtonBox>
-                <Buttons>
-                    <EditorActionButton name={'나가기'} onClickHandler={() => handleClickExitButton()} />
-                    {(function () {
-                        if (isEmpty(post_uuid)) {
-                            return <EditorActionButton name={'저장'} onClickHandler={() => handleClickSaveButton()} />;
+        <ButtonBox>
+            <Buttons>
+                <EditorActionButton name={'나가기'} onClickHandler={() => handleClickExitButton()} />
+                {(function () {
+                    if (isEmpty(post_uuid)) {
+                        return <EditorActionButton name={'저장'} onClickHandler={() => handleClickSaveButton()} />;
+                    } else {
+                        return <EditorActionButton name={'수정'} onClickHandler={() => handleClickUpdateButton()} />;
+                    }
+                })()}
+                {(function () {
+                    if (!isEmpty(post_uuid)) {
+                        if (post_publish === 'Y') {
+                            return <EditorActionButton name={'숨김'} onClickHandler={() => handleClickHideButton()} />;
                         } else {
                             return (
-                                <EditorActionButton name={'수정'} onClickHandler={() => handleClickUpdateButton()} />
+                                <EditorActionButton name={'개시'} onClickHandler={() => handleClickPublishButton()} />
                             );
                         }
-                    })()}
-                    {(function () {
-                        if (!isEmpty(post_uuid)) {
-                            if (post_publish === 'Y') {
-                                return (
-                                    <EditorActionButton name={'숨김'} onClickHandler={() => handleClickHideButton()} />
-                                );
-                            } else {
-                                return (
-                                    <EditorActionButton
-                                        name={'개시'}
-                                        onClickHandler={() => handleClickPublishButton()}
-                                    />
-                                );
-                            }
-                        }
-                    })()}
-                </Buttons>
-            </ButtonBox>
-        </>
+                    }
+                })()}
+            </Buttons>
+        </ButtonBox>
     );
 }

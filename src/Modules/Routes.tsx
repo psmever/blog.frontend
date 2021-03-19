@@ -8,14 +8,13 @@ import {
     PostsPage,
     PostsDetailPage,
     TagsPage,
-    ScribblePage,
-    BlogPage,
-    MingunPage,
     LoginPage,
     LogoutPage,
     LoadingPage,
     NotFoundPage,
     PostsWritePage,
+    SectionsWritePage,
+    SectionsPage,
 } from '@Pages';
 
 // FIXME: 2021-02-05 00:57  404 페이지, 서버 에러 페이지 퍼블리싱.
@@ -52,6 +51,16 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </ViewLayout>
                     </Route>
+                    <Route path={['/sections/:section_gubun/write']}>
+                        <WriteLayout LayouType={{ layoutColor: 'view' }}>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/sections/:section_gubun/write'}
+                                    component={SectionsWritePage}
+                                />
+                            </Switch>
+                        </WriteLayout>
+                    </Route>
                     <Route path={['/posts/write', '/posts/:post_uuid/:write_mode']}>
                         <WriteLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
@@ -63,12 +72,13 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </WriteLayout>
                     </Route>
-                    <Route path={['/posts', '/tags', '/scribble', '/blog', '/mingun']}>
+                    <Route path={['/posts', '/sections/:section_gubun', '/tags']}>
                         <MainLayout LayouType={{ layoutColor: 'main' }}>
                             <Switch>
-                                <Route path={process.env.PUBLIC_URL + '/mingun'} component={MingunPage} />
-                                <Route path={process.env.PUBLIC_URL + '/blog'} component={BlogPage} />
-                                <Route path={process.env.PUBLIC_URL + '/scribble'} component={ScribblePage} />
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/sections/:section_gubun'}
+                                    component={SectionsPage}
+                                />
                                 <Route path={process.env.PUBLIC_URL + '/tags'} component={TagsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/posts'} component={PostsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/'} component={PostsPage} exact />

@@ -35,21 +35,21 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     const handleClickScribbleLink = () => {
         history.push({
-            pathname: process.env.PUBLIC_URL + `/scribble`,
+            pathname: process.env.PUBLIC_URL + `/sections/scribble`,
         });
     };
 
     // 블로그에 대해 링크
     const handleClickBlogsLink = () => {
         history.push({
-            pathname: process.env.PUBLIC_URL + `/blog`,
+            pathname: process.env.PUBLIC_URL + `/sections/blog`,
         });
     };
 
     // 정보 메뉴 클릭
     const handleClickMingunLink = () => {
         history.push({
-            pathname: process.env.PUBLIC_URL + `/mingun`,
+            pathname: process.env.PUBLIC_URL + `/sections/mingun`,
         });
     };
 
@@ -105,7 +105,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
             checkPostsWaitingList();
         } else {
             history.push({
-                pathname: `${process.env.PUBLIC_URL}/${menuGubun}/write`,
+                pathname: `${process.env.PUBLIC_URL}/sections/${menuGubun}/write`,
             });
         }
     };
