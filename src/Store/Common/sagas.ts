@@ -4,7 +4,6 @@ import { getTagGroups } from '@API';
 import { ServerDefaultResult, GetTagGroupResult } from 'ServiceTypes';
 
 function* commonTagsSaga() {
-    console.log('commonTagsSaga');
     const response: ServerDefaultResult<GetTagGroupResult> = yield call(getTagGroups);
     const { message, status, payload } = response;
 
