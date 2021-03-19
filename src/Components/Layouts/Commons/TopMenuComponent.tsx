@@ -123,13 +123,18 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     // 라우터를 기준으로 글 구분 처리.
     useEffect(() => {
-        const setPagePathName = (pathname: string) => {
-            setMenuGubun(pathname);
+        const setPagePathName = (pathname: string[]) => {
+            if (pathname[0] === 'posts') {
+                setMenuGubun(pathname[0]);
+            } else {
+                // 섹션 일경우 .
+                setMenuGubun(pathname[1]);
+            }
         };
 
         if (pathName) {
             const pathArray = pathName.split('/').filter(e => e);
-            setPagePathName(pathArray[0]);
+            setPagePathName(pathArray);
         }
     }, [pathName]);
 

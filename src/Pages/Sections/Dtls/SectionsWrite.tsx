@@ -29,7 +29,7 @@ export default function SectionsWrite() {
 
     const handleClickExitButton = useCallback(() => {
         history.push({
-            pathname: `/${params.section_gubun}`,
+            pathname: `/sections/${params.section_gubun}`,
         });
     }, []);
 
@@ -58,7 +58,7 @@ export default function SectionsWrite() {
                     });
                     if (status) {
                         history.push({
-                            pathname: `/${params.section_gubun}`,
+                            pathname: `/sections/${params.section_gubun}`,
                         });
                     } else {
                         console.log({ error: payload });
