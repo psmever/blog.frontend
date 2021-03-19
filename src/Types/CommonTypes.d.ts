@@ -1,6 +1,7 @@
 declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
     export type PostsGubunItem = 'posts' | 'scribble' | 'blog' | 'mingun';
+    export type SectionGubunItem = 'scribble' | 'blog' | 'mingun';
     export type PostButtonAction = 'idle' | 'exit' | 'save' | 'update' | 'publish' | 'hide';
     export type defaultYesNo = 'Y' | 'N';
 
@@ -161,5 +162,13 @@ declare module 'CommonTypes' {
     export interface WaitingPostResultItem {
         post_uuid: string;
         post_title: string;
+    }
+
+    export interface SectionPostItem {
+        post_uuid: string;
+        contents_html: string;
+        contents_text: string;
+        markdown: defaultYesNo;
+        created: string;
     }
 }

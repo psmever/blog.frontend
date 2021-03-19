@@ -46,7 +46,6 @@ export default function PostsWrite() {
     //     }
     // }, [pathName]);
 
-    // TODO: 2021-03-17 00:19 글 수정 처리및, 등록 중인 포스트 보여 주기 추라.
     useEffect(() => {
         const doWritePageAction = (buttonAction: PostButtonAction) => {
             if (buttonAction === 'exit') {

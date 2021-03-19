@@ -52,5 +52,15 @@ declare module 'ServiceTypes' {
         };
     }
 
-    // 게시전 글 결과.
+    export interface SectionPostRequest {
+        contents: {
+            html: string;
+            text: string;
+        };
+    }
+
+    // 섹션 정보 저장 결과
+    export interface SectionSaveResult {
+        post_uuid: string;
+    }
 }

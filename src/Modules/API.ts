@@ -1,5 +1,5 @@
 import { _Axios_ } from '@Utils';
-import { DefaultPostSaveResult, WaitingPostResultItem } from 'CommonTypes';
+import { DefaultPostSaveResult, WaitingPostResultItem, SectionGubunItem } from 'CommonTypes';
 import {
     ServerDefaultResult,
     ServerNotice,
@@ -10,6 +10,8 @@ import {
     CovidResult,
     PostDetailResult,
     PostRequest,
+    SectionPostRequest,
+    SectionSaveResult,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -125,6 +127,17 @@ export function postHide(post_uuid: string): Promise<ServerDefaultResult<Default
 export const postWaitingList = (): Promise<ServerDefaultResult<WaitingPostResultItem[]>> => {
     return _Axios_({ method: 'get', url: `/api/v1/post/write/waiting-list`, payload: { data: {} } });
 };
+
+// 섹션 메뉴 내용 저장.
+export function postSectionCreate({
+    section,
+    payload,
+}: {
+    section: SectionGubunItem;
+    payload: SectionPostRequest;
+}): Promise<ServerDefaultResult<SectionSaveResult>> {
+    return _Axios_({ method: 'post', url: `/api/v1/section-post/${section}`, payload: payload });
+}
 
 // // 글보기 Detail
 // export const getPostDetail = ({
