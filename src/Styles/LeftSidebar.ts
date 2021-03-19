@@ -66,7 +66,7 @@ export const Tag = styled.h2`
     margin-top: 5px;
 `;
 
-export const Contents = styled.p`
+export const Contents = styled.div`
     position: relative;
     margin: 1rem 0 0;
 `;

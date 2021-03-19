@@ -1,5 +1,5 @@
 declare module 'ServiceTypes' {
-    import { WaitingPostResultItem } from 'CommonTypes';
+    import { WaitingPostResultItem, TagGroupItem } from 'CommonTypes';
     import { WeatherBox } from '../Styles/RightWeatherBoxStyles';
 
     // 기본 api 리턴 인테페이스
@@ -63,4 +63,6 @@ declare module 'ServiceTypes' {
     export interface SectionSaveResult {
         post_uuid: string;
     }
+
+    export type GetTagGroupResult = TagGroupItem[];
 }

@@ -1,7 +1,7 @@
 declare module 'StoreTypes' {
-    import { covides } from '../Modules/API';
+    import { covides } from '@API';
     import { RouterState } from 'connected-react-router';
-    import { PostDetailItem, defaultYesNo } from 'CommonTypes';
+    import { PostDetailItem, defaultYesNo, TagGroupItem, DefaultStatus } from 'CommonTypes';
 
     export interface ErrorMessage {
         message: string;
@@ -25,6 +25,11 @@ declare module 'StoreTypes' {
 
     export interface CommonState {
         codes: any;
+        tagsGroup: {
+            state: DefaultStatus;
+            tags: TagGroupItem[];
+            message: string;
+        };
     }
 
     export interface PostsState {
