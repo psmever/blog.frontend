@@ -153,7 +153,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                             menuActive={menuGubun === 'posts' ? 'true' : 'false'}
                             onClick={() => handleClickHomeLink()}
                         >
-                            홈
+                            포스트
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
