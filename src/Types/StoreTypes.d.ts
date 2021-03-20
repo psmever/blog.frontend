@@ -1,7 +1,7 @@
 declare module 'StoreTypes' {
     import { covides } from '@API';
     import { RouterState } from 'connected-react-router';
-    import { PostDetailItem, defaultYesNo, TagGroupItem, DefaultStatus } from 'CommonTypes';
+    import { PostDetailItem, defaultYesNo, TagGroupItem, DefaultStatus, WeatherItem } from 'CommonTypes';
 
     export interface ErrorMessage {
         message: string;

@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 
-export const CoronaBox = styled.div`
+export const CoronaTopBox = styled.div`
+    position: relative;
+    float: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: table;
+    padding-top: 1rem;
+`;
+
+export const CoronaBoxText = styled.div``;
+
+export const CoronaBoxWrapper = styled.div`
     width: 100%;
     height: 100%;
     padding-top: 1rem;
