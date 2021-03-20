@@ -25,6 +25,16 @@ export const PostCardWrapper = styled.div`
     /* color: #fff; */
 `;
 
+export const PostElementLoadingBox = styled.div`
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: table;
+    width: 100%;
+    margin-left: 50%;
+    margin-right: 50%;
+    align-items: center;
+`;
+
 export const PostCard = styled.div<DefaultAltProps>`
     display: flex;
     flex-direction: column;
