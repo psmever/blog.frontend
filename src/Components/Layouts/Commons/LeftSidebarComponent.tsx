@@ -4,9 +4,11 @@ import { TagsCloud } from '@Element/TagCoud';
 import { useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
 import { TagGroupItem } from 'CommonTypes';
+import { useHistory } from 'react-router-dom';
 import { WeatherBox, CoronaBox } from '@Elements';
 
 export default function LeftSidebarComponent() {
+    const history = useHistory();
     const { tagsGroupState, tagsGroupTags, specialtyWeathersState, specialtyCovidesState } = useSelector(
         (store: RootState) => ({
             tagsGroupState: store.common.tagsGroup.state,
@@ -38,7 +40,11 @@ export default function LeftSidebarComponent() {
                             tagData={tagsGroupList}
                             minSize={10}
                             maxSize={40}
-                            handleTagItemClick={(tagText: string) => console.log(tagText)}
+                            handleTagItemClick={(tagText: string) => {
+                                history.push({
+                                    pathname: process.env.PUBLIC_URL + `/search/tags/${tagText}`,
+                                });
+                            }}
                         />
                         {/* </Contents> */}
                     </Description>

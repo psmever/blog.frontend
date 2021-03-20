@@ -32,13 +32,6 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
         });
     };
 
-    // 태그리스트.
-    const handleClickTagsLink = () => {
-        history.push({
-            pathname: process.env.PUBLIC_URL + `/tags`,
-        });
-    };
-
     const handleClickScribbleLink = () => {
         history.push({
             pathname: process.env.PUBLIC_URL + `/sections/scribble`,
@@ -171,15 +164,6 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                             onClick={() => handleClickHomeLink()}
                         >
                             포스트
-                        </MenuLink>
-                    </MenuElement>
-                    <MenuElement>
-                        <MenuLink
-                            layoutColor={LayouType.layoutColor}
-                            menuActive={menuGubun === 'tags' ? 'true' : 'false'}
-                            onClick={() => handleClickTagsLink()}
-                        >
-                            태그들
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
