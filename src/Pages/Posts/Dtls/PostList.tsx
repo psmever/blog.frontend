@@ -4,12 +4,15 @@ import { RootState } from 'StoreTypes';
 import { PostCardItem } from 'CommonTypes';
 import { getPostList } from '@Store/Posts';
 import PostsCard from './PostsCard';
+import { ElementSpinner } from '@Element/Spinners';
+import { PostElementLoadingBox } from '@Style/PostPageStyles';
 
 function PostList() {
     const dispatch = useDispatch();
-    const { posts, postState } = useSelector((store: RootState) => ({
+    const { posts, postState, postHasMore } = useSelector((store: RootState) => ({
         posts: store.posts.list.posts,
         postState: store.posts.list.state,
+        postHasMore: store.posts.list.hasMore,
     }));
 
     const [postList, setPostList] = useState<PostCardItem[]>([]);
@@ -36,6 +39,23 @@ function PostList() {
         }
     }, [posts]);
 
+    const handleScroll = () => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
+
+        if (scrollTop + clientHeight >= scrollHeight && postHasMore === true) {
+            dispatch(getPostList());
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
+
     useEffect(() => {
         dispatch(getPostList());
     }, []);
@@ -45,6 +65,11 @@ function PostList() {
             {postList.map((element: PostCardItem, index) => {
                 return <PostsCard key={element.post_uuid} elementIndex={index} postData={element} />;
             })}
+            {postState === 'loading' && (
+                <PostElementLoadingBox>
+                    <ElementSpinner />
+                </PostElementLoadingBox>
+            )}
         </>
     );
 }
