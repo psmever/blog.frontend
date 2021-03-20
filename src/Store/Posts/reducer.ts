@@ -27,7 +27,8 @@ import {
 // 스토어 init.
 const initialState: PostsState = {
     list: {
-        pageNumber: 1,
+        pageNumber: 0,
+        hasMore: true,
         state: 'idle',
         message: '',
         posts: [],
@@ -97,10 +98,12 @@ export const PostsSagaReducer = createReducer<PostsState>(initialState, {
     },
     // 글목록 가지고 오기 성공.
     [GET_POSTS_SUCCESS]: (state: PostsState, action: SagaAction<PostList>) => {
+        // state.lists.posts.concat(action.payload.posts)
         return produce(state, draft => {
             draft.list.state = 'success';
             draft.list.pageNumber = action.payload.current_page;
-            draft.list.posts = action.payload.posts;
+            draft.list.hasMore = action.payload.hasmore;
+            draft.list.posts = state.list.posts.concat(action.payload.posts);
         });
     },
     // 글목록 가지고 오기 실패.
