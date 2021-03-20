@@ -70,3 +70,51 @@ export const Contents = styled.div`
     position: relative;
     margin: 1rem 0 0;
 `;
+
+export const WeatherWapper = styled.div`
+    flex-direction: column;
+    margin: 1rem auto;
+    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.6%;
+    background: #fff;
+    line-height: 1.4;
+    font-family: sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    /* height: 5rem; */
+
+    &:after {
+        width: 100%;
+        /* height: 1px; */
+        content: ' ';
+        display: block;
+        margin-top: 1.3em;
+        background: #e9eff6;
+    }
+`;
+
+export const CoronaWapper = styled.div`
+    flex-direction: column;
+    margin: 1rem auto;
+    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.6%;
+    background: #fff;
+    line-height: 1.4;
+    font-family: sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    /* height: 5rem; */
+
+    &:after {
+        width: 100%;
+        /* height: 1px; */
+        content: ' ';
+        display: block;
+        margin-top: 1.3em;
+        background: #e9eff6;
+    }
+`;
