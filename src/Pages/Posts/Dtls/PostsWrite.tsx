@@ -5,6 +5,7 @@ import { RootState } from 'StoreTypes';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDimensions, usePostSave } from '@Hooks';
 import { useDispatch, useSelector } from 'react-redux';
+import { PageSpinner } from '@Element/Spinners';
 import {
     clearPostContents,
     clearPostDetail,
@@ -13,7 +14,7 @@ import {
     clearPostContentsState,
 } from '@Store/Posts';
 import { WriteBox, WriteContainer, LeftEditorBox, RightEditorPreviewBox } from '@Style/WrtePageStyle';
-
+import { loginCheck } from '@API';
 import { isEmpty } from '@Helper';
 
 import EditorBox from './EditorBox';
@@ -156,11 +157,14 @@ export default function PostsWrite() {
     }, [postActionState]);
 
     useEffect(() => {
-        const checkRouterPostInfo = ({ post_uuid, write_mode }: { post_uuid: string; write_mode: string }) => {
-            if (write_mode === 'edit') {
-                if (!isEmpty(post_uuid)) {
-                    // 포스트 정보 가지고 오기.
-                    dispatch(getPostEdit({ post_uuid: post_uuid }));
+        const checkRouterPostInfo = async ({ post_uuid, write_mode }: { post_uuid: string; write_mode: string }) => {
+            const checkResult = await loginCheck();
+            if (checkResult.status) {
+                if (write_mode === 'edit') {
+                    if (!isEmpty(post_uuid)) {
+                        // 포스트 정보 가지고 오기.
+                        dispatch(getPostEdit({ post_uuid: post_uuid }));
+                    }
                 }
             }
         };
@@ -209,7 +213,7 @@ export default function PostsWrite() {
     return (
         <WriteBox ref={inputRef}>
             {(function () {
-                if (appLoginLoading === false && appLoginState === true) {
+                if (appLoginLoading === false && appLoginState === true && editBoxSizeState.state === 'success') {
                     return (
                         <WriteContainer>
                             <LeftEditorBox>
@@ -219,6 +223,12 @@ export default function PostsWrite() {
                             <RightEditorPreviewBox>
                                 <PriviewBox />
                             </RightEditorPreviewBox>
+                        </WriteContainer>
+                    );
+                } else {
+                    return (
+                        <WriteContainer>
+                            <PageSpinner />
                         </WriteContainer>
                     );
                 }

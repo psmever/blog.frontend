@@ -19,11 +19,13 @@ function PostList() {
             setPostList(
                 data.map((element: PostCardItem) => {
                     return {
+                        post_uuid: element.post_uuid,
                         post_title: element.post_title,
                         list_contents: element.list_contents,
                         tags: element.tags,
                         slug_title: element.slug_title,
                         thumb_url: element.thumb_url,
+                        list_created: element.list_created,
                     };
                 })
             );
@@ -41,7 +43,7 @@ function PostList() {
     return (
         <>
             {postList.map((element: PostCardItem, index) => {
-                return <PostsCard key={index} elementIndex={index} postData={element} />;
+                return <PostsCard key={element.post_uuid} elementIndex={index} postData={element} />;
             })}
         </>
     );

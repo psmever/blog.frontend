@@ -166,9 +166,10 @@ export const TagsList = styled.li`
     }
 `;
 
-export const DetailList = styled.a`
+export const DetailList = styled.div`
     -webkit-text-decoration: dotted underline;
     text-decoration: dotted underline;
+    cursor: pointer;
 `;
 
 export const Description = styled.div<DefaultAltProps>`
@@ -239,7 +240,7 @@ export const DescriptionSubText = styled.h2`
     font-family: Poppins, sans-serif;
 
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 500;
     text-transform: uppercase;
     color: #a2a2a2;
     margin-top: 5px;
