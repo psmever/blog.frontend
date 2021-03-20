@@ -55,7 +55,7 @@ export default function EditorBox({
                     <WriteTitle
                         type="text"
                         ref={titleInputRef}
-                        placeholder="제목을 입력해 주세요."
+                        placeholder=""
                         value={`${sectionTitle} 등록`}
                         onChange={e => {
                             console.debug(e);

@@ -78,10 +78,6 @@ export default function PostDetail() {
     }, [detailInfo]);
 
     useEffect(() => {
-        // console.log('details');
-    }, []);
-
-    useEffect(() => {
         return () => {
             // 나갈때 초기화.
             dispatch(clearPostContents());

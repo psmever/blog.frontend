@@ -34,8 +34,6 @@ export default function SectionsWrite() {
     }, []);
 
     const handleClickSaveButton = () => {
-        console.log('handleClickSaveButton');
-
         const saveSectionPost = () => {
             Swal.fire({
                 title: '저장 하시겠습니까?',
@@ -61,7 +59,7 @@ export default function SectionsWrite() {
                             pathname: `/sections/${params.section_gubun}`,
                         });
                     } else {
-                        console.log({ error: payload });
+                        console.debug({ error: payload });
                         // throw new Error(`Error: 등록 처리중 문제가 발생했습니다.`);
                     }
                 } else {
