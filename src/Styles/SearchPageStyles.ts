@@ -119,6 +119,22 @@ export const CreditsLink = styled.div`
     }
 `;
 
+export const TagsLink = styled.div`
+    color: #ff8b88;
+    text-decoration: none;
+    transition: color 250ms ease-in;
+    font-size: 4rem;
+    line-height: 4rem;
+
+    &:hover {
+        color: color(#ff8b88 blackness(+25%));
+    }
+
+    &:focus {
+        color: color(#ff8b88 blackness(+25%));
+    }
+`;
+
 export const SearchListBoxStyle = styled.div`
     /* padding-top: 10rem; */
     /* height: 70%; */

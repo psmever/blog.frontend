@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { DefaultStatus, PostListItem } from 'CommonTypes';
-import { postSearch } from '@API';
+import { postSearch, tagItemSearch } from '@API';
 
 type State = {
     state: DefaultStatus;
@@ -66,9 +66,30 @@ export default function useSearch({ searchGubun }: { searchGubun: 'posts' | 'tag
             }
         };
 
+        const searchTags = async (tag: string) => {
+            searchDispatch({ type: 'LOADING' });
+            try {
+                const response = await tagItemSearch(tag);
+
+                if (response.status === true) {
+                    searchDispatch({
+                        type: 'SUCCESS',
+                        payload: response.payload,
+                        message: '정상 처리 하였습니다.',
+                    });
+                } else {
+                    searchDispatch({ type: 'ERROR', message: response.message, error: response.message });
+                }
+            } catch (e) {
+                searchDispatch({ type: 'ERROR', message: '알수 없는 문제가 발생했습니다.', error: e });
+                throw new Error(`Error: ${e}`);
+            }
+        };
+
         if (searchGubun === 'posts') {
             searchPosts(searchValue);
         } else if (searchGubun === 'tags') {
+            searchTags(searchValue);
         }
     };
 

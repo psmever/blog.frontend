@@ -6,6 +6,7 @@ import { isEmpty } from '@Helper';
 import { useSearch } from '@Hooks';
 
 import SearchBox from './SearchBox';
+import SearchTagBox from './SearchTagBox';
 import SearchListBox from './SearchListBox';
 
 export default function SearchMainBox() {
@@ -59,11 +60,19 @@ export default function SearchMainBox() {
     return (
         <SearchMainBoxStyle>
             <SearchTopBox>
-                <SearchBox
-                    searchValue={searchValue}
-                    handleChange={(e: string) => handleSearchInputChange(e)}
-                    handleSearch={() => handleClickSearchEnter()}
-                />
+                {(function () {
+                    if (search_gubun === 'posts') {
+                        return (
+                            <SearchBox
+                                searchValue={searchValue}
+                                handleChange={(e: string) => handleSearchInputChange(e)}
+                                handleSearch={() => handleClickSearchEnter()}
+                            />
+                        );
+                    } else if (search_gubun === 'tags') {
+                        return <SearchTagBox searchStr={search_str} />;
+                    }
+                })()}
             </SearchTopBox>
             <SearchListBoxStyle>
                 {postActionState.state === 'success' && (

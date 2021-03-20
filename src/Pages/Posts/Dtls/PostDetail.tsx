@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { isEmpty } from '@Helper';
 import { getPostDetail, clearPostContents, clearPostDetail } from '@Store/Posts';
 import { PostDetailItem, TagItem } from 'CommonTypes';
@@ -33,6 +33,7 @@ const initPostInfo = {
 };
 
 export default function PostDetail() {
+    const history = useHistory();
     const { appLoginState, detailInfo } = useSelector((store: RootState) => ({
         appLoginState: store.app.loginState,
         detailInfo: store.posts.detail.info,
@@ -105,7 +106,14 @@ export default function PostDetail() {
                             {postInfo.tags.map((element, n) => {
                                 return (
                                     <PostTagsItems key={n}>
-                                        <PostTagsItem onClick={() => console.debug(element.tag_text)}>
+                                        <PostTagsItem
+                                            onClick={() => {
+                                                history.push({
+                                                    pathname:
+                                                        process.env.PUBLIC_URL + `/search/tags/${element.tag_text}`,
+                                                });
+                                            }}
+                                        >
                                             {element.tag_text}
                                         </PostTagsItem>
                                     </PostTagsItems>
