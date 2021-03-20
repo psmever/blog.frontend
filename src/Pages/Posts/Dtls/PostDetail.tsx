@@ -33,7 +33,8 @@ const initPostInfo = {
 };
 
 export default function PostDetail() {
-    const { detailInfo } = useSelector((store: RootState) => ({
+    const { appLoginState, detailInfo } = useSelector((store: RootState) => ({
+        appLoginState: store.app.loginState,
         detailInfo: store.posts.detail.info,
     }));
 
@@ -95,9 +96,11 @@ export default function PostDetail() {
                     <HeaderTitle>{postInfo.post_title}</HeaderTitle>
                     <HeaderMeta>
                         <HeaderDate>{postInfo.detail_created}</HeaderDate>
-                        <ModifyButton>
-                            <PostEditButton EditLink={editButtonLink} />
-                        </ModifyButton>
+                        {appLoginState === true && (
+                            <ModifyButton>
+                                <PostEditButton EditLink={editButtonLink} />
+                            </ModifyButton>
+                        )}
                     </HeaderMeta>
                 </Header>
                 <PostTag>

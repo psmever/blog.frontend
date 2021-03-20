@@ -21,10 +21,15 @@ import PriviewBox from './PriviewBox';
 import EditorButton from './EditorButton';
 
 export default function PostsWrite() {
-    const { contentsButtonAction, contentsContentsGubun } = useSelector((store: RootState) => ({
-        contentsContentsGubun: store.posts.contents.contentsGubun,
-        contentsButtonAction: store.posts.contents.buttonAction,
-    }));
+    const { appLoginInit, appLoginLoading, appLoginState, contentsButtonAction, contentsContentsGubun } = useSelector(
+        (store: RootState) => ({
+            appLoginLoading: store.app.loading,
+            appLoginState: store.app.loginState,
+            appLoginInit: store.app.appInit,
+            contentsContentsGubun: store.posts.contents.contentsGubun,
+            contentsButtonAction: store.posts.contents.buttonAction,
+        })
+    );
 
     const params = useParams<{
         write_gubun: string;
@@ -131,7 +136,7 @@ export default function PostsWrite() {
                 dispatch(clearPostButtonAction());
                 if (postActionState.payload && postActionState.payload.post_uuid) {
                     history.push({
-                        pathname: `/posts/${postActionState.payload.post_uuid}/edit`,
+                        pathname: process.env.PUBLIC_URL + `/posts/${postActionState.payload.post_uuid}/edit`,
                     });
                 } else {
                     throw new Error(`Error: 등록 처리중 문제가 발생했습니다.`);
@@ -168,6 +173,32 @@ export default function PostsWrite() {
     }, [params]);
 
     useEffect(() => {
+        if (appLoginInit === true && appLoginLoading === false) {
+            if (appLoginState === false) {
+                Swal.fire({
+                    text: '로그인 하시겠습니까?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '로그인',
+                    cancelButtonText: '취소',
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        history.push({
+                            pathname: process.env.PUBLIC_URL + `/login`,
+                        });
+                    } else {
+                        history.push({
+                            pathname: process.env.PUBLIC_URL + `/`,
+                        });
+                    }
+                });
+            }
+        }
+    }, [appLoginState, appLoginLoading, appLoginInit]);
+
+    useEffect(() => {
         return () => {
             // 나갈때 초기화.
             dispatch(clearPostContents());
@@ -177,15 +208,21 @@ export default function PostsWrite() {
 
     return (
         <WriteBox ref={inputRef}>
-            <WriteContainer>
-                <LeftEditorBox>
-                    <EditorBox editBoxSizeState={editBoxSizeState} writeMode={params.write_mode} />
-                    <EditorButton />
-                </LeftEditorBox>
-                <RightEditorPreviewBox>
-                    <PriviewBox />
-                </RightEditorPreviewBox>
-            </WriteContainer>
+            {(function () {
+                if (appLoginLoading === false && appLoginState === true) {
+                    return (
+                        <WriteContainer>
+                            <LeftEditorBox>
+                                <EditorBox editBoxSizeState={editBoxSizeState} writeMode={params.write_mode} />
+                                <EditorButton />
+                            </LeftEditorBox>
+                            <RightEditorPreviewBox>
+                                <PriviewBox />
+                            </RightEditorPreviewBox>
+                        </WriteContainer>
+                    );
+                }
+            })()}
         </WriteBox>
     );
 }
