@@ -103,10 +103,12 @@ declare module 'CommonTypes' {
 
     export interface PostCardItem {
         post_title: string;
+        post_uuid: string;
         list_contents: string;
         tags: TagItem[];
         slug_title: string;
         thumb_url: string;
+        list_created: string;
     }
 
     export interface PostDetailItem {
@@ -175,5 +177,12 @@ declare module 'CommonTypes' {
     export interface TagGroupItem {
         value: string;
         count: number;
+    }
+
+    export interface PostSearchAction {
+        state: DefaultStatus;
+        payload: PostListItem[] | null;
+        message: string;
+        error: Error | null;
     }
 }

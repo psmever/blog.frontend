@@ -75,12 +75,11 @@ export default function SearchMainBox() {
                 })()}
             </SearchTopBox>
             <SearchListBoxStyle>
-                {postActionState.state === 'success' && (
-                    <SearchListBox
-                        searchResult={searchResultList}
-                        handleClick={(slug_title: string) => handleClickPostLink(slug_title)}
-                    />
-                )}
+                <SearchListBox
+                    searchActionState={postActionState}
+                    searchResult={searchResultList}
+                    handleClick={(slug_title: string) => handleClickPostLink(slug_title)}
+                />
             </SearchListBoxStyle>
         </SearchMainBoxStyle>
     );

@@ -19,6 +19,13 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
     const [loginDone, setLoginDone] = useState<boolean>(false);
     const [menuGubun, setMenuGubun] = useState<string>('');
 
+    // 로고 클릭 처리.
+    const handleClickLogoText = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/posts`,
+        });
+    };
+
     // 검색 버튼
     const handleClickSearchLink = () => {
         history.push({
@@ -146,7 +153,9 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                 <MenuLabel htmlFor="check">
                     <MenuIcon />
                 </MenuLabel>
-                <LogoText layoutColor={LayouType.layoutColor}>NicePage</LogoText>
+                <LogoText layoutColor={LayouType.layoutColor} onClick={() => handleClickLogoText()}>
+                    NicePage
+                </LogoText>
                 <MenuUList>
                     <MenuElement>
                         <MenuLink

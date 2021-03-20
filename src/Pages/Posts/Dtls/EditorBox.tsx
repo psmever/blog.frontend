@@ -17,8 +17,6 @@ export default function EditorBox({
     editBoxSizeState: DimensionsResult;
     writeMode: string;
 }) {
-    const ContentsState = useSelector((store: RootState) => store.posts.contents.state);
-
     const { contentsInfo, detailState, detailInfo } = useSelector((store: RootState) => ({
         contentsInfo: store.posts.contents.info,
         detailState: store.posts.detail.state,
@@ -85,54 +83,50 @@ export default function EditorBox({
 
     return (
         <>
-            {ContentsState === 'ready' && (
-                <>
-                    <WriteTitleBox>
-                        <WriteTitleLabel htmlFor="writeTitle">
-                            <WriteTitle
-                                type="text"
-                                ref={titleInputRef}
-                                placeholder="제목을 입력해 주세요."
-                                value={editorData.title}
-                                onChange={e => {
-                                    setEditorData({
-                                        ...editorData,
-                                        title: e.target.value,
-                                    });
-                                }}
-                            />
-                        </WriteTitleLabel>
-                    </WriteTitleBox>
-                    <TagBox>
-                        <ReactTagsinput
-                            value={editorData.tags}
-                            onChange={e => {
-                                setEditorData({
-                                    ...editorData,
-                                    tags: e,
-                                });
-                            }}
-                            inputValue={tagData}
-                            onChangeInput={handleChangesTag}
-                            inputProps={{
-                                placeholder: '태그를 입력해 주세요.',
-                            }}
-                        />
-                    </TagBox>
-                    <MarkdownEditorBox>
-                        <MarkdownEditor
-                            EditorContents={editorData.content}
-                            EditorContentsHandler={e => {
-                                setEditorData({
-                                    ...editorData,
-                                    content: e,
-                                });
-                            }}
-                            editBoxSizeState={editBoxSizeState}
-                        />
-                    </MarkdownEditorBox>
-                </>
-            )}
+            <WriteTitleBox>
+                <WriteTitleLabel htmlFor="writeTitle">
+                    <WriteTitle
+                        type="text"
+                        ref={titleInputRef}
+                        placeholder="제목을 입력해 주세요."
+                        value={editorData.title}
+                        onChange={e => {
+                            setEditorData({
+                                ...editorData,
+                                title: e.target.value,
+                            });
+                        }}
+                    />
+                </WriteTitleLabel>
+            </WriteTitleBox>
+            <TagBox>
+                <ReactTagsinput
+                    value={editorData.tags}
+                    onChange={e => {
+                        setEditorData({
+                            ...editorData,
+                            tags: e,
+                        });
+                    }}
+                    inputValue={tagData}
+                    onChangeInput={handleChangesTag}
+                    inputProps={{
+                        placeholder: '태그를 입력해 주세요.',
+                    }}
+                />
+            </TagBox>
+            <MarkdownEditorBox>
+                <MarkdownEditor
+                    EditorContents={editorData.content}
+                    EditorContentsHandler={e => {
+                        setEditorData({
+                            ...editorData,
+                            content: e,
+                        });
+                    }}
+                    editBoxSizeState={editBoxSizeState}
+                />
+            </MarkdownEditorBox>
         </>
     );
 }

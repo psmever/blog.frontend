@@ -164,19 +164,10 @@ export const tagItemSearch = (search_tag_item: string): Promise<ServerDefaultRes
     return _Axios_({ method: 'get', url: `/api/v1/post/tag/${search_tag_item}/tag-search`, payload: { data: {} } });
 };
 
-// // 글보기 Detail
-// export const getPostDetail = ({
-//     slugTitle,
-// }: {
-//     slugTitle: string;
-// }): Promise<ServerReturnInterface<ServerPostDetailInterface>> => {
-//     return _Axios_({ method: 'get', url: `/api/v1/post/${slugTitle}/detail`, payload: { data: {} } });
-// };
-
-// // 뷰카운트 증가.
-// export const incrementViewCount = (post_uuid: string): Promise<ServerReturnInterface<any>> => {
-//     return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/view-increment`, payload: { data: {} } });
-// };
+// 뷰카운트 증가.
+export const incrementViewCount = (post_uuid: string): Promise<ServerDefaultResult<any>> => {
+    return _Axios_({ method: 'put', url: `/api/v1/post/${post_uuid}/view-increment`, payload: { data: {} } });
+};
 
 // 날씨 정보.
 export const weathers = (): Promise<ServerDefaultResult<WeatherResult>> => {
@@ -187,3 +178,12 @@ export const weathers = (): Promise<ServerDefaultResult<WeatherResult>> => {
 export const covides = (): Promise<ServerDefaultResult<CovidResult>> => {
     return _Axios_({ method: 'get', url: `/api/v1/specialty/covid`, payload: { data: {} } });
 };
+
+// // 글보기 Detail
+// export const getPostDetail = ({
+//     slugTitle,
+// }: {
+//     slugTitle: string;
+// }): Promise<ServerReturnInterface<ServerPostDetailInterface>> => {
+//     return _Axios_({ method: 'get', url: `/api/v1/post/${slugTitle}/detail`, payload: { data: {} } });
+// };

@@ -1,10 +1,9 @@
-import React from 'react';
+import { useHistory } from 'react-router-dom';
 import {
     PostCard,
     PostCardMeta,
     PostPhoto,
     Details,
-    PostAuthor,
     PostDate,
     Tags,
     TagsUList,
@@ -17,13 +16,16 @@ import {
     DescriptionReadMore,
     DescriptionReadMoreList,
 } from '@Style/PostPageStyles';
-import { PostCardItem } from 'CommonTypes';
+import { PostCardItem, TagItem } from 'CommonTypes';
 import History from '@Module/History';
 
 export default function PostsCard({ elementIndex, postData }: { elementIndex: number; postData: PostCardItem }) {
-    const { post_title, list_contents, tags, slug_title, thumb_url } = postData;
+    const history = useHistory();
+    const { post_uuid, post_title, list_contents, tags, slug_title, thumb_url, list_created } = postData;
     const optionAlt = elementIndex % 2 === 0 ? 'false' : 'true';
     const postTitle = post_title;
+    const listCreated = list_created;
+    const listTags = tags;
     const postListContents = list_contents.replace(/[^\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/gi, '');
     const postTags = tags
         .map(e => {
@@ -38,7 +40,7 @@ export default function PostsCard({ elementIndex, postData }: { elementIndex: nu
     };
 
     return (
-        <PostCard alt={optionAlt}>
+        <PostCard alt={optionAlt} key={post_uuid}>
             <PostCardMeta>
                 <PostPhoto
                     id="PostPhoto"
@@ -47,24 +49,24 @@ export default function PostsCard({ elementIndex, postData }: { elementIndex: nu
                     }}
                 ></PostPhoto>
                 <Details id="Details" alt={optionAlt}>
-                    <PostAuthor>
-                        <DetailList href="#">John Doe</DetailList>
-                    </PostAuthor>
-                    <PostDate>Aug. 24, 2015</PostDate>
+                    <PostDate>{listCreated}</PostDate>
                     <Tags>
                         <TagsUList>
-                            <TagsList>
-                                <DetailList href="#">Learn</DetailList>
-                            </TagsList>
-                            <TagsList>
-                                <DetailList href="#">Code</DetailList>
-                            </TagsList>
-                            <TagsList>
-                                <DetailList href="#">HTML</DetailList>
-                            </TagsList>
-                            <TagsList>
-                                <DetailList href="#">CSS</DetailList>
-                            </TagsList>
+                            {listTags.map((e: TagItem, index) => {
+                                return (
+                                    <TagsList key={index}>
+                                        <DetailList
+                                            onClick={() => {
+                                                history.push({
+                                                    pathname: process.env.PUBLIC_URL + `/search/tags/${e.tag_text}`,
+                                                });
+                                            }}
+                                        >
+                                            {e.tag_text}
+                                        </DetailList>
+                                    </TagsList>
+                                );
+                            })}
                         </TagsUList>
                     </Tags>
                 </Details>
@@ -74,7 +76,7 @@ export default function PostsCard({ elementIndex, postData }: { elementIndex: nu
                 <DescriptionSubText>{postTags}</DescriptionSubText>
                 <DescriptionContent>{postListContents}</DescriptionContent>
                 <DescriptionReadMore>
-                    <DescriptionReadMoreList onClick={() => handleOnClickReadMore()}>더보기</DescriptionReadMoreList>
+                    <DescriptionReadMoreList onClick={() => handleOnClickReadMore()}>글보기</DescriptionReadMoreList>
                 </DescriptionReadMore>
             </Description>
         </PostCard>

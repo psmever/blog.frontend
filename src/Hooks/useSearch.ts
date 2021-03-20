@@ -1,15 +1,8 @@
 import { useReducer } from 'react';
-import { DefaultStatus, PostListItem } from 'CommonTypes';
+import { PostSearchAction } from 'CommonTypes';
 import { postSearch, tagItemSearch } from '@API';
 
-type State = {
-    state: DefaultStatus;
-    payload: PostListItem[] | null;
-    message: string;
-    error: Error | null;
-};
-
-function searchReducer(state: any, action: any): State {
+function searchReducer(state: any, action: any): PostSearchAction {
     switch (action.type) {
         case 'LOADING':
             return {

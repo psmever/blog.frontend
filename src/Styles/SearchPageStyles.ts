@@ -155,6 +155,7 @@ export const SearchListContainer = styled.div`
     align-items: center;
     width: 100%;
 `;
+
 export const SearchListCard = styled.div`
     display: flex;
     flex-direction: column;
@@ -168,6 +169,14 @@ export const SearchListCard = styled.div`
     overflow: hidden;
     z-index: 0;
     border: 1px solid rgb(100 150 200 / 50%);
+`;
+
+export const SearchLoadingCard = styled.div`
+    padding-top: 3rem;
+    display: table;
+    /* width: 100%; */
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 export const SearchListDescription = styled.div`

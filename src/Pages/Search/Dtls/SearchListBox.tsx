@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react';
-import { PostListItem, TagItem } from 'CommonTypes';
+import { PostListItem, TagItem, PostSearchAction } from 'CommonTypes';
 import {
     SearchListContainer,
     SearchListCard,
+    SearchLoadingCard,
     SearchListDescription,
     SearchItemTitle,
     SearchItemTag,
     SearchItemContent,
 } from '@Style/SearchPageStyles';
+import { ElementSpinner } from '@Element/Spinners';
 
 export default function SearchListBox({
+    searchActionState,
     searchResult,
     handleClick,
 }: {
+    searchActionState: PostSearchAction;
     searchResult: PostListItem[] | null;
     handleClick: (slug_title: string) => void;
 }) {
@@ -26,6 +30,14 @@ export default function SearchListBox({
     return (
         <SearchListContainer>
             {(function () {
+                if (searchActionState.state === 'loading') {
+                    return (
+                        <SearchLoadingCard>
+                            <ElementSpinner />
+                        </SearchLoadingCard>
+                    );
+                }
+
                 if (postList.length > 0) {
                     return postList.map((element: PostListItem) => {
                         return (
