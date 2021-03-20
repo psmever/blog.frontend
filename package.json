@@ -72,9 +72,10 @@
     "start:prod": "cp .config/production.env .env && PORT=4000 craco start --reset-cache",
     "build": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false craco build",
     "build:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false craco build",
+    "build:stage": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false craco build",
     "build:test": "yarn build && serve -s build",
-    "deploy:prod": "cp .config/production.env .env && GENERATE_SOURCEMAP=false yarn build:prod && ssh oracle_web \"rm -rf /var/www/site/nicepage/blog-web/*\" && scp -r ./build/* oracle_web:/var/www/site/nicepage/blog-web",
-    "deploy:stage": "cp .config/stage.env .env && GENERATE_SOURCEMAP=false yarn build:stage && ssh local_server \"rm -rf /var/www/site/blog/front/*\" && scp -r ./build/* local_server:/var/www/site/blog/front"
+    "deploy:prod": "GENERATE_SOURCEMAP=false yarn build:prod && ssh oracle_web \"rm -rf /var/www/site/nicepage/blog-web/*\" && scp -r ./build/* oracle_web:/var/www/site/nicepage/blog-web",
+    "deploy:stage": "GENERATE_SOURCEMAP=false yarn build:stage && ssh local_server \"rm -rf /var/www/site/blog/front/*\" && scp -r ./build/* local_server:/var/www/site/blog/front"
   },
   "eslintConfig": {
     "extends": [
