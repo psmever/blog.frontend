@@ -35,6 +35,7 @@ declare module 'StoreTypes' {
     export interface PostsState {
         list: {
             pageNumber: number;
+            hasMore: boolean;
             state: DefaultStatus;
             message: string;
             posts: PostListItem[];

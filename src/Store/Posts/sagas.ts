@@ -1,4 +1,5 @@
-import { takeLatest, fork, put, call } from 'redux-saga/effects';
+import { takeLatest, fork, put, call, select } from 'redux-saga/effects';
+import { RootState } from 'StoreTypes';
 import { getPostList, getPostDetail, postEdit } from '@API';
 import { ServerDefaultResult, PostList, PostDetailResult } from 'ServiceTypes';
 import {
@@ -13,9 +14,19 @@ import {
     GET_POST_EDIT_FAILURE,
 } from './actions';
 
+// const posts = (state: RootState) => state.posts.list.posts;
+function* getState() {
+    const state: RootState = yield select();
+    return state;
+}
+
 // 글 목록 가지고 오기.
 function* getPostsSaga() {
-    const response: ServerDefaultResult<PostList> = yield call(getPostList, { pageNumber: 1 });
+    const state = yield* getState();
+
+    const response: ServerDefaultResult<PostList> = yield call(getPostList, {
+        pageNumber: state.posts.list.pageNumber + 1,
+    });
     const { message, status, payload } = response;
 
     if (status) {
