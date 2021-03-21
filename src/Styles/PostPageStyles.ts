@@ -5,7 +5,7 @@ interface DefaultAltProps {
 }
 
 export const PostCardWrapper = styled.div`
-    /* width: 100%; */
+    /* width: 90%; */
     /* width: 750px; */
     display: flex;
     display: -webkit-flex;
@@ -62,7 +62,7 @@ export const PostCard = styled.div<DefaultAltProps>`
 
     @media all and (min-width: 640px) {
         flex-direction: row;
-        max-width: 48%;
+        max-width: 50%;
 
         ${({ alt }) =>
             alt === `true` &&
