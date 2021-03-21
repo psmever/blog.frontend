@@ -1,6 +1,6 @@
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { WriteLayout, MainLayout, ViewLayout, ManageLayout, TestLayout } from '@Layouts';
+import { WriteLayout, MainLayout, ViewLayout, ManageLayout, TestLayout, SectionLayout } from '@Layouts';
 
 import {
     TestPage,
@@ -91,13 +91,19 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </WriteLayout>
                     </Route>
-                    <Route path={['/posts', '/sections/:section_gubun', '/tags']}>
-                        <MainLayout LayouType={{ layoutColor: 'main' }}>
+                    <Route path={['/sections/:section_gubun']}>
+                        <SectionLayout LayouType={{ layoutColor: 'main' }}>
                             <Switch>
                                 <Route
                                     path={process.env.PUBLIC_URL + '/sections/:section_gubun'}
                                     component={SectionsPage}
                                 />
+                            </Switch>
+                        </SectionLayout>
+                    </Route>
+                    <Route path={['/posts', '/sections/:section_gubun', '/tags']}>
+                        <MainLayout LayouType={{ layoutColor: 'main' }}>
+                            <Switch>
                                 <Route path={process.env.PUBLIC_URL + '/tags'} component={TagsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/posts'} component={PostsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/'} component={PostsPage} exact />
