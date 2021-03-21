@@ -18,6 +18,15 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     const [loginDone, setLoginDone] = useState<boolean>(false);
     const [menuGubun, setMenuGubun] = useState<string>('');
+    const [openMobileMenu, setOpenMobileMenu] = useState<'false' | 'true'>('false');
+
+    const handleClickMobileMenu = () => {
+        if (openMobileMenu === 'false') {
+            setOpenMobileMenu('true');
+        } else {
+            setOpenMobileMenu('false');
+        }
+    };
 
     // 로고 클릭 처리.
     const handleClickLogoText = () => {
@@ -150,13 +159,13 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
         <>
             <Navi layoutColor={LayouType.layoutColor}>
                 <NaviInput type="checkbox" id="check" />
-                <MenuLabel htmlFor="check">
-                    <MenuIcon />
+                <MenuLabel htmlFor="check" onClick={() => handleClickMobileMenu()}>
+                    <MenuIcon layoutColor={LayouType.layoutColor} />
                 </MenuLabel>
                 <LogoText layoutColor={LayouType.layoutColor} onClick={() => handleClickLogoText()}>
                     NicePage
                 </LogoText>
-                <MenuUList>
+                <MenuUList mobileMenuOpen={openMobileMenu} layoutColor={LayouType.layoutColor}>
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
