@@ -31,7 +31,7 @@ export default function FooterBox() {
         <>
             <FooterInfoBox>
                 <TextBox>
-                    <MadeText>Made In @psmever Version 2.0.0</MadeText>
+                    <MadeText>{`Made In @psmever Version ${process.env.REACT_APP_VERSION}`}</MadeText>
                 </TextBox>
                 <LoginButton>{loginCheck === true ? <FooterLogoutButton /> : <FooterLoginButton />}</LoginButton>
             </FooterInfoBox>
