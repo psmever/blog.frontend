@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 import { WeatherBox, CoronaBox } from '@Elements';
 
 export default function LeftSidebarComponent() {
-    const history = useHistory();
     const { tagsGroupState, tagsGroupTags, specialtyWeathersState, specialtyCovidesState } = useSelector(
         (store: RootState) => ({
             tagsGroupState: store.common.tagsGroup.state,
@@ -17,7 +16,7 @@ export default function LeftSidebarComponent() {
             specialtyCovidesState: store.specialty.covides.state,
         })
     );
-
+    const history = useHistory();
     const [tagsGroupList, setTagsGroupList] = useState<TagGroupItem[]>([]);
 
     useEffect(() => {

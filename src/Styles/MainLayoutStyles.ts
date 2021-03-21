@@ -27,6 +27,7 @@ export const Container = styled.div`
 
 export const LeftSideBox = styled.div`
     /* display: none; */
+    min-width: 300px;
     @media all and (min-width: 768px) and (max-width: 1024px) {
         float: left;
         width: 15%;

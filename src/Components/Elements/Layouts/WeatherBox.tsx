@@ -43,7 +43,7 @@ export default function WeatherBox() {
             }
 
             setWeatherItems(specialtyWeathersWeathers[itemCount.current]);
-        }, 1000);
+        }, 3000);
 
         return () => clearInterval(countdown);
     }, [specialtyWeathersWeathers]);
@@ -74,8 +74,8 @@ export default function WeatherBox() {
                 <WeatherDetailText>{weatherItems.wind}</WeatherDetailText>
                 <WeatherDetailTitleText>현재 습도:</WeatherDetailTitleText>
                 <WeatherDetailText>{weatherItems.humidity}</WeatherDetailText>
-                <WeatherDetailTitleText>통합 대기:</WeatherDetailTitleText>
-                <WeatherDetailText>좋음</WeatherDetailText>
+                {/* <WeatherDetailTitleText>통합 대기:</WeatherDetailTitleText>
+                <WeatherDetailText>좋음</WeatherDetailText> */}
             </WeatherFooterBox>
         </>
     );
