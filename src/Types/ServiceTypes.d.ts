@@ -1,4 +1,5 @@
 declare module 'ServiceTypes' {
+    import { WaitingPostResultItem, TagGroupItem } from 'CommonTypes';
     import { WeatherBox } from '../Styles/RightWeatherBoxStyles';
 
     // 기본 api 리턴 인테페이스
@@ -40,4 +41,28 @@ declare module 'ServiceTypes' {
     export type CovidResult = CovidItem[];
 
     export type PostDetailResult = PostDetailItem;
+
+    // 글등록 인터페이스.
+    export interface PostRequest {
+        title: string;
+        tags: EditorTagsItem[];
+        contents: {
+            html: string;
+            text: string;
+        };
+    }
+
+    export interface SectionPostRequest {
+        contents: {
+            html: string;
+            text: string;
+        };
+    }
+
+    // 섹션 정보 저장 결과
+    export interface SectionSaveResult {
+        post_uuid: string;
+    }
+
+    export type GetTagGroupResult = TagGroupItem[];
 }

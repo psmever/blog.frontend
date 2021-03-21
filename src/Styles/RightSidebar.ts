@@ -29,14 +29,17 @@ export const ProfileBox = styled.div`
 `;
 
 export const Thumbnail = styled.img`
-    width: 124px;
-    height: 124px;
+    width: 50%;
     display: flex;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1.5em;
     border-radius: 80%;
     box-shadow: 0 13px 26px rgba(#000, 0.2), 0 3px 6px rgba(#000, 0.2);
+
+    @media (max-width: 1775px) {
+        width: 10%;
+    }
 `;
 
 export const Name = styled.h3`
@@ -120,54 +123,6 @@ export const VersionBox = styled.div`
     &:after {
         width: 100%;
         height: 1px;
-        content: ' ';
-        display: block;
-        margin-top: 1.3em;
-        background: #e9eff6;
-    }
-`;
-
-export const WeatherWapper = styled.div`
-    flex-direction: column;
-    margin: 1rem auto;
-    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.6%;
-    background: #fff;
-    line-height: 1.4;
-    font-family: sans-serif;
-    border-radius: 5px;
-    overflow: hidden;
-    text-align: center;
-    position: relative;
-    /* height: 5rem; */
-
-    &:after {
-        width: 100%;
-        /* height: 1px; */
-        content: ' ';
-        display: block;
-        margin-top: 1.3em;
-        background: #e9eff6;
-    }
-`;
-
-export const CoronaWapper = styled.div`
-    flex-direction: column;
-    margin: 1rem auto;
-    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.6%;
-    background: #fff;
-    line-height: 1.4;
-    font-family: sans-serif;
-    border-radius: 5px;
-    overflow: hidden;
-    text-align: center;
-    position: relative;
-    /* height: 5rem; */
-
-    &:after {
-        width: 100%;
-        /* height: 1px; */
         content: ' ';
         display: block;
         margin-top: 1.3em;

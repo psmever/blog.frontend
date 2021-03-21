@@ -5,7 +5,7 @@ interface DefaultAltProps {
 }
 
 export const PostCardWrapper = styled.div`
-    /* width: 100%; */
+    /* width: 90%; */
     /* width: 750px; */
     display: flex;
     display: -webkit-flex;
@@ -23,6 +23,16 @@ export const PostCardWrapper = styled.div`
     /* margin: 10px; */
     /* font-size: 20px; */
     /* color: #fff; */
+`;
+
+export const PostElementLoadingBox = styled.div`
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: table;
+    width: 100%;
+    margin-left: 50%;
+    margin-right: 50%;
+    align-items: center;
 `;
 
 export const PostCard = styled.div<DefaultAltProps>`
@@ -52,7 +62,7 @@ export const PostCard = styled.div<DefaultAltProps>`
 
     @media all and (min-width: 640px) {
         flex-direction: row;
-        max-width: 48%;
+        max-width: 50%;
 
         ${({ alt }) =>
             alt === `true` &&
@@ -166,9 +176,10 @@ export const TagsList = styled.li`
     }
 `;
 
-export const DetailList = styled.a`
+export const DetailList = styled.div`
     -webkit-text-decoration: dotted underline;
     text-decoration: dotted underline;
+    cursor: pointer;
 `;
 
 export const Description = styled.div<DefaultAltProps>`
@@ -239,7 +250,7 @@ export const DescriptionSubText = styled.h2`
     font-family: Poppins, sans-serif;
 
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 500;
     text-transform: uppercase;
     color: #a2a2a2;
     margin-top: 5px;

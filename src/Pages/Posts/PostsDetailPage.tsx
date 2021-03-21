@@ -1,15 +1,30 @@
 import React, { Suspense } from 'react';
+import { Helmet } from 'react-helmet';
 import { MainWrapper } from '@Style/PostDetailStyles';
 import { PageSpinner } from '@Element/Spinners';
+import { RootState } from 'StoreTypes';
+import { useSelector } from 'react-redux';
+import { isEmpty } from '@Helper';
 
 const DtlPage = React.lazy(() => import('./Dtls/PostDetail'));
 
 export default function PostsDetailPage() {
+    const { detailInfo } = useSelector((store: RootState) => ({
+        detailInfo: store.posts.detail.info,
+    }));
+
     return (
-        <MainWrapper>
-            <Suspense fallback={<PageSpinner />}>
-                <DtlPage />
-            </Suspense>
-        </MainWrapper>
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{!isEmpty(detailInfo.post_title) ? detailInfo.post_title : `:: NicePage Blog ::`}</title>
+                <link rel="canonical" href="https://blog.nicepage.pe.kr/" />
+            </Helmet>
+            <MainWrapper>
+                <Suspense fallback={<PageSpinner />}>
+                    <DtlPage />
+                </Suspense>
+            </MainWrapper>
+        </>
     );
 }

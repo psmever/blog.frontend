@@ -1,9 +1,21 @@
 import styled from 'styled-components';
+import { LayouTypes } from 'CommonTypes';
+
+export interface MenuActive {
+    Active: 'true' | 'false';
+}
 
 export const Default = styled.div``;
 
-export const Navi = styled.nav`
-    background: #5eaeff;
+export const Navi = styled.nav<LayouTypes>`
+    background: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `#5eaeff`;
+        } else if (layoutColor === 'view') {
+            return `#fff`;
+        }
+    }};
+
     height: 80px;
     width: 100%;
 `;
@@ -26,14 +38,21 @@ export const MenuLabel = styled.label`
     }
 `;
 
-export const MenuIcon = styled.div`
+export const MenuIcon = styled.div<LayouTypes>`
     margin: 0;
     padding: 0;
     border: 0;
     font-size: 1.25rem;
     line-height: 1;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
+    /* color: rgba(255, 255, 255, 0.5); */
+    color: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `white`;
+        } else if (layoutColor === 'view') {
+            return `#5eaeff`;
+        }
+    }};
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
@@ -41,15 +60,29 @@ export const MenuIcon = styled.div`
     content: '';
     background: no-repeat center center;
     background-size: 100% 100%;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    background-image: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");`;
+        } else if (layoutColor === 'view') {
+            return `url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(94,174,256, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");`;
+        }
+    }}; ;
 `;
 
-export const LogoText = styled.label`
-    color: white;
+export const LogoText = styled.label<LayouTypes>`
+    color: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `white`;
+        } else if (layoutColor === 'view') {
+            return `#5eaeff`;
+        }
+    }};
+
     font-size: 35px;
     line-height: 80px;
     padding: 0 100px;
     font-weight: bold;
+    cursor: pointer;
 
     @media screen and (max-width: 952px) {
         font-size: 30px;
@@ -57,7 +90,7 @@ export const LogoText = styled.label`
     }
 `;
 
-export const MenuUList = styled.ul`
+export const MenuUList = styled.ul<LayouTypes>`
     float: right;
     margin-right: 20px;
     line-height: 80px;
@@ -65,12 +98,20 @@ export const MenuUList = styled.ul`
 
     @media screen and (max-width: 952px) {
         /* left: 0; */ // 메뉴 티어 나옴.
+        /* left: -100%; */
+        left: ${({ mobileMenuOpen }) => {
+            if (mobileMenuOpen === 'true') {
+                return `0`;
+            } else if (mobileMenuOpen === 'false') {
+                return `-100%`;
+            }
+        }};
+        z-index: 1000;
         position: fixed;
         width: 100%;
         height: 100vh;
         background: #2c3e50;
         top: 80px;
-        left: -100%;
         text-align: center;
         transition: all 0.5s;
         margin: 0 0;
@@ -89,24 +130,54 @@ export const MenuElement = styled.li`
     @media screen and (min-width: 952px) {
         display: inline-block;
     }
+
+    @media screen and (max-width: 952px) {
+        background: #2c3e50;
+        padding-top: 2rem;
+    }
 `;
 
-export const MenuLink = styled.div`
-    color: white;
+export const MenuLink = styled.div<LayouTypes>`
+    color: ${({ layoutColor }) => {
+        if (layoutColor === 'main') {
+            return `white`;
+        } else if (layoutColor === 'view') {
+            return `#5eaeff`;
+        }
+    }};
     font-size: 17px;
     padding: 7px 13px;
     border-radius: 3px;
     text-transform: uppercase;
     cursor: pointer;
+    background: ${({ layoutColor, menuActive }) => {
+        if (layoutColor === 'main') {
+            if (menuActive === 'true') {
+                return `#1b9bff`;
+            }
+        } else if (layoutColor === 'view') {
+            if (menuActive === 'true') {
+                return `#f1f1f1`;
+            }
+        }
+    }};
 
     /* &:active */
     &:hover {
-        background: #1b9bff;
+        /* background: #1b9bff; */
+        background: ${({ layoutColor }) => {
+            if (layoutColor === 'main') {
+                return `#1b9bff`;
+            } else if (layoutColor === 'view') {
+                return `#f1f1f1`;
+            }
+        }};
         transition: 0.5s;
     }
 
     @media screen and (max-width: 952px) {
         font-size: 16px;
+        background: #2c3e50;
     }
 
     @media screen and (max-width: 858px) {

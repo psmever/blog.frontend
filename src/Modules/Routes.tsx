@@ -1,39 +1,29 @@
-import React from 'react';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { MainLayout } from '@MainLayouts';
-import { ManageLayout } from '@ManageLayouts';
-import { TestLayout } from '@TestLayouts';
+import { WriteLayout, MainLayout, ViewLayout, ManageLayout, TestLayout } from '@Layouts';
+
 import {
     TestPage,
     DevPage,
     PostsPage,
     PostsDetailPage,
     TagsPage,
-    LatelyPage,
-    BlogPage,
-    InfomationsPage,
     LoginPage,
     LogoutPage,
     LoadingPage,
     NotFoundPage,
+    PostsWritePage,
+    SectionsWritePage,
+    SectionsPage,
+    SearchPage,
 } from '@Pages';
-import GlobalStyles from '@Style/GlobalStyles';
 
 // FIXME: 2021-02-05 00:57  404 페이지, 서버 에러 페이지 퍼블리싱.
-// TODO: 2021-03-05 00:07 글 뷰 페이지 레이아웃 다르게 하기. 퍼블리싱
 const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <GlobalStyles />
             <ConnectedRouter history={Routerhistory}>
                 <Switch>
-                    <Route path={['/login', '/logout']}>
-                        <Switch>
-                            <Route path={process.env.PUBLIC_URL + '/logout'} component={LogoutPage} />
-                            <Route path={process.env.PUBLIC_URL + '/login'} component={LoginPage} />
-                        </Switch>
-                    </Route>
                     <Route path={['/test', '/test/test', '/test/dev']}>
                         <TestLayout>
                             <Switch>
@@ -43,24 +33,72 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                             </Switch>
                         </TestLayout>
                     </Route>
-                    <Route path={['/manage']}>
-                        <ManageLayout>
+                    <Route path={['/manage', '/login', '/logout']}>
+                        <ManageLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
                                 <Route path={process.env.PUBLIC_URL + '/manage'} component={PostsPage} />
+                                <Route path={process.env.PUBLIC_URL + '/logout'} component={LogoutPage} />
+                                <Route path={process.env.PUBLIC_URL + '/login'} component={LoginPage} />
                             </Switch>
                         </ManageLayout>
                     </Route>
-                    <Route path={['/posts', '/post/:slug_title/detail', '/tags', '/lately', '/blogs', '/infomations']}>
-                        <MainLayout>
+                    <Route path={['/posts/:slug_title/detail', '/posts/detail']}>
+                        <ViewLayout LayouType={{ layoutColor: 'view' }}>
                             <Switch>
-                                <Route path={process.env.PUBLIC_URL + '/infomations'} component={InfomationsPage} />
-                                <Route path={process.env.PUBLIC_URL + '/blogs'} component={BlogPage} />
-                                <Route path={process.env.PUBLIC_URL + '/lately'} component={LatelyPage} />
-                                <Route path={process.env.PUBLIC_URL + '/tags'} component={TagsPage} />
                                 <Route
-                                    path={process.env.PUBLIC_URL + '/post/:slug_title/detail'}
+                                    path={process.env.PUBLIC_URL + '/posts/:slug_title/detail'}
                                     component={PostsDetailPage}
                                 />
+                            </Switch>
+                        </ViewLayout>
+                    </Route>
+                    <Route path={['/sections/:section_gubun/write']}>
+                        <WriteLayout LayouType={{ layoutColor: 'view' }}>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/sections/:section_gubun/write'}
+                                    component={SectionsWritePage}
+                                />
+                            </Switch>
+                        </WriteLayout>
+                    </Route>
+                    <Route
+                        path={[
+                            process.env.PUBLIC_URL + '/search/tags/:search_str',
+                            process.env.PUBLIC_URL + '/search/tags',
+                            process.env.PUBLIC_URL + '/search/posts/:search_str',
+                            process.env.PUBLIC_URL + '/search/posts',
+                        ]}
+                    >
+                        <ViewLayout LayouType={{ layoutColor: 'view' }}>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/search/:search_gubun/:search_str'}
+                                    component={SearchPage}
+                                />
+                                <Route path={process.env.PUBLIC_URL + '/search/:search_gubun'} component={SearchPage} />
+                            </Switch>
+                        </ViewLayout>
+                    </Route>
+                    <Route path={['/posts/write', '/posts/:post_uuid/:write_mode']}>
+                        <WriteLayout LayouType={{ layoutColor: 'view' }}>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/posts/:post_uuid/:write_mode'}
+                                    component={PostsWritePage}
+                                />
+                                <Route path={process.env.PUBLIC_URL + '/posts/write'} component={PostsWritePage} />
+                            </Switch>
+                        </WriteLayout>
+                    </Route>
+                    <Route path={['/posts', '/sections/:section_gubun', '/tags']}>
+                        <MainLayout LayouType={{ layoutColor: 'main' }}>
+                            <Switch>
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/sections/:section_gubun'}
+                                    component={SectionsPage}
+                                />
+                                <Route path={process.env.PUBLIC_URL + '/tags'} component={TagsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/posts'} component={PostsPage} />
                                 <Route path={process.env.PUBLIC_URL + '/'} component={PostsPage} exact />
                             </Switch>
