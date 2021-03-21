@@ -29,14 +29,17 @@ export const ProfileBox = styled.div`
 `;
 
 export const Thumbnail = styled.img`
-    width: 124px;
-    height: 124px;
+    width: 50%;
     display: flex;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1.5em;
     border-radius: 80%;
     box-shadow: 0 13px 26px rgba(#000, 0.2), 0 3px 6px rgba(#000, 0.2);
+
+    @media (max-width: 1775px) {
+        width: 10%;
+    }
 `;
 
 export const Name = styled.h3`
