@@ -65,7 +65,7 @@ function PostList() {
             {postList.map((element: PostCardItem, index) => {
                 return <PostsCard key={element.post_uuid} elementIndex={index} postData={element} />;
             })}
-            {postState === 'loading' && (
+            {postHasMore === true && postState === 'loading' && (
                 <PostElementLoadingBox>
                     <ElementSpinner />
                 </PostElementLoadingBox>

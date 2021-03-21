@@ -40,6 +40,8 @@ export const WeatherImageBox = styled.div`
     float: left;
     display: table;
     height: 3rem;
+    margin-left: 1.5rem;
+    margin-top: 0.3rem;
 `;
 
 export const WeatherTextBox = styled.div`
@@ -52,12 +54,13 @@ export const WeatherTextBox = styled.div`
 
 export const WatherImage = styled.img`
     display: inline-block;
-    width: 4rem;
+    width: 28px;
+    height: 30px;
 `;
 
 export const WatherText = styled.div`
     /* display: inline-block; */
-    font-size: 2rem;
+    font-size: 1.56rem;
     /* padding-right: 4rem; */
 `;
 
