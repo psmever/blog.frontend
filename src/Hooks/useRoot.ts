@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { appInitAction } from '@Store/App';
-import { RootState } from '@Stores';
+import { commonTags } from '@Store/Common';
+import { RootState } from 'StoreTypes';
 import { COLORLOG } from '@Helper';
 import _Alert_ from '@_Alert_';
+import { getWeathers, getCovids } from '@Store/Specialty';
 
 export default function useLogin() {
     const dispatch = useDispatch();
@@ -43,6 +45,9 @@ export default function useLogin() {
         if (loading === false && serverCheck === true) {
             COLORLOG(':: App Init Success :: ', 'success');
             setAppBaseCheckState(true);
+            dispatch(commonTags());
+            dispatch(getWeathers());
+            dispatch(getCovids());
         }
     }, [serverCheck, loading]);
 

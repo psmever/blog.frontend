@@ -1,15 +1,22 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-
-const GlobalStyles = createGlobalStyle`
+import { LayouTypes } from 'CommonTypes';
+const GlobalStyles = createGlobalStyle<LayouTypes>`
     ${reset}
 
     * {
         box-sizing: border-box;
     }
 
-    body    {
-        background: #f1f1f1;
+    body {
+        /* background: #fff; */
+        background:  ${({ layoutColor }) => {
+            if (layoutColor === 'main') {
+                return `#f1f1f1`;
+            } else if (layoutColor === 'view') {
+                return `white`;
+            }
+        }};
         font-size: 13px;
         /* background-color: rgba(20,20,20,0.5); */
         font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;

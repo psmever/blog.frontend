@@ -1,7 +1,35 @@
 declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
+    export type PostsGubunItem = 'posts' | 'scribble' | 'blog' | 'mingun';
+    export type SectionGubunItem = 'scribble' | 'blog' | 'mingun';
+    export type PostButtonAction = 'idle' | 'exit' | 'save' | 'update' | 'publish' | 'hide';
+    export type defaultYesNo = 'Y' | 'N';
+
+    export interface editorTagsItem {
+        id: string;
+        text: string;
+    }
+
+    export interface DimensionsResult {
+        state: 'loading' | 'success' | 'error';
+        data: {
+            width: number;
+            height: number;
+        };
+    }
+
+    // 사가 기본 타입.
+    export interface SagaAction<T> {
+        type: SagaTypes;
+        payload: T;
+    }
 
     export type AccessTokenType = string;
+    export interface LayouTypes {
+        layoutColor: 'main' | 'view';
+        menuActive?: 'true' | 'false';
+        mobileMenuOpen?: 'true' | 'false';
+    }
 
     export interface LocalTokenInterface {
         access_token: string;
@@ -46,8 +74,8 @@ declare module 'CommonTypes' {
     }
 
     export interface TagItem {
-        id: string;
-        text: string;
+        tag_id: string;
+        tag_text: string;
     }
 
     export interface PostListItem {
@@ -55,8 +83,8 @@ declare module 'CommonTypes' {
         post_uuid: string;
         user: {
             user_uuid: string;
-            user_type: basicCodeItem;
-            user_level: basicCodeItem;
+            user_type: CodeItem;
+            user_level: CodeItem;
             name: string;
             nickname: string;
             email: string;
@@ -76,10 +104,12 @@ declare module 'CommonTypes' {
 
     export interface PostCardItem {
         post_title: string;
+        post_uuid: string;
         list_contents: string;
         tags: TagItem[];
         slug_title: string;
         thumb_url: string;
+        list_created: string;
     }
 
     export interface PostDetailItem {
@@ -106,7 +136,54 @@ declare module 'CommonTypes' {
         markdown: defaultYesNo;
         tags: TagItem[];
         view_count: number;
+        post_active: defaultYesNo;
+        post_publish: defaultYesNo;
         detail_created: string;
         detail_updated: string;
+    }
+
+    export interface EditorTagsItem {
+        id: string;
+        text: string;
+    }
+    export interface EditorTag extends Array<EditorTagsItem> {}
+
+    export interface EditorData {
+        title: string;
+        tags: editorTagItem[];
+        content: string;
+    }
+
+    export interface DefaultPostSaveResult {
+        post_uuid: string;
+        slug_title: string;
+        post_active: defaultYesNo;
+        post_publish: defaultYesNo;
+    }
+
+    // 기시전 글 아이템.
+    export interface WaitingPostResultItem {
+        post_uuid: string;
+        post_title: string;
+    }
+
+    export interface SectionPostItem {
+        post_uuid: string;
+        contents_html: string;
+        contents_text: string;
+        markdown: defaultYesNo;
+        created: string;
+    }
+
+    export interface TagGroupItem {
+        value: string;
+        count: number;
+    }
+
+    export interface PostSearchAction {
+        state: DefaultStatus;
+        payload: PostListItem[] | null;
+        message: string;
+        error: Error | null;
     }
 }

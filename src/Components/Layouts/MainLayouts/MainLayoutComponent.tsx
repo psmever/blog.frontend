@@ -1,26 +1,31 @@
 import React from 'react';
-import { MainTopMenu, MainLeftSidebar, MainRightSidebar, MainFooter } from '@MainLayouts';
+import { LayouTypes } from 'CommonTypes';
+import GlobalStyles from '@Style/GlobalStyles';
+import { TopMenu, LeftSidebar, RightSidebar, Footer } from '@CommonLayouts';
 import { Warp, Header, Container, LeftSideBox, ContentBox, RightSideBox, FooterBox } from '@Style/MainLayoutStyles';
 
-export default function MainLayoutComponent({ children }: { children: any }) {
+export default function MainLayoutComponent({ LayouType, children }: { LayouType: LayouTypes; children: any }) {
     // https://smilejsu.tistory.com/1925
     return (
-        <Warp>
-            <Header>
-                <MainTopMenu />
-            </Header>
-            <Container id="container">
-                <LeftSideBox>
-                    <MainLeftSidebar />
-                </LeftSideBox>
-                <ContentBox>{children}</ContentBox>
-                <RightSideBox>
-                    <MainRightSidebar />
-                </RightSideBox>
-            </Container>
-            <FooterBox>
-                <MainFooter />
-            </FooterBox>
-        </Warp>
+        <>
+            <GlobalStyles layoutColor={LayouType.layoutColor} />
+            <Warp>
+                <Header>
+                    <TopMenu LayouType={LayouType} />
+                </Header>
+                <Container id="container">
+                    <LeftSideBox>
+                        <LeftSidebar />
+                    </LeftSideBox>
+                    <ContentBox>{children}</ContentBox>
+                    <RightSideBox>
+                        <RightSidebar />
+                    </RightSideBox>
+                </Container>
+                <FooterBox>
+                    <Footer />
+                </FooterBox>
+            </Warp>
+        </>
     );
 }
