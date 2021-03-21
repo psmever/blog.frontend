@@ -28,6 +28,7 @@ declare module 'CommonTypes' {
     export interface LayouTypes {
         layoutColor: 'main' | 'view';
         menuActive?: 'true' | 'false';
+        mobileMenuOpen?: 'true' | 'false';
     }
 
     export interface LocalTokenInterface {

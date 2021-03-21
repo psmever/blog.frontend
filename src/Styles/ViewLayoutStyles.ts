@@ -31,6 +31,11 @@ export const Container = styled.div`
         display: block;
         clear: both;
     }
+
+    @media screen and (max-width: 952px) {
+        width: 100%;
+        margin: 0 0;
+    }
 `;
 
 export const ContentBox = styled.div`
