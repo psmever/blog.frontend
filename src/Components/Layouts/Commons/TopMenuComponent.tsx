@@ -62,11 +62,11 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
     };
 
     // 정보 메뉴 클릭
-    const handleClickMingunLink = () => {
-        history.push({
-            pathname: process.env.PUBLIC_URL + `/sections/mingun`,
-        });
-    };
+    // const handleClickMingunLink = () => {
+    //     history.push({
+    //         pathname: process.env.PUBLIC_URL + `/sections/mingun`,
+    //     });
+    // };
 
     // 글 등록.
     const handleClickPostWriteLink = () => {
@@ -202,7 +202,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                             블로그 소개
                         </MenuLink>
                     </MenuElement>
-                    <MenuElement>
+                    {/* <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
                             menuActive={menuGubun === 'mingun' ? 'true' : 'false'}
@@ -210,7 +210,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                         >
                             주인장은
                         </MenuLink>
-                    </MenuElement>
+                    </MenuElement> */}
                     {loginDone === true && (
                         <MenuElement>
                             <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickPostWriteLink()}>
