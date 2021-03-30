@@ -28,7 +28,7 @@ jobs:
       - name: Install Dependencies
         run: yarn
       - name: Build
-        run: yarn build:stage
+        run: yarn build:prod
 
       - name: deploy file to server
         uses: wlixcc/SFTP-Deploy-Action@v1.0
