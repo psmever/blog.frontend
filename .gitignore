@@ -25,6 +25,8 @@ yarn-error.log*
 # environment config file
 .config/*
 !.config/sample.environment.env
+!.config/production.env
+!.config/stage.env
 .env
 
 # idea
