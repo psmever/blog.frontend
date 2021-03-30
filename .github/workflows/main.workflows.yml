@@ -33,7 +33,7 @@ jobs:
       - name: deploy file to server
         uses: wlixcc/SFTP-Deploy-Action@v1.0
         with:
-          username: 'ubuntu'
+          username: '${{ secrets.PRODUCTION_SERVER_USER_NAME}}'
           server: '${{ secrets.PRODUCTION_SERVER_IP }}'
           ssh_private_key: '${{ secrets.PRODUCTION_SSH_PRIVATE_KEY }}'
           local_path: './build/*'
