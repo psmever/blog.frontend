@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
 import { PostCardItem } from 'CommonTypes';
-import { getPostList } from '@Store/Posts';
+import { getPostList, clearPostContents, clearPostDetail } from '@Store/Posts';
 import PostsCard from './PostsCard';
 import { ElementSpinner } from '@Element/Spinners';
 import { PostElementLoadingBox } from '@Style/PostPageStyles';
@@ -58,6 +58,14 @@ function PostList() {
 
     useEffect(() => {
         dispatch(getPostList());
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            // 나갈때 초기화.
+            dispatch(clearPostContents());
+            dispatch(clearPostDetail());
+        };
     }, []);
 
     return (
