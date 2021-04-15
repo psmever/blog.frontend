@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { PageSpinner } from '@Element/Spinners';
 import { SearchWrapper } from '@Style/SearchPageStyles';
 import { useParams } from 'react-router-dom';
@@ -14,7 +14,7 @@ export default function SearchPage() {
     }>();
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>
@@ -28,6 +28,6 @@ export default function SearchPage() {
                     <DtlPage />
                 </Suspense>
             </SearchWrapper>
-        </>
+        </HelmetProvider>
     );
 }

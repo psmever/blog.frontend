@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { PageSpinner } from '@Element/Spinners';
 import { PostCardWrapper } from '@Style/PostPageStyles';
 
@@ -7,7 +7,7 @@ const DtlPage = React.lazy(() => import('./Dtls/PostList'));
 
 export default function PostsPage() {
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>:: NicePage Blog ::</title>
@@ -19,6 +19,6 @@ export default function PostsPage() {
                     <DtlPage />
                 </Suspense>
             </PostCardWrapper>
-        </>
+        </HelmetProvider>
     );
 }
