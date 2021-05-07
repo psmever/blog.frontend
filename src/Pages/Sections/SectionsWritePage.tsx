@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { SectionGubunItem } from 'CommonTypes';
 import { PageSpinner } from '@Element/Spinners';
 import { WriteWrapper } from '@Style/WrtePageStyle';
@@ -29,7 +29,7 @@ export default function SectionsWritePage() {
     }
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>:: NicePage Blog :: {`${pageTitle} 관리`}</title>
@@ -40,6 +40,6 @@ export default function SectionsWritePage() {
                     <DtlPage />
                 </Suspense>
             </WriteWrapper>
-        </>
+        </HelmetProvider>
     );
 }

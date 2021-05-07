@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'StoreTypes';
 import { PostCardItem } from 'CommonTypes';
-import { getPostList } from '@Store/Posts';
+import { getPostList, clearPostContents, clearPostDetail } from '@Store/Posts';
 import PostsCard from './PostsCard';
 import { ElementSpinner } from '@Element/Spinners';
 import { PostElementLoadingBox } from '@Style/PostPageStyles';
 
 function PostList() {
     const dispatch = useDispatch();
-    const { posts, postState, postHasMore } = useSelector((store: RootState) => ({
+    const { posts, postState, postHasMore, pageNumber } = useSelector((store: RootState) => ({
         posts: store.posts.list.posts,
         postState: store.posts.list.state,
         postHasMore: store.posts.list.hasMore,
+        pageNumber: store.posts.list.pageNumber,
     }));
 
     const [postList, setPostList] = useState<PostCardItem[]>([]);
@@ -57,7 +58,17 @@ function PostList() {
     });
 
     useEffect(() => {
-        dispatch(getPostList());
+        if (pageNumber === 0) {
+            dispatch(getPostList());
+        }
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            // 나갈때 초기화.
+            dispatch(clearPostContents());
+            dispatch(clearPostDetail());
+        };
     }, []);
 
     return (
