@@ -9,10 +9,11 @@ import { PostElementLoadingBox } from '@Style/PostPageStyles';
 
 function PostList() {
     const dispatch = useDispatch();
-    const { posts, postState, postHasMore } = useSelector((store: RootState) => ({
+    const { posts, postState, postHasMore, pageNumber } = useSelector((store: RootState) => ({
         posts: store.posts.list.posts,
         postState: store.posts.list.state,
         postHasMore: store.posts.list.hasMore,
+        pageNumber: store.posts.list.pageNumber,
     }));
 
     const [postList, setPostList] = useState<PostCardItem[]>([]);
@@ -57,7 +58,9 @@ function PostList() {
     });
 
     useEffect(() => {
-        dispatch(getPostList());
+        if (pageNumber === 0) {
+            dispatch(getPostList());
+        }
     }, []);
 
     useEffect(() => {
