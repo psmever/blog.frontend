@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { MainWrapper } from '@Style/PostDetailStyles';
 import { PageSpinner } from '@Element/Spinners';
 import { RootState } from 'StoreTypes';
@@ -14,7 +14,7 @@ export default function PostsDetailPage() {
     }));
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>{!isEmpty(detailInfo.post_title) ? detailInfo.post_title : `:: NicePage Blog ::`}</title>
@@ -25,6 +25,6 @@ export default function PostsDetailPage() {
                     <DtlPage />
                 </Suspense>
             </MainWrapper>
-        </>
+        </HelmetProvider>
     );
 }

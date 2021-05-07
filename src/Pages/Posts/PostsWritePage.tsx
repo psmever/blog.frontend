@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { PageSpinner } from '@Element/Spinners';
 import { WriteWrapper } from '@Style/WrtePageStyle';
 import { useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ export default function PostsWritePage() {
     }>();
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>{isEmpty(post_uuid) ? `등록` : `글 수정`}</title>
@@ -32,6 +32,6 @@ export default function PostsWritePage() {
                     <DtlPage />
                 </Suspense>
             </WriteWrapper>
-        </>
+        </HelmetProvider>
     );
 }
