@@ -9,6 +9,7 @@ import { PageSpinner } from '@Element/Spinners';
 import {
     clearPostContents,
     clearPostDetail,
+    clearPostLists,
     clearPostButtonAction,
     getPostEdit,
     clearPostContentsState,
@@ -22,9 +23,9 @@ import PriviewBox from './PriviewBox';
 import EditorButton from './EditorButton';
 
 export default function PostsWrite() {
-    const { appLoginInit, appLoginLoading, appLoginState, contentsButtonAction, contentsContentsGubun } = useSelector(
+    const { appLoginInit, appLoading, appLoginState, contentsButtonAction, contentsContentsGubun } = useSelector(
         (store: RootState) => ({
-            appLoginLoading: store.app.loading,
+            appLoading: store.app.loading,
             appLoginState: store.app.loginState,
             appLoginInit: store.app.appInit,
             contentsContentsGubun: store.posts.contents.contentsGubun,
@@ -177,7 +178,7 @@ export default function PostsWrite() {
     }, [params]);
 
     useEffect(() => {
-        if (appLoginInit === true && appLoginLoading === false) {
+        if (appLoginInit === true && appLoading === false) {
             if (appLoginState === false) {
                 Swal.fire({
                     text: '로그인 하시겠습니까?',
@@ -200,11 +201,12 @@ export default function PostsWrite() {
                 });
             }
         }
-    }, [appLoginState, appLoginLoading, appLoginInit]);
+    }, [appLoginState, appLoading, appLoginInit]);
 
     useEffect(() => {
         return () => {
             // 나갈때 초기화.
+            dispatch(clearPostLists());
             dispatch(clearPostContents());
             dispatch(clearPostDetail());
         };
@@ -213,7 +215,7 @@ export default function PostsWrite() {
     return (
         <WriteBox ref={inputRef}>
             {(function () {
-                if (appLoginLoading === false && appLoginState === true && editBoxSizeState.state === 'success') {
+                if (appLoading === false && appLoginState === true && editBoxSizeState.state === 'success') {
                     return (
                         <WriteContainer>
                             <LeftEditorBox>
