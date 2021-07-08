@@ -94,25 +94,29 @@ export const ListStatus = styled.ul`
     list-style: none;
 `;
 
-export const StatusBox = styled.li`
+export const StatusBox = styled.li<{ hasLine: boolean }>`
     overflow: hidden;
     float: left;
     position: relative;
-    width: 25%;
+    width: 33%;
     height: 85px;
     text-align: center;
     white-space: nowrap;
     list-style: none;
 
-    &:before {
-        position: absolute;
-        left: 0;
-        top: 15px;
-        bottom: 15px;
-        width: 1px;
-        background-color: #f0f0f0;
-        content: '';
-    }
+    ${({ hasLine }) =>
+        hasLine === true &&
+        css`
+            &:before {
+                position: absolute;
+                left: 0;
+                top: 15px;
+                bottom: 15px;
+                width: 1px;
+                background-color: #f0f0f0;
+                content: '';
+            }
+        `}
 `;
 
 export const StatusTitle = styled.em`
