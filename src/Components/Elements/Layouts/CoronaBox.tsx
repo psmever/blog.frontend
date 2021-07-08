@@ -61,7 +61,7 @@ export default function CoronaBox() {
                     </CoronaPreviousCount>
                 </CoronaDetailBox>
                 <CoronaDetailBox>
-                    <CoronaCategoryText>검사진행:</CoronaCategoryText>
+                    <CoronaCategoryText>확진자:</CoronaCategoryText>
                     <CoronaCategoryCount>
                         {todayCovid?.incdec.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     </CoronaCategoryCount>
