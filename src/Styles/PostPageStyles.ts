@@ -313,11 +313,12 @@ export const DescriptionReadMoreList = styled.div`
     display: inline-block;
     position: relative;
     cursor: pointer;
+    word-break: nowrap;
 
     &:after {
         content: '';
         font-family: FontAwesome;
-        margin-left: -10px;
+        margin-left: -1px;
         opacity: 0;
         vertical-align: middle;
         transition: margin 0.3s, opacity 0.3s;
