@@ -12,7 +12,7 @@ export default function configureStore(history: History, initialState: any): Sto
     let compose;
 
     const isDevelopment = process.env.REACT_APP_ENV === 'production' ? false : true;
-    const useReduxLogger = false;
+    const useReduxLogger = process.env.REACT_APP_USE_REDUX_LOGGER === 'TRUE' ? true : false;
 
     const composeEnhancers = composeWithDevTools({});
     const sagaMiddleware = createSagaMiddleware();
