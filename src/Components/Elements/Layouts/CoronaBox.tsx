@@ -4,12 +4,14 @@ import { RootState } from 'StoreTypes';
 import { useSelector } from 'react-redux';
 import {
     CoronaBoxWrapper,
-    CoronaTopBox,
-    CoronaBoxText,
-    CoronaDetailBox,
-    CoronaCategoryText,
-    CoronaCategoryCount,
-    CoronaPreviousCount,
+    StatusWrap,
+    ListStatus,
+    StatusBox,
+    StatusTitle,
+    StatusCount,
+    ChangeCount,
+    ScreenOut,
+    StatusCountDiff,
 } from '@Style/CoronaBoxStyles';
 
 export default function CoronaBox() {
@@ -30,45 +32,50 @@ export default function CoronaBox() {
     return (
         <>
             <CoronaBoxWrapper>
-                <CoronaTopBox>
-                    <CoronaBoxText>코로나 현황</CoronaBoxText>
-                </CoronaTopBox>
-                <CoronaDetailBox>
-                    <CoronaCategoryText>확진자:</CoronaCategoryText>
-                    <CoronaCategoryCount>
-                        {todayCovid?.defcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaCategoryCount>
-                    <CoronaPreviousCount>
-                        {yesterdayCovid?.defcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaPreviousCount>
-                </CoronaDetailBox>
-                <CoronaDetailBox>
-                    <CoronaCategoryText>격리해제:</CoronaCategoryText>
-                    <CoronaCategoryCount>
-                        {todayCovid?.isolclearcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaCategoryCount>
-                    <CoronaPreviousCount>
-                        {yesterdayCovid?.isolclearcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaPreviousCount>
-                </CoronaDetailBox>
-                <CoronaDetailBox>
-                    <CoronaCategoryText>사망자:</CoronaCategoryText>
-                    <CoronaCategoryCount>
-                        {todayCovid?.deathcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaCategoryCount>
-                    <CoronaPreviousCount>
-                        {yesterdayCovid?.deathcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaPreviousCount>
-                </CoronaDetailBox>
-                <CoronaDetailBox>
-                    <CoronaCategoryText>확진자:</CoronaCategoryText>
-                    <CoronaCategoryCount>
-                        {todayCovid?.incdec.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaCategoryCount>
-                    <CoronaPreviousCount>
-                        {yesterdayCovid?.incdec.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </CoronaPreviousCount>
-                </CoronaDetailBox>
+                <StatusWrap>
+                    <ListStatus>
+                        <StatusBox>
+                            <StatusTitle>확진환자</StatusTitle>
+                            <StatusCount color={`red`}>
+                                <StatusCountDiff>
+                                    {todayCovid?.incdec.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                </StatusCountDiff>
+                                <ScreenOut>명</ScreenOut>
+                            </StatusCount>
+                            <ChangeCount>
+                                {todayCovid?.defcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            </ChangeCount>
+                        </StatusBox>
+                        <StatusBox>
+                            <StatusTitle>격리해제</StatusTitle>
+                            <StatusCount color={`blue`}>
+                                <StatusCountDiff>423</StatusCountDiff>
+                                <ScreenOut>명</ScreenOut>
+                            </StatusCount>
+                            <ChangeCount>151,923</ChangeCount>
+                        </StatusBox>
+                        <StatusBox>
+                            <StatusTitle>검사 중</StatusTitle>
+                            <StatusCount color={`black`}>
+                                <StatusCountDiff>8,410</StatusCountDiff>
+                                <ScreenOut>명</ScreenOut>
+                            </StatusCount>
+                            <ChangeCount>151,158</ChangeCount>
+                        </StatusBox>
+                        <StatusBox>
+                            <StatusTitle>사망자</StatusTitle>
+                            <StatusCount color={`black`}>
+                                <StatusCountDiff>
+                                    {todayCovid?.deathcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                </StatusCountDiff>
+                                <ScreenOut>명</ScreenOut>
+                            </StatusCount>
+                            <ChangeCount>
+                                {todayCovid?.deathcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            </ChangeCount>
+                        </StatusBox>
+                    </ListStatus>
+                </StatusWrap>
             </CoronaBoxWrapper>
         </>
     );
