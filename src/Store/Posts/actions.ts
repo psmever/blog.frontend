@@ -13,6 +13,7 @@ export const GET_POST_EDIT = 'posts/GET_POST_EDIT';
 export const GET_POST_EDIT_SUCCESS = 'posts/GET_POST_EDIT_SUCCESS';
 export const GET_POST_EDIT_FAILURE = 'posts/GET_POST_EDIT_FAILURE';
 
+export const CLEAR_POST_LISTS = 'posts/CLEAR_POST_LISTS';
 export const CLEAR_POST_CONTENTS = 'posts/CLEAR_POST_CONTENTS';
 export const CLEAR_POST_CONTENTS_STATE = 'posts/CLEAR_POST_CONTENTS_STATE';
 export const CLEAR_POST_CONTENTS_INFO = 'posts/CLEAR_POST_CONTENTS_INFO';
@@ -38,6 +39,7 @@ export const clearPostButtonAction = createAction(CLEAR_POST_BUTTON_ACTION)();
  * 글 등록.
  */
 // 초기화
+export const clearPostLists = createAction(CLEAR_POST_LISTS)();
 export const clearPostContents = createAction(CLEAR_POST_CONTENTS)();
 export const clearPostDetail = createAction(CLEAR_POST_DETAIL)();
 export const clearPostContentsInfo = createAction(CLEAR_POST_CONTENTS_INFO)();

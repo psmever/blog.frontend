@@ -22,6 +22,7 @@ import {
     GET_POST_EDIT_FAILURE,
     CLEAR_POST_CONTENTS_INFO,
     CLEAR_POST_CONTENTS_STATE,
+    CLEAR_POST_LISTS,
 } from './actions';
 
 // 스토어 init.
@@ -219,6 +220,11 @@ export const PostsSagaReducer = createReducer<PostsState>(initialState, {
             draft.detail.state = 'failure';
             draft.detail.info = initialState.detail.info;
             draft.detail.message = action.payload.message;
+        });
+    },
+    [CLEAR_POST_LISTS]: (state: PostsState) => {
+        return produce(state, draft => {
+            draft.list = initialState.list;
         });
     },
 });
