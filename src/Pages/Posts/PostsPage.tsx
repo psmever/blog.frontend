@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { PageSpinner } from '@Element/Spinners';
 import { PostCardWrapper } from '@Style/PostPageStyles';
-
 const DtlPage = React.lazy(() => import('./Dtls/PostList'));
 
 export default function PostsPage() {

@@ -8,7 +8,7 @@ import { History } from 'history';
 import { RootState } from 'StoreTypes';
 import { rootSaga, createRootReducer } from '@Stores';
 
-export default function configureStore(history: History, initialState: RootState): Store<RootState> {
+export default function configureStore(history: History, initialState: any): Store<RootState> {
     let compose;
 
     const isDevelopment = process.env.REACT_APP_ENV === 'production' ? false : true;
