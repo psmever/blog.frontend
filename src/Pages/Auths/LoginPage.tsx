@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { PageSpinner } from '@Element/Spinners';
 import { LoginWrapper } from '@Style/LoginPageStyles';
 import { RootState } from 'StoreTypes';
@@ -13,7 +13,7 @@ export default function LoginPage() {
     }));
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>:: NicePage Blog :: {`로그인`}</title>
@@ -24,6 +24,6 @@ export default function LoginPage() {
                     <DtlPage />
                 </Suspense>
             </LoginWrapper>
-        </>
+        </HelmetProvider>
     );
 }

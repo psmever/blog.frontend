@@ -85,13 +85,7 @@ export function postCreate(payload: PostRequest): Promise<ServerDefaultResult<De
 }
 
 // 글 수정.
-export function postUpdate({
-    post_uuid,
-    payload,
-}: {
-    post_uuid: string;
-    payload: PostRequest;
-}): Promise<
+export function postUpdate({ post_uuid, payload }: { post_uuid: string; payload: PostRequest }): Promise<
     ServerDefaultResult<{
         post_uuid: string;
         payload: DefaultPostSaveResult;
