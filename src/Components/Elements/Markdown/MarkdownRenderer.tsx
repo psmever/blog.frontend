@@ -11,7 +11,7 @@ export const imageRender = (props: any): any => {
         <img
             {...props}
             style={{
-                maxWidth: '75%',
+                maxWidth: '85%',
                 border: 'solid',
                 borderRadius: 15,
                 marginTop: 50,
@@ -20,7 +20,8 @@ export const imageRender = (props: any): any => {
                 display: 'block',
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                width: '50%',
+                width: 'inherit',
+                height: 'auto',
             }}
             alt=""
         />
