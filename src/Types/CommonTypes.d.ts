@@ -25,6 +25,7 @@ declare module 'CommonTypes' {
     }
 
     export type AccessTokenType = string;
+
     export interface LayouTypes {
         layoutColor: 'main' | 'view';
         menuActive?: 'true' | 'false';
