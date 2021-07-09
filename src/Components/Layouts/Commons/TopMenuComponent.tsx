@@ -7,6 +7,8 @@ import { postWaitingList } from '@API';
 import { isEmpty } from '@Helper';
 import Swal from 'sweetalert2';
 import { Navi, NaviInput, MenuLabel, LogoText, MenuUList, MenuElement, MenuLink, MenuIcon } from '@Style/TopMenuStyles';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes }) {
     const history = useHistory();
@@ -30,6 +32,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     // 로고 클릭 처리.
     const handleClickLogoText = () => {
+        setOpenMobileMenu('false');
         history.push({
             pathname: process.env.PUBLIC_URL + `/posts`,
         });
@@ -37,18 +40,21 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     // 검색 버튼
     const handleClickSearchLink = () => {
+        setOpenMobileMenu('false');
         history.push({
             pathname: process.env.PUBLIC_URL + `/search/posts`,
         });
     };
     // 홈
     const handleClickHomeLink = () => {
+        setOpenMobileMenu('false');
         history.push({
             pathname: process.env.PUBLIC_URL + `/posts`,
         });
     };
 
     const handleClickScribbleLink = () => {
+        setOpenMobileMenu('false');
         history.push({
             pathname: process.env.PUBLIC_URL + `/sections/scribble`,
         });
@@ -56,6 +62,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     // 블로그에 대해 링크
     const handleClickBlogsLink = () => {
+        setOpenMobileMenu('false');
         history.push({
             pathname: process.env.PUBLIC_URL + `/sections/blog`,
         });
@@ -116,7 +123,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
             }
         };
 
-        if (menuGubun === 'posts') {
+        if (menuGubun === 'posts' || menuGubun === 'search') {
             checkPostsWaitingList();
         } else {
             history.push({
@@ -157,7 +164,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
 
     return (
         <>
-            <Navi layoutColor={LayouType.layoutColor}>
+            <Navi layoutColor={LayouType.layoutColor} mobileMenuOpen={openMobileMenu}>
                 <NaviInput type="checkbox" id="check" />
                 <MenuLabel htmlFor="check" onClick={() => handleClickMobileMenu()}>
                     <MenuIcon layoutColor={LayouType.layoutColor} />
@@ -172,7 +179,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                             menuActive={menuGubun === 'search' ? 'true' : 'false'}
                             onClick={() => handleClickSearchLink()}
                         >
-                            검색
+                            {menuGubun && menuGubun === 'search' && <FontAwesomeIcon icon={faCheckCircle} />} 검색
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
@@ -181,7 +188,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                             menuActive={menuGubun === 'posts' ? 'true' : 'false'}
                             onClick={() => handleClickHomeLink()}
                         >
-                            포스트
+                            {menuGubun && menuGubun === 'posts' && <FontAwesomeIcon icon={faCheckCircle} />} 포스트
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
@@ -190,7 +197,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                             menuActive={menuGubun === 'scribble' ? 'true' : 'false'}
                             onClick={() => handleClickScribbleLink()}
                         >
-                            끄적끄적
+                            {menuGubun && menuGubun === 'scribble' && <FontAwesomeIcon icon={faCheckCircle} />} 끄적끄적
                         </MenuLink>
                     </MenuElement>
                     <MenuElement>
@@ -199,7 +206,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                             menuActive={menuGubun === 'blog' ? 'true' : 'false'}
                             onClick={() => handleClickBlogsLink()}
                         >
-                            블로그 소개
+                            {menuGubun && menuGubun === 'blog' && <FontAwesomeIcon icon={faCheckCircle} />} 블로그 소개
                         </MenuLink>
                     </MenuElement>
                     {/* <MenuElement>

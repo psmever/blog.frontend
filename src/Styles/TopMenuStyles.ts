@@ -8,8 +8,10 @@ export interface MenuActive {
 export const Default = styled.div``;
 
 export const Navi = styled.nav<LayouTypes>`
-    background: ${({ layoutColor }) => {
-        if (layoutColor === 'main') {
+    background: ${({ layoutColor, mobileMenuOpen }) => {
+        if (mobileMenuOpen === 'true') {
+            return `#2c3e50`;
+        } else if (layoutColor === 'main') {
             return `#5eaeff`;
         } else if (layoutColor === 'view') {
             return `#fff`;
