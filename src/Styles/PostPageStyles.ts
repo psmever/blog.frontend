@@ -107,6 +107,7 @@ export const PostPhoto = styled.div`
     left: 0;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     transition: transform 0.2s;
 `;
 

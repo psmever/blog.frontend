@@ -46,6 +46,7 @@ export default function PostsCard({ elementIndex, postData }: { elementIndex: nu
                     id="PostPhoto"
                     style={{
                         backgroundImage: `url(${thumb_url})`,
+                        backgroundSize: '100%',
                     }}
                 ></PostPhoto>
                 <Details id="Details" alt={optionAlt}>
