@@ -72,7 +72,7 @@ declare module 'StoreTypes' {
         covides: {
             state: DefaultStatus;
             message: string;
-            covides: CovidItem[];
+            covides: CovidItem;
         };
     }
 
