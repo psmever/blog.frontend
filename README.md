@@ -43,8 +43,8 @@ yarn -s serve build
 
 ## Production Deploy.
 ```bash
-yarn deploy:stage
-yarn deploy:prod
+yarn stage-deploy:stage
+yarn stage-deploy:prod
 ```
 
 ## webhook
