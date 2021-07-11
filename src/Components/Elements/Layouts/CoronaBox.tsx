@@ -17,7 +17,7 @@ import { isEmpty } from '@Helper';
 
 export default function CoronaBox() {
     const { specialtyCovidesCovides } = useSelector((store: RootState) => ({
-        specialtyCovidesCovides: store.specialty.covides.covides,
+        specialtyCovidesCovides: store.specialty.covides,
     }));
 
     const [covidCnt, setCovidCnt] = useState<{
@@ -39,30 +39,30 @@ export default function CoronaBox() {
     });
 
     useEffect(() => {
-        const setCovidCntData = (covides: CovidItem[]) => {
+        const setCovidCntData = (covides: CovidItem) => {
             if (
-                !isEmpty(covides[0].incdec) &&
-                !isEmpty(covides[0].defcnt) &&
-                !isEmpty(covides[0].isolclearcnt) &&
-                !isEmpty(covides[0].deathcnt)
+                !isEmpty(covides.today.incdec) &&
+                !isEmpty(covides.today.defcnt) &&
+                !isEmpty(covides.today.isolclearcnt) &&
+                !isEmpty(covides.today.deathcnt)
             ) {
-                const clearcnt = Number(covides[0].isolclearcnt) - Number(covides[1].isolclearcnt);
-                const deathcnt = Number(covides[0].deathcnt) - Number(covides[1].deathcnt);
+                const clearcnt = Number(covides.today.isolclearcnt) - Number(covides.yesterday.isolclearcnt);
+                const deathcnt = Number(covides.today.deathcnt) - Number(covides.yesterday.deathcnt);
 
                 setCovidCnt({
                     status: true,
-                    todayDefCnt: covides[0].incdec.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-                    totalDefCnt: covides[0].defcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+                    todayDefCnt: covides.today.incdec.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+                    totalDefCnt: covides.today.defcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
                     todayClearCnt: clearcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-                    totalClearCnt: covides[0].isolclearcnt.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+                    totalClearCnt: covides.today.isolclearcnt.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
                     todayDeathCnt: deathcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-                    totalDeathCnt: covides[0].deathcnt.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+                    totalDeathCnt: covides.today.deathcnt.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
                 });
             }
         };
 
-        if (specialtyCovidesCovides.length === 2) {
-            setCovidCntData(specialtyCovidesCovides);
+        if (specialtyCovidesCovides) {
+            setCovidCntData(specialtyCovidesCovides.covides);
         }
     }, [specialtyCovidesCovides]);
 

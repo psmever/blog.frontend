@@ -68,10 +68,18 @@ declare module 'CommonTypes' {
     }
 
     export interface CovidItem {
-        defcnt: string;
-        isolclearcnt: string;
-        deathcnt: string;
-        incdec: string;
+        today: {
+            defcnt: string;
+            isolclearcnt: string;
+            deathcnt: string;
+            incdec: string;
+        };
+        yesterday: {
+            defcnt: string;
+            isolclearcnt: string;
+            deathcnt: string;
+            incdec: string;
+        };
     }
 
     export interface TagItem {
