@@ -12,6 +12,7 @@ import {
     ChangeCount,
     ScreenOut,
     StatusCountDiff,
+    StatusDate,
 } from '@Style/CoronaBoxStyles';
 import { isEmpty } from '@Helper';
 
@@ -22,6 +23,7 @@ export default function CoronaBox() {
 
     const [covidCnt, setCovidCnt] = useState<{
         status: boolean;
+        statusDate: string;
         todayDefCnt: string;
         totalDefCnt: string;
         todayClearCnt: string;
@@ -30,6 +32,7 @@ export default function CoronaBox() {
         totalDeathCnt: string;
     }>({
         status: false,
+        statusDate: '',
         todayDefCnt: '',
         totalDefCnt: '',
         todayClearCnt: '',
@@ -48,9 +51,15 @@ export default function CoronaBox() {
             ) {
                 const clearcnt = Number(covides.today.isolclearcnt) - Number(covides.yesterday.isolclearcnt);
                 const deathcnt = Number(covides.today.deathcnt) - Number(covides.yesterday.deathcnt);
+                const tempStatusDate = covides.covid_date.replace(/[^0-9]/g, '');
+                const statusDate = `${tempStatusDate.substr(4, 2)}.${tempStatusDate.substr(
+                    6,
+                    2
+                )} ${tempStatusDate.substr(8, 2)}:00 기준`;
 
                 setCovidCnt({
                     status: true,
+                    statusDate: statusDate,
                     todayDefCnt: covides.today.incdec.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
                     totalDefCnt: covides.today.defcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
                     todayClearCnt: clearcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
@@ -70,6 +79,7 @@ export default function CoronaBox() {
         <>
             <CoronaBoxWrapper>
                 <StatusWrap>
+                    <StatusDate>{covidCnt.status && covidCnt.statusDate}</StatusDate>
                     <ListStatus>
                         <StatusBox hasLine={false}>
                             <StatusTitle>확진환자</StatusTitle>
