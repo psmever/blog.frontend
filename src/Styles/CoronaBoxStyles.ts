@@ -94,6 +94,18 @@ export const ListStatus = styled.ul`
     list-style: none;
 `;
 
+export const StatusDate = styled.ul`
+    overflow: hidden;
+    padding-top: 6px;
+    background-color: #fff;
+    list-style: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: -0.06em;
+    font-family: SF Pro Display, Apple SD Gothic Neo, Malgun Gothic, '\B9D1\C740 \ACE0\B515', sans-serif;
+`;
+
 export const StatusBox = styled.li<{ hasLine: boolean }>`
     overflow: hidden;
     float: left;
