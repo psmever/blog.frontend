@@ -68,6 +68,7 @@ declare module 'CommonTypes' {
     }
 
     export interface CovidItem {
+        covid_date: string;
         today: {
             defcnt: string;
             isolclearcnt: string;
