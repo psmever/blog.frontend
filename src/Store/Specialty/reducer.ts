@@ -22,7 +22,21 @@ const initialState: SpecialtyState = {
     covides: {
         state: 'idle',
         message: '',
-        covides: [],
+        covides: {
+            covid_date: '',
+            today: {
+                defcnt: '',
+                isolclearcnt: '',
+                deathcnt: '',
+                incdec: '',
+            },
+            yesterday: {
+                defcnt: '',
+                isolclearcnt: '',
+                deathcnt: '',
+                incdec: '',
+            },
+        },
     },
 };
 
