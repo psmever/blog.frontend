@@ -69,11 +69,11 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
     };
 
     // 정보 메뉴 클릭
-    // const handleClickMingunLink = () => {
-    //     history.push({
-    //         pathname: process.env.PUBLIC_URL + `/sections/mingun`,
-    //     });
-    // };
+    const handleClickMingunLink = () => {
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/sections/mingun`,
+        });
+    };
 
     // 글 등록.
     const handleClickPostWriteLink = () => {
@@ -203,21 +203,21 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
                     <MenuElement>
                         <MenuLink
                             layoutColor={LayouType.layoutColor}
+                            menuActive={menuGubun === 'mingun' ? 'true' : 'false'}
+                            onClick={() => handleClickMingunLink()}
+                        >
+                            {menuGubun && menuGubun === 'mingun' && <FontAwesomeIcon icon={faCheckCircle} />} 민군은
+                        </MenuLink>
+                    </MenuElement>
+                    <MenuElement>
+                        <MenuLink
+                            layoutColor={LayouType.layoutColor}
                             menuActive={menuGubun === 'blog' ? 'true' : 'false'}
                             onClick={() => handleClickBlogsLink()}
                         >
                             {menuGubun && menuGubun === 'blog' && <FontAwesomeIcon icon={faCheckCircle} />} 블로그 소개
                         </MenuLink>
                     </MenuElement>
-                    {/* <MenuElement>
-                        <MenuLink
-                            layoutColor={LayouType.layoutColor}
-                            menuActive={menuGubun === 'mingun' ? 'true' : 'false'}
-                            onClick={() => handleClickMingunLink()}
-                        >
-                            주인장은
-                        </MenuLink>
-                    </MenuElement> */}
                     {loginDone === true && (
                         <MenuElement>
                             <MenuLink layoutColor={LayouType.layoutColor} onClick={() => handleClickPostWriteLink()}>

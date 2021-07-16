@@ -25,7 +25,7 @@ export default function EditorBox({
             } else if (gubun === 'blog') {
                 setSectionTitle('블로그 소개');
             } else if (gubun === 'mingun') {
-                setSectionTitle('주인장은');
+                setSectionTitle('민군은');
             }
         };
 

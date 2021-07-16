@@ -25,7 +25,7 @@ export default function SectionsPage() {
     } else if (section_gubun === 'blog') {
         pageTitle = '블로그 소개';
     } else if (section_gubun === 'mingun') {
-        pageTitle = '주인장은';
+        pageTitle = '민군은';
     }
 
     return (
