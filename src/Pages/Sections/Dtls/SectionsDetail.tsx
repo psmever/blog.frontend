@@ -5,6 +5,7 @@ import { isEmpty } from '@Helper';
 import { getSectionDetail } from '@API';
 import _Alert_ from '@_Alert_';
 import MarkdownRender from '@Element/Markdown/MarkdownRender';
+import SectionsHistorysBox from './SectionsHistorysBox';
 
 import {
     PostDetailBox,
@@ -13,11 +14,7 @@ import {
     Header,
     HeaderTitle,
     HeaderMeta,
-    HistoryContainer,
-    HistoryItems,
-    HistoryItemsHead,
-    HistoryItemsBody,
-    ItemsBodyContent,
+    ContentsHr,
 } from '@Style/PostDetailStyles';
 
 //https://codepen.io/sowmyaseshadri/pen/PdajzN
@@ -83,34 +80,9 @@ export default function SectionsDetail() {
 
                 <MarkdownRender markdownText={sectionDetailData.contents_text} />
             </PostBoxWarpper>
+            <ContentsHr />
             <HistoryBoxWarpper>
-                <HistoryContainer>
-                    <HistoryItems>
-                        <HistoryItemsHead>
-                            <p>히스토리</p>
-                            <hr />
-                        </HistoryItemsHead>
-
-                        <HistoryItemsBody>
-                            <ItemsBodyContent>
-                                <span>Web Usabilty Testing</span>
-                                <i className="fa fa-angle-right"></i>
-                            </ItemsBodyContent>
-                            <ItemsBodyContent>
-                                <span>Design of Everyday Things</span>
-                                <i className="fa fa-angle-right"></i>
-                            </ItemsBodyContent>
-                            <ItemsBodyContent>
-                                <span>Practical Empathy: For Collaboration & Creativity in Your Work</span>
-                                <i className="fa fa-angle-right"></i>
-                            </ItemsBodyContent>
-                            <ItemsBodyContent>
-                                <span>About Face: The Essentials of Interaction Design</span>
-                                <i className="fa fa-angle-right"></i>
-                            </ItemsBodyContent>
-                        </HistoryItemsBody>
-                    </HistoryItems>
-                </HistoryContainer>
+                <SectionsHistorysBox />
             </HistoryBoxWarpper>
         </PostDetailBox>
     );
