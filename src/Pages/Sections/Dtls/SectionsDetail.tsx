@@ -6,7 +6,23 @@ import { getSectionDetail } from '@API';
 import _Alert_ from '@_Alert_';
 import MarkdownRender from '@Element/Markdown/MarkdownRender';
 
-import { PostDetailBox, Header, HeaderTitle, HeaderMeta } from '@Style/PostDetailStyles';
+import {
+    PostDetailBox,
+    PostBoxWarpper,
+    HistoryBoxWarpper,
+    Header,
+    HeaderTitle,
+    HeaderMeta,
+    HistoryContainer,
+    HistoryItems,
+    HistoryItemsHead,
+    HistoryItemsBody,
+    ItemsBodyContent,
+} from '@Style/PostDetailStyles';
+
+//https://codepen.io/sowmyaseshadri/pen/PdajzN
+
+// TODO : 히스토리 박스 퍼블리싱.
 
 export default function SectionsDetail() {
     const params = useParams<{
@@ -54,17 +70,48 @@ export default function SectionsDetail() {
 
     return (
         <PostDetailBox>
-            <Header>
-                <HeaderTitle>{sectionTitle}</HeaderTitle>
-                <HeaderMeta>
-                    {/* <HeaderDate>{postInfo.detail_created}</HeaderDate> */}
-                    {/* <ModifyButton>
+            <PostBoxWarpper>
+                <Header>
+                    <HeaderTitle>{sectionTitle}</HeaderTitle>
+                    <HeaderMeta>
+                        {/* <HeaderDate>{postInfo.detail_created}</HeaderDate> */}
+                        {/* <ModifyButton>
                         <PostEditButton EditLink={editButtonLink} />
                     </ModifyButton> */}
-                </HeaderMeta>
-            </Header>
+                    </HeaderMeta>
+                </Header>
 
-            <MarkdownRender markdownText={sectionDetailData.contents_text} />
+                <MarkdownRender markdownText={sectionDetailData.contents_text} />
+            </PostBoxWarpper>
+            <HistoryBoxWarpper>
+                <HistoryContainer>
+                    <HistoryItems>
+                        <HistoryItemsHead>
+                            <p>히스토리</p>
+                            <hr />
+                        </HistoryItemsHead>
+
+                        <HistoryItemsBody>
+                            <ItemsBodyContent>
+                                <span>Web Usabilty Testing</span>
+                                <i className="fa fa-angle-right"></i>
+                            </ItemsBodyContent>
+                            <ItemsBodyContent>
+                                <span>Design of Everyday Things</span>
+                                <i className="fa fa-angle-right"></i>
+                            </ItemsBodyContent>
+                            <ItemsBodyContent>
+                                <span>Practical Empathy: For Collaboration & Creativity in Your Work</span>
+                                <i className="fa fa-angle-right"></i>
+                            </ItemsBodyContent>
+                            <ItemsBodyContent>
+                                <span>About Face: The Essentials of Interaction Design</span>
+                                <i className="fa fa-angle-right"></i>
+                            </ItemsBodyContent>
+                        </HistoryItemsBody>
+                    </HistoryItems>
+                </HistoryContainer>
+            </HistoryBoxWarpper>
         </PostDetailBox>
     );
 }
