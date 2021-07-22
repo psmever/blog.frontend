@@ -38,6 +38,8 @@ export const PostDetailBox = styled.article`
     margin: 1rem 0.25em;
 `;
 
+export const PostBoxWarpper = styled.div``;
+
 export const Header = styled.article`
     color: #4f4f4f;
     box-sizing: border-box;
@@ -145,5 +147,77 @@ export const PostTagsItem = styled.div`
 
     &:hover::after {
         border-left-color: #e0dede;
+    }
+`;
+
+export const HistoryBoxWarpper = styled.div``;
+
+export const HistoryContainer = styled.div`
+    // border: 1px solid black;
+
+    // position: absolute;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+    margin: auto;
+
+    display: grid;
+    place-items: left;
+    // background-color: #128cfc;
+`;
+
+export const HistoryItems = styled.div`
+    width: 300px;
+    background: #fffffe;
+    box-shadow: 0 3px 6px rgba(black, 0.16), 0 3px 6px rgba(black, 0.23);
+    border-top: 10px solid 0b5aa2;
+`;
+
+export const HistoryItemsHead = styled.div`
+    p {
+        padding: 5px 20px;
+        margin: 10px;
+        color: #0b5aa2;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    hr {
+        width: 20%;
+        margin: 0px 30px;
+        border: 1px solid #0b5aa2;
+    }
+`;
+
+export const HistoryItemsBody = styled.div`
+    padding: 10px;
+    margin: 10px;
+    display: grid;
+    grid-gap: 10px;
+`;
+
+export const ItemsBodyContent = styled.div`
+    padding: 10px;
+    padding-right: 0px;
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    // background-color: lightblue;
+    font-size: 13px;
+    grid-gap: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    & hover {
+        border-radius: 15px;
+        border: 1px solid #0b5aa2;
+    }
+
+    i {
+        align-self: center;
+        font-size: 15px;
+        color: #0b5aa2;
+        font-weight: bold;
+        animation: icon 1.5s infinite forwards;
     }
 `;
