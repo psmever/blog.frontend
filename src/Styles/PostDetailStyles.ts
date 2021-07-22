@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const MainWrapper = styled.div`
     /* width: 100%; */
@@ -150,44 +150,53 @@ export const PostTagsItem = styled.div`
     }
 `;
 
-export const HistoryBoxWarpper = styled.div``;
+export const ContentsHr = styled.hr`
+    width: 100%;
+    margin: 38px 49px 10px 10px;
+    border: 1px solid #0b5aa2;
+`;
+
+export const HistoryBoxWarpper = styled.div`
+    max-width: 85%;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: inherit;
+    height: auto;
+`;
 
 export const HistoryContainer = styled.div`
-    // border: 1px solid black;
-
-    // position: absolute;
-    // top: 0;
-    // right: 0;
-    // bottom: 0;
-    // left: 0;
+    border: 1px solid #0b5aa2;
     margin: auto;
-
+    text-align: left;
     display: grid;
     place-items: left;
-    // background-color: #128cfc;
 `;
 
 export const HistoryItems = styled.div`
-    width: 300px;
+    width: 100%;
     background: #fffffe;
     box-shadow: 0 3px 6px rgba(black, 0.16), 0 3px 6px rgba(black, 0.23);
     border-top: 10px solid 0b5aa2;
 `;
 
-export const HistoryItemsHead = styled.div`
-    p {
-        padding: 5px 20px;
-        margin: 10px;
-        color: #0b5aa2;
-        font-weight: bold;
-        font-size: 20px;
-    }
+export const HistoryItemsHeadBox = styled.div``;
 
-    hr {
-        width: 20%;
-        margin: 0px 30px;
-        border: 1px solid #0b5aa2;
-    }
+export const HistoryItemsHeadTitle = styled.p`
+    padding: 5px 20px;
+    margin: 10px;
+    color: #0b5aa2;
+    font-weight: bold;
+    font-size: 20px;
+`;
+
+export const HistoryItemsHeadHr = styled.hr`
+    width: 20%;
+    margin: 0px 20px;
+    border: 1px solid #0b5aa2;
 `;
 
 export const HistoryItemsBody = styled.div`
@@ -208,16 +217,28 @@ export const ItemsBodyContent = styled.div`
     border: 1px solid transparent;
     cursor: pointer;
 
-    & hover {
+    &:hover {
         border-radius: 15px;
         border: 1px solid #0b5aa2;
     }
+`;
 
-    i {
-        align-self: center;
-        font-size: 15px;
-        color: #0b5aa2;
-        font-weight: bold;
-        animation: icon 1.5s infinite forwards;
-    }
+const IconKeyFrames = keyframes`
+  0% {
+    transform: scale(1)
+  }
+  50% {
+    transform: scale(0)
+  }
+  100% {
+    transform: scale(1)
+  }
+`;
+
+export const ItemsBodyContentIcon = styled.span`
+    align-self: left;
+    font-size: 15px;
+    color: #0b5aa2;
+    font-weight: bold;
+    animation: ${IconKeyFrames} 1.5s infinite forwards;
 `;
