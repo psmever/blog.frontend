@@ -1,5 +1,11 @@
 import { _Axios_ } from '@Utils';
-import { DefaultPostSaveResult, WaitingPostResultItem, SectionGubunItem, SectionPostItem } from 'CommonTypes';
+import {
+    DefaultPostSaveResult,
+    WaitingPostResultItem,
+    SectionGubunItem,
+    SectionPostItem,
+    SectionGubunCode,
+} from 'CommonTypes';
 import {
     ServerDefaultResult,
     ServerNotice,
@@ -13,6 +19,7 @@ import {
     SectionPostRequest,
     SectionSaveResult,
     GetTagGroupResult,
+    SectionHistoryResponse,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -171,6 +178,11 @@ export const weathers = (): Promise<ServerDefaultResult<WeatherResult>> => {
 // 코로나 현황.
 export const covides = (): Promise<ServerDefaultResult<CovidResult>> => {
     return _Axios_({ method: 'get', url: `/api/v1/specialty/covid`, payload: { data: {} } });
+};
+
+// 섹션 포스트 히스토리
+export const getSectionHistory = (gubun: SectionGubunCode): Promise<ServerDefaultResult<SectionHistoryResponse>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/section-post/${gubun}/history`, payload: { data: {} } });
 };
 
 // // 글보기 Detail

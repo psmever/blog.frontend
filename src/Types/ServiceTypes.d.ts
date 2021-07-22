@@ -59,6 +59,21 @@ declare module 'ServiceTypes' {
         };
     }
 
+    export interface SectionHistoryItem {
+        post_uuid: string;
+        gubun: CodeItem;
+        smal_content: string;
+        created_at: string;
+        created_time: string;
+    }
+
+    export interface SectionHistoryResponse {
+        per_page: string;
+        current_page: number;
+        hasmore: boolean;
+        historys: SectionHistoryItem[];
+    }
+
     // 섹션 정보 저장 결과
     export interface SectionSaveResult {
         post_uuid: string;
