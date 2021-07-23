@@ -16,7 +16,6 @@ import {
     GET_HISTORY_DETAIL_FAILURE,
 } from './actions';
 
-// function* getPostDetailSaga({ payload: { slug_title } }: { payload: { slug_title: string } }) {
 function* getSectionsPostSaga({ payload: { section } }: { payload: { section: SectionGubunItem } }) {
     // 가지고 오기 전에 리셋.
     yield put({
