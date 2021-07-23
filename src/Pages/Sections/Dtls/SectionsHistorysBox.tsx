@@ -3,19 +3,20 @@ import { SectionGubunItem, SectionGubunCode } from 'CommonTypes';
 import { RootState, SectionHistoryItem } from 'StoreTypes';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
 import {
     HistoryContainer,
     HistoryItems,
     HistoryItemsHeadBox,
     HistoryItemsBody,
+    ItemsBodyCheckIconBox,
+    HistoryItemsWapper,
     ItemsBodyContent,
     ItemsBodyContentIcon,
     HistoryItemsHeadTitle,
     HistoryItemsHeadHr,
 } from '@Style/PostDetailStyles';
-
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { isEmpty } from '@Helper';
+import { faAngleRight, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getSectionsHistoryAction } from '@Store/Sections';
 
@@ -66,6 +67,7 @@ export default function SectionsHistorysBox() {
     useEffect(() => {
         if (gubunCode) {
             dispatch(getSectionsHistoryAction(gubunCode));
+            setHistoryList([]);
         }
     }, [gubunCode]);
 
@@ -86,25 +88,36 @@ export default function SectionsHistorysBox() {
     }, [currentPage, hasmore]);
 
     return (
-        <HistoryContainer>
-            <HistoryItems>
-                <HistoryItemsHeadBox>
-                    <HistoryItemsHeadTitle>히스토리</HistoryItemsHeadTitle>
-                    <HistoryItemsHeadHr />
-                </HistoryItemsHeadBox>
-                <HistoryItemsBody>
-                    {historyList?.map((item: SectionHistoryItem) => {
-                        return (
-                            <ItemsBodyContent key={item.post_uuid} onClick={() => handleClickHistory(item.post_uuid)}>
-                                <span>{item.smal_content}</span>
-                                <ItemsBodyContentIcon>
-                                    <FontAwesomeIcon icon={faAngleRight} />
-                                </ItemsBodyContentIcon>
-                            </ItemsBodyContent>
-                        );
-                    })}
-                </HistoryItemsBody>
-            </HistoryItems>
-        </HistoryContainer>
+        <>
+            {!isEmpty(historyList) && (
+                <HistoryContainer>
+                    <HistoryItems>
+                        <HistoryItemsHeadBox>
+                            <HistoryItemsHeadTitle>히스토리</HistoryItemsHeadTitle>
+                            <HistoryItemsHeadHr />
+                        </HistoryItemsHeadBox>
+                        <HistoryItemsBody>
+                            {historyList?.map((item: SectionHistoryItem) => {
+                                return (
+                                    <HistoryItemsWapper>
+                                        {params.post_uuid && params.post_uuid == item.post_uuid && (
+                                            <ItemsBodyCheckIconBox>
+                                                <FontAwesomeIcon icon={faCheckCircle} />
+                                            </ItemsBodyCheckIconBox>
+                                        )}
+                                        <ItemsBodyContent onClick={() => handleClickHistory(item.post_uuid)}>
+                                            <span>{item.smal_content}</span>
+                                            <ItemsBodyContentIcon>
+                                                <FontAwesomeIcon icon={faAngleRight} />
+                                            </ItemsBodyContentIcon>
+                                        </ItemsBodyContent>
+                                    </HistoryItemsWapper>
+                                );
+                            })}
+                        </HistoryItemsBody>
+                    </HistoryItems>
+                </HistoryContainer>
+            )}
+        </>
     );
 }
