@@ -157,8 +157,12 @@ export const ContentsHr = styled.hr`
 `;
 
 export const HistoryBoxWarpper = styled.div`
+    width: 100%;
+`;
+
+export const HistoryContainer = styled.div`
     max-width: 85%;
-    margin-top: 5rem;
+    margin-top: 2rem;
     margin-bottom: 1rem;
     text-align: center;
     display: block;
@@ -166,14 +170,13 @@ export const HistoryBoxWarpper = styled.div`
     margin-right: auto;
     width: inherit;
     height: auto;
-`;
 
-export const HistoryContainer = styled.div`
     border: 1px solid #0b5aa2;
-    margin: auto;
     text-align: left;
     display: grid;
     place-items: left;
+    // margin-left: 10%;
+    // margin-right: 10%;
 `;
 
 export const HistoryItems = styled.div`

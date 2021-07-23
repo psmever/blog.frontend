@@ -1,5 +1,6 @@
 declare module 'ServiceTypes' {
     import { WaitingPostResultItem, TagGroupItem } from 'CommonTypes';
+    import { SectionHistoryItem } from 'StoreTypes';
     import { WeatherBox } from '../Styles/RightWeatherBoxStyles';
 
     // 기본 api 리턴 인테페이스
@@ -57,14 +58,6 @@ declare module 'ServiceTypes' {
             html: string;
             text: string;
         };
-    }
-
-    export interface SectionHistoryItem {
-        post_uuid: string;
-        gubun: CodeItem;
-        smal_content: string;
-        created_at: string;
-        created_time: string;
     }
 
     export interface SectionHistoryResponse {
