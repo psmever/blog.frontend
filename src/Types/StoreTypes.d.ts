@@ -95,8 +95,6 @@ declare module 'StoreTypes' {
         section: {
             state: DefaultStatus;
             message: string;
-            gubun: SectionGubunCode;
-            post_uuid: string;
             detail: SectionPostItem;
             history: {
                 per_page: string;
