@@ -1,7 +1,14 @@
 declare module 'StoreTypes' {
     import { covides } from '@API';
     import { RouterState } from 'connected-react-router';
-    import { PostDetailItem, defaultYesNo, TagGroupItem, DefaultStatus, WeatherItem } from 'CommonTypes';
+    import {
+        PostDetailItem,
+        defaultYesNo,
+        TagGroupItem,
+        DefaultStatus,
+        WeatherItem,
+        SectionPostItem,
+    } from 'CommonTypes';
 
     export interface ErrorMessage {
         message: string;
@@ -76,11 +83,34 @@ declare module 'StoreTypes' {
         };
     }
 
+    export interface SectionHistoryItem {
+        post_uuid: string;
+        gubun: CodeItem;
+        smal_content: string;
+        created_at: string;
+        created_time: string;
+    }
+
+    export interface SectionsState {
+        section: {
+            state: DefaultStatus;
+            message: string;
+            detail: SectionPostItem;
+            history: {
+                per_page: string;
+                current_page: number;
+                hasmore: boolean;
+                historys: SectionHistoryItem[];
+            };
+        };
+    }
+
     export interface RootState {
         router: RouterState;
         common: CommonState;
         app: AppState;
         specialty: SpecialtyState;
         posts: PostsState;
+        sections: SectionsState;
     }
 }

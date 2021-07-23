@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const MainWrapper = styled.div`
     /* width: 100%; */
@@ -37,6 +37,8 @@ export const PostDetailBox = styled.article`
     box-sizing: border-box;
     margin: 1rem 0.25em;
 `;
+
+export const PostBoxWarpper = styled.div``;
 
 export const Header = styled.article`
     color: #4f4f4f;
@@ -146,4 +148,116 @@ export const PostTagsItem = styled.div`
     &:hover::after {
         border-left-color: #e0dede;
     }
+`;
+
+export const ContentsHr = styled.hr`
+    width: 100%;
+    margin: 38px 49px 10px 10px;
+    border: 1px solid #0b5aa2;
+`;
+
+export const HistoryBoxWarpper = styled.div`
+    width: 100%;
+`;
+
+export const HistoryContainer = styled.div`
+    max-width: 85%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: inherit;
+    height: auto;
+
+    border: 1px solid #0b5aa2;
+    text-align: left;
+    display: grid;
+    place-items: left;
+    // margin-left: 10%;
+    // margin-right: 10%;
+`;
+
+export const HistoryItems = styled.div`
+    width: 100%;
+    background: #fffffe;
+    box-shadow: 0 3px 6px rgba(black, 0.16), 0 3px 6px rgba(black, 0.23);
+    border-top: 10px solid 0b5aa2;
+`;
+
+export const HistoryItemsHeadBox = styled.div``;
+
+export const HistoryItemsHeadTitle = styled.p`
+    padding: 5px 20px;
+    margin: 10px;
+    color: #0b5aa2;
+    font-weight: bold;
+    font-size: 20px;
+`;
+
+export const HistoryItemsHeadHr = styled.hr`
+    width: 20%;
+    margin: 0px 20px;
+    border: 1px solid #0b5aa2;
+`;
+
+export const HistoryItemsBody = styled.div`
+    padding: 10px;
+    margin: 10px;
+    display: grid;
+    grid-gap: 10px;
+`;
+
+export const HistoryItemsWapper = styled.div`
+    display: flex;
+`;
+
+export const ItemsBodyCheckIconBox = styled.div`
+    padding: 10px;
+    padding-right: 0px;
+    /* display: grid; */
+    grid-template-columns: 10fr 1fr;
+    font-size: 13px;
+    grid-gap: 10px;
+    border: 1px solid transparent;
+`;
+
+export const ItemsBodyContent = styled.div`
+    width: 100%;
+    padding: 10px;
+    padding-right: 0px;
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    // background-color: lightblue;
+    font-size: 13px;
+    grid-gap: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+        border-radius: 15px;
+        border: 1px solid #0b5aa2;
+    }
+`;
+
+const IconKeyFrames = keyframes`
+  0% {
+    transform: scale(1)
+  }
+  50% {
+    transform: scale(0)
+  }
+  100% {
+    transform: scale(1)
+  }
+`;
+
+export const ItemsBodyContentIcon = styled.span`
+    flex: left;
+    align-self: left;
+    font-size: 15px;
+    color: #0b5aa2;
+    font-weight: bold;
+    animation: ${IconKeyFrames} 1.5s infinite forwards;
 `;
