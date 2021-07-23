@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SectionGubunItem, SectionGubunCode } from 'CommonTypes';
-import { SectionHistoryItem } from 'ServiceTypes';
-import { useParams } from 'react-router-dom';
+import { SectionHistoryItem } from 'StoreTypes';
+import { useParams, useHistory } from 'react-router-dom';
 
 import {
     HistoryContainer,
@@ -21,13 +21,22 @@ import { getSectionHistory } from '@API';
 export default function SectionsHistorysBox() {
     const params = useParams<{
         section_gubun: SectionGubunItem;
+        post_uuid: string;
     }>();
+    const history = useHistory();
 
     // 기본 끄적 끄적.
     const [gubunCode, setGubunCode] = useState<SectionGubunCode>('S07010');
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [hasmore, setHasmore] = useState<boolean>(false);
     const [historyList, setHistoryList] = useState<SectionHistoryItem[]>();
+
+    const handleClickHistory = (uuid: string) => {
+        const gubun = params.section_gubun;
+        history.push({
+            pathname: process.env.PUBLIC_URL + `/sections/${gubun}/${uuid}/history`,
+        });
+    };
 
     useEffect(() => {
         const setSectionGubun = (gubun: SectionGubunItem) => {
@@ -39,6 +48,7 @@ export default function SectionsHistorysBox() {
                 setGubunCode('S07030');
             }
         };
+        console.debug(params);
         if (params.section_gubun) {
             setSectionGubun(params.section_gubun);
         }
@@ -75,7 +85,7 @@ export default function SectionsHistorysBox() {
                 <HistoryItemsBody>
                     {historyList?.map((item: SectionHistoryItem) => {
                         return (
-                            <ItemsBodyContent key={item.post_uuid}>
+                            <ItemsBodyContent key={item.post_uuid} onClick={() => handleClickHistory(item.post_uuid)}>
                                 <span>{item.smal_content}</span>
                                 <ItemsBodyContentIcon>
                                     <FontAwesomeIcon icon={faAngleRight} />

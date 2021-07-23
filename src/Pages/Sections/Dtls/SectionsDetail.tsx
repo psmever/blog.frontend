@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { SectionPostItem, SectionGubunItem } from 'CommonTypes';
+import { useState, useEffect } from 'react';
+import { SectionGubunItem } from 'CommonTypes';
+// import { RootState } from 'StoreTypes';
 import { useParams } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from '@Helper';
-import { getSectionDetail } from '@API';
-import _Alert_ from '@_Alert_';
-import MarkdownRender from '@Element/Markdown/MarkdownRender';
+// import { getSectionDetail, getSectionHistoryDetail } from '@API';
+// import _Alert_ from '@_Alert_';
+// import MarkdownRender from '@Element/Markdown/MarkdownRender';
 import SectionsHistorysBox from './SectionsHistorysBox';
+// import { getSectionsPost } from '@Store/Sections';
 
 import {
     PostDetailBox,
@@ -22,17 +25,35 @@ import {
 // TODO : 히스토리 박스 퍼블리싱.
 
 export default function SectionsDetail() {
+    // const dispatch = useDispatch();
     const params = useParams<{
         section_gubun: SectionGubunItem;
+        post_uuid: string;
     }>();
+    // const { sectionsState } = useSelector((store: RootState) => ({
+    //     sectionsState: store.sections.section.state,
+    //     sectionsMessage: store.sections.section.message,
+    //     sectionsGubun: store.sections.section.gubun,
+    //     sectionsPostUUID: store.sections.section.post_uuid,
+    // }));
+
     const [sectionTitle, setSectionTitle] = useState<string>('');
-    const [sectionDetailData, setSectionDetailData] = useState<SectionPostItem>({
-        post_uuid: '',
-        contents_html: '',
-        contents_text: '',
-        markdown: 'Y',
-        created: '',
-    });
+    // const [sectionDetailData, setSectionDetailData] = useState<SectionPostItem>({
+    //     post_uuid: '',
+    //     contents_html: '',
+    //     contents_text: '',
+    //     markdown: 'Y',
+    //     created: '',
+    // });
+
+    useEffect(() => {
+        // const initPage = () => {
+        //     dispatch(getSectionsPost());
+        // };
+        // if (sectionsState === false) {
+        //     initPage();
+        // }
+    }, []);
 
     useEffect(() => {
         const setEditorTitle = (gubun: SectionGubunItem) => {
@@ -44,26 +65,83 @@ export default function SectionsDetail() {
                 setSectionTitle('민군은');
             }
         };
-        const fetchGetSectionDetail = async (gubun: SectionGubunItem) => {
-            const { status, payload } = await getSectionDetail({ section: gubun });
-            if (status) {
-                setSectionDetailData({
-                    post_uuid: payload.post_uuid,
-                    contents_html: payload.contents_html,
-                    contents_text: payload.contents_text,
-                    markdown: payload.markdown,
-                    created: payload.created,
-                });
-            } else {
-                _Alert_.defaultInfo({ text: '데이터를 가지고 오는데 실패 했습니다.' });
-            }
-        };
 
-        if (!isEmpty(params) && !isEmpty(params.section_gubun)) {
-            setEditorTitle(params.section_gubun);
-            fetchGetSectionDetail(params.section_gubun);
+        const { section_gubun, post_uuid } = params;
+        setEditorTitle(section_gubun);
+        if (!isEmpty(section_gubun) && !isEmpty(post_uuid)) {
+            // if (section_gubun === 'scribble') {
+            //     fetchGetSectionHistoryDetail({ gubun: 'S07010', post_uuid: post_uuid });
+            // } else if (section_gubun === 'blog') {
+            //     fetchGetSectionHistoryDetail({ gubun: 'S07020', post_uuid: post_uuid });
+            // } else if (section_gubun === 'mingun') {
+            //     fetchGetSectionHistoryDetail({ gubun: 'S07030', post_uuid: post_uuid });
+            // }
+        } else if (!isEmpty(section_gubun) && isEmpty(post_uuid)) {
+            // dispatch(getSectionsPost());
         }
+        // TODO: redux-saga 로 변경 작업.
     }, [params]);
+
+    // useEffect(() => {
+    //     const setEditorTitle = (gubun: SectionGubunItem) => {
+    //         if (gubun === 'scribble') {
+    //             setSectionTitle('끄적끄적');
+    //         } else if (gubun === 'blog') {
+    //             setSectionTitle('블로그 소개');
+    //         } else if (gubun === 'mingun') {
+    //             setSectionTitle('민군은');
+    //         }
+    //     };
+    //     const fetchGetSectionDetail = async (gubun: SectionGubunItem) => {
+    //         const { status, payload } = await getSectionDetail({ section: gubun });
+    //         if (status) {
+    //             setSectionDetailData({
+    //                 post_uuid: payload.post_uuid,
+    //                 contents_html: payload.contents_html,
+    //                 contents_text: payload.contents_text,
+    //                 markdown: payload.markdown,
+    //                 created: payload.created,
+    //             });
+    //         } else {
+    //             _Alert_.defaultInfo({ text: '데이터를 가지고 오는데 실패 했습니다.' });
+    //         }
+    //     };
+
+    //     const fetchGetSectionHistoryDetail = async ({
+    //         gubun,
+    //         post_uuid,
+    //     }: {
+    //         gubun: SectionGubunCode;
+    //         post_uuid: string;
+    //     }) => {
+    //         const { status, payload } = await getSectionHistoryDetail({ gubun: gubun, post_uuid: post_uuid });
+    //         if (status) {
+    //             setSectionDetailData({
+    //                 post_uuid: payload.post_uuid,
+    //                 contents_html: payload.contents_html,
+    //                 contents_text: payload.contents_text,
+    //                 markdown: payload.markdown,
+    //                 created: payload.created,
+    //             });
+    //         } else {
+    //             _Alert_.defaultInfo({ text: '데이터를 가지고 오는데 실패 했습니다.' });
+    //         }
+    //     };
+
+    //     const { section_gubun, post_uuid } = params;
+    //     setEditorTitle(section_gubun);
+    //     if (!isEmpty(section_gubun) && !isEmpty(post_uuid)) {
+    //         if (section_gubun === 'scribble') {
+    //             fetchGetSectionHistoryDetail({ gubun: 'S07010', post_uuid: post_uuid });
+    //         } else if (section_gubun === 'blog') {
+    //             fetchGetSectionHistoryDetail({ gubun: 'S07020', post_uuid: post_uuid });
+    //         } else if (section_gubun === 'mingun') {
+    //             fetchGetSectionHistoryDetail({ gubun: 'S07030', post_uuid: post_uuid });
+    //         }
+    //     } else if (!isEmpty(section_gubun) && isEmpty(post_uuid)) {
+    //         fetchGetSectionDetail(section_gubun);
+    //     }
+    // }, [params]);
 
     return (
         <PostDetailBox>
@@ -78,7 +156,7 @@ export default function SectionsDetail() {
                     </HeaderMeta>
                 </Header>
 
-                <MarkdownRender markdownText={sectionDetailData.contents_text} />
+                {/* <MarkdownRender markdownText={sectionDetailData.contents_text} /> */}
             </PostBoxWarpper>
             <ContentsHr />
             <HistoryBoxWarpper>

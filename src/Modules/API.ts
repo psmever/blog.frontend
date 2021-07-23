@@ -185,6 +185,21 @@ export const getSectionHistory = (gubun: SectionGubunCode): Promise<ServerDefaul
     return _Axios_({ method: 'get', url: `/api/v1/section-post/${gubun}/history`, payload: { data: {} } });
 };
 
+// 섹션 포스트 히스토리 상세.
+export const getSectionHistoryDetail = ({
+    gubun,
+    post_uuid,
+}: {
+    gubun: SectionGubunCode;
+    post_uuid: string;
+}): Promise<ServerDefaultResult<SectionPostItem>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/api/v1/section-post/${gubun}/${post_uuid}/history`,
+        payload: { data: {} },
+    });
+};
+
 // // 글보기 Detail
 // export const getPostDetail = ({
 //     slugTitle,
