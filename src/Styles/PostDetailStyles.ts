@@ -209,7 +209,22 @@ export const HistoryItemsBody = styled.div`
     grid-gap: 10px;
 `;
 
+export const HistoryItemsWapper = styled.div`
+    display: flex;
+`;
+
+export const ItemsBodyCheckIconBox = styled.div`
+    padding: 10px;
+    padding-right: 0px;
+    /* display: grid; */
+    grid-template-columns: 10fr 1fr;
+    font-size: 13px;
+    grid-gap: 10px;
+    border: 1px solid transparent;
+`;
+
 export const ItemsBodyContent = styled.div`
+    width: 100%;
     padding: 10px;
     padding-right: 0px;
     display: grid;
@@ -239,6 +254,7 @@ const IconKeyFrames = keyframes`
 `;
 
 export const ItemsBodyContentIcon = styled.span`
+    flex: left;
     align-self: left;
     font-size: 15px;
     color: #0b5aa2;
