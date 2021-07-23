@@ -150,6 +150,30 @@ export function getSectionDetail({
     return _Axios_({ method: 'get', url: `/api/v1/section-post/${section}`, payload: {} });
 }
 
+// 섹션 포스트 히스토리
+export const getSectionHistory = ({
+    gubun,
+}: {
+    gubun: SectionGubunCode;
+}): Promise<ServerDefaultResult<SectionHistoryResponse>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/section-post/${gubun}/history`, payload: { data: {} } });
+};
+
+// 섹션 포스트 히스토리 상세.
+export const getSectionHistoryDetail = ({
+    section,
+    post_uuid,
+}: {
+    section: SectionGubunCode;
+    post_uuid: string;
+}): Promise<ServerDefaultResult<SectionPostItem>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/api/v1/section-post/${section}/${post_uuid}/history`,
+        payload: { data: {} },
+    });
+};
+
 // 테그 그룹 리스트
 export const getTagGroups = (): Promise<ServerDefaultResult<GetTagGroupResult>> => {
     return _Axios_({ method: 'get', url: `/api/v1/post/tag/tag-list`, payload: { data: {} } });
@@ -178,26 +202,6 @@ export const weathers = (): Promise<ServerDefaultResult<WeatherResult>> => {
 // 코로나 현황.
 export const covides = (): Promise<ServerDefaultResult<CovidResult>> => {
     return _Axios_({ method: 'get', url: `/api/v1/specialty/covid`, payload: { data: {} } });
-};
-
-// 섹션 포스트 히스토리
-export const getSectionHistory = (gubun: SectionGubunCode): Promise<ServerDefaultResult<SectionHistoryResponse>> => {
-    return _Axios_({ method: 'get', url: `/api/v1/section-post/${gubun}/history`, payload: { data: {} } });
-};
-
-// 섹션 포스트 히스토리 상세.
-export const getSectionHistoryDetail = ({
-    gubun,
-    post_uuid,
-}: {
-    gubun: SectionGubunCode;
-    post_uuid: string;
-}): Promise<ServerDefaultResult<SectionPostItem>> => {
-    return _Axios_({
-        method: 'get',
-        url: `/api/v1/section-post/${gubun}/${post_uuid}/history`,
-        payload: { data: {} },
-    });
 };
 
 // // 글보기 Detail
