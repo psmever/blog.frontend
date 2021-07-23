@@ -1,5 +1,11 @@
 import { _Axios_ } from '@Utils';
-import { DefaultPostSaveResult, WaitingPostResultItem, SectionGubunItem, SectionPostItem } from 'CommonTypes';
+import {
+    DefaultPostSaveResult,
+    WaitingPostResultItem,
+    SectionGubunItem,
+    SectionPostItem,
+    SectionGubunCode,
+} from 'CommonTypes';
 import {
     ServerDefaultResult,
     ServerNotice,
@@ -13,6 +19,7 @@ import {
     SectionPostRequest,
     SectionSaveResult,
     GetTagGroupResult,
+    SectionHistoryResponse,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -142,6 +149,30 @@ export function getSectionDetail({
 }): Promise<ServerDefaultResult<SectionPostItem>> {
     return _Axios_({ method: 'get', url: `/api/v1/section-post/${section}`, payload: {} });
 }
+
+// 섹션 포스트 히스토리
+export const getSectionHistory = ({
+    gubun,
+}: {
+    gubun: SectionGubunCode;
+}): Promise<ServerDefaultResult<SectionHistoryResponse>> => {
+    return _Axios_({ method: 'get', url: `/api/v1/section-post/${gubun}/history`, payload: { data: {} } });
+};
+
+// 섹션 포스트 히스토리 상세.
+export const getSectionHistoryDetail = ({
+    section,
+    post_uuid,
+}: {
+    section: SectionGubunCode;
+    post_uuid: string;
+}): Promise<ServerDefaultResult<SectionPostItem>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/api/v1/section-post/${section}/${post_uuid}/history`,
+        payload: { data: {} },
+    });
+};
 
 // 테그 그룹 리스트
 export const getTagGroups = (): Promise<ServerDefaultResult<GetTagGroupResult>> => {

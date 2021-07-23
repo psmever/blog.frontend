@@ -2,6 +2,7 @@ declare module 'CommonTypes' {
     export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure';
     export type PostsGubunItem = 'posts' | 'scribble' | 'blog' | 'mingun';
     export type SectionGubunItem = 'scribble' | 'blog' | 'mingun';
+    export type SectionGubunCode = 'S07010' | 'S07020' | 'S07030'; // 섹션 구분 코드.
     export type PostButtonAction = 'idle' | 'exit' | 'save' | 'update' | 'publish' | 'hide';
     export type defaultYesNo = 'Y' | 'N';
 
