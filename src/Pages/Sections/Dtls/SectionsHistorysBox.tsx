@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { SectionGubunItem, SectionGubunCode } from 'CommonTypes';
-import { SectionHistoryItem } from 'StoreTypes';
+import { RootState, SectionHistoryItem } from 'StoreTypes';
 import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     HistoryContainer,
@@ -16,14 +17,22 @@ import {
 
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getSectionHistory } from '@API';
+import { getSectionsHistoryAction } from '@Store/Sections';
 
 export default function SectionsHistorysBox() {
+    const dispatch = useDispatch();
     const params = useParams<{
         section_gubun: SectionGubunItem;
         post_uuid: string;
     }>();
     const history = useHistory();
+
+    const { historyCurrentPage, historyHasmore, historyHistorys } = useSelector((store: RootState) => ({
+        historyPerPage: store.sections.section.history.per_page,
+        historyCurrentPage: store.sections.section.history.current_page,
+        historyHasmore: store.sections.section.history.hasmore,
+        historyHistorys: store.sections.section.history.historys,
+    }));
 
     // 기본 끄적 끄적.
     const [gubunCode, setGubunCode] = useState<SectionGubunCode>('S07010');
@@ -48,31 +57,32 @@ export default function SectionsHistorysBox() {
                 setGubunCode('S07030');
             }
         };
-        console.debug(params);
+        // console.debug(params);
         if (params.section_gubun) {
             setSectionGubun(params.section_gubun);
         }
     }, [params]);
 
     useEffect(() => {
-        const sectionHistoryRequest = async (getcode: SectionGubunCode) => {
-            const response = await getSectionHistory(getcode);
-            if (response.status === true && response.payload !== null) {
-                const { historys, current_page, hasmore } = response.payload;
-
-                setHistoryList(historys);
-                setCurrentPage(current_page);
-                setHasmore(hasmore);
-            }
-        };
-
         if (gubunCode) {
-            sectionHistoryRequest(gubunCode);
+            dispatch(getSectionsHistoryAction(gubunCode));
         }
     }, [gubunCode]);
 
     useEffect(() => {
-        console.debug(currentPage, hasmore);
+        const initPageData = () => {
+            setHistoryList(historyHistorys);
+            setCurrentPage(historyCurrentPage);
+            setHasmore(historyHasmore);
+        };
+
+        if (historyHistorys.length > 0) {
+            initPageData();
+        }
+    }, [historyHistorys]);
+
+    useEffect(() => {
+        // console.debug(currentPage, hasmore);
     }, [currentPage, hasmore]);
 
     return (
