@@ -28,7 +28,7 @@ export default function SectionsHistorysBox() {
     }>();
     const history = useHistory();
 
-    const { historyCurrentPage, historyHasmore, historyHistorys } = useSelector((store: RootState) => ({
+    const { historyHistorys } = useSelector((store: RootState) => ({
         historyPerPage: store.sections.section.history.per_page,
         historyCurrentPage: store.sections.section.history.current_page,
         historyHasmore: store.sections.section.history.hasmore,
@@ -37,8 +37,8 @@ export default function SectionsHistorysBox() {
 
     // 기본 끄적 끄적.
     const [gubunCode, setGubunCode] = useState<SectionGubunCode>('S07010');
-    const [currentPage, setCurrentPage] = useState<number>(0);
-    const [hasmore, setHasmore] = useState<boolean>(false);
+    // const [currentPage, setCurrentPage] = useState<number>(0);
+    // const [hasmore, setHasmore] = useState<boolean>(false);
     const [historyList, setHistoryList] = useState<SectionHistoryItem[]>();
 
     const handleClickHistory = (uuid: string) => {
@@ -58,7 +58,6 @@ export default function SectionsHistorysBox() {
                 setGubunCode('S07030');
             }
         };
-        // console.debug(params);
         if (params.section_gubun) {
             setSectionGubun(params.section_gubun);
         }
@@ -74,18 +73,14 @@ export default function SectionsHistorysBox() {
     useEffect(() => {
         const initPageData = () => {
             setHistoryList(historyHistorys);
-            setCurrentPage(historyCurrentPage);
-            setHasmore(historyHasmore);
+            // setCurrentPage(historyCurrentPage);
+            // setHasmore(historyHasmore);
         };
 
         if (historyHistorys.length > 0) {
             initPageData();
         }
     }, [historyHistorys]);
-
-    useEffect(() => {
-        // console.debug(currentPage, hasmore);
-    }, [currentPage, hasmore]);
 
     return (
         <>
