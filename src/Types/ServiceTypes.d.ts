@@ -1,5 +1,6 @@
 declare module 'ServiceTypes' {
     import { WaitingPostResultItem, TagGroupItem } from 'CommonTypes';
+    import { SectionHistoryItem } from 'StoreTypes';
     import { WeatherBox } from '../Styles/RightWeatherBoxStyles';
 
     // 기본 api 리턴 인테페이스
@@ -57,6 +58,13 @@ declare module 'ServiceTypes' {
             html: string;
             text: string;
         };
+    }
+
+    export interface SectionHistoryResponse {
+        per_page: string;
+        current_page: number;
+        hasmore: boolean;
+        historys: SectionHistoryItem[];
     }
 
     // 섹션 정보 저장 결과
