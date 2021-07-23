@@ -95,6 +95,10 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                         <SectionLayout LayouType={{ layoutColor: 'main' }}>
                             <Switch>
                                 <Route
+                                    path={process.env.PUBLIC_URL + '/sections/:section_gubun/:post_uuid/history'}
+                                    component={SectionsPage}
+                                />
+                                <Route
                                     path={process.env.PUBLIC_URL + '/sections/:section_gubun'}
                                     component={SectionsPage}
                                 />
