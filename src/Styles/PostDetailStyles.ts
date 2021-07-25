@@ -81,6 +81,13 @@ export const ModifyButton = styled.span`
     display: block;
 `;
 
+export const HistoryButton = styled.span`
+    cursor: pointer;
+    float: right;
+    padding-right: 1rem;
+    display: block;
+`;
+
 export const PostTag = styled.div`
     color: #4f4f4f;
     box-sizing: border-box;
