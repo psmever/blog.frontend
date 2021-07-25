@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SectionGubunItem, SectionPostItem } from 'CommonTypes';
+import { SectionGubunItem, SectionPostItem, SectionGubunCode } from 'CommonTypes';
 import { RootState } from 'StoreTypes';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { isEmpty } from '@Helper';
 import MarkdownRender from '@Element/Markdown/MarkdownRender';
 import SectionsHistorysBox from './SectionsHistorysBox';
 import { getSectionsPost, getHistoryDetailAction } from '@Store/Sections';
+import { SectionHistoryButton } from '@Element/Buttons';
 
 import {
     PostDetailBox,
@@ -16,6 +17,7 @@ import {
     HeaderTitle,
     HeaderMeta,
     ContentsHr,
+    HistoryButton,
 } from '@Style/PostDetailStyles';
 
 export default function SectionsDetail() {
@@ -31,6 +33,7 @@ export default function SectionsDetail() {
     }));
 
     const [sectionTitle, setSectionTitle] = useState<string>('');
+    const [sectionGubunCode, setSectionGubunCode] = useState<SectionGubunCode>('S07010');
     const [sectionDetailData, setSectionDetailData] = useState<SectionPostItem>({
         post_uuid: '',
         contents_html: '',
@@ -62,6 +65,7 @@ export default function SectionsDetail() {
                         post_uuid: post_uuid,
                     })
                 );
+                setSectionGubunCode('S07010');
             } else if (section_gubun === 'blog') {
                 dispatch(
                     getHistoryDetailAction({
@@ -69,6 +73,7 @@ export default function SectionsDetail() {
                         post_uuid: post_uuid,
                     })
                 );
+                setSectionGubunCode('S07020');
             } else if (section_gubun === 'mingun') {
                 dispatch(
                     getHistoryDetailAction({
@@ -76,6 +81,7 @@ export default function SectionsDetail() {
                         post_uuid: post_uuid,
                     })
                 );
+                setSectionGubunCode('S07030');
             }
         } else if (!isEmpty(section_gubun) && isEmpty(post_uuid)) {
             dispatch(getSectionsPost(section_gubun));
@@ -105,9 +111,9 @@ export default function SectionsDetail() {
                     <HeaderTitle>{sectionTitle}</HeaderTitle>
                     <HeaderMeta>
                         {/* <HeaderDate>{postInfo.detail_created}</HeaderDate> */}
-                        {/* <ModifyButton>
-                        <PostEditButton EditLink={editButtonLink} />
-                    </ModifyButton> */}
+                        <HistoryButton>
+                            <SectionHistoryButton SectionCode={sectionGubunCode} />
+                        </HistoryButton>
                     </HeaderMeta>
                 </Header>
 
