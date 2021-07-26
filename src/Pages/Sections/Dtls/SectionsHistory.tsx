@@ -31,15 +31,8 @@ export default function SectionsHistory() {
     }));
 
     useEffect(() => {
-        console.debug({
-            appLoginInit: appLoginInit,
-            appLoading: appLoading,
-            appLoginState: appLoginState,
-        });
-
-        // TODO: 로그인체크 로직 변경. 로딩이 끝난후 체크.
         if (appLoginInit === true) {
-            if (appLoginState === false) {
+            if (appLoginState === 'failure') {
                 Swal.fire({
                     text: '로그인 하시겠습니까?',
                     icon: 'warning',

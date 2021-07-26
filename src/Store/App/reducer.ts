@@ -20,7 +20,7 @@ import {
 const initialState: AppState = {
     loading: false,
     serverCheck: false,
-    loginState: false,
+    loginState: 'idle',
     appInit: false,
     loginUser: {
         access_token: '',
@@ -54,7 +54,7 @@ export const CommonSagaReducer = createReducer<AppState>(initialState, {
     // 로그인 체크 성공
     [CHECK_LOGIN_SUCCESS]: (state: AppState, action: SagaAction<{ access_token: string; refresh_token: string }>) => {
         return produce(state, draft => {
-            draft.loginState = true;
+            draft.loginState = 'success';
             draft.loginUser.access_token = action.payload.access_token;
             draft.loginUser.refresh_token = action.payload.refresh_token;
         });
@@ -62,14 +62,14 @@ export const CommonSagaReducer = createReducer<AppState>(initialState, {
     // 로그인 정보 저장시 우선 초기화.
     [LOGIN_SET_START]: (state: AppState) => {
         return produce(state, draft => {
-            draft.loginState = false;
+            draft.loginState = 'failure';
             draft.loginUser = initialState.loginUser;
         });
     },
     // 로그인 체크후 로그인 정보 저장.
     [LOGIN_SET_END]: (state: AppState, action: SagaAction<{ access_token: string; refresh_token: string }>) => {
         return produce(state, draft => {
-            draft.loginState = true;
+            draft.loginState = 'success';
             draft.loginUser.access_token = action.payload.access_token;
             draft.loginUser.refresh_token = action.payload.refresh_token;
         });
@@ -77,14 +77,14 @@ export const CommonSagaReducer = createReducer<AppState>(initialState, {
     // 로그인 체크 실패시 초기화.
     [CHECK_LOGIN_FAILURE]: (state: AppState) => {
         return produce(state, draft => {
-            draft.loginState = false;
+            draft.loginState = 'failure';
             draft.loginUser = initialState.loginUser;
         });
     },
     // 로그아웃 처리.
     [SET_LOGOUT]: (state: AppState) => {
         return produce(state, draft => {
-            draft.loginState = false;
+            draft.loginState = 'failure';
             draft.loginUser = initialState.loginUser;
         });
     },

@@ -179,7 +179,7 @@ export default function PostsWrite() {
 
     useEffect(() => {
         if (appLoginInit === true && appLoading === false) {
-            if (appLoginState === false) {
+            if (appLoginState === 'failure') {
                 Swal.fire({
                     text: '로그인 하시겠습니까?',
                     icon: 'warning',
@@ -215,7 +215,7 @@ export default function PostsWrite() {
     return (
         <WriteBox ref={inputRef}>
             {(function () {
-                if (appLoading === false && appLoginState === true && editBoxSizeState.state === 'success') {
+                if (appLoading === false && appLoginState === 'success' && editBoxSizeState.state === 'success') {
                     return (
                         <WriteContainer>
                             <LeftEditorBox>
