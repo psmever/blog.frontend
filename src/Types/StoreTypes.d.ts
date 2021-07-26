@@ -18,7 +18,7 @@ declare module 'StoreTypes' {
     export interface AppState {
         loading: boolean;
         serverCheck: boolean;
-        loginState: boolean;
+        loginState: DefaultStatus;
         appInit: boolean;
         loginUser: {
             access_token: string;
