@@ -43,23 +43,14 @@ export const TitleWrapper = styled.div`
     text-align: center;
 `;
 
-export const TableWrapper = styled.div`
-    margin: 10px 70px 70px;
-    box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+export const SectionTitle = styled.h2``;
 
-    @media (max-width: 767px) {
-        &:before {
-            content: 'Scroll horizontally >';
-            display: block;
-            text-align: right;
-            font-size: 11px;
-            color: white;
-            padding: 0 0 10px;
-        }
-    }
+export const TableWrapper = styled.div`
+    // margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
 `;
 
-export const FlTable = styled.table`
+export const HistoryTable = styled.table`
     border-radius: 5px;
     font-size: 12px;
     font-weight: normal;
@@ -69,74 +60,50 @@ export const FlTable = styled.table`
     max-width: 100%;
     white-space: nowrap;
     background-color: white;
-
-    @media (max-width: 767px) {
-        display: block;
-        width: 100%;
-    }
 `;
 
-export const FlTableHead = styled.thead`
-    @media (max-width: 767px) {
-        display: block;
-    }
-`;
+export const HistoryTableHead = styled.thead``;
 
-export const FlTableTbody = styled.tbody`
-    @media (max-width: 767px) {
-        display: block;
-        width: auto;
-        position: relative;
-        overflow-x: auto;
-    }
-`;
-
-export const FlTableTr = styled.tr`
+export const HistoryTableTr = styled.tr`
     &:nth-child(even) {
         background: #f8f8f8;
     }
 `;
 
-export const FlTableTd = styled.td`
+export const HistoryTableTbodyTr = styled(HistoryTableTr)`
+    &:hover {
+        background-color: #f5f5f5;
+    }
+`;
+
+export const HistoryTableTh = styled.th`
     text-align: left;
     padding: 8px;
+`;
+
+export const HistoryTableTheadTh = styled(HistoryTableTh)`
+    color: #ffffff;
+    background: #4fc3a1;
+    text-align: left;
+    border-bottom: 1px solid #505057;
+
+    &:nth-child(odd) {
+        color: #ffffff;
+        background: #324960;
+    }
+`;
+
+export const HistoryTableTbody = styled.tbody``;
+
+export const HistoryTableTd = styled.td`
+    text-align: left;
+    padding: 8px;
+
     border-right: 1px solid #f8f8f8;
     font-size: 12px;
-
-    padding: 20px 0.625em 0.625em 0.625em;
-    height: 60px;
-    vertical-align: middle;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 120px;
-    font-size: 13px;
-    text-overflow: ellipsis;
 `;
 
-export const FlTableTbodyTd = styled(FlTableTd)`
-    @media (max-width: 767px) {
-    }
-`;
-
-export const FlTableTbodyTr = styled.tr`
-    background: #f8f8f8;
-
-    @media (max-width: 767px) {
-        display: table-cell;
-        background: none;
-
-        &:nth-child(even) {
-            background: transparent;
-        }
-
-        &:nth-child(odd) {
-            background: none;
-        }
-    }
-`;
-
-export const FlTableTbodyTD = styled.td`
-    @media (max-width: 767px) {
-    }
+export const HistoryTableTbodyTd = styled(HistoryTableTd)`
+    // display: block;
+    text-align: center;
 `;
