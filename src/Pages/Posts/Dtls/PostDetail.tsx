@@ -73,7 +73,7 @@ export default function PostDetail() {
                 contents_text: info.contents_text,
             });
 
-            if (appLoginState !== true && !isEmpty(info.post_uuid)) {
+            if (appLoginState !== 'success' && !isEmpty(info.post_uuid)) {
                 await incrementViewCount(info.post_uuid);
             }
 
@@ -105,7 +105,7 @@ export default function PostDetail() {
                                 <HeaderTitle>{postInfo.post_title}</HeaderTitle>
                                 <HeaderMeta>
                                     <HeaderDate>{postInfo.detail_created}</HeaderDate>
-                                    {appLoginState === true && (
+                                    {appLoginState === 'success' && (
                                         <ModifyButton>
                                             <PostEditButton EditLink={editButtonLink} />
                                         </ModifyButton>

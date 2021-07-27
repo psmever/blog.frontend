@@ -8,6 +8,7 @@ declare module 'StoreTypes' {
         DefaultStatus,
         WeatherItem,
         SectionPostItem,
+        SectionsTotalHistoryItem,
     } from 'CommonTypes';
 
     export interface ErrorMessage {
@@ -18,7 +19,7 @@ declare module 'StoreTypes' {
     export interface AppState {
         loading: boolean;
         serverCheck: boolean;
-        loginState: boolean;
+        loginState: DefaultStatus;
         appInit: boolean;
         loginUser: {
             access_token: string;
@@ -102,6 +103,14 @@ declare module 'StoreTypes' {
                 hasmore: boolean;
                 historys: SectionHistoryItem[];
             };
+        };
+        total_historys: {
+            state: DefaultStatus;
+            message: string;
+            per_page: string;
+            current_page: number;
+            hasmore: boolean;
+            historys: SectionsTotalHistoryItem[];
         };
     }
 
