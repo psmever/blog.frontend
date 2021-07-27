@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SectionGubunItem, SectionPostItem, SectionGubunCode } from 'CommonTypes';
+import { SectionGubunItem, SectionPostItem } from 'CommonTypes';
 import { RootState } from 'StoreTypes';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +33,6 @@ export default function SectionsDetail() {
     }));
 
     const [sectionTitle, setSectionTitle] = useState<string>('');
-    const [sectionGubunCode, setSectionGubunCode] = useState<SectionGubunCode>('S07010');
     const [sectionDetailData, setSectionDetailData] = useState<SectionPostItem>({
         post_uuid: '',
         contents_html: '',
@@ -65,7 +64,6 @@ export default function SectionsDetail() {
                         post_uuid: post_uuid,
                     })
                 );
-                setSectionGubunCode('S07010');
             } else if (section_gubun === 'blog') {
                 dispatch(
                     getHistoryDetailAction({
@@ -73,7 +71,6 @@ export default function SectionsDetail() {
                         post_uuid: post_uuid,
                     })
                 );
-                setSectionGubunCode('S07020');
             } else if (section_gubun === 'mingun') {
                 dispatch(
                     getHistoryDetailAction({
@@ -81,7 +78,6 @@ export default function SectionsDetail() {
                         post_uuid: post_uuid,
                     })
                 );
-                setSectionGubunCode('S07030');
             }
         } else if (!isEmpty(section_gubun) && isEmpty(post_uuid)) {
             dispatch(getSectionsPost(section_gubun));
@@ -112,7 +108,7 @@ export default function SectionsDetail() {
                     <HeaderMeta>
                         {/* <HeaderDate>{postInfo.detail_created}</HeaderDate> */}
                         <HistoryButton>
-                            <SectionHistoryButton SectionCode={sectionGubunCode} />
+                            <SectionHistoryButton SectionName={params.section_gubun} />
                         </HistoryButton>
                     </HeaderMeta>
                 </Header>

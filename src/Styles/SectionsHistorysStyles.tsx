@@ -81,16 +81,25 @@ export const HistoryTableTh = styled.th`
     padding: 8px;
 `;
 
-export const HistoryTableTheadTh = styled(HistoryTableTh)`
+export const HistoryTableTheadTh = styled(HistoryTableTh)<{ width: string }>`
     color: #ffffff;
     background: #4fc3a1;
     text-align: left;
     border-bottom: 1px solid #505057;
+    width: ${({ width }) => width};
+    text-align: center;
 
     &:nth-child(odd) {
         color: #ffffff;
         background: #324960;
     }
+`;
+
+export const ManageButton = styled.span`
+    cursor: pointer;
+    float: right;
+    padding-right: 1rem;
+    display: block;
 `;
 
 export const HistoryTableTbody = styled.tbody``;
