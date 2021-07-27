@@ -94,19 +94,21 @@ export default function SectionsHistorysBox() {
                         <HistoryItemsBody>
                             {historyList?.map((item: SectionHistoryItem) => {
                                 return (
-                                    <HistoryItemsWapper>
-                                        {params.post_uuid && params.post_uuid == item.post_uuid && (
-                                            <ItemsBodyCheckIconBox>
-                                                <FontAwesomeIcon icon={faCheckCircle} />
-                                            </ItemsBodyCheckIconBox>
-                                        )}
-                                        <ItemsBodyContent onClick={() => handleClickHistory(item.post_uuid)}>
-                                            <span>{item.smal_content}</span>
-                                            <ItemsBodyContentIcon>
-                                                <FontAwesomeIcon icon={faAngleRight} />
-                                            </ItemsBodyContentIcon>
-                                        </ItemsBodyContent>
-                                    </HistoryItemsWapper>
+                                    <div key={item.post_uuid}>
+                                        <HistoryItemsWapper>
+                                            {params.post_uuid && params.post_uuid == item.post_uuid && (
+                                                <ItemsBodyCheckIconBox>
+                                                    <FontAwesomeIcon icon={faCheckCircle} />
+                                                </ItemsBodyCheckIconBox>
+                                            )}
+                                            <ItemsBodyContent onClick={() => handleClickHistory(item.post_uuid)}>
+                                                <span>{item.smal_content}</span>
+                                                <ItemsBodyContentIcon>
+                                                    <FontAwesomeIcon icon={faAngleRight} />
+                                                </ItemsBodyContentIcon>
+                                            </ItemsBodyContent>
+                                        </HistoryItemsWapper>
+                                    </div>
                                 );
                             })}
                         </HistoryItemsBody>

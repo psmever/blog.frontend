@@ -15,6 +15,7 @@ import {
     PostsWritePage,
     SectionsWritePage,
     SectionsPage,
+    SectionsHistoryPage,
     SearchPage,
 } from '@Pages';
 
@@ -97,6 +98,10 @@ const Routes = ({ Routerhistory }: { Routerhistory: any }) => {
                                 <Route
                                     path={process.env.PUBLIC_URL + '/sections/:section_gubun/:post_uuid/history'}
                                     component={SectionsPage}
+                                />
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/sections/:section_gubun/history-list'}
+                                    component={SectionsHistoryPage}
                                 />
                                 <Route
                                     path={process.env.PUBLIC_URL + '/sections/:section_gubun'}
