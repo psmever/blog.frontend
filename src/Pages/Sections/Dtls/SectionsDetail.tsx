@@ -7,6 +7,7 @@ import { isEmpty } from '@Helper';
 import MarkdownRender from '@Element/Markdown/MarkdownRender';
 import SectionsHistorysBox from './SectionsHistorysBox';
 import { getSectionsPost, getHistoryDetailAction } from '@Store/Sections';
+import { SectionHistoryButton } from '@Element/Buttons';
 
 import {
     PostDetailBox,
@@ -16,6 +17,7 @@ import {
     HeaderTitle,
     HeaderMeta,
     ContentsHr,
+    HistoryButton,
 } from '@Style/PostDetailStyles';
 
 export default function SectionsDetail() {
@@ -105,9 +107,9 @@ export default function SectionsDetail() {
                     <HeaderTitle>{sectionTitle}</HeaderTitle>
                     <HeaderMeta>
                         {/* <HeaderDate>{postInfo.detail_created}</HeaderDate> */}
-                        {/* <ModifyButton>
-                        <PostEditButton EditLink={editButtonLink} />
-                    </ModifyButton> */}
+                        <HistoryButton>
+                            <SectionHistoryButton SectionName={params.section_gubun} />
+                        </HistoryButton>
                     </HeaderMeta>
                 </Header>
 
