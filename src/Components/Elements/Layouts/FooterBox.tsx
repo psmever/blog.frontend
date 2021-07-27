@@ -20,9 +20,9 @@ export default function FooterBox() {
             setLoginCheck(false);
         };
 
-        if (loginState === true) {
+        if (loginState === 'success') {
             loginStateSuccess();
-        } else if (loginState === false) {
+        } else if (loginState === 'failure') {
             loginStateFail();
         }
     }, [loginState]);

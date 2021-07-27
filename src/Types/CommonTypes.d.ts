@@ -186,6 +186,17 @@ declare module 'CommonTypes' {
         created: string;
     }
 
+    export interface SectionsTotalHistoryItem {
+        post_uuid: string;
+        gubun: CodeItem;
+        smal_content: string;
+        publish: defaultYesNo;
+        active: defaultYesNo;
+        display_flag: defaultYesNo;
+        created_at: string;
+        created_time: string;
+    }
+
     export interface TagGroupItem {
         value: string;
         count: number;

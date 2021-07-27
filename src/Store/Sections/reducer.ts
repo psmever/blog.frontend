@@ -1,6 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import { SectionsState } from 'StoreTypes';
-import { SectionHistoryResponse } from 'ServiceTypes';
+import { SectionHistoryResponse, SectionTotalHistoryResponse } from 'ServiceTypes';
 import { SagaAction, SectionPostItem } from 'CommonTypes';
 import { isEmpty } from '@Helper';
 import {
@@ -12,6 +12,9 @@ import {
     GET_SECTIONS_HISTORY_FAILURE,
     GET_HISTORY_DETAIL_SUCCESS,
     GET_HISTORY_DETAIL_FAILURE,
+    GET_TOTAL_HISTORYS,
+    GET_TOTAL_HISTORYS_SUCCESS,
+    GET_TOTAL_HISTORYS_FAILURE,
 } from './actions';
 import produce from 'immer';
 
@@ -33,6 +36,14 @@ const initialState: SectionsState = {
             hasmore: false,
             historys: [],
         },
+    },
+    total_historys: {
+        state: 'idle',
+        message: '',
+        per_page: '',
+        current_page: 0,
+        hasmore: false,
+        historys: [],
     },
 };
 
@@ -87,6 +98,26 @@ export const SectionsSagaReducer = createReducer<SectionsState>(initialState, {
         return produce(state, draft => {
             draft.section.state = 'failure';
             draft.section.message = action.payload.message;
+        });
+    },
+    [GET_TOTAL_HISTORYS]: (state: SectionsState) => {
+        return produce(state, draft => {
+            draft.total_historys.state = 'loading';
+        });
+    },
+    [GET_TOTAL_HISTORYS_SUCCESS]: (state: SectionsState, action: SagaAction<SectionTotalHistoryResponse>) => {
+        return produce(state, draft => {
+            draft.total_historys.state = 'success';
+            draft.total_historys.per_page = action.payload.per_page;
+            draft.total_historys.current_page = action.payload.current_page;
+            draft.total_historys.hasmore = action.payload.hasmore;
+            draft.total_historys.historys = action.payload.historys;
+        });
+    },
+    [GET_TOTAL_HISTORYS_FAILURE]: (state: SectionsState, action: SagaAction<{ message: string }>) => {
+        return produce(state, draft => {
+            draft.total_historys.state = 'failure';
+            draft.total_historys.message = action.payload.message;
         });
     },
 });
