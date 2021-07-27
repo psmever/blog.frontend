@@ -1,7 +1,7 @@
 import { takeLatest, fork, call, put } from 'redux-saga/effects';
-import { getSectionDetail, getSectionHistory, getSectionHistoryDetail } from '@API';
+import { getSectionDetail, getSectionHistory, getSectionHistoryDetail, getSectionTotalHistorys } from '@API';
 import { SectionGubunItem, SectionGubunCode, SectionPostItem } from 'CommonTypes';
-import { ServerDefaultResult, SectionHistoryResponse } from 'ServiceTypes';
+import { ServerDefaultResult, SectionHistoryResponse, SectionTotalHistoryResponse } from 'ServiceTypes';
 import {
     RESET_SECTIONS_POST,
     GET_SECTIONS_POST,
@@ -14,6 +14,9 @@ import {
     GET_HISTORY_DETAIL,
     GET_HISTORY_DETAIL_SUCCESS,
     GET_HISTORY_DETAIL_FAILURE,
+    GET_TOTAL_HISTORYS,
+    GET_TOTAL_HISTORYS_SUCCESS,
+    GET_TOTAL_HISTORYS_FAILURE,
 } from './actions';
 
 function* getSectionsPostSaga({ payload: { section } }: { payload: { section: SectionGubunItem } }) {
@@ -83,10 +86,36 @@ function* getHistoryDetailSaga({
     }
 }
 
+function* getTotalHistorysSaga({
+    payload: { section, page },
+}: {
+    payload: { section: SectionGubunCode; page: number };
+}) {
+    const response: ServerDefaultResult<SectionTotalHistoryResponse> = yield call(getSectionTotalHistorys, {
+        section: section,
+        page: page,
+    });
+
+    const { message, status, payload } = response;
+
+    if (status) {
+        yield put({
+            type: GET_TOTAL_HISTORYS_SUCCESS,
+            payload: payload,
+        });
+    } else {
+        yield put({
+            type: GET_TOTAL_HISTORYS_FAILURE,
+            payload: message,
+        });
+    }
+}
+
 function* onSectionsSagaWatcher() {
     yield takeLatest(GET_SECTIONS_POST as any, getSectionsPostSaga);
     yield takeLatest(GET_SECTIONS_HISTORY as any, getSectionsHistorySaga);
     yield takeLatest(GET_HISTORY_DETAIL as any, getHistoryDetailSaga);
+    yield takeLatest(GET_TOTAL_HISTORYS as any, getTotalHistorysSaga);
 }
 
 export default [fork(onSectionsSagaWatcher)];
