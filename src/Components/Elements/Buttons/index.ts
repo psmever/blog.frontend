@@ -5,3 +5,4 @@ export { default as FooterLogoutButton } from './FooterLogoutButton';
 export { default as EditorActionButton } from './EditorActionButton';
 export { default as PostEditButton } from './PostEditButton';
 export { default as SectionHistoryButton } from './SectionHistoryButton';
+export { default as SectionManageButton } from './SectionManageButton';
