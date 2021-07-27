@@ -138,7 +138,7 @@ export default function TopMenuComponent({ LayouType }: { LayouType: LayouTypes 
             setLoginDone(true);
         };
 
-        if (loginState === true) {
+        if (loginState === 'success') {
             setLoginCheckSuccess();
         }
     }, [loginState]);
