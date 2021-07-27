@@ -26,12 +26,14 @@ export default function SectionsDetail() {
         section_gubun: SectionGubunItem;
         post_uuid: string;
     }>();
-    const { sectionsState, sectionsMessage, sectionsDetail } = useSelector((store: RootState) => ({
+    const { loginState, sectionsState, sectionsMessage, sectionsDetail } = useSelector((store: RootState) => ({
+        loginState: store.app.loginState,
         sectionsState: store.sections.section.state,
         sectionsMessage: store.sections.section.message,
         sectionsDetail: store.sections.section.detail,
     }));
 
+    const [loginDone, setLoginDone] = useState<boolean>(false);
     const [sectionTitle, setSectionTitle] = useState<string>('');
     const [sectionDetailData, setSectionDetailData] = useState<SectionPostItem>({
         post_uuid: '',
@@ -100,6 +102,17 @@ export default function SectionsDetail() {
         }
     }, [sectionsState, sectionsMessage]);
 
+    // 로그인 상태 처리.
+    useEffect(() => {
+        const setLoginCheckSuccess = () => {
+            setLoginDone(true);
+        };
+
+        if (loginState === 'success') {
+            setLoginCheckSuccess();
+        }
+    }, [loginState]);
+
     return (
         <PostDetailBox>
             <PostBoxWarpper>
@@ -107,9 +120,11 @@ export default function SectionsDetail() {
                     <HeaderTitle>{sectionTitle}</HeaderTitle>
                     <HeaderMeta>
                         {/* <HeaderDate>{postInfo.detail_created}</HeaderDate> */}
-                        <HistoryButton>
-                            <SectionHistoryButton SectionName={params.section_gubun} />
-                        </HistoryButton>
+                        {loginDone === true && (
+                            <HistoryButton>
+                                <SectionHistoryButton SectionName={params.section_gubun} />
+                            </HistoryButton>
+                        )}
                     </HeaderMeta>
                 </Header>
 
