@@ -20,6 +20,7 @@ import {
     SectionSaveResult,
     GetTagGroupResult,
     SectionHistoryResponse,
+    SectionTotalHistoryResponse,
     // ServerBaseDataInterface,
     // ServerUserCheckInterface,
     // PostRequestInterface,
@@ -170,6 +171,48 @@ export const getSectionHistoryDetail = ({
     return _Axios_({
         method: 'get',
         url: `/api/v1/section-post/${section}/${post_uuid}/history`,
+        payload: { data: {} },
+    });
+};
+
+// 섹션 포스트 히스토리 전체.
+// SectionTotalHistoryResponse
+export const getSectionTotalHistorys = ({
+    section,
+    page,
+}: {
+    section: SectionGubunCode;
+    page: number;
+}): Promise<ServerDefaultResult<SectionTotalHistoryResponse>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/api/v1/section-post/${section}/history-list-total/${page}`,
+        payload: { data: {} },
+    });
+};
+
+// 섹션 포스트 hidden 처리.
+export const putSectionHistoryHidden = ({
+    post_uuid,
+}: {
+    post_uuid: string;
+}): Promise<ServerDefaultResult<DefaultPostSaveResult>> => {
+    return _Axios_({
+        method: 'put',
+        url: `/api/v1/section-post/manage/${post_uuid}/hidden`,
+        payload: { data: {} },
+    });
+};
+
+// 섹션 포스트 display 처리.
+export const putSectionHistoryDisplay = ({
+    post_uuid,
+}: {
+    post_uuid: string;
+}): Promise<ServerDefaultResult<DefaultPostSaveResult>> => {
+    return _Axios_({
+        method: 'put',
+        url: `/api/v1/section-post/manage/${post_uuid}/display`,
         payload: { data: {} },
     });
 };
