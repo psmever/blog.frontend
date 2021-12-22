@@ -7,7 +7,7 @@ import {
     WeatherTimeText,
     WeatherCenterBox,
     WeatherImageBox,
-    WatherImage,
+    // WatherImage,
     WeatherTextBox,
     WatherText,
     WeatherFooterBox,
@@ -59,15 +59,11 @@ export default function WeatherBox() {
                 <WeatherTimeText>{`${weatherItems.vilage_name}`}</WeatherTimeText>
             </WeatherTopBox>
             <WeatherCenterBox>
-                <WeatherImageBox>
-                    <WatherImage src={weatherItems.sky_icon} />
-                </WeatherImageBox>
+                <WeatherImageBox>{/*<WatherImage src={weatherItems.sky_icon} />*/}</WeatherImageBox>
                 <WeatherTextBox>
                     <WatherText>{weatherItems.temperature}</WatherText>
                 </WeatherTextBox>
-                <WeatherTextBox>
-                    <WatherText>{weatherItems.sky}</WatherText>
-                </WeatherTextBox>
+                <WeatherTextBox>{/*<WatherText>{weatherItems.sky}</WatherText>*/}</WeatherTextBox>
             </WeatherCenterBox>
             <WeatherFooterBox>
                 <WeatherDetailTitleText>현재 바람:</WeatherDetailTitleText>
