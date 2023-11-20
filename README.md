@@ -17,3 +17,13 @@
 </div>
 
 # psmever's Blog Front-End Source.
+
+## huskey error fix
+
+```
+➜  blog.frontend [ develop * ] chmod +x .husky/pre-commit
+
+➜  blog.frontend [ develop * ] git config --unset core.hookspath
+➜  blog.frontend [ develop * ] git commit  -m 'build: husky, lint-staged 추가'
+
+```
