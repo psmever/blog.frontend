@@ -4,11 +4,12 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
         "start": "next start",
         "lint": "next lint",
         "format": "prettier --write \"**/*.{ts,tsx,md,mdx,css,scss}\"",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "build": "rm -rf out && next build",
+        "build:test": "rm -rf out && next build && serve -l 3001 out"
     },
     "dependencies": {
         "next": "14.0.2",
