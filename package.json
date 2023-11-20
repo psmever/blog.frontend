@@ -10,7 +10,8 @@
         "prepare": "husky install",
         "build:test": "rm -rf out && next build && serve -l 3001 out",
         "build:dev": "cp .project/env.development .env && rm -rf out && next build",
-        "build:prod": "cp .project/env.production .env && rm -rf out && next build"
+        "build:prod": "cp .project/env.production .env && rm -rf out && next build",
+        "deploy:dev": "ssh sm@psmever.iptime.org -p42022 -t 'bash -ic \"bash ~/Workspaces/deploy/blog.project/frontend-deploy.sh\"'"
     },
     "dependencies": {
         "next": "14.0.2",
