@@ -27,3 +27,14 @@
 ➜  blog.frontend [ develop * ] git commit  -m 'build: husky, lint-staged 추가'
 
 ```
+
+## .vscode/settings.json
+
+```
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+
+```
