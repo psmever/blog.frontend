@@ -2,7 +2,6 @@
 
 <div style="text-align: center;"><h4>📚 STACKS</h4></div>
 
-
 <div style="text-align: center;">
 
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="...">
