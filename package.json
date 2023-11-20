@@ -3,13 +3,14 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "start": "next start",
+        "start:dev": "cp .project/env.development .env && next dev",
+        "start:prod": "cp .project/env.production .env && next dev",
         "lint": "next lint",
         "format": "prettier --write \"**/*.{ts,tsx,md,mdx,css,scss}\"",
         "prepare": "husky install",
-        "build": "rm -rf out && next build",
-        "build:test": "rm -rf out && next build && serve -l 3001 out"
+        "build:test": "rm -rf out && next build && serve -l 3001 out",
+        "build:dev": "cp .project/env.development .env && rm -rf out && next build",
+        "build:prod": "cp .project/env.production .env && rm -rf out && next build"
     },
     "dependencies": {
         "next": "14.0.2",
