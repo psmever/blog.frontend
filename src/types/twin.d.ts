@@ -4,13 +4,14 @@ import styledImport from "@emotion/styled";
 import CSSInterpolation from "@emotion/serialize";
 
 declare module "twin.macro" {
-  const styled: typeof styledImport;
-  const css: typeof cssImport;
+    const styled: typeof styledImport;
+    const css: typeof cssImport;
 }
 
 declare module "react" {
-  interface DOMAttributes<T> {
-    tw?: string;
-    css?: CSSInterpolation;
-  }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface DOMAttributes<T> {
+        tw?: string;
+        css?: CSSInterpolation;
+    }
 }
