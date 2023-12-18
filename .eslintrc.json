@@ -1,10 +1,6 @@
 {
     "root": true,
-    "extends": [
-        "next/core-web-vitals",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
-    ],
+    "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
     "rules": {
         "@next/next/no-document-import-in-page": "off",
         "@typescript-eslint/camelcase": "off",
