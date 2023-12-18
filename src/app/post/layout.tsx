@@ -1,104 +1,89 @@
-import Image from "next/image";
-import React from "react";
+import Image from 'next/image';
+import React from 'react';
 
-export default function PostLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function PostLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html suppressHydrationWarning lang="en">
             <head>
                 <title>blog.nicepage.pe.kr</title>
             </head>
-            <body>
-                <div className="min-h-screen flex flex-col">
-                    <header className="p-0">
-                        <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                                <a
-                                    href="#"
-                                    className="flex items-center space-x-3 rtl:space-x-reverse"
-                                >
-                                    <Image
-                                        src="./logo.png"
-                                        width="32"
-                                        height="32"
-                                        className="h-8"
-                                        alt="Flowbite Logo"
-                                    />
-                                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                                        NicePage
-                                    </span>
-                                </a>
-                                <button
-                                    data-collapse-toggle="navbar-solid-bg"
-                                    type="button"
-                                    className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                    aria-controls="navbar-solid-bg"
-                                    aria-expanded="false"
-                                >
-                                    <span className="sr-only">
-                                        Open main menu
-                                    </span>
-                                    <svg
-                                        className="w-5 h-5"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 17 14"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M1 1h15M1 7h15M1 13h15"
-                                        />
-                                    </svg>
-                                </button>
-                                <div
-                                    className="hidden w-full md:block md:w-auto"
-                                    id="navbar-solid-bg"
-                                >
-                                    <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                                                aria-current="page"
-                                            >
-                                                포스트
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                            >
-                                                일상
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                            >
-                                                블로그
-                                            </a>
-                                        </li>
-                                    </ul>
+            <body suppressHydrationWarning={true}>
+                <div className="flex flex-col min-h-screen w-full">
+                    <header className="flex w-full p-0 sticky top-0 z-50">
+                        <nav className="flex w-full border border-gray-200 bg-indigo-200 dark:bg-gray-800 dark:border-gray-700 items-center justify-center">
+                            <div className="flex flex-wrap w-full md:max-w-7xl items-center justify-between p-4">
+                                <div className="flex">
+                                    <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                                        <Image src="./logo.png" width="32" height="32" className="h-8" alt="Flowbite Logo" />
+
+                                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">NicePage</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex">
+                                        <button
+                                            type="button"
+                                            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                        >
+                                            <span className="sr-only">Open main menu</span>
+                                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div className="hidden w-full md:flex md:w-auto gap-2">
+                                        <button className="flex py-1 px-2 bg-blue-500 dark:bg-blue-600 hover:dark:bg-gray-700 dark:dark:bg-transparent hover:bg-blue-700 text-white font-semibold rounded gap-1 items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                                                />
+                                            </svg>
+                                            포스트
+                                        </button>
+                                        <button className="flex py-1 px-2 bg-blue-500 dark:bg-blue-600 hover:dark:bg-gray-700 dark:dark:bg-transparent hover:bg-blue-700 text-white font-semibold rounded gap-1 items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            일상
+                                        </button>
+                                        <button className="flex py-1 px-2 bg-blue-500 dark:bg-blue-600 hover:dark:bg-gray-700 dark:dark:bg-transparent hover:bg-blue-700 text-white font-semibold rounded gap-1 items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
+                                                />
+                                            </svg>
+                                            블로그
+                                        </button>
+                                        <button className="flex py-1 px-2 bg-blue-500 dark:bg-blue-600 hover:dark:bg-gray-700 dark:dark:bg-transparent hover:bg-blue-700 text-white font-semibold rounded gap-1 items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                                                />
+                                            </svg>
+                                            로그인
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </nav>
                     </header>
 
-                    <main className="flex-1 bg-indigo-50 dark:bg-gray-700 p-2">
-                        {children}
-                    </main>
+                    <main className="flex-1 bg-indigo-50 dark:bg-gray-700 p-2">{children}</main>
 
-                    <footer className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                        Footer
+                    <footer className="flex border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+                        <div className="flex flex-nowrap w-full items-center justify-center">
+                            <span className="block py-5 text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023</span>
+                            <span className="block py-5 text-sm text-gray-500 sm:text-center dark:text-gray-400">
+                                <div className="hover:underline">NicePage™.</div>
+                            </span>
+                            <span className="block py-5 text-sm text-gray-500 sm:text-center dark:text-gray-400">All Rights Reserved.</span>
+                        </div>
                     </footer>
                 </div>
             </body>
