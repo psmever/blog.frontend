@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
+const path = require('path');
 
 // The folders containing files importing twin.macro
-const includedDirs = [path.resolve(__dirname, "src")];
+const includedDirs = [path.resolve(__dirname, 'src')];
 
 module.exports = function withTwin(nextConfig) {
     return {
@@ -24,27 +24,13 @@ module.exports = function withTwin(nextConfig) {
                 use: [
                     patchedDefaultLoaders,
                     {
-                        loader: "babel-loader",
+                        loader: 'babel-loader',
                         options: {
                             sourceMaps: dev,
-                            plugins: [
-                                require.resolve("babel-plugin-macros"),
-                                [
-                                    require.resolve(
-                                        "babel-plugin-styled-components",
-                                    ),
-                                    { ssr: true, displayName: true },
-                                ],
-                                [
-                                    require.resolve(
-                                        "@babel/plugin-syntax-typescript",
-                                    ),
-                                    { isTSX: true },
-                                ],
-                            ],
-                        },
-                    },
-                ],
+                            plugins: [require.resolve('babel-plugin-macros'), [require.resolve('babel-plugin-styled-components'), { ssr: true, displayName: true }], [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }]]
+                        }
+                    }
+                ]
             });
 
             if (!isServer) {
@@ -54,14 +40,14 @@ module.exports = function withTwin(nextConfig) {
                     module: false,
                     path: false,
                     os: false,
-                    crypto: false,
+                    crypto: false
                 };
             }
 
-            if (typeof nextConfig.webpack === "function") {
+            if (typeof nextConfig.webpack === 'function') {
                 return nextConfig.webpack(config, options);
             }
             return config;
-        },
+        }
     };
 };
