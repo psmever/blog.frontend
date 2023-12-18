@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-export default function PostPgae() {
+export default function PostPage() {
     return (
         <div className="mb-20">
             <div className="max-w-screen-2xl mx-auto md:p-5">
