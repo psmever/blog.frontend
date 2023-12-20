@@ -3,6 +3,7 @@
     "version": "3.0.0",
     "private": true,
     "scripts": {
+        "start:local": "cp .project/env.local .env && next dev",
         "start:dev": "cp .project/env.development .env && next dev",
         "start:prod": "cp .project/env.production .env && next dev",
         "lint": "next lint",
@@ -17,9 +18,14 @@
         "@emotion/react": "^11.11.1",
         "@emotion/serialize": "^1.1.2",
         "@emotion/styled": "^11.11.0",
+        "@types/lodash": "^4.14.202",
+        "@types/recoil": "^0.0.9",
+        "axios": "^1.6.2",
+        "lodash": "^4.17.21",
         "next": "14.0.2",
         "react": "^18",
         "react-dom": "^18",
+        "recoil": "^0.7.7",
         "styled-components": "^6.1.1"
     },
     "devDependencies": {
