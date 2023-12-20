@@ -4,7 +4,7 @@ const withTwin = require('./withTwin');
 /** @type {import("next").NextConfig} */
 const nextConfig = withTwin({
     output: 'export',
-    reactStrictMode: true,
+    reactStrictMode: false,
     swcMinify: true,
     images: {
         unoptimized: true
