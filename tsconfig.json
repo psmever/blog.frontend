@@ -27,7 +27,10 @@
             "@/Common/*": ["./src/common/*"],
             "@/Types": ["./src/types"],
             "@/Type/*": ["./src/types/*"],
-            "@/State": ["./src/state"]
+            "@/State": ["./src/state"],
+            "@/Style": ["./src/style"],
+            "@/Element": ["./src/components/element"],
+            "@/Icon": ["./src/components/icon"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

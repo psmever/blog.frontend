@@ -17,6 +17,10 @@ module.exports = function withTwin(nextConfig) {
             // https://github.com/ben-rogerson/twin.macro/issues/788
             const patchedDefaultLoaders = options.defaultLoaders.babel;
             patchedDefaultLoaders.options.hasServerComponents = false;
+            patchedDefaultLoaders.options.hasReactRefresh = false;
+
+            config.module = config.module || {};
+            config.module.rules = config.module.rules || [];
 
             config.module.rules.push({
                 test: /\.(tsx|ts)$/,
