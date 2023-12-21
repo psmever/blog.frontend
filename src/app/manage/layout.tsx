@@ -1,5 +1,9 @@
+'use client';
 import React from 'react';
+import { ManageLayoutStyle } from '@/Style';
+
+const { MainContainer } = ManageLayoutStyle;
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-    return <main className="flex-1 bg-indigo-50 dark:bg-gray-700">{children}</main>;
+    return <MainContainer>{children}</MainContainer>;
 }
