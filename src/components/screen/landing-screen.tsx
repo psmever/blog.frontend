@@ -1,4 +1,4 @@
-import { ContainerStyle, WapperStyle } from '@/Style';
+import { ContainerStyle, WapperStyle } from '@/Style/common-styles';
 import { UniSpan } from '@/Element';
 
 const { DefaultContainer } = ContainerStyle;

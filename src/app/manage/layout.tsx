@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { ManageLayoutStyle } from '@/Style';
+import { ManageLayoutStyle } from '@/Style/common-styles';
 
 const { MainContainer } = ManageLayoutStyle;
 
