@@ -28,7 +28,7 @@
             "@/Types": ["./src/types"],
             "@/Type/*": ["./src/types/*"],
             "@/State": ["./src/state"],
-            "@/Style": ["./src/style"],
+            "@/Style/*": ["./src/style/*"],
             "@/Element": ["./src/components/element"],
             "@/Icon": ["./src/components/icon"]
         }

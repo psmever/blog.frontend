@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { AppRootState } from '@/State';
-import { SystemNoticeBoxStyle } from '@/Style';
+import { SystemNoticeBoxStyle } from '@/Style/common-styles';
 import { CloseIcon } from '@/Icon';
 
 const { BoxWapper, ContentsWapper, ContentsBox, TitleSpan, ContentsSpan, ContentsCover, ButtonWapper, ButtonCover } = SystemNoticeBoxStyle;

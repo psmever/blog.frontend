@@ -1,4 +1,4 @@
-import { IconStyle, SpanStyle } from '@/Style';
+import { IconStyle, SpanStyle } from '@/Style/common-styles';
 
 const { IconWapper, IconSpinerSvg, IconSvg } = IconStyle;
 const { SrOnlySpan } = SpanStyle;

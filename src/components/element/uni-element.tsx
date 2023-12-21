@@ -1,5 +1,5 @@
 import { StyleSizeType, StyleFontWeightType } from '@/Types';
-import { SpanStyle } from '@/Style';
+import { SpanStyle } from '@/Style/common-styles';
 import Image from 'next/image';
 
 const { Span } = SpanStyle;
