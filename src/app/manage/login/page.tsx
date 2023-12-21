@@ -1,5 +1,5 @@
 'use client';
-import { ManageLoginPageStyle } from '@/Style';
+import { ManageLoginPageStyle } from '@/Style/common-styles';
 
 const { MainContainer, MainWapper, LoginWapper, LoginBox, TitleDivision, LoginTitle, LoginForm, LoginFormRow, LoginFormLabel, LoginInput, LoginButton } = ManageLoginPageStyle;
 

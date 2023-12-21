@@ -1,5 +1,5 @@
 import { LoadingIcon } from '@/Icon';
-import { ContainerStyle } from '@/Style';
+import { ContainerStyle } from '@/Style/common-styles';
 
 const { DefaultContainer } = ContainerStyle;
 
