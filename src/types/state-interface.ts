@@ -12,4 +12,17 @@ export interface AppRootStateInterface {
             refreshToken: string;
         };
     };
+    modal: {
+        open: boolean;
+        message: string;
+    };
+}
+
+// layout state
+export interface LayoutStateInterface {
+    messageModal: {
+        type: `message` | `afterMove` | ``;
+        open: boolean;
+        message: string;
+    };
 }

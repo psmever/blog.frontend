@@ -2,7 +2,7 @@
 // TODO: use client 없이 에러 수정 필요
 
 import React from 'react';
-import { PostLayoutStyle } from '@/Style';
+import { PostLayoutStyle } from '@/Style/common-styles';
 import { PostIcon, DailyIcon, BlogIcon, LoginIcon, HambergerIcon } from '@/Icon';
 import { UniImage } from '@/Element';
 

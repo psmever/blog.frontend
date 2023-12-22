@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { AppRootStateInterface } from '@/Type/state-interface';
+import { AppRootStateInterface, LayoutStateInterface } from '@/Type/state-interface';
 
 // app root 스테이트
 export const AppRootState = atom<AppRootStateInterface>({
@@ -19,6 +19,21 @@ export const AppRootState = atom<AppRootStateInterface>({
                 accessToken: '',
                 refreshToken: ''
             }
+        },
+        modal: {
+            open: false,
+            message: ''
+        }
+    }
+});
+
+export const LayoutState = atom<LayoutStateInterface>({
+    key: `app/LayoutState`,
+    default: {
+        messageModal: {
+            type: ``,
+            open: false,
+            message: ``
         }
     }
 });
