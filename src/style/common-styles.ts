@@ -41,7 +41,7 @@ export const IconStyle = {
 
         if (IconSize === `sm`) {
             twStyled.push(tw`w-5 h-5`);
-        } else if (IconSize === 'xs') {
+        } else if (IconSize === `xs`) {
             twStyled.push(tw`w-4 h-4`);
         } else {
             twStyled.push(tw`w-6 h-6`);
