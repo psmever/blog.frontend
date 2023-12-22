@@ -1,11 +1,14 @@
 'use client';
 import { RecoilRoot } from 'recoil';
-import { InspectProvider } from '@/Provider';
+import { InspectProvider, ModalProvider } from '@/Provider';
+import React from 'react';
 
 export default function RootProvider({ children }: { children: React.ReactNode }) {
     return (
         <RecoilRoot>
-            <InspectProvider>{children}</InspectProvider>
+            <ModalProvider>
+                <InspectProvider>{children}</InspectProvider>
+            </ModalProvider>
         </RecoilRoot>
     );
 }
