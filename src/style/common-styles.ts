@@ -36,6 +36,7 @@ export const SpanStyle = {
 export const IconStyle = {
     IconWapper: tw.div`flex`,
     IconSpinerSvg: tw.svg`inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`,
+    IconSpinerSmallSvg: tw.svg`inline w-4 h-4 me-3 text-white animate-spin`,
     IconSvg: styled.svg(({ IconSize }: { IconSize: StyleSizeType }) => {
         const twStyled = [];
 
@@ -46,6 +47,16 @@ export const IconStyle = {
         } else {
             twStyled.push(tw`w-6 h-6`);
         }
+
+        return twStyled;
+    })
+};
+
+export const ButtonStyle = {
+    Button: styled.button(() => {
+        const twStyled = [
+            tw`w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`
+        ];
 
         return twStyled;
     })
@@ -111,4 +122,19 @@ export const ManageLoginPageStyle = {
     LoginFormLabel: tw.label`block mb-2 text-sm font-medium text-gray-900 dark:text-white`,
     LoginInput: tw.input`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`,
     LoginButton: tw.button`w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`
+};
+
+export const LayoutModalStyle = {
+    Container: tw.div`relative z-10`,
+    FixedOpacity: tw.div`fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity`,
+    ModalWapper: tw.div`fixed inset-0 z-10 w-screen overflow-y-auto cursor-pointer`,
+    ModalCover: tw.div`flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0`,
+    ModalBox: tw.div`relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-sm md:max-w-lg dark:bg-gray-700`,
+    MessageArea: tw.div`bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`,
+    MessageBox: tw.div`sm:flex sm:items-start`,
+    MessageCover: tw.div`mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left`,
+    MessageWapper: tw.div`mt-2`,
+    ModalMessage: tw.p`text-sm text-gray-500 dark:text-white`,
+    ButtonArea: tw.div`bg-gray-50 px-4 py-3 flex justify-end dark:bg-gray-700`,
+    ModalButton: tw.button`flex w-full md:w-20 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 text-center justify-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`
 };
