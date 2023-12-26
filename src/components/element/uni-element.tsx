@@ -21,7 +21,7 @@ export const UniImage = ({ ImageSrc, Width, Height, AltString }: { ImageSrc: str
 
 export const UniButton = ({ OnClick, ButtonText, Loading }: { ButtonText: string; OnClick: () => void; Loading?: boolean }) => {
     return (
-        <Button type="button" onClick={() => OnClick()}>
+        <Button type="button" onClick={() => OnClick()} disabled={Loading}>
             {(() => {
                 if (Loading) {
                     return (
