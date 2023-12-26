@@ -24,3 +24,9 @@ export interface AppRootDataInterface {
         };
     };
 }
+
+// 로그인 결과
+export interface LoginPayloadInterface {
+    access_token: string;
+    refresh_token: string;
+}

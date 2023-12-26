@@ -32,7 +32,9 @@
             "@/Element": ["./src/components/element"],
             "@/Icon": ["./src/components/icon"],
             "@/PageComponent": ["./src/page-component"],
-            "@/Messages": ["./src/common/messages"]
+            "@/Messages": ["./src/common/messages"],
+            "@/ServerInterface": ["./src/common/server-interface"],
+            "@/Helper": ["./src/common/helper"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
