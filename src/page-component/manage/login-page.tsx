@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useState, useRef, KeyboardEvent } from 'react';
+import React, { useState, useRef, KeyboardEvent, useEffect } from 'react';
 import { ManageLoginPageStyle } from '@/Style/common-styles';
 import { useLayout } from '@/Hook';
 import lodash from 'lodash';
 import Messages from '@/Messages';
 import { UniButton } from '@/Element';
+import { isValidEmail } from '@/Common/helper';
+import { useAuth } from '@/Hook';
+import { useRouter } from 'next/navigation';
 
 const { MainContainer, MainWapper, LoginWapper, LoginBox, TitleDivision, LoginTitle, LoginForm, LoginFormRow, LoginFormLabel, LoginInput } = ManageLoginPageStyle;
 
@@ -19,7 +22,7 @@ interface PageStateInterface {
 
 export default function ManageLoginPage() {
     const initialPageState = {
-        loading: true,
+        loading: false,
         inputValue: {
             email: '',
             password: ''
@@ -29,6 +32,8 @@ export default function ManageLoginPage() {
     const [pageState, setPageState] = useState<PageStateInterface>(initialPageState);
     const enterInputRef = useRef<HTMLInputElement[]>([]);
     const { OpenLayoutModal } = useLayout();
+    const { HandleAttemptLogin, HandleTokenCheck } = useAuth();
+    const router = useRouter();
 
     // 포커스 처리
     const HandleOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -38,17 +43,23 @@ export default function ManageLoginPage() {
         if (inputName === 'email') {
             enterInputRef.current[1].focus();
         } else if (inputName === 'password') {
-            handleLogin();
+            handleLogin().then();
         }
     };
 
-    const handleLogin = () => {
-        console.debug('handleLogin');
-
+    // 로그인
+    const handleLogin = async () => {
         const { email, password } = pageState.inputValue;
 
+        // 로그인 validation
         if (lodash.isEmpty(email)) {
             OpenLayoutModal({ message: Messages.validation.emptyEmail });
+            enterInputRef.current[0].focus();
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            OpenLayoutModal({ message: Messages.validation.email });
             enterInputRef.current[0].focus();
             return;
         }
@@ -59,8 +70,39 @@ export default function ManageLoginPage() {
             return;
         }
 
-        // TODO: 로그인 로직 추가
+        setPageState((prevState) => ({
+            ...prevState,
+            loading: true
+        }));
+
+        const { result, message } = await HandleAttemptLogin({ email: email, password: password });
+        setPageState((prevState) => ({
+            ...prevState,
+            loading: false
+        }));
+
+        if (result) {
+            OpenLayoutModal({ message: Messages.loginSuccess });
+            router.push(`/post`);
+        } else {
+            OpenLayoutModal({ message: message });
+        }
     };
+
+    // 최초 페이지 로딩시 로컬 토큰 정보 체크
+    useEffect(() => {
+        const thisPageStart = async () => {
+            if (await HandleTokenCheck()) {
+                OpenLayoutModal({ message: Messages.alreadyLogin });
+                router.push(`/post`);
+            }
+        };
+
+        thisPageStart().then();
+
+        // FIXME : 종속성 disable.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [router]);
 
     return (
         <MainContainer>

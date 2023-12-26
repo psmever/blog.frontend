@@ -13,8 +13,13 @@ const Messages = {
     },
     validation: {
         emptyEmail: `이메일을 입력해 주세요`,
+        email: `정확한 이메일 형식을 입력해 주세요`,
         emptyPassword: `패드워드를 입력해 주세요`
-    }
+    },
+    logoutSuccess: `로그아웃 되었습니다.`,
+    alreadyLogout: `이미 로그아웃되어 있습니다.`,
+    loginSuccess: `로그인이 완료 되었습니다.`,
+    alreadyLogin: `이미 로그인되어 있습니다.`
 };
 
 export default Messages;
