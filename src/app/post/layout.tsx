@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PostLayoutStyle } from '@/Style/common-styles';
-import { PostIcon, DailyIcon, BlogIcon, LoginIcon, HambergerIcon, LogoutIcon } from '@/Icon';
+import { PostIcon, DailyIcon, BlogIcon, LoginIcon, HambergerIcon, LogoutIcon, PostWriteIcon } from '@/Icon';
 import { UniImage } from '@/Element';
 import { useRouter } from 'next/navigation';
 import lodash from 'lodash';
@@ -64,10 +64,17 @@ export default function PostLayout({ children }: { children: React.ReactNode }) 
                                     블로그
                                 </MenuButtonItem>
                                 {loginCheck ? (
-                                    <MenuButtonItem onClick={() => router.push('/manage/logout')}>
-                                        <LogoutIcon />
-                                        로그아웃
-                                    </MenuButtonItem>
+                                    <>
+                                        <MenuButtonItem onClick={() => router.push('/manage/post/create')}>
+                                            <PostWriteIcon />
+                                            글등록
+                                        </MenuButtonItem>
+
+                                        <MenuButtonItem onClick={() => router.push('/manage/logout')}>
+                                            <LogoutIcon />
+                                            로그아웃
+                                        </MenuButtonItem>
+                                    </>
                                 ) : (
                                     <MenuButtonItem onClick={() => router.push('/manage/login')}>
                                         <LoginIcon />
