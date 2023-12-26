@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import Helper from './helper';
+import * as Helper from './helper';
 import lodash from 'lodash';
 
 export interface TokenInfoInterface {
@@ -126,7 +126,7 @@ const AxiosUtil = ({ method = 'post', url, payload }: serviceInterface): any => 
 
         // FIXME 서버 상태, 인증 외에 401 에러 처리 어떻게 할껀지?
         if (!options.shouldIntercept(error)) {
-            const errorMessage = error.response?.data.error_message ? error.response?.data.error_message : error.message;
+            const errorMessage = error.response?.data.message ? error.response?.data.message : error.message;
 
             if (status === 503) {
                 // 서버 에러
@@ -167,7 +167,7 @@ const AxiosUtil = ({ method = 'post', url, payload }: serviceInterface): any => 
         }
 
         // 인증 에러시 토큰 리프레쉬 시도.
-        if (originalRequest.url !== `/api/v1/auth/login-check` && status === 401 && Authorization.length > 0) {
+        if (originalRequest.url !== `/api/v1/auth/logout` && originalRequest.url !== `/api/v1/auth/token-info` && status === 401 && Authorization.length > 0) {
             originalRequest._retry = true;
             isRefreshing = true;
             return new Promise((resolve) => {
@@ -196,7 +196,7 @@ const AxiosUtil = ({ method = 'post', url, payload }: serviceInterface): any => 
         } else if (status === 401) {
             return Promise.resolve({
                 status: false,
-                message: error.response?.data.error_message
+                message: error.response?.data.message
             });
         }
     };
