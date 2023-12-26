@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PostPageStyle } from '@/Style';
+import { PostPageStyle } from '@/Style/common-styles';
 
 const { PostContainer, PostWapper, PostItemWapper, PostArticle, PostListBox, PostImageArea, PostImage, PostContentArea, PostTitle, PostContent } = PostPageStyle;
 

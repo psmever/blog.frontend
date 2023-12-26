@@ -1,10 +1,12 @@
 'use client';
-// TODO: use client 없이 에러 수정 필요
 
 import React from 'react';
-import { PostLayoutStyle } from '@/Style';
-import { PostIcon, DailyIcon, BlogIcon, LoginIcon, HambergerIcon } from '@/Icon';
+import { PostLayoutStyle } from '@/Style/common-styles';
+import { PostIcon, DailyIcon, BlogIcon, LoginIcon, HambergerIcon, LogoutIcon } from '@/Icon';
 import { UniImage } from '@/Element';
+import { useRouter } from 'next/navigation';
+import lodash from 'lodash';
+import { getAccessToken } from '@/Helper';
 
 const {
     MainContainer,
@@ -27,6 +29,9 @@ const {
 } = PostLayoutStyle;
 
 export default function PostLayout({ children }: { children: React.ReactNode }) {
+    const loginCheck = !lodash.isEmpty(getAccessToken());
+    const router = useRouter();
+
     return (
         <MainContainer>
             <Header>
@@ -58,10 +63,17 @@ export default function PostLayout({ children }: { children: React.ReactNode }) 
                                     <BlogIcon />
                                     블로그
                                 </MenuButtonItem>
-                                <MenuButtonItem>
-                                    <LoginIcon />
-                                    로그인
-                                </MenuButtonItem>
+                                {loginCheck ? (
+                                    <MenuButtonItem onClick={() => router.push('/manage/logout')}>
+                                        <LogoutIcon />
+                                        로그아웃
+                                    </MenuButtonItem>
+                                ) : (
+                                    <MenuButtonItem onClick={() => router.push('/manage/login')}>
+                                        <LoginIcon />
+                                        로그인
+                                    </MenuButtonItem>
+                                )}
                             </MenuButtonArea>
                         </MenuDivision>
                     </NavWapper>
