@@ -36,7 +36,7 @@ export const SpanStyle = {
 export const IconStyle = {
     IconWapper: tw.div`flex`,
     IconSpinerSvg: tw.svg`inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`,
-    IconSpinerSmallSvg: tw.svg`inline w-4 h-4 me-3 text-white animate-spin`,
+    IconSpinerSmallSvg: tw.svg`inline w-4 h-4 text-white animate-spin`,
     IconSvg: styled.svg(({ IconSize }: { IconSize: StyleSizeType }) => {
         const twStyled = [];
 
