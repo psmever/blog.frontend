@@ -31,7 +31,7 @@
             "@/Style/*": ["./src/style/*"],
             "@/Element": ["./src/components/element"],
             "@/Icon": ["./src/components/icon"],
-            "@/PageComponent": ["./src/page-component"],
+            "@/PageComponent": ["./src/components/page"],
             "@/Messages": ["./src/common/messages"],
             "@/ServerInterface": ["./src/common/server-interface"],
             "@/Helper": ["./src/common/helper"]

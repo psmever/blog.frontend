@@ -1,4 +1,5 @@
 const withTwin = require('./withTwin');
+const removeImports = require('next-remove-imports')();
 
 /** @type {import("next").NextConfig} */
 const nextConfig = withTwin({
@@ -19,4 +20,4 @@ const nextConfig = withTwin({
 //     },
 // };
 
-module.exports = nextConfig;
+module.exports = removeImports(nextConfig);
