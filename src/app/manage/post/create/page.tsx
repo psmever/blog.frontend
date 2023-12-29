@@ -1,3 +1,7 @@
+'use client';
+
+import { ManagePostCreatePage } from '@/PageComponent';
+
 export default function PostCreate() {
-    return <>PostCreate</>;
+    return <ManagePostCreatePage />;
 }

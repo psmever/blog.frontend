@@ -1,11 +1,12 @@
 import { StyleSizeType, StyleFontWeightType } from '@/Types';
-import { SpanStyle, ButtonStyle } from '@/Style/common-styles';
+import { SpanStyle, ButtonStyle, InputStyle } from '@/Style/common-styles';
 import Image from 'next/image';
-import React from 'react';
+import React, { ChangeEvent, KeyboardEvent } from 'react';
 import { ButtonLoadingIcon } from '@/Icon';
 
 const { Span } = SpanStyle;
-const { Button } = ButtonStyle;
+const { Button, ManageButton } = ButtonStyle;
+const { ManageInput } = InputStyle;
 
 export const UniSpan = ({ Text, TextSize, FontWeight }: { Text: string; TextSize: StyleSizeType; FontWeight: StyleFontWeightType }) => {
     return (
@@ -35,5 +36,49 @@ export const UniButton = ({ OnClick, ButtonText, Loading }: { ButtonText: string
                 }
             })()}
         </Button>
+    );
+};
+
+export const UniMnageButton = ({ OnClick, ButtonText, Loading }: { ButtonText: string; OnClick: () => void; Loading?: boolean }) => {
+    return (
+        <ManageButton type="button" onClick={() => OnClick()} disabled={Loading}>
+            {(() => {
+                if (Loading) {
+                    return (
+                        <>
+                            <ButtonLoadingIcon />
+                            로딩중...
+                        </>
+                    );
+                } else {
+                    return ButtonText;
+                }
+            })()}
+        </ManageButton>
+    );
+};
+
+export const UniManageInput = ({
+    TextSize,
+    Placeholder,
+    OnChange,
+    InputValue,
+    HandleOnKeyDown
+}: {
+    Placeholder: string;
+    TextSize: StyleSizeType;
+    InputValue: string;
+    OnChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    HandleOnKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+}) => {
+    return (
+        <ManageInput
+            type="text"
+            TextSize={TextSize}
+            placeholder={Placeholder}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => OnChange(e)}
+            value={InputValue}
+            onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => HandleOnKeyDown && HandleOnKeyDown(e)}
+        />
     );
 };
