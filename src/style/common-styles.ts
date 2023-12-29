@@ -44,6 +44,8 @@ export const IconStyle = {
             twStyled.push(tw`w-5 h-5`);
         } else if (IconSize === `xs`) {
             twStyled.push(tw`w-4 h-4`);
+        } else if (IconSize === `little`) {
+            twStyled.push(tw`w-3 h-3`);
         } else {
             twStyled.push(tw`w-6 h-6`);
         }
@@ -53,13 +55,35 @@ export const IconStyle = {
 };
 
 export const ButtonStyle = {
-    Button: styled.button(() => {
-        const twStyled = [
-            tw`w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`
-        ];
+    Button: tw.button`w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`,
+    ManageButton: tw.button`bg-transparent text-sm hover:bg-blue-500 text-blue-700 dark:text-gray-400 hover:text-white py-1 px-3 border border-gray-600 hover:border-transparent rounded`
+};
+
+export const InputStyle = {
+    ManageInput: styled.input(({ TextSize }: { TextSize: StyleSizeType }) => {
+        const twStyled = [tw`block w-full rounded-md bg-gray-700 text-gray-900 placeholder:text-gray-400 outline-none dark:text-white`];
+
+        if (TextSize === `sm`) {
+            twStyled.push(tw`text-sm`);
+        } else if (TextSize === `2xl`) {
+            twStyled.push(tw`text-2xl`);
+        } else {
+            twStyled.push(tw`text-sm`);
+        }
 
         return twStyled;
     })
+};
+
+export const EditorStyle = {
+    EditorWapper: tw.div`block w-full outline-none bg-gray-700`,
+    DropZoneBox: tw.div`flex justify-center items-center w-full py-1`,
+    DropZoneLabel: tw.label`flex flex-col justify-center items-center w-full border border-dotted border-gray-500 py-1`,
+    DropZoneTitleBox: tw.label`flex flex-col justify-center items-center`,
+    DropZoneTitleP: tw.p`text-xs`,
+    DropZoneTitleSpan: tw.span``,
+    DropZoneInput: tw.input`hidden`,
+    DropZoneButtonBox: tw.div`flex justify-start`
 };
 
 export const SystemNoticeBoxStyle = {
@@ -141,4 +165,23 @@ export const LayoutModalStyle = {
     ModalMessage: tw.p`text-sm text-gray-500 dark:text-white`,
     ButtonArea: tw.div`bg-gray-50 px-4 py-3 flex justify-end dark:bg-gray-700`,
     ModalButton: tw.button`flex w-full md:w-20 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 text-center justify-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`
+};
+
+export const ManagePostPageStyle = {
+    MainContainer: tw.div`flex flex-nowrap w-full h-screen items-center justify-center p-0`,
+    EditorSection: tw.section`flex w-full h-screen border-r border-dotted border-gray-500`,
+    EditorBox: tw.div`flex flex-col w-full px-2 space-y-2 py-2`,
+    TitleWapper: tw.div`flex w-full`,
+    TagWapper: tw.div`flex flex-nowrap w-full gap-2`,
+    EditorWapper: tw.div`flex flex-nowrap w-full gap-2`,
+    ButtonWapper: tw.div`flex w-full gap-2 border-t border-dotted border-gray-500`,
+    TagItem: tw.div`bg-transparent hover:bg-blue-500 text-xs text-blue-700 hover:text-white py-1 px-2 border border-gray-400 rounded-full hover:border-transparent inline-flex items-center gap-1 dark:text-white cursor-pointer`,
+    TagIconWapper: tw.div`flex`,
+    TagInputElement: tw.input`block w-full rounded-md bg-gray-700 text-gray-900 text-sm placeholder:text-gray-400 outline-none dark:text-white`,
+    ButtonRow: tw.div`flex flex-nowrap w-full gap-2 pt-2`,
+    LeftButton: tw.div`flex w-1/2 items-center justify-start`,
+    RightButton: tw.div`flex w-1/2 items-center justify-end gap-2`,
+    ButtonElement: tw.button`bg-transparent text-sm hover:bg-blue-500 text-blue-700 dark:text-gray-400 hover:text-white py-1 px-3 border border-gray-600 hover:border-transparent rounded`,
+    PreViewSection: tw.section`hidden h-screen lg:flex w-full overflow-scroll`,
+    PreViewBox: tw.div`flex flex-col w-full px-2 space-y-3 py-2`
 };
