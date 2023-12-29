@@ -2,6 +2,7 @@
 
 import { Inter } from 'next/font/google';
 import './globals.css';
+import './github-markdown.css';
 import React from 'react';
 import { RootProvider } from '@/Provider';
 

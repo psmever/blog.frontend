@@ -1,47 +1,179 @@
+import { ManagePostPageStyle } from '@/Style/common-styles';
+import PostPreview from './post-preview';
+import PostEditor from './post-editor';
+import { useState } from 'react';
+
+const { MainContainer, EditorSection, PreViewSection } = ManagePostPageStyle;
+
+interface PageStateInterface {
+    loading: boolean;
+    title: string;
+    contents: string;
+    tags: Array<string>;
+}
+
 export default function ManagePostCreatePage() {
+    const initialPageState = {
+        loading: false,
+        title: ``,
+        contents: ``,
+        tags: []
+    };
+
+    const [pageState, setPageState] = useState<PageStateInterface>(initialPageState);
+
     return (
-        <div className="flex flex-nowrap w-full items-center justify-center p-0 h-screen">
-            <div className="flex flex-col w-full h-screen border-r border-dotted border-gray-500 px-2 space-y-2 py-2">
-                <div className="flex w-full">
-                    <input type="text" className="block w-full rounded-md bg-gray-700 text-gray-900 text-2xl placeholder:text-gray-400 outline-none dark:text-white" placeholder="제목을 입력해 주세요" />
-                </div>
-                <div className="flex flex-nowrap w-full gap-2">
-                    <div className="bg-transparent hover:bg-blue-500 text-xs text-blue-700 hover:text-white py-1 px-2 border border-gray-400 rounded-full hover:border-transparent inline-flex items-center gap-1 dark:text-white cursor-pointer">
-                        Javascript
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-3 h-3" onClick={() => console.debug('1')}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </div>
-                    <div className="bg-transparent hover:bg-blue-500 text-xs text-blue-700 hover:text-white py-1 px-2 border border-gray-400 rounded-full hover:border-transparent inline-flex items-center gap-1 dark:text-white cursor-pointer">
-                        React
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-3 h-3" onClick={() => console.debug('1')}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </div>
-                    <div className="bg-transparent hover:bg-blue-500 text-xs text-blue-700 hover:text-white py-1 px-2 border border-gray-400 rounded-full hover:border-transparent inline-flex items-center gap-1 dark:text-white cursor-pointer">
-                        Nextjs
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-3 h-3" onClick={() => console.debug('1')}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </div>
-                    <input type="text" className="block w-full rounded-md bg-gray-700 text-gray-900 text-sm placeholder:text-gray-400 outline-none dark:text-white" placeholder="tag를 입력해 주세요" />
-                </div>
-                <div className="flex flex-nowrap w-full gap-2 h-full">
-                    <textarea rows={20} className="block w-full rounded-md bg-gray-700 text-gray-900 text-sm placeholder:text-gray-400 outline-none dark:text-white" />
-                </div>
-                <div className="flex w-full gap-2 border-t border-dotted border-gray-500">
-                    <div className="flex flex-nowrap w-full gap-2 pt-2">
-                        <div className="flex w-1/2 items-center justify-start">
-                            <button className="bg-transparent text-sm hover:bg-blue-500 text-blue-700 dark:text-gray-400 hover:text-white py-1 px-3 border border-gray-600 hover:border-transparent rounded">게시</button>
-                        </div>
-                        <div className="flex w-1/2 items-center justify-end gap-2">
-                            <button className="bg-transparent text-sm hover:bg-blue-500 text-blue-700 dark:text-gray-400 hover:text-white py-1 px-3 border border-gray-600 hover:border-transparent rounded">임시저장</button>
-                            <button className="bg-transparent text-sm hover:bg-blue-500 text-blue-700 dark:text-gray-400 hover:text-white py-1 px-3 border border-gray-600 hover:border-transparent rounded">저장</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="hidden h-screen lg:flex w-full">2</div>
-        </div>
+        <MainContainer>
+            <EditorSection>
+                <PostEditor
+                    Title={pageState.title}
+                    ChangeTitle={(title) =>
+                        setPageState((prevState) => ({
+                            ...prevState,
+                            title: title
+                        }))
+                    }
+                    Tags={pageState.tags}
+                    ChangeTags={(tags) =>
+                        setPageState((prevState) => ({
+                            ...prevState,
+                            tags: tags
+                        }))
+                    }
+                    Contents={pageState.contents ? pageState.contents : markdownText}
+                    ChangeContents={(contents) =>
+                        setPageState((prevState) => ({
+                            ...prevState,
+                            contents: contents
+                        }))
+                    }
+                />
+            </EditorSection>
+            <PreViewSection>
+                <PostPreview Title={pageState.title} Contents={pageState.contents ? pageState.contents : markdownText} />
+            </PreViewSection>
+        </MainContainer>
     );
 }
+
+const markdownText = `
+
+# A demo of \`react-markdown\`
+
+\`react-markdown\` is a markdown component for React.
+
+👉 Changes are re-rendered as you type.
+
+👈 Try writing some markdown on the left.
+
+## Overview
+
+* Follows [CommonMark](https://commonmark.org)
+* Optionally follows [GitHub Flavored Markdown](https://github.github.com/gfm/)
+* Renders actual React elements instead of using \`dangerouslySetInnerHTML\`
+* Lets you define your own components (to render \`MyHeading\` instead of \`'h1'\`)
+* Has a lot of plugins
+
+## Contents
+
+Here is an example of a plugin in action
+([\`remark-toc\`](https://github.com/remarkjs/remark-toc)).
+**This section is replaced by an actual table of contents**.
+
+## Syntax highlighting
+
+Here is an example of a plugin to highlight code:
+[\`rehype-highlight\`](https://github.com/rehypejs/rehype-highlight).
+
+\`\`\`js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Markdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
+
+const markdown = \`
+# Your markdown here
+\`
+
+ReactDOM.render(
+  <Markdown rehypePlugins={[rehypeHighlight]}>{markdown}</Markdown>,
+  document.querySelector('#content')
+)
+\`\`\`
+
+Pretty neat, eh?
+
+## GitHub flavored markdown (GFM)
+
+For GFM, you can *also* use a plugin:
+[\`remark-gfm\`](https://github.com/remarkjs/react-markdown#use).
+It adds support for GitHub-specific extensions to the language:
+tables, strikethrough, tasklists, and literal URLs.
+
+These features **do not work by default**.
+👆 Use the toggle above to add the plugin.
+
+| Feature    | Support              |
+| ---------: | :------------------- |
+| CommonMark | 100%                 |
+| GFM        | 100% w/ \`remark-gfm\` |
+
+~~strikethrough~~
+
+* [ ] task list
+* [x] checked item
+
+https://example.com
+
+## HTML in markdown
+
+⚠️ HTML in markdown is quite unsafe, but if you want to support it, you can
+use [\`rehype-raw\`](https://github.com/rehypejs/rehype-raw).
+You should probably combine it with
+[\`rehype-sanitize\`](https://github.com/rehypejs/rehype-sanitize).
+
+<blockquote>
+  👆 Use the toggle above to add the plugin.
+</blockquote>
+
+## Components
+
+You can pass components to change things:
+
+\`\`\`js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Markdown from 'react-markdown'
+import MyFancyRule from './components/my-fancy-rule.js'
+
+const markdown = \`
+# Your markdown here
+\`
+
+ReactDOM.render(
+  <Markdown
+    components={{
+      // Use h2s instead of h1s
+      h1: 'h2',
+      // Use a component instead of hrs
+      hr(props) {
+        const {node, ...rest} = props
+        return <MyFancyRule {...rest} />
+      }
+    }}
+  >
+    {markdown}
+  </Markdown>,
+  document.querySelector('#content')
+)
+\`\`\`
+
+## More info?
+
+Much more info is available in the
+[readme on GitHub](https://github.com/remarkjs/react-markdown)!
+
+***
+
+A component by [Espen Hovlandsdal](https://espen.codes/)
+`;
