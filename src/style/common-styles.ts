@@ -77,13 +77,11 @@ export const InputStyle = {
 
 export const EditorStyle = {
     EditorWapper: tw.div`block w-full outline-none bg-gray-700`,
-    DropZoneBox: tw.div`flex justify-center items-center w-full py-1`,
-    DropZoneLabel: tw.label`flex flex-col justify-center items-center w-full border border-dotted border-gray-500 py-1`,
-    DropZoneTitleBox: tw.label`flex flex-col justify-center items-center`,
-    DropZoneTitleP: tw.p`text-xs`,
-    DropZoneTitleSpan: tw.span``,
-    DropZoneInput: tw.input`hidden`,
-    DropZoneButtonBox: tw.div`flex justify-start`
+    ButtonRow: tw.div`flex w-full`,
+    ButtonWapper: tw.div`flex`,
+    UploadButtonLabel: tw.label`flex pb-1 px-2 bg-gray-700 hover:bg-gray-600 text-white text-sm outline-none rounded-xl cursor-pointer`,
+    UploadInput: tw.input`hidden`,
+    EditorRow: tw.div`block w-full outline-none bg-gray-700`
 };
 
 export const SystemNoticeBoxStyle = {

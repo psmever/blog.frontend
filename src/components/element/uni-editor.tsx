@@ -5,8 +5,9 @@ import { useEffect, useState, useRef } from 'react';
 import { MDEditorProps } from '@uiw/react-md-editor';
 import { useWindowSize } from '@/hook';
 import { EditorStyle } from '@/Style/common-styles';
+import { ImageUploadIcon } from '@/Icon';
 
-const { EditorWapper, DropZoneBox, DropZoneLabel, DropZoneTitleBox, DropZoneTitleP, DropZoneTitleSpan, DropZoneInput } = EditorStyle;
+const { EditorWapper, ButtonRow, ButtonWapper, UploadButtonLabel, UploadInput, EditorRow } = EditorStyle;
 
 const MDEditor = dynamic<MDEditorProps>(() => import('@uiw/react-md-editor'), {
     ssr: false
@@ -23,6 +24,12 @@ export const UniMDEditor = ({ EditerContents, EditerOnChange }: { EditerContents
         }
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            console.debug(e.target.files[0]);
+        }
+    };
+
     useEffect(() => {
         const funSetHeight = (height: number) => {
             setEditorHeight(height - 170);
@@ -35,26 +42,27 @@ export const UniMDEditor = ({ EditerContents, EditerOnChange }: { EditerContents
 
     return (
         <EditorWapper>
-            <MDEditor
-                preview="edit"
-                textareaProps={{
-                    placeholder: '내용을 입력해 주세요.'
-                }}
-                height={editorHeight}
-                hideToolbar={true}
-                value={EditerContents}
-                onChange={(e) => EditerOnChange(e as string)}
-            />
-            <DropZoneBox>
-                <DropZoneLabel>
-                    <DropZoneTitleBox>
-                        <DropZoneTitleP>
-                            <DropZoneTitleSpan>Click to upload</DropZoneTitleSpan> or drag and drop
-                        </DropZoneTitleP>
-                    </DropZoneTitleBox>
-                    <DropZoneInput type="file" accept="image/jpg,image/png,image/jpeg,image/gif" ref={imageInputRef} onClick={() => console.debug('onclick')} onChange={handleFileInputReset} />
-                </DropZoneLabel>
-            </DropZoneBox>
+            <ButtonRow>
+                <ButtonWapper>
+                    <UploadButtonLabel>
+                        <ImageUploadIcon />
+                        <UploadInput type="file" accept="image/jpg,image/png,image/jpeg,image/gif" ref={imageInputRef} onClick={() => handleFileInputReset()} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileChange(e)} />
+                    </UploadButtonLabel>
+                </ButtonWapper>
+            </ButtonRow>
+            <EditorRow>
+                <MDEditor
+                    className="w-full flex"
+                    preview="edit"
+                    textareaProps={{
+                        placeholder: '내용을 입력해 주세요.'
+                    }}
+                    height={editorHeight}
+                    hideToolbar={true}
+                    value={EditerContents}
+                    onChange={(e) => EditerOnChange(e as string)}
+                />
+            </EditorRow>
         </EditorWapper>
     );
 };
