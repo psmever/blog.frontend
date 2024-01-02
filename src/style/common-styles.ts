@@ -181,5 +181,8 @@ export const ManagePostPageStyle = {
     RightButton: tw.div`flex w-1/2 items-center justify-end gap-2`,
     ButtonElement: tw.button`bg-transparent text-sm hover:bg-blue-500 text-blue-700 dark:text-gray-400 hover:text-white py-1 px-3 border border-gray-600 hover:border-transparent rounded`,
     PreViewSection: tw.section`hidden h-screen lg:flex w-full overflow-scroll`,
-    PreViewBox: tw.div`flex flex-col w-full px-2 space-y-3 py-2`
+    PreViewBox: tw.div`flex flex-col w-full px-2 space-y-3 py-2`,
+    PreViewRow: tw.div`flex w-full`,
+    PreViewTitleWapper: tw.div`inline-block w-full h-14 border-b border-dotted border-gray-500`,
+    PreViewTitle: tw.p`text-4xl`
 };
