@@ -15,7 +15,7 @@ export default function PostPage() {
                             <PostArticle key={(Math.random() + 1).toString(36).substring(7)}>
                                 <PostListBox>
                                     <PostImageArea>
-                                        <PostImage src="https://loremflickr.com/320/240" width={320} height={240} alt="..." />
+                                        <PostImage src="http://psmever.iptime.org:8003/default/default.jpg" width={320} height={240} alt="..." />
                                     </PostImageArea>
 
                                     <PostContentArea>
