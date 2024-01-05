@@ -221,6 +221,8 @@ const AxiosUtil = ({ method = 'post', url, payload }: serviceInterface): any => 
 
     axiosDefaultHeader.headers!.Authorization = Helper.getAccessToken() ? 'Bearer ' + Helper.getAccessToken() : '';
 
+    if (url === '/api/v1/media/create') axiosDefaultHeader.headers!['Content-Type'] = 'multipart/form-data';
+
     const _Axios_: AxiosInstance = axios.create(axiosDefaultHeader);
 
     _Axios_.interceptors.response.use(

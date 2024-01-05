@@ -1,14 +1,33 @@
 import { saveToken, removeToken, getAccessToken } from '@/Helper';
 import { ServiceLogout, ServiceLogin, ServiceTokenInfo } from '@/ServerInterface';
+import { useSetRecoilState } from 'recoil';
+import { AppRootState } from '@/State';
 import lodash from 'lodash';
 
 export default function useAuth() {
+    const setAppRootState = useSetRecoilState(AppRootState);
+
     // 로그인 시도
     const HandleAttemptLogin = async ({ email, password }: { email: string; password: string }): Promise<{ result: boolean; message: string }> => {
         const { status, message, payload } = await ServiceLogin({ email: email, password: password });
 
         if (status) {
-            HandleTokenSave({ access_token: payload.access_token, refresh_token: payload.refresh_token });
+            const { access_token, refresh_token } = payload;
+
+            HandleTokenSave({ access_token: access_token, refresh_token: refresh_token });
+
+            setAppRootState((prevState) => ({
+                ...prevState,
+                login: {
+                    ...prevState.login,
+                    status: true,
+                    token: {
+                        ...prevState.login.token,
+                        accessToken: access_token,
+                        refreshToken: refresh_token
+                    }
+                }
+            }));
         }
 
         return {

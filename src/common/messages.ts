@@ -19,7 +19,8 @@ const Messages = {
     logoutSuccess: `로그아웃 되었습니다.`,
     alreadyLogout: `이미 로그아웃되어 있습니다.`,
     loginSuccess: `로그인이 완료 되었습니다.`,
-    alreadyLogin: `이미 로그인되어 있습니다.`
+    alreadyLogin: `이미 로그인되어 있습니다.`,
+    needAuthority: `로그인이 필요한 서비스 입니다.`
 };
 
 export default Messages;
