@@ -6,6 +6,7 @@ const removeImports = require('next-remove-imports')();
 /** @type {import("next").NextConfig} */
 const nextConfig = withTwin({
     output: 'export',
+    skipTrailingSlashRedirect: true,
     reactStrictMode: false,
     swcMinify: true,
     images: {
