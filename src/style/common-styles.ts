@@ -78,7 +78,7 @@ export const InputStyle = {
 export const EditorStyle = {
     EditorWapper: tw.div`block w-full outline-none bg-gray-700`,
     ButtonRow: tw.div`flex w-full`,
-    ButtonWapper: tw.div`flex`,
+    ButtonWapper: tw.div`flex w-full items-center justify-end`,
     UploadButtonLabel: tw.label`flex pb-1 px-2 bg-gray-700 hover:bg-gray-600 text-white text-sm outline-none rounded-xl cursor-pointer`,
     UploadInput: tw.input`hidden`,
     EditorRow: tw.div`block w-full outline-none bg-gray-700`
@@ -166,7 +166,17 @@ export const LayoutModalStyle = {
 };
 
 export const ManagePostPageStyle = {
-    MainContainer: tw.div`flex flex-nowrap w-full h-screen items-center justify-center p-0`,
+    MainContainer: tw.div`flex w-full h-screen`,
+    MainWapper2: tw.div`flex flex-nowrap w-full items-center justify-center p-0 opacity-20`,
+    MainWapper: styled.div(({ Opacity }: { Opacity: boolean }) => {
+        const twStyled = [tw`flex flex-nowrap w-full items-center justify-center p-0`];
+
+        if (Opacity) {
+            twStyled.push(tw`opacity-20`);
+        }
+
+        return twStyled;
+    }),
     EditorSection: tw.section`flex w-full h-screen border-r border-dotted border-gray-500`,
     EditorBox: tw.div`flex flex-col w-full px-2 space-y-2 py-2`,
     TitleWapper: tw.div`flex w-full`,
@@ -184,5 +194,6 @@ export const ManagePostPageStyle = {
     PreViewBox: tw.div`flex flex-col w-full px-2 space-y-3 py-2`,
     PreViewRow: tw.div`flex w-full`,
     PreViewTitleWapper: tw.div`inline-block w-full h-14 border-b border-dotted border-gray-500`,
-    PreViewTitle: tw.p`text-4xl`
+    PreViewTitle: tw.p`text-4xl`,
+    LoadingWapper: tw.div`absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2`
 };

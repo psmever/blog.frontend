@@ -77,3 +77,48 @@ export const ServiceTokenInfo = (): Promise<ServicesResult<{ uuid: string; level
         payload: null
     });
 };
+
+/**
+ * 글등록
+ * @param payload
+ * @constructor
+ */
+export const ServicePostCreate = (payload: {
+    title: string;
+    tags: Array<string>;
+    contents: string;
+}): Promise<
+    ServicesResult<{
+        uuid: string;
+        slug: string;
+        publish: 'N' | 'Y';
+    }>
+> => {
+    return AxiosUtil({
+        method: 'post',
+        url: `/api/v1/manage/post-create`,
+        payload: payload
+    });
+};
+
+export const ServiceMediaCreate = (
+    formData: FormData
+): Promise<
+    ServicesResult<{
+        url: {
+            image: string;
+            thumb: string;
+        };
+        size: {
+            height: number;
+            width: number;
+        };
+        file_size: number;
+    }>
+> => {
+    return AxiosUtil({
+        method: 'post',
+        url: `/api/v1/media/create`,
+        payload: formData
+    });
+};
