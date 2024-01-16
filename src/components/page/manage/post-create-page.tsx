@@ -43,7 +43,7 @@ export default function ManagePostCreatePage() {
             const { status, payload, message } = await ServicePostCreate({ title: title, tags: tags, contents: contents });
 
             if (status) {
-                router.push(`/manage/post/${payload.uuid}`);
+                router.push(`/manage/post/${payload.uuid}/update`);
             } else {
                 OpenLayoutModal({ message: message });
             }
