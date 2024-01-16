@@ -12,7 +12,7 @@
         "build:test": "rm -rf .next && next build",
         "build:dev": "cp .project/env.development .env && rm -rf .next && next build",
         "build:prod": "cp .project/env.production .env && rm -rf .next && next build",
-        "next-start:dev": "next start -p 8001",
+        "next-start:dev": "next start -p 8004",
         "deploy:dev": "ssh sm@psmever.iptime.org -p42022 -t 'bash -ic \"bash ~/Workspaces/deploy/blog.project/frontend-deploy.sh\"'"
     },
     "dependencies": {
