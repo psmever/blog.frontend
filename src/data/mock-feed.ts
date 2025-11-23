@@ -1,0 +1,230 @@
+export type FeedPost = {
+  id: string;
+  title: string;
+  excerpt: string;
+  author: string;
+  date: string;
+  comments: number;
+  likes: number;
+  image: string;
+  tag?: string;
+};
+
+export const mockFeedPosts: FeedPost[] = [
+  {
+    id: "1",
+    title: "이준석이랑 대선 사이드 프로젝트 썰",
+    excerpt: "정치 문화인이랑 대형 IT팀 개발 프로젝트를 해 봤던 이야기",
+    author: "권한숙",
+    date: "2025-11-10",
+    comments: 4,
+    likes: 196,
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    tag: "회고",
+  },
+  {
+    id: "2",
+    title: "낙두리",
+    excerpt: "2021년 11월, 나만 부지런히 회사에 익사했었다. 그리고 지금까지, 나는 무엇을 했을까?",
+    author: "Mindjack",
+    date: "2025-11-05",
+    comments: 3,
+    likes: 18,
+    image:
+      "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
+    tag: "에세이",
+  },
+  {
+    id: "3",
+    title: "99%의 Developers Don’t Know These ARIA Attributes",
+    excerpt: "사용자 경험을 높이는 실전 ARIA 속성 세트. 예제 중심으로 익혀보자.",
+    author: "TapK",
+    date: "2025-11-11",
+    comments: 2,
+    likes: 40,
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+    tag: "접근성",
+  },
+  {
+    id: "4",
+    title: "CSR 환경에서 네트워크 반사를 최소화하려면?",
+    excerpt: "SWR 기반 네트워크 리퀘스트 최적화 전략과 레이턴시 개선 사례 정리.",
+    author: "유혁",
+    date: "2025-07-01",
+    comments: 1,
+    likes: 48,
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    tag: "성능",
+  },
+  {
+    id: "5",
+    title: "신입 개발자 회사생활 팁 모음",
+    excerpt: "온보딩 속도를 높이고 팀 문화에 부드럽게 녹아드는 실전 팁.",
+    author: "신호열",
+    date: "2025-11-10",
+    comments: 4,
+    likes: 21,
+    image:
+      "https://images.unsplash.com/photo-1509099836639-18ba02e2e1ba?auto=format&fit=crop&w=1200&q=80",
+    tag: "커리어",
+  },
+  {
+    id: "6",
+    title: "애니메이터 캐릭터툴을 위한 디지털 에도 프로젝트",
+    excerpt: "애니메이션 스튜디오의 디지털 에셋 워크플로를 개선하며 배운 점.",
+    author: "Noah",
+    date: "2025-03-04",
+    comments: 4,
+    likes: 22,
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
+    tag: "디자인",
+  },
+  {
+    id: "7",
+    title: "일본 IT 취업이 한국보다 쉬운 이유",
+    excerpt: "TLD;DR 일본의 SES 업계에서 겪은 채용 문화와 커리어 루트.",
+    author: "김동석",
+    date: "2025-11-12",
+    comments: 2,
+    likes: 17,
+    image:
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
+    tag: "커리어",
+  },
+  {
+    id: "8",
+    title: "2026 카카오 신입 공채 코딩 테스트 후기",
+    excerpt: "시험 환경과 문제 난이도, 준비 팁을 정리한 솔직 리뷰.",
+    author: "박종호",
+    date: "2025-11-09",
+    comments: 1,
+    likes: 9,
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    tag: "면접",
+  },
+  {
+    id: "9",
+    title: "플레이 스토어 배포 후기",
+    excerpt: "React Native 앱을 스토어에 올리며 겪은 인증/빌드/심사 과정.",
+    author: "Main",
+    date: "2025-06-02",
+    comments: 2,
+    likes: 15,
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    tag: "모바일",
+  },
+  {
+    id: "10",
+    title: "모바일 환경에서 바텀시트 드래그 시 성능 지키기",
+    excerpt: "터치 인터랙션 최적화, GPU 레이어, 스로틀링 전략 정리.",
+    author: "유호정",
+    date: "2025-11-10",
+    comments: 3,
+    likes: 18,
+    image:
+      "https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1200&q=80",
+    tag: "성능",
+  },
+  {
+    id: "11",
+    title: "Code Wiki: 검색 가능한 사내 지식 베이스 구축기",
+    excerpt: "사내 문서를 위키 구조로 조직하고 검색 성능을 튜닝한 사례.",
+    author: "Composite",
+    date: "2025-11-16",
+    comments: 5,
+    likes: 14,
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    tag: "사내도구",
+  },
+  {
+    id: "12",
+    title: "2025년 4분기 백엔드 개발자 성과 리뷰",
+    excerpt: "지표 기반 리뷰 템플릿과 OKR 정렬 방식, 피드백 수집 팁.",
+    author: "최재식",
+    date: "2025-09-01",
+    comments: 6,
+    likes: 9,
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+    tag: "팀문화",
+  },
+  {
+    id: "13",
+    title: "Spring AOP: @CacheEvict가 안 되는 이유",
+    excerpt: "프록시 구조와 트랜잭션 순서에서 발생한 캐시 미스 동작 분석.",
+    author: "NewCodes7",
+    date: "2025-11-13",
+    comments: 2,
+    likes: 15,
+    image:
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+    tag: "백엔드",
+  },
+  {
+    id: "14",
+    title: "좋은 훅을 설계하기 위한 5가지 원칙",
+    excerpt: "DX를 높이는 React 훅 패턴과 에러 핸들링, 테스트 전략을 공유합니다.",
+    author: "하희이",
+    date: "2025-11-10",
+    comments: 5,
+    likes: 17,
+    image:
+      "https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80",
+    tag: "프론트엔드",
+  },
+  {
+    id: "15",
+    title: "20분 만에 만든 월드컵 조추첨 웹앱",
+    excerpt: "Gemini 3로 20분 만에 빠르게 프로토타입을 만든 기록.",
+    author: "김동혁",
+    date: "2025-11-09",
+    comments: 4,
+    likes: 6,
+    image:
+      "https://images.unsplash.com/photo-1504639725590-34d4982c1e07?auto=format&fit=crop&w=1200&q=80",
+    tag: "토이프로젝트",
+  },
+  {
+    id: "16",
+    title: "리액트 데이터레이어를 시작하는 가장 단순한 방법",
+    excerpt: "플러그인 없이 스토어를 설계하고 배포까지 연결하는 실전 가이드.",
+    author: "유진",
+    date: "2025-08-11",
+    comments: 2,
+    likes: 13,
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+    tag: "아키텍처",
+  },
+  {
+    id: "17",
+    title: "오픈소스 라이선스 점검 자동화하기",
+    excerpt: "CI에서 자동으로 라이선스 스캔과 알림을 수행하는 파이프라인 구축기.",
+    author: "지민",
+    date: "2025-10-02",
+    comments: 1,
+    likes: 11,
+    image:
+      "https://images.unsplash.com/photo-1504639725590-34d4982c1e07?auto=format&fit=crop&w=1200&q=80",
+    tag: "DevOps",
+  },
+  {
+    id: "18",
+    title: "브라우저 성능을 위한 메모리 프로파일링 스타트",
+    excerpt: "Performance 패널과 Lighthouse를 활용한 실전 메모리 튜닝.",
+    author: "보경",
+    date: "2025-07-20",
+    comments: 3,
+    likes: 19,
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+    tag: "성능",
+  },
+];
