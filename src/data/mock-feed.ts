@@ -13,15 +13,16 @@ export type FeedPost = {
 export const mockFeedPosts: FeedPost[] = [
   {
     id: "1",
-    title: "이준석이랑 대선 사이드 프로젝트 썰",
-    excerpt: "정치 문화인이랑 대형 IT팀 개발 프로젝트를 해 봤던 이야기",
-    author: "권한숙",
-    date: "2025-11-10",
-    comments: 4,
-    likes: 196,
+    title: "오픈소스 블로그를 한 달 만에 출시한 기록",
+    excerpt:
+      "Next.js 15와 Tailwind 4로 콘텐츠 플랫폼을 뼈대부터 완성하기까지의 시행착오를 정리했습니다.",
+    author: "MyProject",
+    date: "2025-11-22",
+    comments: 12,
+    likes: 214,
     image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-    tag: "회고",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    tag: "프로젝트",
   },
   {
     id: "2",
