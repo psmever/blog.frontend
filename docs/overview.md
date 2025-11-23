@@ -21,6 +21,7 @@
 - 복호화: `scripts/env-decrypt.sh` (필요 시 `BLOG_ENV_SECRET` 환경 변수로 비밀번호 주입)
 - 암호화: `scripts/env-encrypt.sh`
 - `.env`는 루트에 위치하며 Git에 커밋하지 않습니다.
+- 프런트엔드는 `NEXT_PUBLIC_API_URL`로 백엔드 엔드포인트를 지정합니다. (예: `http://localhost:4000`)
 
 ## 디렉터리 길잡이
 
