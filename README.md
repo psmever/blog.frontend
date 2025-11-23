@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blog Frontend
 
-## Getting Started
+Next.js 15 (App Router) + React 19 + Tailwind CSS 4 based blog UI that consumes the `blog.backend` API.
 
-First, run the development server:
+## Quick start
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Install deps: `yarn install`
+2. Env: `cp .env.local.example .env.local` and set `NEXT_PUBLIC_API_URL` (or decrypt `.env.local.enc` with `BLOG_ENV_SECRET` via `make frontend-up`)
+3. Dev server: `yarn dev` → http://localhost:3000 (Turbopack enabled)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `yarn dev` / `yarn build` / `yarn start`
+- `yarn lint` (Next.js lint) / `yarn lint:fix`
+- `yarn format` / `yarn format:check`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Husky + lint-staged run on `pre-commit` (install hooks via `yarn install` or `yarn prepare`).
 
-## Learn More
+## Docker (via blog.docker)
 
-To learn more about Next.js, take a look at the following resources:
+- Start frontend container: `make frontend-up`
+- Tail frontend logs: `make frontend-logs`
+- Stop local stack: `make frontend-down`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Targets wrap `../blog.docker/docker-compose.local.yml` and expect `.env` in this folder (generated from `.env.local.example` or decrypted from `.env.local.enc`).

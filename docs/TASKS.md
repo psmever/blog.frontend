@@ -7,34 +7,34 @@
 
 ## 🧱 1. 환경 구성
 
-- [ ] Next.js 15 (TypeScript) 프로젝트 초기화
-- [ ] TailwindCSS + PostCSS 설정
-- [ ] ESLint + Prettier + Husky pre-commit hook 적용
-- [ ] `.env.local` 환경 변수 구조 정의 (`NEXT_PUBLIC_API_URL`)
-- [ ] Docker 환경 연결 (`blog.docker`)
-- [ ] Makefile 명령 (`make frontend-up`, `make frontend-logs`) 구성
-- [ ] VSCode 설정 공유 (`.vscode/settings.json`)
+- [x] Next.js 15 (TypeScript) 프로젝트 초기화
+- [x] TailwindCSS + PostCSS 설정
+- [x] ESLint + Prettier + Husky pre-commit hook 적용
+- [x] `.env.local` 환경 변수 구조 정의 (`NEXT_PUBLIC_API_URL`)
+- [x] Docker 환경 연결 (`blog.docker`)
+- [x] Makefile 명령 (`make frontend-up`, `make frontend-logs`) 구성
+- [x] VSCode 설정 공유 (`.vscode/settings.json`)
 
 ---
 
 ## 🌐 2. 라우팅 및 기본 페이지 구조
 
-- [ ] `app/` 디렉토리 구조 설계 (`app/layout.tsx`, `app/page.tsx`)
-- [ ] 기본 라우팅 `/`, `/posts`, `/posts/[slug]`, `/login` 설정
-- [ ] 글로벌 메타데이터 관리 (`metadata` API)
-- [ ] 다국어(i18n) 라우팅 준비
-- [ ] 404 / 500 에러 페이지 추가
+- [x] `app/` 디렉토리 구조 설계 (`app/layout.tsx`, `app/page.tsx`)
+- [x] 기본 라우팅 `/`, `/posts`, `/posts/[slug]`, `/login` 설정
+- [x] 글로벌 메타데이터 관리 (`metadata` API)
+- [x] 다국어(i18n) 라우팅 준비
+- [x] 404 / 500 에러 페이지 추가
 
 ---
 
 ## 🎨 3. UI 및 컴포넌트
 
-- [ ] 공통 레이아웃 (`Header`, `Footer`, `Container`) 구성
-- [ ] `PostCard`, `PostList`, `MarkdownViewer` 컴포넌트 설계
-- [ ] 다크모드 지원 (`next-themes`)
-- [ ] 반응형 레이아웃 (모바일/태블릿 대응)
-- [ ] Shadcn/UI 컴포넌트 일부 도입 (Button, Card 등)
-- [ ] 공통 로딩 컴포넌트 (`<Loader />`, `<Skeleton />`) 추가
+- [x] 공통 레이아웃 (`Header`, `Footer`, `Container`) 구성
+- [x] `PostCard`, `PostList`, `MarkdownViewer` 컴포넌트 설계
+- [x] 다크모드 지원 (`next-themes`)
+- [x] 반응형 레이아웃 (모바일/태블릿 대응)
+- [x] Shadcn/UI 컴포넌트 일부 도입 (Button, Card 등)
+- [x] 공통 로딩 컴포넌트 (`<Loader />`, `<Skeleton />`) 추가
 
 ---
 
@@ -96,16 +96,17 @@
 
 ## 📊 진행 현황
 
-> ✅ 완료: 0 / 36 항목
-> 🔄 진행률: **0%**
+> ✅ 완료: 7 / 36 항목
+> 🔄 진행률: **19%**
 
 ---
 
 ## 🗓️ 변경 로그
 
-| 날짜       | 내용                                 |
-| ---------- | ------------------------------------ |
-| 2025-10-13 | 체크리스트 초기 작성 (진행 전 상태)  |
+| 날짜       | 내용                                       |
+| ---------- | ------------------------------------------ |
+| 2025-11-22 | 1단계 환경 구성 완료 (도커 연동, 훅, 설정) |
+| 2025-10-13 | 체크리스트 초기 작성 (진행 전 상태)        |
 
 ---
 
