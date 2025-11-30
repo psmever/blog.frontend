@@ -8,14 +8,10 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
     return (
-        <div className="mx-auto w-full max-w-md space-y-6">
-            <div className="space-y-2 text-center">
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-foreground/60">Dashboard</p>
-                <h1 className="text-2xl font-semibold">로그인</h1>
-                <p className="text-sm text-foreground/70">게시글 작성 및 관리 기능은 로그인 후 이용할 수 있습니다.</p>
+        <div className="flex min-h-screen items-center justify-center px-4">
+            <div className="w-full max-w-md">
+                <LoginForm />
             </div>
-
-            <LoginForm />
         </div>
     );
 }
