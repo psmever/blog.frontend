@@ -4,7 +4,7 @@ import { Container } from "@/components/layout/container";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { siteConfig } from "@/config/site";
-import { ThemeProvider } from "./providers";
+import { AppProviders } from "./providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -58,7 +58,7 @@ export default function RootLayout({
     return (
         <html lang={siteConfig.localeDefault} suppressHydrationWarning>
             <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background text-foreground antialiased`}>
-                <ThemeProvider>
+                <AppProviders>
                     <div className="flex min-h-screen flex-col">
                         <Header />
                         <main className="flex-1 py-10">
@@ -66,7 +66,7 @@ export default function RootLayout({
                         </main>
                         <Footer />
                     </div>
-                </ThemeProvider>
+                </AppProviders>
             </body>
         </html>
     );
