@@ -2,29 +2,28 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { AxiosError } from "axios";
-import { AlertDialog } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAccessToken } from "@/lib/token-storage";
+import { useAuthState, useSetAuthState } from "@/state";
 import { login, logout } from "@/services/auth";
 
 export function LoginForm() {
-    const initialLoggedInRef = useRef(Boolean(getAccessToken()));
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [loggedIn, setLoggedIn] = useState(initialLoggedInRef.current);
-    const [showLoggedInAlert, setShowLoggedInAlert] = useState(initialLoggedInRef.current);
+    const auth = useAuthState();
+    const setAuth = useSetAuthState();
+    const previousLoggedInRef = useRef(auth.isLoggedIn);
     const router = useRouter();
 
     useEffect(() => {
-        if (loggedIn && !initialLoggedInRef.current) {
+        if (!previousLoggedInRef.current && auth.isLoggedIn) {
             router.replace("/");
         }
-    }, [loggedIn, router]);
+        previousLoggedInRef.current = auth.isLoggedIn;
+    }, [auth.isLoggedIn, router]);
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,26 +34,27 @@ export function LoginForm() {
 
         try {
             const response = await login({ email, password });
-            setLoggedIn(true);
-            setMessage(response.message ?? "로그인에 성공했어요. 대시보드로 이동하거나 새로고침해주세요.");
-        } catch (error) {
-            const axiosError = error as AxiosError<{ message?: string }>;
-            const backendMessage = axiosError.response?.data?.message;
-            setError(backendMessage ?? "로그인에 실패했습니다. 계정 정보를 다시 확인해주세요.");
+            if (response.status) {
+                setAuth({ isLoggedIn: true, user: response.data?.user ?? null });
+                setMessage(response.message ?? "로그인에 성공했어요. 대시보드로 이동하거나 새로고침해주세요.");
+            } else {
+                setError(response.message ?? "로그인에 실패했습니다. 계정 정보를 다시 확인해주세요.");
+            }
+        } catch {
+            setError("로그인에 실패했습니다. 계정 정보를 다시 확인해주세요.");
         } finally {
             setLoading(false);
         }
     };
 
     const handleLogout = async () => {
-        initialLoggedInRef.current = false;
         setLoading(true);
         setError(null);
         setMessage(null);
         try {
-            await logout();
-            setLoggedIn(false);
-            setMessage("로그아웃 되었습니다.");
+            const response = await logout();
+            setAuth({ isLoggedIn: false, user: null });
+            setMessage(response.status ? "로그아웃 되었습니다." : (response.message ?? "로그아웃 처리 중 문제가 발생했습니다."));
         } catch {
             setError("로그아웃 처리 중 문제가 발생했습니다.");
         } finally {
@@ -66,7 +66,7 @@ export function LoginForm() {
         <>
             <Card>
                 <CardHeader className="text-center">
-                    <CardTitle>{loggedIn ? "로그아웃" : "로그인"}</CardTitle>
+                    <CardTitle>{auth.isLoggedIn ? "로그아웃" : "로그인"}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <form className="space-y-4" onSubmit={handleSubmit}>
@@ -79,7 +79,7 @@ export function LoginForm() {
                                 name="email"
                                 type="email"
                                 required
-                                disabled={loggedIn}
+                                disabled={auth.isLoggedIn}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="you@example.com"
@@ -95,41 +95,23 @@ export function LoginForm() {
                                 name="password"
                                 type="password"
                                 required
-                                disabled={loggedIn}
+                                disabled={auth.isLoggedIn}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="••••••••"
                                 className="w-full rounded-lg border border-foreground/20 bg-background px-3 py-2 text-sm outline-none transition focus:border-foreground/50 focus:ring-2 focus:ring-foreground/20 disabled:cursor-not-allowed disabled:bg-foreground/5"
                             />
                         </div>
-                        <Button type={loggedIn ? "button" : "submit"} className="w-full" disabled={loading} onClick={loggedIn ? handleLogout : undefined}>
-                            {loading ? "처리 중..." : loggedIn ? "로그아웃" : "로그인"}
+                        <Button type={auth.isLoggedIn ? "button" : "submit"} className="w-full" disabled={loading} onClick={auth.isLoggedIn ? handleLogout : undefined}>
+                            {loading ? "처리 중..." : auth.isLoggedIn ? "로그아웃" : "로그인"}
                         </Button>
-                        {loggedIn ? <p className="text-center text-xs text-foreground/70">이미 로그인 상태예요. 메인으로 이동하거나 로그아웃할 수 있습니다.</p> : <p className="text-center text-xs text-foreground/60">계정이 없으면 백엔드에서 계정을 생성한 후 이용해주세요.</p>}
+                        {auth.isLoggedIn ? <p className="text-center text-xs text-foreground/70">이미 로그인 상태예요. 메인으로 이동하거나 로그아웃할 수 있습니다.</p> : <p className="text-center text-xs text-foreground/60">계정이 없으면 백엔드에서 계정을 생성한 후 이용해주세요.</p>}
                     </form>
 
                     {message && <p className="mt-3 rounded-md bg-foreground/5 px-3 py-2 text-sm text-foreground/80">{message}</p>}
                     {error && <p className="mt-3 rounded-md bg-red-500/10 px-3 py-2 text-sm text-red-600">{error}</p>}
                 </CardContent>
             </Card>
-
-            <AlertDialog
-                open={showLoggedInAlert}
-                title="이미 로그인되어 있습니다"
-                description="메인 페이지로 이동하거나 로그아웃 후 다른 계정으로 로그인할 수 있어요."
-                confirmText="메인으로 이동"
-                cancelText="로그아웃"
-                dismissible={false}
-                onConfirm={() => {
-                    initialLoggedInRef.current = false;
-                    setShowLoggedInAlert(false);
-                    router.replace("/");
-                }}
-                onCancel={() => {
-                    setShowLoggedInAlert(false);
-                    void handleLogout();
-                }}
-            />
         </>
     );
 }
