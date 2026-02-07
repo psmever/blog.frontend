@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { clearTokens, getAccessToken } from "./token-storage";
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000/api";
+const rawBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const baseURL = rawBaseURL.endsWith("/api") ? rawBaseURL : `${rawBaseURL.replace(/\/$/, "")}/api`;
 const baseClientHeaderCode = process.env.NEXT_PUBLIC_API_BASE_CLIENT_HEADER_CODE ?? "0000";
 
 export type ApiResponse<T> = {
@@ -12,6 +13,12 @@ export type ApiResponse<T> = {
         status: number;
         timestamp: string;
     };
+};
+
+export type ApiResult<T> = {
+    status: boolean;
+    message: string;
+    data: T | null;
 };
 
 export const apiClient = axios.create({
@@ -42,3 +49,22 @@ apiClient.interceptors.response.use(
         return Promise.reject(error);
     },
 );
+
+export async function apiRequest<T>(request: Promise<AxiosResponse<ApiResponse<T>>>): Promise<ApiResult<T>> {
+    try {
+        const { data } = await request;
+        return {
+            status: true,
+            message: data.message,
+            data: data.data ?? null,
+        };
+    } catch (error) {
+        const axiosError = error as AxiosError<ApiResponse<T>>;
+        const responseData = axiosError.response?.data;
+        return {
+            status: false,
+            message: responseData?.message ?? "요청 처리 중 오류가 발생했습니다.",
+            data: responseData?.data ?? null,
+        };
+    }
+}
