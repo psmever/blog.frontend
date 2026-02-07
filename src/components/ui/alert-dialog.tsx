@@ -27,6 +27,25 @@ const VARIANT_STYLES: Record<AlertVariant, { accent: string; dot: string }> = {
     danger: { accent: "text-red-600", dot: "bg-red-500" },
 };
 
+const VARIANT_BUTTONS: Record<AlertVariant, { confirm: string; cancel: string }> = {
+    info: {
+        confirm: "bg-foreground text-background shadow-sm shadow-foreground/15 hover:shadow-foreground/25 hover:-translate-y-[1px]",
+        cancel: "border-foreground/20 text-foreground hover:border-foreground/40 hover:bg-foreground/5",
+    },
+    success: {
+        confirm: "bg-emerald-600 text-white shadow-sm shadow-emerald-500/25 hover:bg-emerald-500 hover:-translate-y-[1px]",
+        cancel: "border-emerald-200 text-emerald-700 hover:border-emerald-300 hover:bg-emerald-500/10",
+    },
+    warning: {
+        confirm: "bg-amber-500 text-white shadow-sm shadow-amber-500/30 hover:bg-amber-400 hover:-translate-y-[1px]",
+        cancel: "border-amber-200 text-amber-700 hover:border-amber-300 hover:bg-amber-400/10",
+    },
+    danger: {
+        confirm: "bg-red-600 text-white shadow-sm shadow-red-500/25 hover:bg-red-500 hover:-translate-y-[1px]",
+        cancel: "border-red-200 text-red-700 hover:border-red-300 hover:bg-red-500/10",
+    },
+};
+
 export function AlertDialog({ open, title, description, confirmText = "확인", cancelText = "취소", variant = "info", onConfirm, onCancel, dismissible = true, showCancel = true }: AlertDialogProps) {
     const [mounted, setMounted] = useState(false);
 
@@ -56,6 +75,7 @@ export function AlertDialog({ open, title, description, confirmText = "확인", 
     }
 
     const { accent, dot } = VARIANT_STYLES[variant];
+    const { confirm: confirmClass, cancel: cancelClass } = VARIANT_BUTTONS[variant];
     const handleClose = dismissible ? (onCancel ?? onConfirm) : undefined;
 
     return createPortal(
@@ -78,11 +98,11 @@ export function AlertDialog({ open, title, description, confirmText = "확인", 
                 </div>
                 <div className="flex items-center justify-end gap-2 bg-foreground/5 px-6 py-4">
                     {showCancel && onCancel && (
-                        <Button type="button" variant="ghost" size="sm" onClick={onCancel} className="w-24">
+                        <Button type="button" variant="outline" size="sm" onClick={onCancel} className={cn("min-w-[6.5rem] rounded-full transition-transform duration-200", cancelClass)}>
                             {cancelText}
                         </Button>
                     )}
-                    <Button type="button" size="sm" onClick={onConfirm} className="w-24">
+                    <Button type="button" size="sm" onClick={onConfirm} className={cn("min-w-[6.5rem] rounded-full transition-transform duration-200", confirmClass)}>
                         {confirmText}
                     </Button>
                 </div>
