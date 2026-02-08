@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Container } from "@/components/layout/container";
-import { Footer } from "@/components/layout/footer";
-import { Header } from "@/components/layout/header";
+import { AppShell } from "@/components/layout/app-shell";
 import { siteConfig } from "@/config/site";
 import { AppProviders } from "./providers";
 import "./globals.css";
@@ -59,13 +57,7 @@ export default function RootLayout({
         <html lang={siteConfig.localeDefault} suppressHydrationWarning>
             <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background text-foreground antialiased`}>
                 <AppProviders>
-                    <div className="flex min-h-screen flex-col">
-                        <Header />
-                        <main className="flex-1 py-10">
-                            <Container>{children}</Container>
-                        </main>
-                        <Footer />
-                    </div>
+                    <AppShell>{children}</AppShell>
                 </AppProviders>
             </body>
         </html>

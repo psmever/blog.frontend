@@ -9,7 +9,9 @@ type MarkdownViewerProps = HTMLAttributes<HTMLDivElement> & {
 export function MarkdownViewer({ content, className, ...props }: MarkdownViewerProps) {
     return (
         <div className={cn("rounded-xl border border-foreground/10 bg-card p-6 shadow-sm", className)} {...props}>
-            <ReactMarkdown className="markdown">{content}</ReactMarkdown>
+            <div className="markdown">
+                <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
         </div>
     );
 }
