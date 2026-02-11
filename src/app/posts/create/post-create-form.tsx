@@ -187,11 +187,11 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
                                 ← 나가기
                             </button>
                             <div className="flex items-center gap-3">
-                                <Button type="button" size="md" className="w-24" onClick={() => void handleSave("draft")} disabled={loading}>
-                                    저장
+                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("draft")} disabled={loading}>
+                                    임시 저장
                                 </Button>
-                                <Button type="button" size="md" className="w-24" onClick={() => void handleSave("publish")} disabled={loading}>
-                                    {loading ? "처리 중..." : "출간하기"}
+                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("publish")} disabled={loading}>
+                                    {loading ? "처리 중..." : "게시하기"}
                                 </Button>
                             </div>
                         </div>
