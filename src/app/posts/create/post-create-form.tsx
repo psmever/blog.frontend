@@ -1,9 +1,10 @@
 "use client";
 
-import { type KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
+import { startTransition, type KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { useAuthState } from "@/state";
+import { createPost, fetchPost, type PostTag } from "@/services/posts";
+import { useAuthState, usePostEditorState, useSetPostEditorState } from "@/state";
 import ReactMarkdown from "react-markdown";
 
 const TITLE_INPUT_CLASS = "w-full bg-transparent text-4xl font-semibold text-foreground placeholder:text-foreground/30 outline-none sm:text-[2.75rem]";
@@ -38,17 +39,39 @@ const TOOLBAR_ITEMS: ToolbarItem[][] = [
     ],
 ];
 
+function parseTags(value: string) {
+    return Array.from(
+        new Set(
+            value
+                .split(",")
+                .map((tag) => tag.trim())
+                .filter(Boolean),
+        ),
+    );
+}
+
+function formatTags(tags: PostTag[]) {
+    return tags.map((tag) => tag.label).join(", ");
+}
+
 type PostCreateFormProps = {
     initialContent?: string;
+    mode?: "create" | "update";
+    postUuid?: string;
 };
 
-export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
+export function PostCreateForm({ initialContent = "", mode = "create", postUuid }: PostCreateFormProps) {
     const auth = useAuthState();
+    const postEditorState = usePostEditorState();
+    const setPostEditorState = useSetPostEditorState();
     const router = useRouter();
-    const [title, setTitle] = useState("");
-    const [tags, setTags] = useState("");
-    const [content, setContent] = useState(initialContent);
-    const [loading, setLoading] = useState(false);
+    const isUpdateMode = mode === "update" && Boolean(postUuid);
+    const cachedEditorState = isUpdateMode && postEditorState?.uuid === postUuid ? postEditorState : null;
+    const [title, setTitle] = useState(cachedEditorState?.title ?? "");
+    const [tags, setTags] = useState(cachedEditorState?.tags ?? "");
+    const [content, setContent] = useState(cachedEditorState?.content ?? initialContent);
+    const [isPublishing, setIsPublishing] = useState(false);
+    const [isLoadingPost, setIsLoadingPost] = useState(isUpdateMode);
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const editorRef = useRef<HTMLTextAreaElement | null>(null);
@@ -190,9 +213,58 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
         };
     }, [clearMessageTimer]);
 
-    const handleSave = async (mode: "draft" | "publish") => {
+    useEffect(() => {
+        if (!isUpdateMode || !postUuid) {
+            setIsLoadingPost(false);
+            return;
+        }
+
+        const uuid = postUuid;
+        let isCancelled = false;
+
+        async function loadPost() {
+            setIsLoadingPost(true);
+            setError(null);
+
+            const result = await fetchPost(uuid);
+            if (isCancelled) {
+                return;
+            }
+
+            if (!result.status || !result.data) {
+                setError(result.message);
+                setIsLoadingPost(false);
+                return;
+            }
+
+            const nextTags = formatTags(result.data.tags);
+
+            setTitle(result.data.title);
+            setTags(nextTags);
+            setContent(result.data.body);
+            setPostEditorState({
+                uuid: result.data.uuid,
+                title: result.data.title,
+                tags: nextTags,
+                content: result.data.body,
+            });
+            setIsLoadingPost(false);
+        }
+
+        void loadPost();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [isUpdateMode, postUuid, setPostEditorState]);
+
+    const handleSave = async (action: "draft" | "publish") => {
         setError(null);
         setMessage(null);
+
+        if (isLoadingPost) {
+            return;
+        }
 
         if (!title.trim() || !content.trim()) {
             setError("제목과 본문은 필수입니다.");
@@ -200,16 +272,45 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
             return;
         }
 
-        setLoading(true);
+        setIsPublishing(true);
         try {
-            if (mode === "draft") {
-                setMessage("임시저장 기능은 준비 중입니다. 작성한 내용은 아직 저장되지 않아요.");
-            } else {
-                setMessage("출간 기능은 준비 중입니다. 작성한 내용은 아직 저장되지 않아요.");
+            if (isUpdateMode) {
+                setMessage(action === "draft" ? "수정 API 연동 후 임시저장 기능을 연결할 예정입니다." : "수정 API 연동 후 업데이트 모드를 연결할 예정입니다.");
+                scheduleMessageClear();
+                return;
             }
+
+            const result = await createPost({
+                title: title.trim(),
+                tags: parseTags(tags),
+                body: content,
+            });
+
+            if (!result.status) {
+                setError(result.message);
+                scheduleErrorClear();
+                return;
+            }
+
+            setPostEditorState({
+                uuid: result.data?.uuid ?? null,
+                title: title.trim(),
+                tags,
+                content,
+            });
+
+            setMessage(action === "draft" ? "임시 저장했습니다. 수정 모드로 전환합니다." : "포스트를 저장했습니다. 수정 모드로 전환합니다.");
             scheduleMessageClear();
+            startTransition(() => {
+                if (result.data?.uuid) {
+                    router.replace(`/posts/edit/${result.data.uuid}`);
+                    return;
+                }
+
+                router.replace("/posts");
+            });
         } finally {
-            setLoading(false);
+            setIsPublishing(false);
         }
     };
 
@@ -234,7 +335,9 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
                     <div className="space-y-3">
                         <input id="title" name="title" type="text" required value={title} onChange={(event) => setTitle(event.target.value)} placeholder="제목을 입력하세요" className={TITLE_INPUT_CLASS} />
                         <div className="h-px w-10 bg-foreground/20" />
-                        <input id="tags" name="tags" type="text" value={tags} onChange={(event) => setTags(event.target.value)} placeholder="태그를 입력하세요" className={INLINE_INPUT_CLASS} />
+                        <input id="tags" name="tags" type="text" value={tags} onChange={(event) => setTags(event.target.value)} placeholder="태그를 쉼표로 구분해 입력하세요" className={INLINE_INPUT_CLASS} />
+                        {isUpdateMode && postUuid && <p className="text-xs text-foreground/50">수정 중인 글 UUID: {postUuid}</p>}
+                        {isUpdateMode && isLoadingPost && <p className="text-xs text-foreground/50">저장된 글을 불러오는 중입니다.</p>}
                     </div>
 
                     <div className="flex flex-wrap items-center text-xs text-foreground/60">
@@ -261,6 +364,7 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
                             onScroll={() => syncScroll("editor")}
                             placeholder="당신의 이야기를 적어보세요..."
                             className="flex-1 min-h-0 w-full resize-none overflow-y-auto bg-transparent text-base leading-relaxed text-foreground placeholder:text-foreground/30 outline-none"
+                            disabled={isLoadingPost}
                             ref={editorRef}
                         />
 
@@ -274,11 +378,11 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
                                 ← 나가기
                             </button>
                             <div className="flex items-center gap-3">
-                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("draft")} disabled={loading}>
+                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("draft")} disabled={isPublishing || isLoadingPost}>
                                     임시 저장
                                 </Button>
-                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("publish")} disabled={loading}>
-                                    {loading ? "처리 중..." : "게시하기"}
+                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("publish")} disabled={isPublishing || isLoadingPost}>
+                                    {isLoadingPost ? "불러오는 중..." : isPublishing ? "처리 중..." : isUpdateMode ? "수정하기" : "게시하기"}
                                 </Button>
                             </div>
                         </div>

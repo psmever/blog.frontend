@@ -9,7 +9,7 @@ type AppShellProps = {
     children: React.ReactNode;
 };
 
-const FULL_WIDTH_ROUTES = ["/posts/create"];
+const FULL_WIDTH_ROUTES = ["/posts/create", "/posts/edit"];
 
 function isFullWidthRoute(pathname: string | null) {
     if (!pathname) return false;
