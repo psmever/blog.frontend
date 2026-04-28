@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuthState } from "@/state";
@@ -11,6 +11,7 @@ const INLINE_INPUT_CLASS = "w-full bg-transparent text-sm text-foreground/60 pla
 const TOOLBAR_BUTTON_CLASS = "flex h-8 min-w-[2rem] items-center justify-center rounded-lg border border-foreground/10 bg-background/70 px-2 text-[11px] font-semibold text-foreground/70 transition hover:border-foreground/20 hover:bg-foreground/5 hover:text-foreground";
 const TOOLBAR_GROUP_CLASS = "flex items-center gap-1";
 const TOOLBAR_DIVIDER_CLASS = "mx-2 h-5 w-px bg-foreground/10";
+const TAB_CHARACTER = "\t";
 
 type ToolbarItem = {
     label: string;
@@ -108,6 +109,81 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
         }, 2000);
     }, [clearMessageTimer]);
 
+    const restoreEditorSelection = useCallback((selectionStart: number, selectionEnd: number) => {
+        requestAnimationFrame(() => {
+            const editor = editorRef.current;
+            if (!editor) return;
+
+            editor.selectionStart = selectionStart;
+            editor.selectionEnd = selectionEnd;
+        });
+    }, []);
+
+    const handleContentKeyDown = useCallback(
+        (event: KeyboardEvent<HTMLTextAreaElement>) => {
+            if (event.key !== "Tab") return;
+
+            event.preventDefault();
+
+            const { selectionStart, selectionEnd, value } = event.currentTarget;
+            const hasMultilineSelection = selectionStart !== selectionEnd && value.slice(selectionStart, selectionEnd).includes("\n");
+
+            if (!hasMultilineSelection && !event.shiftKey) {
+                const nextContent = `${value.slice(0, selectionStart)}${TAB_CHARACTER}${value.slice(selectionEnd)}`;
+                const nextSelection = selectionStart + TAB_CHARACTER.length;
+
+                setContent(nextContent);
+                restoreEditorSelection(nextSelection, nextSelection);
+                return;
+            }
+
+            const lineStart = value.lastIndexOf("\n", selectionStart - 1) + 1;
+            const currentLineEnd = value.indexOf("\n", selectionEnd);
+            const selectionEndsAtLineStart = selectionEnd > selectionStart && value[selectionEnd - 1] === "\n";
+            const lineEnd = selectionEndsAtLineStart ? selectionEnd - 1 : currentLineEnd === -1 ? value.length : currentLineEnd;
+            const selectedLines = value.slice(lineStart, lineEnd);
+
+            if (!event.shiftKey) {
+                const lineCount = selectedLines.split("\n").length;
+                const nextContent = `${value.slice(0, lineStart)}${selectedLines.replace(/^/gm, TAB_CHARACTER)}${value.slice(lineEnd)}`;
+
+                setContent(nextContent);
+                restoreEditorSelection(selectionStart + TAB_CHARACTER.length, selectionEnd + lineCount * TAB_CHARACTER.length);
+                return;
+            }
+
+            let nextSelectionStart = selectionStart;
+            let nextSelectionEnd = selectionEnd;
+            let lineOffset = 0;
+            const outdentedLines = selectedLines
+                .split("\n")
+                .map((line) => {
+                    const absoluteLineStart = lineStart + lineOffset;
+                    const leadingSpaces = line.match(/^ {1,4}/)?.[0].length ?? 0;
+                    const removeCount = line.startsWith(TAB_CHARACTER) ? TAB_CHARACTER.length : leadingSpaces;
+
+                    if (removeCount > 0) {
+                        if (selectionStart > absoluteLineStart) {
+                            nextSelectionStart -= Math.min(removeCount, selectionStart - absoluteLineStart);
+                        }
+
+                        if (selectionEnd > absoluteLineStart) {
+                            nextSelectionEnd -= Math.min(removeCount, selectionEnd - absoluteLineStart);
+                        }
+                    }
+
+                    lineOffset += line.length + 1;
+                    return line.slice(removeCount);
+                })
+                .join("\n");
+            const nextContent = `${value.slice(0, lineStart)}${outdentedLines}${value.slice(lineEnd)}`;
+
+            setContent(nextContent);
+            restoreEditorSelection(nextSelectionStart, nextSelectionEnd);
+        },
+        [restoreEditorSelection],
+    );
+
     useEffect(() => {
         return () => {
             clearMessageTimer();
@@ -175,7 +251,18 @@ export function PostCreateForm({ initialContent = "" }: PostCreateFormProps) {
                     </div>
 
                     <div className="flex min-h-0 flex-1 flex-col gap-4">
-                        <textarea id="content" name="content" required value={content} onChange={(event) => setContent(event.target.value)} onScroll={() => syncScroll("editor")} placeholder="당신의 이야기를 적어보세요..." className="flex-1 min-h-0 w-full resize-none overflow-y-auto bg-transparent text-base leading-relaxed text-foreground placeholder:text-foreground/30 outline-none" ref={editorRef} />
+                        <textarea
+                            id="content"
+                            name="content"
+                            required
+                            value={content}
+                            onChange={(event) => setContent(event.target.value)}
+                            onKeyDown={handleContentKeyDown}
+                            onScroll={() => syncScroll("editor")}
+                            placeholder="당신의 이야기를 적어보세요..."
+                            className="flex-1 min-h-0 w-full resize-none overflow-y-auto bg-transparent text-base leading-relaxed text-foreground placeholder:text-foreground/30 outline-none"
+                            ref={editorRef}
+                        />
 
                         {message && <p className="rounded-md bg-foreground/5 px-3 py-2 text-sm text-foreground/80">{message}</p>}
                         {error && <p className="rounded-md bg-red-500/10 px-3 py-2 text-sm text-red-600">{error}</p>}
