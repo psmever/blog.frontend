@@ -1,10 +1,10 @@
 "use client";
 
-import { startTransition, type KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
+import { startTransition, type ChangeEvent, type DragEvent, type KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
-import { createPost, fetchDraftPosts, fetchPost, type PostListItem, type PostTag } from "@/services/posts";
+import { fetchDraftPosts, fetchPost, issuePostUuid, publishPost, savePost, uploadPostImage, type PostListItem, type PostTag } from "@/services/posts";
 import { useAuthState, usePostEditorState, useSetPostEditorState } from "@/state";
 import ReactMarkdown from "react-markdown";
 
@@ -14,6 +14,8 @@ const TOOLBAR_BUTTON_CLASS = "flex h-8 min-w-[2rem] items-center justify-center 
 const TOOLBAR_GROUP_CLASS = "flex items-center gap-1";
 const TOOLBAR_DIVIDER_CLASS = "mx-2 h-5 w-px bg-foreground/10";
 const TAB_CHARACTER = "\t";
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"]);
 
 type ToolbarItem = {
     label: string;
@@ -55,6 +57,30 @@ function formatTags(tags: PostTag[]) {
     return tags.map((tag) => tag.label).join(", ");
 }
 
+function getImageFiles(files: FileList | File[]) {
+    return Array.from(files).filter((file) => file.type.startsWith("image/"));
+}
+
+function hasImageDragItems(items: DataTransferItemList) {
+    return Array.from(items).some((item) => item.kind === "file" && item.type.startsWith("image/"));
+}
+
+function validateImageFile(file: File) {
+    if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+        return "jpeg, jpg, png, webp, gif 이미지만 업로드할 수 있습니다.";
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+        return "이미지는 5MB 이하만 업로드할 수 있습니다.";
+    }
+
+    return null;
+}
+
+function formatImageMarkdown(fileName: string, url: string) {
+    return `![${fileName}](${url})`;
+}
+
 type PostCreateFormProps = {
     initialContent?: string;
     mode?: "create" | "update";
@@ -71,7 +97,11 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
     const [title, setTitle] = useState(cachedEditorState?.title ?? "");
     const [tags, setTags] = useState(cachedEditorState?.tags ?? "");
     const [content, setContent] = useState(cachedEditorState?.content ?? initialContent);
+    const [issuedPostUuid, setIssuedPostUuid] = useState<string | null>(isUpdateMode ? (postUuid ?? null) : null);
+    const activePostUuid = isUpdateMode ? (postUuid ?? null) : issuedPostUuid;
     const [isPublishing, setIsPublishing] = useState(false);
+    const [isIssuingPostUuid, setIsIssuingPostUuid] = useState(!isUpdateMode);
+    const [isUploadingImage, setIsUploadingImage] = useState(false);
     const [isLoadingPost, setIsLoadingPost] = useState(isUpdateMode);
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -81,6 +111,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
     const [isLoadingDraftPosts, setIsLoadingDraftPosts] = useState(false);
     const [draftPostsError, setDraftPostsError] = useState<string | null>(null);
     const editorRef = useRef<HTMLTextAreaElement | null>(null);
+    const imageInputRef = useRef<HTMLInputElement | null>(null);
     const previewRef = useRef<HTMLDivElement | null>(null);
     const isSyncingRef = useRef<"editor" | "preview" | null>(null);
     const messageTimerRef = useRef<number | null>(null);
@@ -220,6 +251,50 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
     }, [clearMessageTimer]);
 
     useEffect(() => {
+        if (isUpdateMode) {
+            setIsIssuingPostUuid(false);
+            return;
+        }
+
+        if (!auth.isLoggedIn) {
+            setIsIssuingPostUuid(false);
+            return;
+        }
+
+        if (issuedPostUuid) {
+            setIsIssuingPostUuid(false);
+            return;
+        }
+
+        let isCancelled = false;
+
+        async function loadPostUuid() {
+            setIsIssuingPostUuid(true);
+            setError(null);
+
+            const result = await issuePostUuid();
+            if (isCancelled) {
+                return;
+            }
+
+            if (!result.status || !result.data?.uuid) {
+                setError(result.message);
+                setIsIssuingPostUuid(false);
+                return;
+            }
+
+            setIssuedPostUuid(result.data.uuid);
+            setIsIssuingPostUuid(false);
+        }
+
+        void loadPostUuid();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [auth.isLoggedIn, isUpdateMode, issuedPostUuid]);
+
+    useEffect(() => {
         if (!isUpdateMode || !postUuid) {
             setIsLoadingPost(false);
             return;
@@ -308,11 +383,128 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
         router.push(`/posts/edit/${selectedPostUuid}`);
     };
 
+    const insertContentAtSelection = useCallback(
+        (markdown: string, selectionStart: number, selectionEnd: number) => {
+            setContent((currentContent) => {
+                const safeSelectionStart = Math.min(selectionStart, currentContent.length);
+                const safeSelectionEnd = Math.min(Math.max(selectionEnd, safeSelectionStart), currentContent.length);
+                const prefix = currentContent.slice(0, safeSelectionStart);
+                const suffix = currentContent.slice(safeSelectionEnd);
+                const before = prefix && !prefix.endsWith("\n") ? "\n" : "";
+                const after = suffix && !suffix.startsWith("\n") ? "\n" : "";
+                const nextContent = `${prefix}${before}${markdown}${after}${suffix}`;
+                const nextSelection = prefix.length + before.length + markdown.length;
+
+                restoreEditorSelection(nextSelection, nextSelection);
+
+                return nextContent;
+            });
+        },
+        [restoreEditorSelection],
+    );
+
+    const handleImageFiles = useCallback(
+        async (files: File[], selectionStart: number, selectionEnd: number) => {
+            if (isUploadingImage) {
+                return;
+            }
+
+            if (!activePostUuid) {
+                setError("이미지 업로드를 위한 글 UUID를 발급받는 중입니다.");
+                scheduleErrorClear();
+                return;
+            }
+
+            const imageFiles = getImageFiles(files);
+            if (imageFiles.length === 0) {
+                setError("업로드할 이미지 파일을 선택해주세요.");
+                scheduleErrorClear();
+                return;
+            }
+
+            const invalidMessage = imageFiles.map(validateImageFile).find(Boolean);
+            if (invalidMessage) {
+                setError(invalidMessage);
+                scheduleErrorClear();
+                return;
+            }
+
+            setError(null);
+            setMessage("이미지를 업로드하는 중입니다.");
+            setIsUploadingImage(true);
+
+            try {
+                const markdownItems: string[] = [];
+
+                for (const file of imageFiles) {
+                    const result = await uploadPostImage(activePostUuid, file, "body");
+                    if (!result.status || !result.data?.url) {
+                        setError(result.message);
+                        scheduleErrorClear();
+                        return;
+                    }
+
+                    markdownItems.push(formatImageMarkdown(file.name, result.data.url));
+                }
+
+                insertContentAtSelection(markdownItems.join("\n\n"), selectionStart, selectionEnd);
+                setMessage("이미지를 업로드했습니다.");
+                scheduleMessageClear();
+            } finally {
+                setIsUploadingImage(false);
+            }
+        },
+        [activePostUuid, insertContentAtSelection, isUploadingImage, scheduleErrorClear, scheduleMessageClear],
+    );
+
+    const handleContentDrop = useCallback(
+        (event: DragEvent<HTMLTextAreaElement>) => {
+            const files = getImageFiles(event.dataTransfer.files);
+            if (files.length === 0) {
+                return;
+            }
+
+            event.preventDefault();
+            void handleImageFiles(files, event.currentTarget.selectionStart, event.currentTarget.selectionEnd);
+        },
+        [handleImageFiles],
+    );
+
+    const handleContentDragOver = useCallback((event: DragEvent<HTMLTextAreaElement>) => {
+        if (hasImageDragItems(event.dataTransfer.items)) {
+            event.preventDefault();
+        }
+    }, []);
+
+    const handleImageInputChange = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            const files = event.currentTarget.files;
+            const editor = editorRef.current;
+            if (!files || !editor) {
+                return;
+            }
+
+            void handleImageFiles(Array.from(files), editor.selectionStart, editor.selectionEnd);
+            event.currentTarget.value = "";
+        },
+        [handleImageFiles],
+    );
+
+    const handleImageButtonClick = useCallback(() => {
+        imageInputRef.current?.click();
+    }, []);
+
     const handleSave = async (action: "draft" | "publish") => {
         setError(null);
         setMessage(null);
 
-        if (isLoadingPost) {
+        if (isLoadingPost || isIssuingPostUuid || isUploadingImage) {
+            return;
+        }
+
+        if (!activePostUuid) {
+            setError("글 UUID를 발급받지 못했습니다. 잠시 후 다시 시도해주세요.");
+            scheduleErrorClear();
             return;
         }
 
@@ -324,13 +516,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
 
         setIsPublishing(true);
         try {
-            if (isUpdateMode) {
-                setMessage(action === "draft" ? "수정 API 연동 후 임시저장 기능을 연결할 예정입니다." : "수정 API 연동 후 업데이트 모드를 연결할 예정입니다.");
-                scheduleMessageClear();
-                return;
-            }
-
-            const result = await createPost({
+            const result = await savePost(activePostUuid, {
                 title: title.trim(),
                 tags: parseTags(tags),
                 body: content,
@@ -342,22 +528,27 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                 return;
             }
 
+            if (action === "publish") {
+                const publishResult = await publishPost(activePostUuid);
+
+                if (!publishResult.status) {
+                    setError(`임시 저장은 완료됐지만 게시에 실패했습니다. ${publishResult.message}`);
+                    scheduleErrorClear();
+                    return;
+                }
+            }
+
             setPostEditorState({
-                uuid: result.data?.uuid ?? null,
+                uuid: result.data?.uuid ?? activePostUuid,
                 title: title.trim(),
                 tags,
                 content,
             });
 
-            setMessage(action === "draft" ? "임시 저장했습니다. 수정 모드로 전환합니다." : "포스트를 저장했습니다. 수정 모드로 전환합니다.");
+            setMessage(action === "draft" ? "임시 저장했습니다. 수정 모드로 전환합니다." : "게시했습니다. 수정 모드로 전환합니다.");
             scheduleMessageClear();
             startTransition(() => {
-                if (result.data?.uuid) {
-                    router.replace(`/posts/edit/${result.data.uuid}`);
-                    return;
-                }
-
-                router.replace("/posts");
+                router.replace(`/posts/edit/${result.data?.uuid ?? activePostUuid}`);
             });
         } finally {
             setIsPublishing(false);
@@ -377,6 +568,8 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
             </div>
         );
     }
+
+    const isActionDisabled = isPublishing || isLoadingPost || isIssuingPostUuid || isUploadingImage || !activePostUuid;
 
     return (
         <div className="relative min-h-screen bg-background lg:h-[100dvh] lg:overflow-hidden">
@@ -422,13 +615,14 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                         <input id="tags" name="tags" type="text" value={tags} onChange={(event) => setTags(event.target.value)} placeholder="태그를 쉼표로 구분해 입력하세요" className={INLINE_INPUT_CLASS} />
                         {isUpdateMode && postUuid && <p className="text-xs text-foreground/50">수정 중인 글 UUID: {postUuid}</p>}
                         {isUpdateMode && isLoadingPost && <p className="text-xs text-foreground/50">저장된 글을 불러오는 중입니다.</p>}
+                        {!isUpdateMode && isIssuingPostUuid && <p className="text-xs text-foreground/50">이미지 업로드 준비 중입니다.</p>}
                     </div>
 
                     <div className="flex flex-wrap items-center text-xs text-foreground/60">
                         {TOOLBAR_ITEMS.map((group, groupIndex) => (
                             <div key={`group-${groupIndex}`} className={TOOLBAR_GROUP_CLASS}>
                                 {group.map((item) => (
-                                    <button key={item.title} type="button" className={`${TOOLBAR_BUTTON_CLASS} ${item.className ?? ""}`} title={item.title} aria-label={item.title}>
+                                    <button key={item.title} type="button" className={`${TOOLBAR_BUTTON_CLASS} ${item.className ?? ""}`} title={item.title} aria-label={item.title} onClick={item.title === "Image" ? handleImageButtonClick : undefined} disabled={item.title === "Image" && (isUploadingImage || isIssuingPostUuid || !activePostUuid)}>
                                         {item.label}
                                     </button>
                                 ))}
@@ -445,12 +639,15 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                             value={content}
                             onChange={(event) => setContent(event.target.value)}
                             onKeyDown={handleContentKeyDown}
+                            onDragOver={handleContentDragOver}
+                            onDrop={handleContentDrop}
                             onScroll={() => syncScroll("editor")}
                             placeholder="당신의 이야기를 적어보세요..."
                             className="flex-1 min-h-0 w-full resize-none overflow-y-auto bg-transparent text-base leading-relaxed text-foreground placeholder:text-foreground/30 outline-none"
                             disabled={isLoadingPost}
                             ref={editorRef}
                         />
+                        <input ref={imageInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif" multiple className="hidden" onChange={handleImageInputChange} />
 
                         {message && <p className="rounded-md bg-foreground/5 px-3 py-2 text-sm text-foreground/80">{message}</p>}
                         {error && <p className="rounded-md bg-red-500/10 px-3 py-2 text-sm text-red-600">{error}</p>}
@@ -462,11 +659,11 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                                 ← 나가기
                             </button>
                             <div className="flex items-center gap-3">
-                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("draft")} disabled={isPublishing || isLoadingPost}>
+                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("draft")} disabled={isActionDisabled}>
                                     임시 저장
                                 </Button>
-                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("publish")} disabled={isPublishing || isLoadingPost}>
-                                    {isLoadingPost ? "불러오는 중..." : isPublishing ? "처리 중..." : isUpdateMode ? "수정하기" : "게시하기"}
+                                <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("publish")} disabled={isActionDisabled}>
+                                    {isLoadingPost ? "불러오는 중..." : isIssuingPostUuid ? "준비 중..." : isUploadingImage ? "업로드 중..." : isPublishing ? "처리 중..." : "게시하기"}
                                 </Button>
                             </div>
                         </div>

@@ -83,6 +83,14 @@ a {
     margin-bottom: 0.4rem;
 }
 
+.markdown img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin: 1rem 0;
+}
+
 .markdown code {
     font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     background: color-mix(in srgb, var(--foreground) 6%, transparent);
