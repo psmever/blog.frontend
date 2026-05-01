@@ -3,7 +3,8 @@
 import { startTransition, type KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { createPost, fetchPost, type PostTag } from "@/services/posts";
+import { Modal } from "@/components/ui/modal";
+import { createPost, fetchDraftPosts, fetchPost, type PostListItem, type PostTag } from "@/services/posts";
 import { useAuthState, usePostEditorState, useSetPostEditorState } from "@/state";
 import ReactMarkdown from "react-markdown";
 
@@ -74,6 +75,11 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
     const [isLoadingPost, setIsLoadingPost] = useState(isUpdateMode);
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [draftPosts, setDraftPosts] = useState<PostListItem[]>([]);
+    const [selectedPostUuid, setSelectedPostUuid] = useState("");
+    const [isDraftPostModalOpen, setIsDraftPostModalOpen] = useState(false);
+    const [isLoadingDraftPosts, setIsLoadingDraftPosts] = useState(false);
+    const [draftPostsError, setDraftPostsError] = useState<string | null>(null);
     const editorRef = useRef<HTMLTextAreaElement | null>(null);
     const previewRef = useRef<HTMLDivElement | null>(null);
     const isSyncingRef = useRef<"editor" | "preview" | null>(null);
@@ -258,6 +264,50 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
         };
     }, [isUpdateMode, postUuid, setPostEditorState]);
 
+    useEffect(() => {
+        if (isUpdateMode || !auth.isLoggedIn) {
+            return;
+        }
+
+        let isCancelled = false;
+
+        async function loadDraftPosts() {
+            setIsLoadingDraftPosts(true);
+            setDraftPostsError(null);
+
+            const result = await fetchDraftPosts(20);
+            if (isCancelled) {
+                return;
+            }
+
+            if (!result.status) {
+                setDraftPostsError(result.message);
+                setIsLoadingDraftPosts(false);
+                return;
+            }
+
+            const posts = result.data ?? [];
+            setDraftPosts(posts);
+            setSelectedPostUuid(posts[0]?.uuid ?? "");
+            setIsDraftPostModalOpen(posts.length > 0);
+            setIsLoadingDraftPosts(false);
+        }
+
+        void loadDraftPosts();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [auth.isLoggedIn, isUpdateMode]);
+
+    const handleMoveToSelectedPost = () => {
+        if (!selectedPostUuid) {
+            return;
+        }
+
+        router.push(`/posts/edit/${selectedPostUuid}`);
+    };
+
     const handleSave = async (action: "draft" | "publish") => {
         setError(null);
         setMessage(null);
@@ -330,6 +380,40 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
 
     return (
         <div className="relative min-h-screen bg-background lg:h-[100dvh] lg:overflow-hidden">
+            <Modal
+                open={isDraftPostModalOpen}
+                title="미게시 글 수정"
+                description="최근 미게시 글 목록에서 수정할 글을 선택하세요."
+                onClose={() => setIsDraftPostModalOpen(false)}
+                footer={
+                    <>
+                        <Button type="button" variant="ghost" size="sm" onClick={() => setIsDraftPostModalOpen(false)}>
+                            새 글 작성
+                        </Button>
+                        <Button type="button" size="sm" onClick={handleMoveToSelectedPost} disabled={!selectedPostUuid}>
+                            수정 페이지로 이동
+                        </Button>
+                    </>
+                }
+            >
+                <div className="space-y-3">
+                    <label className="text-sm font-medium text-foreground/80" htmlFor="draft-post-select">
+                        미게시 글
+                    </label>
+                    <select id="draft-post-select" value={selectedPostUuid} onChange={(event) => setSelectedPostUuid(event.target.value)} className="h-11 w-full rounded-lg border border-foreground/20 bg-background px-3 text-sm text-foreground outline-none transition focus:border-foreground/50 focus:ring-2 focus:ring-foreground/20">
+                        {draftPosts.map((post) => (
+                            <option key={post.uuid} value={post.uuid}>
+                                {post.title} ({post.slug})
+                            </option>
+                        ))}
+                    </select>
+                    <p className="text-xs text-foreground/60">선택한 글의 수정 페이지로 이동합니다.</p>
+                </div>
+            </Modal>
+
+            {isLoadingDraftPosts && <p className="absolute right-6 top-6 z-10 rounded-md bg-card px-3 py-2 text-xs text-foreground/60 shadow-sm">미게시 글 목록을 확인하는 중입니다.</p>}
+            {draftPostsError && <p className="absolute right-6 top-6 z-10 rounded-md bg-red-500/10 px-3 py-2 text-xs text-red-600 shadow-sm">{draftPostsError}</p>}
+
             <div className="grid min-h-screen grid-cols-1 gap-0 lg:h-full lg:grid-cols-2">
                 <section className="flex min-h-0 flex-col gap-6 px-6 pt-10 lg:h-full lg:overflow-hidden lg:px-12">
                     <div className="space-y-3">
