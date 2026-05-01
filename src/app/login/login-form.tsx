@@ -7,9 +7,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthState, useSetAuthState } from "@/state";
 import { login, logout } from "@/services/auth";
 
-export function LoginForm() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+type LoginFormProps = {
+    defaultEmail?: string;
+    defaultPassword?: string;
+};
+
+export function LoginForm({ defaultEmail = "", defaultPassword = "" }: LoginFormProps) {
+    const [email, setEmail] = useState(defaultEmail);
+    const [password, setPassword] = useState(defaultPassword);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
