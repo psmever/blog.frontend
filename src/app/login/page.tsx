@@ -7,10 +7,14 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
+    const nodeEnv = process.env.NODE_ENV as string | undefined;
+    const appEnv = process.env.NEXT_PUBLIC_APP_ENV;
+    const shouldPrefillCredentials = nodeEnv === "development" || nodeEnv === "local" || appEnv === "local";
+
     return (
         <div className="flex min-h-screen items-center justify-center px-4">
             <div className="w-full max-w-md">
-                <LoginForm />
+                <LoginForm defaultEmail={shouldPrefillCredentials ? process.env.LOCAL_LOGIN_EMAIL : undefined} defaultPassword={shouldPrefillCredentials ? process.env.LOCAL_LOGIN_PASSWORD : undefined} />
             </div>
         </div>
     );
