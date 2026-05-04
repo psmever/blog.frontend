@@ -538,17 +538,28 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                 }
             }
 
-            setPostEditorState({
-                uuid: result.data?.uuid ?? activePostUuid,
-                title: title.trim(),
-                tags,
-                content,
-            });
+            const nextPostUuid = result.data?.uuid ?? activePostUuid;
 
-            setMessage(action === "draft" ? "임시 저장했습니다. 수정 모드로 전환합니다." : "게시했습니다. 수정 모드로 전환합니다.");
+            if (action === "draft") {
+                setPostEditorState({
+                    uuid: nextPostUuid,
+                    title: title.trim(),
+                    tags,
+                    content,
+                });
+                setMessage("임시 저장했습니다. 수정 모드로 전환합니다.");
+                scheduleMessageClear();
+                startTransition(() => {
+                    router.replace(`/posts/edit/${nextPostUuid}`);
+                });
+                return;
+            }
+
+            setPostEditorState(null);
+            setMessage("게시했습니다. 홈으로 이동합니다.");
             scheduleMessageClear();
             startTransition(() => {
-                router.replace(`/posts/edit/${result.data?.uuid ?? activePostUuid}`);
+                router.replace("/");
             });
         } finally {
             setIsPublishing(false);
