@@ -10,9 +10,10 @@ import { login, logout } from "@/services/auth";
 type LoginFormProps = {
     defaultEmail?: string;
     defaultPassword?: string;
+    relaxEmailValidation?: boolean;
 };
 
-export function LoginForm({ defaultEmail = "", defaultPassword = "" }: LoginFormProps) {
+export function LoginForm({ defaultEmail = "", defaultPassword = "", relaxEmailValidation = false }: LoginFormProps) {
     const [email, setEmail] = useState(defaultEmail);
     const [password, setPassword] = useState(defaultPassword);
     const [loading, setLoading] = useState(false);
@@ -82,12 +83,13 @@ export function LoginForm({ defaultEmail = "", defaultPassword = "" }: LoginForm
                             <input
                                 id="email"
                                 name="email"
-                                type="email"
+                                type={relaxEmailValidation ? "text" : "email"}
+                                inputMode={relaxEmailValidation ? "text" : "email"}
                                 required
                                 disabled={auth.isLoggedIn}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="you@example.com"
+                                placeholder={relaxEmailValidation ? "you@example.com 또는 로컬 계정" : "you@example.com"}
                                 className="w-full rounded-lg border border-foreground/20 bg-background px-3 py-2 text-sm outline-none transition focus:border-foreground/50 focus:ring-2 focus:ring-foreground/20 disabled:cursor-not-allowed disabled:bg-foreground/5"
                             />
                         </div>
