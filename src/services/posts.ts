@@ -59,6 +59,7 @@ export type SavePostResult = ApiResult<CreatedPostData>;
 export type FetchPostResult = ApiResult<PostDetailData>;
 export type FetchPostsResult = ApiResult<PostListItem[]>;
 export type UploadPostImageResult = ApiResult<PostImageData>;
+export type FindPublishedPostBySlugResult = ApiResult<PostListItem>;
 
 export async function createPost(payload: CreatePostPayload): Promise<CreatePostResult> {
     return apiRequest<CreatedPostData>(apiClient.post("/v1/posts", payload));
@@ -111,4 +112,32 @@ export async function fetchDraftPosts(limit = 20): Promise<FetchPostsResult> {
 
 export async function fetchPublishedPosts(limit = 20): Promise<FetchPostsResult> {
     return fetchPostsByStatus("published", limit);
+}
+
+export async function findPublishedPostBySlug(slug: string, limit = 100): Promise<FindPublishedPostBySlugResult> {
+    const result = await fetchPublishedPosts(limit);
+
+    if (!result.status) {
+        return {
+            status: false,
+            message: result.message,
+            data: null,
+        };
+    }
+
+    const matchedPost = result.data?.find((post) => post.slug === slug) ?? null;
+
+    if (!matchedPost) {
+        return {
+            status: false,
+            message: "수정할 게시글 정보를 찾지 못했습니다.",
+            data: null,
+        };
+    }
+
+    return {
+        status: true,
+        message: result.message,
+        data: matchedPost,
+    };
 }
