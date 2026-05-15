@@ -15,7 +15,7 @@ export async function HomeContent() {
     const initialErrorMessage = initialPostsResult.status ? null : initialPostsResult.message;
 
     return (
-        <div className="space-y-8">
+        <div className="flex min-h-[calc(100svh-14rem)] flex-col gap-8">
             <div className="space-y-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/60">Latest</p>
                 <h1 className="text-2xl font-semibold">최신 글을 둘러보세요</h1>
