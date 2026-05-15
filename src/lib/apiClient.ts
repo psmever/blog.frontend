@@ -5,14 +5,16 @@ const rawBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBL
 const baseURL = rawBaseURL.endsWith("/api") ? rawBaseURL : `${rawBaseURL.replace(/\/$/, "")}/api`;
 const baseClientHeaderCode = process.env.NEXT_PUBLIC_API_BASE_CLIENT_HEADER_CODE ?? "CT04P";
 
-export type ApiResponse<T> = {
+export type ApiMeta = {
+    status: number;
+    timestamp: string;
+};
+
+export type ApiResponse<T, M extends Record<string, unknown> = Record<string, never>> = {
     message: string;
     data: T;
     errors?: unknown;
-    meta: {
-        status: number;
-        timestamp: string;
-    };
+    meta: ApiMeta & M;
 };
 
 export type ApiResult<T> = {
