@@ -8,7 +8,9 @@ import { MarkdownViewer } from "@/components/markdown/markdown-viewer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader } from "@/components/ui/loader";
+import { findPublishedPostBySlug } from "@/services/posts";
 import { fetchPublicPostDetailInBrowser, type PublicPostDetailData } from "@/services/public-posts";
+import { useAuthState } from "@/state";
 import { formatPublishedDate, resolveApiAssetUrl } from "@/lib/utils";
 
 type PublicPostDetailProps = {
@@ -39,8 +41,11 @@ const initialState: DetailState = {
 };
 
 export function PublicPostDetail({ slug }: PublicPostDetailProps) {
+    const auth = useAuthState();
     const [detailState, setDetailState] = useState<DetailState>(initialState);
     const [retryCount, setRetryCount] = useState(0);
+    const [editPostUuid, setEditPostUuid] = useState<string | null>(null);
+    const [isResolvingEditTarget, setIsResolvingEditTarget] = useState(false);
 
     useEffect(() => {
         let isDisposed = false;
@@ -83,6 +88,33 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
             isDisposed = true;
         };
     }, [retryCount, slug]);
+
+    useEffect(() => {
+        if (!auth.isLoggedIn || detailState.status !== "success") {
+            setEditPostUuid(null);
+            setIsResolvingEditTarget(false);
+            return;
+        }
+
+        let isDisposed = false;
+
+        setIsResolvingEditTarget(true);
+
+        void (async () => {
+            const result = await findPublishedPostBySlug(detailState.post.slug);
+
+            if (isDisposed) {
+                return;
+            }
+
+            setEditPostUuid(result.status ? (result.data?.uuid ?? null) : null);
+            setIsResolvingEditTarget(false);
+        })();
+
+        return () => {
+            isDisposed = true;
+        };
+    }, [auth.isLoggedIn, detailState]);
 
     if (detailState.status === "loading") {
         return (
@@ -153,57 +185,76 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     const post = detailState.post;
 
     return (
-        <article className="space-y-8">
-            <header className="space-y-5">
-                <div className="space-y-3">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-foreground/60">
-                        <span>{formatPublishedDate(post.published_at)}</span>
-                        <span aria-hidden>•</span>
-                        <span>{post.author.name}</span>
-                        <span aria-hidden>•</span>
-                        <span>조회 {post.view_count.toLocaleString("ko-KR")}</span>
+        <>
+            <article className="space-y-8">
+                <header className="space-y-5">
+                    <div className="space-y-3">
+                        <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-foreground/60">
+                            <span>{formatPublishedDate(post.published_at)}</span>
+                            <span aria-hidden>•</span>
+                            <span>{post.author.name}</span>
+                            <span aria-hidden>•</span>
+                            <span>조회 {post.view_count.toLocaleString("ko-KR")}</span>
+                        </div>
+                        <h1 className="text-3xl font-semibold leading-snug sm:text-4xl">{post.title}</h1>
+                        <p className="max-w-3xl text-base leading-7 text-foreground/72">{post.excerpt || "요약이 아직 등록되지 않았습니다."}</p>
                     </div>
-                    <h1 className="text-3xl font-semibold leading-snug sm:text-4xl">{post.title}</h1>
-                    <p className="max-w-3xl text-base leading-7 text-foreground/72">{post.excerpt || "요약이 아직 등록되지 않았습니다."}</p>
+
+                    {post.tags.length > 0 ? (
+                        <div className="flex flex-wrap items-center gap-2">
+                            {post.tags.map((tag) => (
+                                <span key={tag.key} className="rounded-full border border-foreground/12 px-3 py-1 text-xs font-semibold text-foreground/75">
+                                    {tag.label}
+                                </span>
+                            ))}
+                        </div>
+                    ) : null}
+
+                    {post.cover_image ? (
+                        <div className="overflow-hidden rounded-3xl border border-foreground/10 bg-card shadow-sm">
+                            <img src={resolveApiAssetUrl(post.cover_image.url)} alt={post.title} className="h-auto w-full object-cover" />
+                        </div>
+                    ) : (
+                        <div className="flex min-h-52 items-center justify-center rounded-3xl border border-dashed border-foreground/15 bg-[radial-gradient(circle_at_top_left,rgba(17,17,17,0.07),transparent_55%),linear-gradient(135deg,rgba(17,17,17,0.03),rgba(17,17,17,0.08))] px-6 text-center text-sm font-medium text-foreground/55">
+                            등록된 커버 이미지가 없습니다.
+                        </div>
+                    )}
+                </header>
+
+                <MarkdownViewer content={post.body} />
+
+                <Card className="border-dashed border-foreground/20 bg-muted/60">
+                    <CardHeader>
+                        <CardTitle>글 정보</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-2 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="space-y-1">
+                            <p>발행일 {formatPublishedDate(post.published_at)}</p>
+                            <p>마지막 수정 {formatPublishedDate(post.updated_at)}</p>
+                        </div>
+                        <Link href="/posts" className="font-semibold text-foreground/85 underline-offset-4 transition hover:text-foreground hover:underline">
+                            ← 글 목록으로 돌아가기
+                        </Link>
+                    </CardContent>
+                </Card>
+            </article>
+
+            {auth.isLoggedIn && (editPostUuid || isResolvingEditTarget) ? (
+                <div className="pointer-events-none fixed bottom-6 right-6 z-40">
+                    {editPostUuid ? (
+                        <Link
+                            href={`/posts/edit/${editPostUuid}`}
+                            className="pointer-events-auto inline-flex h-12 items-center justify-center rounded-full bg-foreground px-5 text-sm font-semibold text-background shadow-lg shadow-black/15 transition hover:opacity-90"
+                        >
+                            수정
+                        </Link>
+                    ) : (
+                        <div className="inline-flex h-12 items-center justify-center rounded-full border border-foreground/12 bg-background/92 px-5 text-sm font-semibold text-foreground/65 shadow-lg shadow-black/10 backdrop-blur">
+                            수정 경로 확인 중...
+                        </div>
+                    )}
                 </div>
-
-                {post.tags.length > 0 ? (
-                    <div className="flex flex-wrap items-center gap-2">
-                        {post.tags.map((tag) => (
-                            <span key={tag.key} className="rounded-full border border-foreground/12 px-3 py-1 text-xs font-semibold text-foreground/75">
-                                {tag.label}
-                            </span>
-                        ))}
-                    </div>
-                ) : null}
-
-                {post.cover_image ? (
-                    <div className="overflow-hidden rounded-3xl border border-foreground/10 bg-card shadow-sm">
-                        <img src={resolveApiAssetUrl(post.cover_image.url)} alt={post.title} className="h-auto w-full object-cover" />
-                    </div>
-                ) : (
-                    <div className="flex min-h-52 items-center justify-center rounded-3xl border border-dashed border-foreground/15 bg-[radial-gradient(circle_at_top_left,rgba(17,17,17,0.07),transparent_55%),linear-gradient(135deg,rgba(17,17,17,0.03),rgba(17,17,17,0.08))] px-6 text-center text-sm font-medium text-foreground/55">
-                        등록된 커버 이미지가 없습니다.
-                    </div>
-                )}
-            </header>
-
-            <MarkdownViewer content={post.body} />
-
-            <Card className="border-dashed border-foreground/20 bg-muted/60">
-                <CardHeader>
-                    <CardTitle>글 정보</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-2 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="space-y-1">
-                        <p>발행일 {formatPublishedDate(post.published_at)}</p>
-                        <p>마지막 수정 {formatPublishedDate(post.updated_at)}</p>
-                    </div>
-                    <Link href="/posts" className="font-semibold text-foreground/85 underline-offset-4 transition hover:text-foreground hover:underline">
-                        ← 글 목록으로 돌아가기
-                    </Link>
-                </CardContent>
-            </Card>
-        </article>
+            ) : null}
+        </>
     );
 }
