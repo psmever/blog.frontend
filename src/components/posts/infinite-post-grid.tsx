@@ -33,10 +33,11 @@ export function InfinitePostGrid({ initialPosts, initialNextCursor, initialHasMo
     const [hasMore, setHasMore] = useState(initialHasMore);
     const [initialError, setInitialError] = useState<string | null>(initialErrorMessage);
     const [loadMoreError, setLoadMoreError] = useState<string | null>(null);
-    const [isLoadingInitial, setIsLoadingInitial] = useState(false);
+    const [isLoadingInitial, setIsLoadingInitial] = useState(initialPosts.length === 0);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const sentinelRef = useRef<HTMLDivElement | null>(null);
     const requestModeRef = useRef<"replace" | "append" | null>(null);
+    const didBootstrapInitialLoadRef = useRef(false);
 
     const loadPosts = useCallback(async (cursor: string | null, mode: "replace" | "append") => {
         if (mode === "replace") {
@@ -88,6 +89,15 @@ export function InfinitePostGrid({ initialPosts, initialNextCursor, initialHasMo
         setIsLoadingInitial(false);
         setIsLoadingMore(false);
     }, []);
+
+    useEffect(() => {
+        if (initialPosts.length > 0 || didBootstrapInitialLoadRef.current) {
+            return;
+        }
+
+        didBootstrapInitialLoadRef.current = true;
+        void loadPosts(null, "replace");
+    }, [initialPosts.length, loadPosts]);
 
     useEffect(() => {
         if (!hasMore || !nextCursor || isLoadingInitial || isLoadingMore || loadMoreError) {
@@ -177,7 +187,7 @@ export function InfinitePostGrid({ initialPosts, initialNextCursor, initialHasMo
     }
 
     return (
-        <div className="space-y-8">
+        <div className="flex flex-1 flex-col gap-8">
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 wide:grid-cols-4">
                 {items.map((post) => (
                     <HomePostCard key={post.slug} post={post} />
@@ -201,7 +211,7 @@ export function InfinitePostGrid({ initialPosts, initialNextCursor, initialHasMo
                     )}
                 </div>
             ) : (
-                <div className="py-2 text-center text-sm text-foreground/60">마지막 글까지 모두 확인했습니다.</div>
+                <div className="mt-auto py-2 text-center text-sm text-foreground/60">마지막 글까지 모두 확인했습니다.</div>
             )}
         </div>
     );
