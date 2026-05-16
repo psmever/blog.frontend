@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export type PostPreview = {
     title: string;
@@ -21,7 +21,6 @@ export function PostCard({ post }: { post: PostPreview }) {
                     <CardTitle className="group-hover:underline">{post.title}</CardTitle>
                     <CardDescription>{post.summary}</CardDescription>
                 </CardHeader>
-                <CardContent className="pt-0 text-sm font-medium text-foreground/80">자세히 보기 →</CardContent>
             </Card>
         </Link>
     );
