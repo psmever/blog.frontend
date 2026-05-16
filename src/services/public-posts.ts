@@ -34,6 +34,7 @@ export type PublicPostListItem = {
 };
 
 export type PublicPostDetailData = {
+    uuid?: string;
     slug: string;
     title: string;
     excerpt: string;
