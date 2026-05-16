@@ -8,6 +8,7 @@ import { MarkdownViewer } from "@/components/markdown/markdown-viewer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader } from "@/components/ui/loader";
+import { getAccessToken } from "@/lib/token-storage";
 import { findPublishedPostBySlug } from "@/services/posts";
 import { fetchPublicPostDetailInBrowser, type PublicPostDetailData } from "@/services/public-posts";
 import { useAuthState } from "@/state";
@@ -40,12 +41,30 @@ const initialState: DetailState = {
     message: null,
 };
 
+const PRIMARY_LINK_CLASS = "inline-flex items-center justify-center rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-cyan-950/10 transition hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500/30";
+const SECONDARY_LINK_CLASS = "inline-flex items-center justify-center rounded-lg border border-cyan-600/25 bg-cyan-50 px-4 py-2 text-sm font-semibold text-cyan-900 transition hover:border-cyan-600/40 hover:bg-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:bg-cyan-950/35 dark:text-cyan-100 dark:hover:bg-cyan-900/45";
+
+const UUID_PATTERN = /\/posts\/([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})(?:\/|$)/i;
+
+function extractPostUuidFromUrl(url: string | null | undefined) {
+    if (!url) {
+        return null;
+    }
+
+    return UUID_PATTERN.exec(url)?.[1] ?? null;
+}
+
+function resolveEditablePostUuid(post: PublicPostDetailData) {
+    return post.uuid ?? extractPostUuidFromUrl(post.cover_image?.url) ?? extractPostUuidFromUrl(post.body);
+}
+
 export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     const auth = useAuthState();
+    const canEditPost = auth.isLoggedIn || Boolean(getAccessToken());
     const [detailState, setDetailState] = useState<DetailState>(initialState);
     const [retryCount, setRetryCount] = useState(0);
     const [editPostUuid, setEditPostUuid] = useState<string | null>(null);
-    const [isResolvingEditTarget, setIsResolvingEditTarget] = useState(false);
+    const [editTargetMessage, setEditTargetMessage] = useState<string | null>(null);
 
     useEffect(() => {
         let isDisposed = false;
@@ -90,15 +109,22 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     }, [retryCount, slug]);
 
     useEffect(() => {
-        if (!auth.isLoggedIn || detailState.status !== "success") {
+        if (!canEditPost || detailState.status !== "success") {
             setEditPostUuid(null);
-            setIsResolvingEditTarget(false);
+            setEditTargetMessage(null);
+            return;
+        }
+
+        const editablePostUuid = resolveEditablePostUuid(detailState.post);
+        if (editablePostUuid) {
+            setEditPostUuid(editablePostUuid);
+            setEditTargetMessage(null);
             return;
         }
 
         let isDisposed = false;
 
-        setIsResolvingEditTarget(true);
+        setEditTargetMessage(null);
 
         void (async () => {
             const result = await findPublishedPostBySlug(detailState.post.slug);
@@ -107,14 +133,15 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                 return;
             }
 
-            setEditPostUuid(result.status ? (result.data?.uuid ?? null) : null);
-            setIsResolvingEditTarget(false);
+            const uuid = result.status ? (result.data?.uuid ?? null) : null;
+            setEditPostUuid(uuid);
+            setEditTargetMessage(uuid ? null : result.message || "수정할 게시글 정보를 찾지 못했습니다.");
         })();
 
         return () => {
             isDisposed = true;
         };
-    }, [auth.isLoggedIn, detailState]);
+    }, [canEditPost, detailState]);
 
     if (detailState.status === "loading") {
         return (
@@ -149,7 +176,7 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                 <h1 className="text-2xl font-semibold">게시글을 찾을 수 없습니다</h1>
                 <p className="text-sm text-foreground/70">{detailState.message}</p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
-                    <Link href="/posts" className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background transition hover:opacity-90">
+                    <Link href="/posts" className={PRIMARY_LINK_CLASS}>
                         글 목록으로 이동
                     </Link>
                 </div>
@@ -169,7 +196,7 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                         <Button type="button" variant="outline" onClick={() => setRetryCount((currentCount) => currentCount + 1)}>
                             다시 시도
                         </Button>
-                        <Link href="/posts" className="rounded-lg border border-foreground/15 px-4 py-2 text-sm font-medium transition hover:border-foreground/30 hover:bg-foreground/5">
+                        <Link href="/posts" className={SECONDARY_LINK_CLASS}>
                             목록으로 이동
                         </Link>
                     </div>
@@ -209,19 +236,16 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                             ))}
                         </div>
                     ) : null}
-
-                    {post.cover_image ? (
-                        <div className="overflow-hidden rounded-3xl border border-foreground/10 bg-card shadow-sm">
-                            <img src={resolveApiAssetUrl(post.cover_image.url)} alt={post.title} className="h-auto w-full object-cover" />
-                        </div>
-                    ) : (
-                        <div className="flex min-h-52 items-center justify-center rounded-3xl border border-dashed border-foreground/15 bg-[radial-gradient(circle_at_top_left,rgba(17,17,17,0.07),transparent_55%),linear-gradient(135deg,rgba(17,17,17,0.03),rgba(17,17,17,0.08))] px-6 text-center text-sm font-medium text-foreground/55">
-                            등록된 커버 이미지가 없습니다.
-                        </div>
-                    )}
                 </header>
 
-                <MarkdownViewer content={post.body} />
+                <section className="overflow-hidden rounded-xl border border-foreground/10 bg-card shadow-sm">
+                    {post.cover_image ? (
+                        <img src={resolveApiAssetUrl(post.cover_image.url)} alt={post.title} className="aspect-[16/9] w-full object-cover" />
+                    ) : (
+                        <div className="flex min-h-52 items-center justify-center border-b border-dashed border-foreground/15 bg-[radial-gradient(circle_at_top_left,rgba(8,145,178,0.12),transparent_55%),linear-gradient(135deg,rgba(20,184,166,0.08),rgba(99,102,241,0.08))] px-6 text-center text-sm font-medium text-foreground/55">등록된 커버 이미지가 없습니다.</div>
+                    )}
+                    <MarkdownViewer content={post.body} surface={false} className="p-6 sm:p-8" />
+                </section>
 
                 <Card className="border-dashed border-foreground/20 bg-muted/60">
                     <CardHeader>
@@ -232,26 +256,23 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                             <p>발행일 {formatPublishedDate(post.published_at)}</p>
                             <p>마지막 수정 {formatPublishedDate(post.updated_at)}</p>
                         </div>
-                        <Link href="/posts" className="font-semibold text-foreground/85 underline-offset-4 transition hover:text-foreground hover:underline">
+                        <Link href="/posts" className={SECONDARY_LINK_CLASS}>
                             ← 글 목록으로 돌아가기
                         </Link>
                     </CardContent>
                 </Card>
             </article>
 
-            {auth.isLoggedIn && (editPostUuid || isResolvingEditTarget) ? (
+            {canEditPost ? (
                 <div className="pointer-events-none fixed bottom-6 right-6 z-40">
                     {editPostUuid ? (
-                        <Link
-                            href={`/posts/edit/${editPostUuid}`}
-                            className="pointer-events-auto inline-flex h-12 items-center justify-center rounded-full bg-foreground px-5 text-sm font-semibold text-background shadow-lg shadow-black/15 transition hover:opacity-90"
-                        >
+                        <Link href={`/posts/edit/${editPostUuid}`} className="pointer-events-auto inline-flex h-12 items-center justify-center rounded-full bg-cyan-600 px-5 text-sm font-semibold text-white shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-700">
                             수정
                         </Link>
+                    ) : editTargetMessage ? (
+                        <div className="inline-flex h-12 items-center justify-center rounded-full border border-amber-500/30 bg-background/92 px-5 text-sm font-semibold text-foreground/65 shadow-lg shadow-black/10 backdrop-blur">{editTargetMessage}</div>
                     ) : (
-                        <div className="inline-flex h-12 items-center justify-center rounded-full border border-foreground/12 bg-background/92 px-5 text-sm font-semibold text-foreground/65 shadow-lg shadow-black/10 backdrop-blur">
-                            수정 경로 확인 중...
-                        </div>
+                        <div className="inline-flex h-12 items-center justify-center rounded-full border border-foreground/12 bg-background/92 px-5 text-sm font-semibold text-foreground/65 shadow-lg shadow-black/10 backdrop-blur">수정 경로 확인 중...</div>
                     )}
                 </div>
             ) : null}
