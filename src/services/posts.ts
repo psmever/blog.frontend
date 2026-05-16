@@ -8,6 +8,8 @@ export type CreatePostPayload = {
 
 export type CreatedPostData = {
     uuid: string;
+    slug?: string;
+    public_url?: string;
 };
 
 export type SavePostPayload = {
