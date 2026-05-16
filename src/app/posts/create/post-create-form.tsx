@@ -14,7 +14,7 @@ const TOOLBAR_BUTTON_CLASS = "flex h-8 min-w-[2rem] items-center justify-center 
 const TOOLBAR_GROUP_CLASS = "flex items-center gap-1";
 const TOOLBAR_DIVIDER_CLASS = "mx-2 h-5 w-px bg-foreground/10";
 const TAB_CHARACTER = "\t";
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+const MAX_IMAGE_SIZE = 200 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"]);
 
 type ToolbarItem = {
@@ -71,7 +71,7 @@ function validateImageFile(file: File) {
     }
 
     if (file.size > MAX_IMAGE_SIZE) {
-        return "이미지는 5MB 이하만 업로드할 수 있습니다.";
+        return "이미지는 200MB 이하만 업로드할 수 있습니다.";
     }
 
     return null;
@@ -79,6 +79,17 @@ function validateImageFile(file: File) {
 
 function formatImageMarkdown(fileName: string, url: string) {
     return `![${fileName}](${url})`;
+}
+
+function getPostSlugFromPublicUrl(publicUrl?: string | null) {
+    if (!publicUrl) {
+        return null;
+    }
+
+    const pathname = publicUrl.startsWith("http") ? new URL(publicUrl).pathname : publicUrl;
+    const [, slug] = pathname.match(/\/public\/posts\/([^/?#]+)/) ?? [];
+
+    return slug ? decodeURIComponent(slug) : null;
 }
 
 type PostCreateFormProps = {
@@ -536,6 +547,22 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                     scheduleErrorClear();
                     return;
                 }
+
+                const nextPostSlug = publishResult.data?.slug ?? getPostSlugFromPublicUrl(publishResult.data?.public_url) ?? result.data?.slug ?? getPostSlugFromPublicUrl(result.data?.public_url);
+
+                if (!nextPostSlug) {
+                    setError("게시했지만 공개 URL 정보를 받지 못했습니다.");
+                    scheduleErrorClear();
+                    return;
+                }
+
+                setPostEditorState(null);
+                setMessage("게시했습니다. 글 상세로 이동합니다.");
+                scheduleMessageClear();
+                startTransition(() => {
+                    router.replace(`/posts/${encodeURIComponent(nextPostSlug)}`);
+                });
+                return;
             }
 
             const nextPostUuid = result.data?.uuid ?? activePostUuid;
@@ -554,13 +581,6 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                 });
                 return;
             }
-
-            setPostEditorState(null);
-            setMessage("게시했습니다. 홈으로 이동합니다.");
-            scheduleMessageClear();
-            startTransition(() => {
-                router.replace("/");
-            });
         } finally {
             setIsPublishing(false);
         }
@@ -666,10 +686,15 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
 
                     <div className="mt-auto border-t border-foreground/10 py-4">
                         <div className="flex items-center justify-between">
-                            <button type="button" className="text-sm text-foreground/70 transition hover:text-foreground" onClick={() => router.push("/")}>
+                            <button type="button" className="text-sm text-foreground/70 transition hover:text-foreground" onClick={() => router.push("/posts")}>
                                 ← 나가기
                             </button>
                             <div className="flex items-center gap-3">
+                                {!isUpdateMode && (
+                                    <Button type="button" variant="outline" size="md" className="cursor-pointer" onClick={() => setIsDraftPostModalOpen(true)} disabled={isLoadingDraftPosts || draftPosts.length === 0}>
+                                        {isLoadingDraftPosts ? "목록 확인 중" : "미게시 글 수정"}
+                                    </Button>
+                                )}
                                 <Button type="button" size="md" className="w-24 cursor-pointer hover:bg-foreground/70" onClick={() => void handleSave("draft")} disabled={isActionDisabled}>
                                     임시 저장
                                 </Button>
@@ -681,7 +706,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                     </div>
                 </section>
 
-                <aside className="min-h-0 border-t border-foreground/10 bg-foreground/5 pb-10 pt-10 lg:h-full lg:overflow-y-auto lg:border-l lg:border-t-0" onScroll={() => syncScroll("preview")} ref={previewRef}>
+                <aside className="hidden min-h-0 border-t border-foreground/10 bg-foreground/5 pb-10 pt-10 lg:block lg:h-full lg:overflow-y-auto lg:border-l lg:border-t-0" onScroll={() => syncScroll("preview")} ref={previewRef}>
                     <div className="space-y-3">
                         <div className="px-6 lg:px-12">
                             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/60">Preview</p>

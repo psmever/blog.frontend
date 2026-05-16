@@ -26,7 +26,7 @@ export function LoginForm({ defaultEmail = "", defaultPassword = "", relaxEmailV
 
     useEffect(() => {
         if (!previousLoggedInRef.current && auth.isLoggedIn) {
-            router.replace("/");
+            router.replace("/posts");
         }
         previousLoggedInRef.current = auth.isLoggedIn;
     }, [auth.isLoggedIn, router]);

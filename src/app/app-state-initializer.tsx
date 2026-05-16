@@ -44,17 +44,19 @@ export function AppStateInitializer({ onReady }: AppStateInitializerProps) {
                 return;
             }
 
+            setAuth({ isLoggedIn: true, user: null });
+
             try {
                 const response = await fetchCurrentUser();
                 if (!active) return;
                 if (response.status && response.data?.user) {
                     setAuth({ isLoggedIn: true, user: response.data.user });
                 } else {
-                    setAuth({ isLoggedIn: false, user: null });
+                    setAuth({ isLoggedIn: Boolean(getAccessToken()), user: null });
                 }
             } catch {
                 if (active) {
-                    setAuth({ isLoggedIn: false, user: null });
+                    setAuth({ isLoggedIn: Boolean(getAccessToken()), user: null });
                 }
             }
         };
