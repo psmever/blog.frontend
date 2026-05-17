@@ -16,10 +16,10 @@ Next.js 15 (App Router) + React 19 + Tailwind CSS 4 based blog UI that consumes 
 
 Husky + lint-staged run on `pre-commit` (install hooks via `yarn install` or `yarn prepare`).
 
-## Docker (via blog.docker)
+## Docker (via blog.workspace)
 
 - Start frontend container: `make frontend-up`
 - Tail frontend logs: `make frontend-logs`
 - Stop local stack: `make frontend-down`
 
-Targets wrap `../blog.docker/docker-compose.local.yml` and expect `.env` in this folder (generated from `.env.local.example` or decrypted from `.env.local.enc`).
+Targets wrap `../blog.workspace/docker-compose.local.yml` and expect `.env` in this folder (generated from `.env.local.example` or decrypted from `.env.local.enc`).

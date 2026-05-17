@@ -14,7 +14,7 @@
 - `yarn dev` runs the local dev server at `http://localhost:3000` (Turbopack).
 - `yarn build` creates a production build; `yarn start` serves it.
 - `yarn lint` / `yarn lint:fix` run ESLint; `yarn format` / `yarn format:check` run Prettier.
-- Docker workflow (via `blog.docker`): `make frontend-up`, `make frontend-logs`, `make frontend-down`.
+- Docker workflow (via `blog.workspace`): `make frontend-up`, `make frontend-logs`, `make frontend-down`.
 
 ## Coding Style & Naming Conventions
 
