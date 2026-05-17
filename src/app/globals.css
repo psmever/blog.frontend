@@ -108,7 +108,7 @@ a {
     max-width: 100%;
     height: auto;
     border-radius: 0.75rem;
-    margin: 1rem 0;
+    margin: 1rem auto;
 }
 
 .markdown code {

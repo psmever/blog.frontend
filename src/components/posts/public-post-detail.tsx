@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,7 +10,7 @@ import { getAccessToken } from "@/lib/token-storage";
 import { findPublishedPostBySlug } from "@/services/posts";
 import { fetchPublicPostDetailInBrowser, type PublicPostDetailData } from "@/services/public-posts";
 import { useAuthState } from "@/state";
-import { formatPublishedDate, resolveApiAssetUrl } from "@/lib/utils";
+import { formatPublishedDate } from "@/lib/utils";
 
 type PublicPostDetailProps = {
     slug: string;
@@ -213,8 +211,8 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
 
     return (
         <>
-            <article className="space-y-8">
-                <header className="space-y-5">
+            <article className="mx-auto w-full max-w-5xl space-y-8">
+                <header className="mx-auto w-full max-w-4xl space-y-5">
                     <div className="space-y-3">
                         <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-foreground/60">
                             <span>{formatPublishedDate(post.published_at)}</span>
@@ -238,29 +236,23 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                     ) : null}
                 </header>
 
-                <section className="overflow-hidden rounded-xl border border-foreground/10 bg-card shadow-sm">
-                    {post.cover_image ? (
-                        <img src={resolveApiAssetUrl(post.cover_image.url)} alt={post.title} className="aspect-[16/9] w-full object-cover" />
-                    ) : (
-                        <div className="flex min-h-52 items-center justify-center border-b border-dashed border-foreground/15 bg-[radial-gradient(circle_at_top_left,rgba(8,145,178,0.12),transparent_55%),linear-gradient(135deg,rgba(20,184,166,0.08),rgba(99,102,241,0.08))] px-6 text-center text-sm font-medium text-foreground/55">등록된 커버 이미지가 없습니다.</div>
-                    )}
-                    <MarkdownViewer content={post.body} surface={false} className="p-6 sm:p-8" />
-                </section>
+                <section className="flex min-h-[32rem] flex-col overflow-hidden rounded-xl border border-foreground/10 bg-card shadow-sm lg:min-h-[calc(100dvh-18rem)]">
+                    <div className="flex-1">
+                        <MarkdownViewer content={post.body} surface={false} className="mx-auto h-full w-full max-w-[72ch] p-6 sm:p-8 lg:px-10" />
+                    </div>
 
-                <Card className="border-dashed border-foreground/20 bg-muted/60">
-                    <CardHeader>
-                        <CardTitle>글 정보</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-col gap-2 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="space-y-1">
-                            <p>발행일 {formatPublishedDate(post.published_at)}</p>
-                            <p>마지막 수정 {formatPublishedDate(post.updated_at)}</p>
+                    <div className="mt-auto border-t border-dashed border-foreground/20 bg-muted/60">
+                        <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-6 py-6 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between lg:px-10">
+                            <div className="space-y-1">
+                                <p>발행일 {formatPublishedDate(post.published_at)}</p>
+                                <p>마지막 수정 {formatPublishedDate(post.updated_at)}</p>
+                            </div>
+                            <Link href="/posts" className={SECONDARY_LINK_CLASS}>
+                                ← 글 목록으로 돌아가기
+                            </Link>
                         </div>
-                        <Link href="/posts" className={SECONDARY_LINK_CLASS}>
-                            ← 글 목록으로 돌아가기
-                        </Link>
-                    </CardContent>
-                </Card>
+                    </div>
+                </section>
             </article>
 
             {canEditPost ? (
