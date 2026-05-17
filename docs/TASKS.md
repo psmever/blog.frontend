@@ -11,7 +11,7 @@
 - [x] TailwindCSS + PostCSS 설정
 - [x] ESLint + Prettier + Husky pre-commit hook 적용
 - [x] `.env.local` 환경 변수 구조 정의 (`NEXT_PUBLIC_API_URL`)
-- [x] Docker 환경 연결 (`blog.docker`)
+- [x] Docker 환경 연결 (`blog.workspace`)
 - [x] Makefile 명령 (`make frontend-up`, `make frontend-logs`) 구성
 - [x] VSCode 설정 공유 (`.vscode/settings.json`)
 
@@ -114,6 +114,6 @@
 ## 📁 참고
 
 - **Backend API 문서:** `/blog.backend/docs/api-spec.md`
-- **Docker 설정:** `/blog.docker/docker-compose.yml`
+- **Docker 설정:** `/blog.workspace/docker-compose.yml`
 - **환경 관리:** `.env.local`, `.env.production`
 - **디자인 가이드:** `/docs/ui-guide.md`
