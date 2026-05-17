@@ -1,5 +1,5 @@
 DC = $(shell if docker compose version >/dev/null 2>&1; then echo "docker compose"; else echo "docker-compose"; fi)
-DOCKER_DIR ?= ../blog.docker
+DOCKER_DIR ?= ../blog.workspace
 COMPOSE_LOCAL ?= $(DOCKER_DIR)/docker-compose.local.yml
 FRONTEND_SERVICE ?= nextjs
 FRONTEND_ENV ?= .env
@@ -10,14 +10,14 @@ FRONTEND_ENV ?= .env
 help:
 	@echo "Blog Frontend Make targets"
 	@echo "─────────────────────────"
-	@echo "frontend-up    → Start Next.js container via blog.docker (local compose)"
+	@echo "frontend-up    → Start Next.js container via blog.workspace (local compose)"
 	@echo "frontend-logs  → Tail Next.js container logs"
 	@echo "frontend-down  → Stop containers from local compose file"
 
 frontend-env-check:
 	@if [ ! -f $(FRONTEND_ENV) ]; then \
 		if [ -f .env.local.enc ]; then \
-			echo "🔓 .env not found. Trying to decrypt .env.local.enc via blog.docker (BLOG_ENV_SECRET required)..."; \
+			echo "🔓 .env not found. Trying to decrypt .env.local.enc via blog.workspace (BLOG_ENV_SECRET required)..."; \
 			$(MAKE) -C $(DOCKER_DIR) decrypt-frontend-local; \
 		else \
 			echo "ℹ️ $(FRONTEND_ENV) not found. Copy .env.local.example to $(FRONTEND_ENV)."; \
