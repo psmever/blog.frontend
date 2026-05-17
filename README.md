@@ -11,6 +11,7 @@ Next.js 15 (App Router) + React 19 + Tailwind CSS 4 based blog UI that consumes 
 ## Scripts
 
 - `yarn dev` / `yarn build` / `yarn start`
+- production build is based on standard `next build`
 - `yarn lint` (Next.js lint) / `yarn lint:fix`
 - `yarn format` / `yarn format:check`
 
