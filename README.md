@@ -1,62 +1,25 @@
-# Blog.FrontEnd
+# Blog Frontend
 
-## psmever's Blog Front-End Source.
+Next.js 15 (App Router) + React 19 + Tailwind CSS 4 based blog UI that consumes the `blog.backend` API.
 
+## Quick start
 
-## Git Clone.
+1. Install deps: `yarn install`
+2. Env: `cp .env.local.example .env.local` and set `NEXT_PUBLIC_API_URL` (or decrypt `.env.local.enc` with `BLOG_ENV_SECRET` via `make frontend-up`)
+3. Dev server: `yarn dev` → http://localhost:3000 (Turbopack enabled)
 
-```bash
-git clone https://github.com/psmever/blog.frontend.git blog.backend
-```
+## Scripts
 
-## Git Clone (Single Branch).
+- `yarn dev` / `yarn build` / `yarn start`
+- `yarn lint` (Next.js lint) / `yarn lint:fix`
+- `yarn format` / `yarn format:check`
 
-```bash
-git clone -b develop --single-branch https://github.com/psmever/blog.frontend.git
-```
+Husky + lint-staged run on `pre-commit` (install hooks via `yarn install` or `yarn prepare`).
 
-## First Config.
-```bash
-yarn install
+## Docker (via blog.workspace)
 
-cp .config/sample.environment.env .config/local.env
-cp .config/sample.environment.env .config/production.env
-cp .config/sample.environment.env .config/stage.env
-```
+- Start frontend container: `make frontend-up`
+- Tail frontend logs: `make frontend-logs`
+- Stop local stack: `make frontend-down`
 
-## Local Develop Server.
-```bash
-yarn start
-yarn start:stage
-yarn start:prod
-```
-
-## Local build.
-```bash
-yarn build
-yarn build:stage
-yarn build:prod
-
-yarn -s serve build
-```
-
-
-## Production Deploy.
-```bash
-yarn stage-deploy:stage
-yarn stage-deploy:prod
-```
-
-## webhook
-
-```
-test1
-```
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+Targets wrap `../blog.workspace/docker-compose.local.yml` and expect `.env` in this folder (generated from `.env.local.example` or decrypted from `.env.local.enc`).
