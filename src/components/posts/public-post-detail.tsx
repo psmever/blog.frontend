@@ -33,9 +33,21 @@ type DetailState =
           message: string;
       };
 
+type EditLookupState = {
+    slug: string | null;
+    postUuid: string | null;
+    message: string | null;
+};
+
 const initialState: DetailState = {
     status: "loading",
     post: null,
+    message: null,
+};
+
+const initialEditLookupState: EditLookupState = {
+    slug: null,
+    postUuid: null,
     message: null,
 };
 
@@ -61,13 +73,11 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     const canEditPost = auth.isLoggedIn || Boolean(getAccessToken());
     const [detailState, setDetailState] = useState<DetailState>(initialState);
     const [retryCount, setRetryCount] = useState(0);
-    const [editPostUuid, setEditPostUuid] = useState<string | null>(null);
-    const [editTargetMessage, setEditTargetMessage] = useState<string | null>(null);
+    const [editLookupState, setEditLookupState] = useState<EditLookupState>(initialEditLookupState);
+    const resolvedEditPostUuid = detailState.status === "success" ? resolveEditablePostUuid(detailState.post) : null;
 
     useEffect(() => {
         let isDisposed = false;
-
-        setDetailState(initialState);
 
         void (async () => {
             const result = await fetchPublicPostDetailInBrowser(slug, { force: retryCount > 0 });
@@ -107,39 +117,32 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     }, [retryCount, slug]);
 
     useEffect(() => {
-        if (!canEditPost || detailState.status !== "success") {
-            setEditPostUuid(null);
-            setEditTargetMessage(null);
-            return;
-        }
-
-        const editablePostUuid = resolveEditablePostUuid(detailState.post);
-        if (editablePostUuid) {
-            setEditPostUuid(editablePostUuid);
-            setEditTargetMessage(null);
+        if (!canEditPost || detailState.status !== "success" || resolvedEditPostUuid) {
             return;
         }
 
         let isDisposed = false;
-
-        setEditTargetMessage(null);
+        const postSlug = detailState.post.slug;
 
         void (async () => {
-            const result = await findPublishedPostBySlug(detailState.post.slug);
+            const result = await findPublishedPostBySlug(postSlug);
 
             if (isDisposed) {
                 return;
             }
 
-            const uuid = result.status ? (result.data?.uuid ?? null) : null;
-            setEditPostUuid(uuid);
-            setEditTargetMessage(uuid ? null : result.message || "수정할 게시글 정보를 찾지 못했습니다.");
+            const postUuid = result.status ? (result.data?.uuid ?? null) : null;
+            setEditLookupState({
+                slug: postSlug,
+                postUuid,
+                message: postUuid ? null : result.message || "수정할 게시글 정보를 찾지 못했습니다.",
+            });
         })();
 
         return () => {
             isDisposed = true;
         };
-    }, [canEditPost, detailState]);
+    }, [canEditPost, detailState, resolvedEditPostUuid]);
 
     if (detailState.status === "loading") {
         return (
@@ -191,7 +194,15 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                 <CardContent className="flex flex-col gap-4 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between">
                     <p>{detailState.message}</p>
                     <div className="flex items-center gap-2">
-                        <Button type="button" variant="outline" onClick={() => setRetryCount((currentCount) => currentCount + 1)}>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => {
+                                setDetailState(initialState);
+                                setEditLookupState(initialEditLookupState);
+                                setRetryCount((currentCount) => currentCount + 1);
+                            }}
+                        >
                             다시 시도
                         </Button>
                         <Link href="/posts" className={SECONDARY_LINK_CLASS}>
@@ -208,6 +219,8 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     }
 
     const post = detailState.post;
+    const editPostUuid = resolvedEditPostUuid ?? (editLookupState.slug === post.slug ? editLookupState.postUuid : null);
+    const editTargetMessage = editLookupState.slug === post.slug ? editLookupState.message : null;
 
     return (
         <>

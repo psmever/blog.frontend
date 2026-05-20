@@ -111,7 +111,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
     const [issuedPostUuid, setIssuedPostUuid] = useState<string | null>(isUpdateMode ? (postUuid ?? null) : null);
     const activePostUuid = isUpdateMode ? (postUuid ?? null) : issuedPostUuid;
     const [isPublishing, setIsPublishing] = useState(false);
-    const [isIssuingPostUuid, setIsIssuingPostUuid] = useState(!isUpdateMode);
+    const [isIssuingPostUuid, setIsIssuingPostUuid] = useState(() => !isUpdateMode && auth.isLoggedIn);
     const [isUploadingImage, setIsUploadingImage] = useState(false);
     const [isLoadingPost, setIsLoadingPost] = useState(isUpdateMode);
     const [message, setMessage] = useState<string | null>(null);
@@ -262,18 +262,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
     }, [clearMessageTimer]);
 
     useEffect(() => {
-        if (isUpdateMode) {
-            setIsIssuingPostUuid(false);
-            return;
-        }
-
-        if (!auth.isLoggedIn) {
-            setIsIssuingPostUuid(false);
-            return;
-        }
-
-        if (issuedPostUuid) {
-            setIsIssuingPostUuid(false);
+        if (isUpdateMode || !auth.isLoggedIn || issuedPostUuid) {
             return;
         }
 
@@ -307,7 +296,6 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
 
     useEffect(() => {
         if (!isUpdateMode || !postUuid) {
-            setIsLoadingPost(false);
             return;
         }
 

@@ -8,7 +8,15 @@ export function ThemeToggle() {
     const { theme, setTheme, resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
-    useEffect(() => setMounted(true), []);
+    useEffect(() => {
+        const frameId = window.requestAnimationFrame(() => {
+            setMounted(true);
+        });
+
+        return () => {
+            window.cancelAnimationFrame(frameId);
+        };
+    }, []);
 
     const effectiveTheme = theme === "system" ? resolvedTheme : theme;
     const nextTheme = effectiveTheme === "dark" ? "light" : "dark";
