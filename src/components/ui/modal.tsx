@@ -21,7 +21,13 @@ export function Modal({ open, title, description, children, footer, onClose, dis
     const descriptionId = useId();
 
     useEffect(() => {
-        setMounted(true);
+        const frameId = window.requestAnimationFrame(() => {
+            setMounted(true);
+        });
+
+        return () => {
+            window.cancelAnimationFrame(frameId);
+        };
     }, []);
 
     useEffect(() => {
