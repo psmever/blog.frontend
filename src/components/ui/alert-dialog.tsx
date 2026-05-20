@@ -50,7 +50,13 @@ export function AlertDialog({ open, title, description, confirmText = "확인", 
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        const frameId = window.requestAnimationFrame(() => {
+            setMounted(true);
+        });
+
+        return () => {
+            window.cancelAnimationFrame(frameId);
+        };
     }, []);
 
     useEffect(() => {
