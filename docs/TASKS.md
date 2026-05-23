@@ -80,6 +80,29 @@
 - [ ] 기본 렌더링 테스트 (홈, 포스트 페이지)
 - [ ] Lighthouse 퍼포먼스 점검
 - [ ] Storybook 도입 검토
+- [ ] GitHub Dependabot / `yarn npm audit` 취약점 정리
+
+### 보안 의존성 점검 메모
+
+2026-05-23 기준 GitHub push 안내에서 `psmever/blog.frontend` default branch(`develop`)에 취약점 30건이 보고되었습니다. 로컬에서 `corepack yarn npm audit --recursive --all` 및 production 범위 audit으로 재확인했으며, 현재 내용은 `blog.frontend`의 `package.json`/`yarn.lock`과 관련됩니다.
+
+우선 처리 대상:
+
+- `axios@1.13.2`: 직접 dependency이며 high/moderate advisories가 다수 보고됨. 운영 런타임 영향 가능성이 가장 높으므로 먼저 업데이트 후 API 클라이언트 동작을 확인합니다.
+- `follow-redirects`: `axios` 하위 의존성입니다. `axios` 업데이트와 함께 해소되는지 확인합니다.
+- `react-markdown -> mdast-util-to-hast`: Markdown 렌더링 경로와 관련됩니다. 실제 사용자 입력 markdown 처리 방식과 함께 확인합니다.
+- `next -> postcss`: Next.js 16.2.6 하위에서 보고되었습니다. Next/PostCSS 업데이트 가능 여부와 빌드 영향도를 확인합니다.
+
+개발 도구 중심으로 보이는 항목:
+
+- `eslint`, `lint-staged`, `@tailwindcss/oxide` 하위의 `ajv`, `minimatch`, `picomatch`, `tar`, `yaml`, `flatted` 등은 대부분 lint/build/dev tool chain 경로입니다. 운영 번들 포함 여부를 단정하지 말고 lockfile 갱신 후 `yarn lint`, `yarn build`로 회귀 확인합니다.
+
+처리 순서 제안:
+
+1. `axios`와 lockfile을 먼저 업데이트합니다.
+2. `yarn lint`, `yarn build`를 실행합니다.
+3. `corepack yarn npm audit --recursive --all --environment production`으로 운영 범위 잔여 항목을 다시 확인합니다.
+4. dev tool chain 취약점은 빌드 영향이 큰 패키지부터 별도 커밋으로 나누어 처리합니다.
 
 ---
 
