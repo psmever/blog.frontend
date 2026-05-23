@@ -16,12 +16,7 @@ help:
 
 frontend-env-check:
 	@if [ ! -f $(FRONTEND_ENV) ]; then \
-		if [ -f .env.local.enc ]; then \
-			echo "🔓 .env not found. Trying to decrypt .env.local.enc via blog.workspace (BLOG_ENV_SECRET required)..."; \
-			$(MAKE) -C $(DOCKER_DIR) decrypt-frontend-local; \
-		else \
-			echo "ℹ️ $(FRONTEND_ENV) not found. Copy .env.local.example to $(FRONTEND_ENV)."; \
-		fi; \
+		echo "ℹ️ $(FRONTEND_ENV) not found. Copy .env.local.example to $(FRONTEND_ENV) and update it manually."; \
 	fi
 
 frontend-up: frontend-env-check
