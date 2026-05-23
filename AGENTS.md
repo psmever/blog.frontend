@@ -36,6 +36,5 @@
 
 ## Security & Configuration Tips
 
-- Configure `NEXT_PUBLIC_API_URL` in `.env.local` (copy from `.env.local.example`).
-- Encrypted env files are available (`.env.local.enc`, `.env.production.enc`); use `scripts/env-decrypt.sh` when needed.
-- Avoid committing secrets or local `.env` files.
+- Configure `NEXT_PUBLIC_API_URL` in `.env` (copy from `.env.local.example`).
+- Keep local and production `.env` files out of Git. Update them manually when values change.
