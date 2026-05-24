@@ -1,41 +1,55 @@
-# Repository Guidelines
+# Frontend 저장소 가이드
 
-## Project Structure & Module Organization
+## 기본 원칙
 
-- `src/app/` holds the Next.js App Router entrypoints (layouts, pages, routes).
-- `src/components/` contains UI building blocks grouped by domain (`layout/`, `posts/`, `markdown/`, `ui/`).
-- `src/services/` hosts API access modules (for example `auth.ts`), while `src/state/` contains Recoil state.
-- `public/` is for static assets, and `docs/` captures project notes and checklists.
-- Root config includes `next.config.ts`, `tailwind.config.ts`, `eslint.config.mjs`, and `prettier.config.mjs`.
+- 모든 대화와 작업 보고는 한글로 작성한다.
+- 이 저장소는 Next.js 프런트엔드 애플리케이션 전용이다.
+- API 구현 수정은 `../blog.backend`에서, Docker/배포/공용 스크립트 수정은 `../blog.workspace`에서 진행한다.
 
-## Build, Test, and Development Commands
+## 작업 범위
 
-- `yarn install` installs dependencies and sets up Husky hooks.
-- `yarn dev` runs the local dev server at `http://localhost:3000` (Turbopack).
-- `yarn build` creates a production build; `yarn start` serves it.
-- `yarn lint` / `yarn lint:fix` run ESLint; `yarn format` / `yarn format:check` run Prettier.
-- Docker workflow (via `blog.workspace`): `make frontend-up`, `make frontend-logs`, `make frontend-down`.
+- 수정 대상:
+    - `src/app/`
+    - `src/components/`
+    - `src/services/`
+    - `src/state/`
+    - `public/`
+    - 설정 파일 (`next.config.ts`, `eslint.config.mjs`, `prettier.config.mjs` 등)
+- 기본적으로 수정하지 않는 대상:
+    - `../blog.backend`
+    - `../blog.workspace`
 
-## Coding Style & Naming Conventions
+## 자주 쓰는 명령
 
-- TypeScript + React 19 with Tailwind CSS 4. Keep UI logic in components; API logic in `src/services/`.
-- Prettier enforces 4-space indentation, semicolons, double quotes, and trailing commas.
-- ESLint uses Next.js core-web-vitals + TypeScript rules. Fix lint errors before committing.
-- File names are kebab-case (for example `post-card.tsx`); React components use PascalCase.
+- 개발 서버: `yarn dev`
+- 프로덕션 빌드: `yarn build`
+- 린트: `yarn lint`
+- 린트 자동 수정: `yarn lint:fix`
+- 포맷 검사: `yarn format:check`
+- 포맷 적용: `yarn format`
+- Docker 환경에서 Yarn 실행: `cd ../blog.workspace && ./scripts/yarn.sh lint`
 
-## Testing Guidelines
+## 코딩 규칙
 
-- Automated tests are not configured yet (no `test` script in `package.json`).
-- If you add a test framework, include a script (for example `yarn test`) and document the conventions here.
+- TypeScript, React, Next.js App Router 기준으로 작업한다.
+- UI 로직은 컴포넌트에, API 호출은 `src/services/`에 둔다.
+- 파일명은 kebab-case, React 컴포넌트명은 PascalCase를 사용한다.
+- Prettier 규칙(4칸 들여쓰기, 세미콜론, 더블 쿼트, trailing comma)을 따른다.
 
-## Commit & Pull Request Guidelines
+## 테스트와 검증
 
-- Commit messages are short and descriptive, typically plain phrases (often in Korean) without prefixes.
-- Keep commits focused; prefer one topic per commit.
-- PRs should include a concise summary, verification steps, and screenshots for UI changes.
+- 자동화 테스트 스크립트는 아직 없으므로 기본 검증은 `yarn lint`와 필요 시 `yarn build`다.
+- UI 변경이 있으면 관련 화면 흐름과 API 연결 지점을 함께 확인한다.
+- 큰 화면 수정은 가능하면 스크린샷 또는 재현 절차를 남긴다.
 
-## Security & Configuration Tips
+## 안전 규칙
 
-- Configure `NEXT_PUBLIC_API_URL` in `.env.local` (copy from `.env.local.example`).
-- Encrypted env files are available (`.env.local.enc`, `.env.production.enc`); use `scripts/env-decrypt.sh` when needed.
-- Avoid committing secrets or local `.env` files.
+- `.env.local`, `.env.*`, `*.enc` 파일은 꼭 필요한 경우에만 열람하거나 수정한다.
+- 백엔드 API 계약 변경이 필요하면 프런트 저장소에서 임시 우회하지 말고 `../blog.backend` 변경 여부를 먼저 판단한다.
+- 한 요청이 여러 저장소에 걸치면 프런트 변경과 그 외 변경을 분리해서 커밋한다.
+- 새 브랜치가 필요해 보여도 임의로 생성하지 말고, 반드시 먼저 사용자에게 확인을 받은 뒤 진행한다.
+
+## 커밋 규칙
+
+- 커밋 메시지는 짧은 한 줄 한국어 요약을 우선한다.
+- 프런트엔드 변경만 담긴 커밋을 유지하고, 백엔드/워크스페이스 변경과 섞지 않는다.

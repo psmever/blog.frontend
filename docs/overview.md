@@ -17,10 +17,9 @@
 
 ## 환경 변수 관리
 
-- 민감한 설정은 `.env.enc`로 암호화되어 저장됩니다.
-- 복호화: `scripts/env-decrypt.sh` (필요 시 `BLOG_ENV_SECRET` 환경 변수로 비밀번호 주입)
-- 암호화: `scripts/env-encrypt.sh`
-- `.env`는 루트에 위치하며 Git에 커밋하지 않습니다.
+- `.env.local.example`을 참고해 루트의 `.env`를 직접 작성합니다.
+- 값이 변경될 때마다 실제 `.env`를 수동으로 수정합니다.
+- `.env`는 Git에 커밋하지 않습니다.
 - 프런트엔드는 `NEXT_PUBLIC_API_URL`로 백엔드 엔드포인트를 지정합니다. (예: `http://localhost:4000`)
 
 ## 디렉터리 길잡이
@@ -30,7 +29,6 @@ blog.frontend/
  ├── src/app/            # App Router 엔트리, 레이아웃, 페이지
  ├── public/             # 정적 에셋 (아이콘, 이미지 등)
  ├── docs/               # 프로젝트 문서 (본 파일 포함)
- ├── scripts/            # 환경 변수 암호화/복호화 스크립트
  ├── next.config.ts      # Next.js 설정
  ├── eslint.config.mjs   # ESLint 설정
  └── tsconfig.json       # TypeScript 컴파일러 설정
