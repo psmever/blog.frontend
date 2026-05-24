@@ -5,7 +5,7 @@ Next.js 15 (App Router) + React 19 + Tailwind CSS 4 based blog UI that consumes 
 ## Quick start
 
 1. Install deps: `yarn install`
-2. Env: `cp .env.local.example .env.local` and set `NEXT_PUBLIC_API_URL` (or decrypt `.env.local.enc` with `BLOG_ENV_SECRET` via `make frontend-up`)
+2. Env: `cp .env.local.example .env` and set `NEXT_PUBLIC_API_URL`
 3. Dev server: `yarn dev` → http://localhost:3000 (Turbopack enabled)
 
 ## Scripts
@@ -23,4 +23,4 @@ Husky + lint-staged run on `pre-commit` (install hooks via `yarn install` or `ya
 - Tail frontend logs: `make frontend-logs`
 - Stop local stack: `make frontend-down`
 
-Targets wrap `../blog.workspace/docker-compose.local.yml` and expect `.env` in this folder (generated from `.env.local.example` or decrypted from `.env.local.enc`).
+Targets wrap `../blog.workspace/docker-compose.local.yml` and expect `.env` in this folder. Create it manually from `.env.local.example`.
