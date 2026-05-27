@@ -15,7 +15,7 @@ export const mockFeedPosts: FeedPost[] = [
         id: "1",
         title: "오픈소스 블로그를 한 달 만에 출시한 기록",
         excerpt: "Next.js 15와 Tailwind 4로 콘텐츠 플랫폼을 뼈대부터 완성하기까지의 시행착오를 정리했습니다.",
-        author: "MyProject",
+        author: "jaubi",
         date: "2025-11-22",
         comments: 12,
         likes: 214,
