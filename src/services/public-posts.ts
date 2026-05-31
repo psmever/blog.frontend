@@ -13,12 +13,13 @@ export type PostImageThumbnailData = {
 };
 
 export type PublicPostImageData = {
-    uuid: string;
-    purpose: "body" | "cover";
+    uuid: string | null;
+    purpose: "body" | "cover" | "default";
     url: string;
     width: number;
     height: number;
     size: number;
+    is_default: boolean;
     thumbnail: PostImageThumbnailData | null;
 };
 
