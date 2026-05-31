@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { Container } from "./container";
 
@@ -9,14 +8,6 @@ export function Footer() {
                 <span>
                     © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
                 </span>
-                <div className="flex flex-wrap items-center gap-3">
-                    <Link href="/posts" className="font-medium text-foreground/80 transition hover:text-foreground">
-                        최신 글 보기 →
-                    </Link>
-                    <Link href="/login" className="rounded-md border border-foreground/15 px-3 py-1.5 font-medium text-foreground/80 transition hover:border-foreground/30 hover:bg-foreground/5">
-                        대시보드
-                    </Link>
-                </div>
             </Container>
         </footer>
     );
