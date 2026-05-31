@@ -183,7 +183,7 @@ export function InfinitePostGrid({ initialPosts, initialNextCursor, initialHasMo
     }
 
     if (items.length === 0) {
-        return <div className="rounded-2xl border border-dashed border-foreground/20 bg-background/80 p-8 text-center text-sm text-foreground/70">아직 공개된 게시글이 없습니다.</div>;
+        return <div className="flex flex-1 items-center justify-center rounded-2xl border border-dashed border-foreground/20 bg-background/80 p-8 text-center text-sm text-foreground/70">아직 공개된 게시글이 없습니다.</div>;
     }
 
     return (
