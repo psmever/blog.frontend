@@ -626,7 +626,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
             {isLoadingDraftPosts && <p className="absolute right-6 top-6 z-10 rounded-md bg-card px-3 py-2 text-xs text-foreground/60 shadow-sm">미게시 글 목록을 확인하는 중입니다.</p>}
             {draftPostsError && <p className="absolute right-6 top-6 z-10 rounded-md bg-red-500/10 px-3 py-2 text-xs text-red-600 shadow-sm">{draftPostsError}</p>}
 
-            <div className="grid min-h-screen grid-cols-1 gap-0 lg:h-full lg:grid-cols-2">
+            <div className="grid min-h-screen grid-cols-1 gap-0 lg:h-full xl:grid-cols-2">
                 <section className="flex min-h-0 flex-col gap-6 px-6 pt-10 lg:h-full lg:overflow-hidden lg:px-12">
                     <div className="space-y-3">
                         <input id="title" name="title" type="text" required value={title} onChange={(event) => setTitle(event.target.value)} placeholder="제목을 입력하세요" className={TITLE_INPUT_CLASS} />
@@ -694,7 +694,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                     </div>
                 </section>
 
-                <aside className="hidden min-h-0 border-t border-foreground/10 bg-foreground/5 pb-10 pt-10 lg:block lg:h-full lg:overflow-y-auto lg:border-l lg:border-t-0" onScroll={() => syncScroll("preview")} ref={previewRef}>
+                <aside className="hidden min-h-0 border-t border-foreground/10 bg-foreground/5 pb-10 pt-10 xl:block xl:h-full xl:overflow-y-auto xl:border-l xl:border-t-0" onScroll={() => syncScroll("preview")} ref={previewRef}>
                     <div className="space-y-3">
                         <div className="px-6 lg:px-12">
                             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/60">Preview</p>
