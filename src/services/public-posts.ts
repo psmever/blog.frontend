@@ -76,9 +76,7 @@ function normalizeLimit(limit = DEFAULT_PUBLIC_POST_LIMIT) {
     return Math.min(Math.max(limit, 1), MAX_PUBLIC_POST_LIMIT);
 }
 
-async function publicApiRequest<T, M extends Record<string, unknown> = Record<string, never>>(
-    request: Promise<AxiosResponse<ApiResponse<T, M>>>,
-): Promise<PublicApiResult<T, M>> {
+async function publicApiRequest<T, M extends Record<string, unknown> = Record<string, never>>(request: Promise<AxiosResponse<ApiResponse<T, M>>>): Promise<PublicApiResult<T, M>> {
     try {
         const { data } = await request;
 
