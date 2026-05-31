@@ -23,7 +23,7 @@ export function AppShell({ children }: AppShellProps) {
     return (
         <div className="flex min-h-screen flex-col">
             {!isFullWidth && <Header />}
-            <main className={isFullWidth ? "flex-1 overflow-hidden" : "flex-1 py-10"}>{isFullWidth ? children : <Container>{children}</Container>}</main>
+            <main className={isFullWidth ? "flex-1 overflow-hidden" : "flex flex-1 flex-col py-10"}>{isFullWidth ? children : <Container className="flex flex-1 flex-col">{children}</Container>}</main>
             {!isFullWidth && <Footer />}
         </div>
     );
