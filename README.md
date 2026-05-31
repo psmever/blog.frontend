@@ -23,4 +23,4 @@ Husky + lint-staged run on `pre-commit` (install hooks via `yarn install` or `ya
 - Tail frontend logs: `make frontend-logs`
 - Stop local stack: `make frontend-down`
 
-Targets wrap `../blog.workspace/docker-compose.local.yml` and expect `.env` in this folder. Create it manually from `.env.local.example`.
+Targets wrap `../blog.workspace/docker-compose.yml` and expect `.env` in this folder. Create it manually from `.env.local.example`.

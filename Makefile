@@ -1,7 +1,7 @@
 DC = $(shell if docker compose version >/dev/null 2>&1; then echo "docker compose"; else echo "docker-compose"; fi)
 DOCKER_DIR ?= ../blog.workspace
-COMPOSE_LOCAL ?= $(DOCKER_DIR)/docker-compose.local.yml
-FRONTEND_SERVICE ?= nextjs
+COMPOSE_LOCAL ?= $(DOCKER_DIR)/docker-compose.yml
+FRONTEND_SERVICE ?= frontend
 FRONTEND_ENV ?= .env
 .DEFAULT_GOAL := help
 
