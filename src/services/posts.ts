@@ -1,4 +1,5 @@
 import { apiClient, apiRequest, type ApiResult } from "@/lib/apiClient";
+import type { PostImageThumbnailData } from "@/services/public-posts";
 
 export type CreatePostPayload = {
     title: string;
@@ -43,6 +44,7 @@ export type PostImageData = {
     width: number;
     height: number;
     size: number;
+    thumbnail: PostImageThumbnailData | null;
 };
 
 export type PostListItem = {

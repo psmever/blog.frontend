@@ -4,6 +4,14 @@ import { apiClient, type ApiMeta, type ApiResponse } from "@/lib/apiClient";
 const DEFAULT_PUBLIC_POST_LIMIT = 12;
 const MAX_PUBLIC_POST_LIMIT = 50;
 
+export type PostImageThumbnailData = {
+    url: string;
+    width: number;
+    height: number;
+    size: number;
+    mime_type: "image/webp";
+};
+
 export type PublicPostImageData = {
     uuid: string;
     purpose: "body" | "cover";
@@ -11,6 +19,7 @@ export type PublicPostImageData = {
     width: number;
     height: number;
     size: number;
+    thumbnail: PostImageThumbnailData | null;
 };
 
 export type PublicPostAuthor = {
