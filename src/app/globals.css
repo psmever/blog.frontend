@@ -105,10 +105,17 @@ a {
 
 .markdown img {
     display: block;
+    width: 66.6667%;
     max-width: 100%;
     height: auto;
     border-radius: 0.75rem;
     margin: 1rem auto;
+}
+
+@media (max-width: 640px) {
+    .markdown img {
+        width: 100%;
+    }
 }
 
 .markdown code {
