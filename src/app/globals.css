@@ -103,6 +103,16 @@ a {
     margin-bottom: 0.4rem;
 }
 
+.markdown > :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, hr) {
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.markdown > p:has(img) {
+    width: 100%;
+}
+
 .markdown img {
     display: block;
     width: 66.6667%;
@@ -113,6 +123,10 @@ a {
 }
 
 @media (max-width: 640px) {
+    .markdown > :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, hr) {
+        width: 100%;
+    }
+
     .markdown img {
         width: 100%;
     }
@@ -132,5 +146,5 @@ a {
     border-radius: 0.75rem;
     overflow-x: auto;
     font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    margin: 1rem 0;
+    margin: 1rem auto;
 }
