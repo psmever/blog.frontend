@@ -224,8 +224,8 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
 
     return (
         <>
-            <article className="mx-auto w-full max-w-5xl space-y-8">
-                <header className="mx-auto w-full max-w-4xl space-y-5">
+            <article className="w-full space-y-8">
+                <header className="w-full space-y-5">
                     <div className="space-y-3">
                         <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-foreground/60">
                             <span>{formatPublishedDate(post.published_at)}</span>
@@ -251,11 +251,11 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
 
                 <section className="flex min-h-[32rem] flex-col overflow-hidden rounded-xl border border-foreground/10 bg-card shadow-sm lg:min-h-[calc(100dvh-18rem)]">
                     <div className="flex-1">
-                        <MarkdownViewer content={post.body} surface={false} className="mx-auto h-full w-full max-w-[72ch] p-6 sm:p-8 lg:px-10" />
+                        <MarkdownViewer content={post.body} surface={false} className="h-full w-full p-6 sm:p-8 lg:px-10" />
                     </div>
 
                     <div className="mt-auto border-t border-dashed border-foreground/20 bg-muted/60">
-                        <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-6 py-6 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between lg:px-10">
+                        <div className="flex w-full flex-col gap-4 px-6 py-6 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between lg:px-10">
                             <div className="space-y-1">
                                 <p>발행일 {formatPublishedDate(post.published_at)}</p>
                                 <p>마지막 수정 {formatPublishedDate(post.updated_at)}</p>
