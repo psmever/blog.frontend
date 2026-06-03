@@ -17,7 +17,7 @@ export function HomePostCard({ post }: Props) {
             <Card className="flex h-full flex-col overflow-hidden rounded-lg border border-foreground/10 bg-card shadow-sm transition duration-200 group-hover:border-cyan-600/35 group-hover:shadow-lg group-hover:shadow-cyan-950/10 group-focus-visible:border-cyan-600/45">
                 <div className="relative aspect-[16/11] overflow-hidden bg-[linear-gradient(135deg,rgba(8,145,178,0.08),rgba(99,102,241,0.1))]">
                     {post.cover_image ? (
-                        <img src={resolveApiAssetUrl(post.cover_image.url)} alt={post.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" loading="lazy" />
+                        <img src={resolveApiAssetUrl(post.cover_image.thumbnail?.url ?? post.cover_image.url)} alt={post.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" loading="lazy" />
                     ) : (
                         <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top_left,rgba(8,145,178,0.18),transparent_55%),linear-gradient(135deg,rgba(20,184,166,0.12),rgba(99,102,241,0.14))] px-6 text-center text-sm font-semibold text-foreground/55">{primaryTag}</div>
                     )}

@@ -15,11 +15,7 @@ export default function LoginPage() {
     return (
         <div className="flex min-h-screen items-center justify-center px-4">
             <div className="w-full max-w-md">
-                <LoginForm
-                    defaultEmail={shouldPrefillCredentials ? process.env.LOCAL_LOGIN_EMAIL : undefined}
-                    defaultPassword={shouldPrefillCredentials ? process.env.LOCAL_LOGIN_PASSWORD : undefined}
-                    relaxEmailValidation={shouldRelaxEmailValidation}
-                />
+                <LoginForm defaultEmail={shouldPrefillCredentials ? process.env.LOCAL_LOGIN_EMAIL : undefined} defaultPassword={shouldPrefillCredentials ? process.env.LOCAL_LOGIN_PASSWORD : undefined} relaxEmailValidation={shouldRelaxEmailValidation} />
             </div>
         </div>
     );

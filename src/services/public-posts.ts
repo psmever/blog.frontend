@@ -4,13 +4,23 @@ import { apiClient, type ApiMeta, type ApiResponse } from "@/lib/apiClient";
 const DEFAULT_PUBLIC_POST_LIMIT = 12;
 const MAX_PUBLIC_POST_LIMIT = 50;
 
-export type PublicPostImageData = {
-    uuid: string;
-    purpose: "body" | "cover";
+export type PostImageThumbnailData = {
     url: string;
     width: number;
     height: number;
     size: number;
+    mime_type: "image/webp";
+};
+
+export type PublicPostImageData = {
+    uuid: string | null;
+    purpose: "body" | "cover" | "default";
+    url: string;
+    width: number;
+    height: number;
+    size: number;
+    is_default: boolean;
+    thumbnail: PostImageThumbnailData | null;
 };
 
 export type PublicPostAuthor = {
@@ -76,9 +86,7 @@ function normalizeLimit(limit = DEFAULT_PUBLIC_POST_LIMIT) {
     return Math.min(Math.max(limit, 1), MAX_PUBLIC_POST_LIMIT);
 }
 
-async function publicApiRequest<T, M extends Record<string, unknown> = Record<string, never>>(
-    request: Promise<AxiosResponse<ApiResponse<T, M>>>,
-): Promise<PublicApiResult<T, M>> {
+async function publicApiRequest<T, M extends Record<string, unknown> = Record<string, never>>(request: Promise<AxiosResponse<ApiResponse<T, M>>>): Promise<PublicApiResult<T, M>> {
     try {
         const { data } = await request;
 
