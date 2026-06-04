@@ -580,7 +580,7 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                 <div className="w-full max-w-md rounded-2xl border border-foreground/10 bg-card p-6 shadow-sm">
                     <h2 className="text-lg font-semibold">로그인이 필요합니다</h2>
                     <p className="mt-2 text-sm text-foreground/70">포스트를 작성하려면 먼저 로그인해야 합니다.</p>
-                    <Button type="button" className="mt-4" onClick={() => router.push("/login")}>
+                    <Button type="button" className="mt-4" onClick={() => router.push("/studio")}>
                         로그인하러 가기
                     </Button>
                 </div>
