@@ -8,6 +8,7 @@ import { Container } from "./container";
 const navLinks = [
     { href: "/", label: "홈" },
     { href: "/posts", label: "블로그" },
+    { href: "/about", label: "블로그 소개" },
 ];
 
 export function Header() {
