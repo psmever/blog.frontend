@@ -2,11 +2,11 @@
 
 import { startTransition, type ChangeEvent, type DragEvent, type KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { MarkdownContent } from "@/components/markdown/markdown-content";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import { fetchDraftPosts, fetchPost, issuePostUuid, publishPost, savePost, uploadPostImage, type PostListItem, type PostTag } from "@/services/posts";
 import { useAuthState, usePostEditorState, useSetPostEditorState } from "@/state";
-import ReactMarkdown from "react-markdown";
 
 const TITLE_INPUT_CLASS = "w-full bg-transparent text-4xl font-semibold text-foreground placeholder:text-foreground/30 outline-none sm:text-[2.75rem]";
 const INLINE_INPUT_CLASS = "w-full bg-transparent text-sm text-foreground/60 placeholder:text-foreground/40 outline-none";
@@ -701,8 +701,8 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                         </div>
                         <div className="border-y border-foreground/10 bg-card px-6 py-6 lg:px-12">
                             {content.trim() ? (
-                                <div className="markdown leading-relaxed">
-                                    <ReactMarkdown>{content}</ReactMarkdown>
+                                <div className="markdown markdown-body leading-relaxed">
+                                    <MarkdownContent content={content} />
                                 </div>
                             ) : (
                                 <p className="text-sm text-foreground/60">미리보기할 내용이 없습니다.</p>
