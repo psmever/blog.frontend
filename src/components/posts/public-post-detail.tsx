@@ -9,7 +9,6 @@ import { Loader } from "@/components/ui/loader";
 import { getAccessToken } from "@/lib/token-storage";
 import { findPublishedPostBySlug } from "@/services/posts";
 import { fetchPublicPostDetailInBrowser, type PublicPostDetailData } from "@/services/public-posts";
-import { createShortUrl } from "@/services/short-urls";
 import { useAuthState } from "@/state";
 import { formatPublishedDate } from "@/lib/utils";
 
@@ -75,7 +74,7 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     const [detailState, setDetailState] = useState<DetailState>(initialState);
     const [retryCount, setRetryCount] = useState(0);
     const [editLookupState, setEditLookupState] = useState<EditLookupState>(initialEditLookupState);
-    const [shareStatus, setShareStatus] = useState<"idle" | "creating" | "copied" | "failed">("idle");
+    const [shareStatus, setShareStatus] = useState<"idle" | "copied" | "failed">("idle");
     const resolvedEditPostUuid = detailState.status === "success" ? resolveEditablePostUuid(detailState.post) : null;
 
     useEffect(() => {
@@ -223,7 +222,7 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     const post = detailState.post;
     const editPostUuid = resolvedEditPostUuid ?? (editLookupState.slug === post.slug ? editLookupState.postUuid : null);
     const editTargetMessage = editLookupState.slug === post.slug ? editLookupState.message : null;
-    const shareButtonLabel = shareStatus === "creating" ? "생성 중" : shareStatus === "copied" ? "복사됨" : shareStatus === "failed" ? "실패" : "공유";
+    const shareButtonLabel = shareStatus === "copied" ? "복사됨" : shareStatus === "failed" ? "실패" : "공유";
 
     async function handleSharePost() {
         if (detailState.status !== "success") {
@@ -231,17 +230,8 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
         }
 
         try {
-            setShareStatus("creating");
-
-            const originalUrl = `${window.location.pathname}${window.location.search}`;
-            const result = await createShortUrl({ original_url: originalUrl });
-
-            if (!result.status || !result.data?.short_url) {
-                setShareStatus("failed");
-                return;
-            }
-
-            const shareUrl = new URL(result.data.short_url, process.env.NEXT_PUBLIC_BASE_URL ?? window.location.origin).toString();
+            const sharePath = `${window.location.pathname}${window.location.search}`;
+            const shareUrl = new URL(sharePath, process.env.NEXT_PUBLIC_BASE_URL ?? window.location.origin).toString();
 
             if (navigator.share) {
                 await navigator.share({
@@ -299,7 +289,7 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                             </div>
                             <div className="flex flex-wrap items-center gap-2">
                                 {canEditPost ? (
-                                    <Button type="button" variant="outline" onClick={handleSharePost} disabled={shareStatus === "creating"}>
+                                    <Button type="button" variant="outline" onClick={handleSharePost}>
                                         {shareButtonLabel}
                                     </Button>
                                 ) : null}
