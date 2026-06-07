@@ -303,9 +303,9 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
             </article>
 
             {canEditPost ? (
-                <div className="pointer-events-none fixed bottom-6 right-6 z-40">
+                <div className="pointer-events-none fixed bottom-5 right-[calc(1.25rem+8.75rem)] z-40 sm:bottom-6 sm:right-[calc(1.5rem+8.75rem)]">
                     {editPostUuid ? (
-                        <Link href={`/posts/edit/${editPostUuid}`} className="pointer-events-auto inline-flex h-12 items-center justify-center rounded-full bg-cyan-600 px-5 text-sm font-semibold text-white shadow-lg shadow-cyan-950/20 transition hover:bg-cyan-700">
+                        <Link href={`/posts/edit/${editPostUuid}`} className="pointer-events-auto inline-flex h-10 items-center justify-center rounded-full border border-foreground/10 bg-background/90 px-4 text-sm font-semibold shadow-lg shadow-foreground/10 backdrop-blur transition hover:bg-foreground/5 focus:outline-none focus:ring-2 focus:ring-foreground/15">
                             수정
                         </Link>
                     ) : editTargetMessage ? (
