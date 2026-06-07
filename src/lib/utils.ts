@@ -1,4 +1,4 @@
-const rawApiAssetBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const rawApiAssetBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000/api";
 const apiAssetBaseURL = rawApiAssetBaseURL.endsWith("/api") ? rawApiAssetBaseURL.slice(0, -4) : rawApiAssetBaseURL;
 
 export function cn(...classes: Array<string | false | null | undefined>) {
