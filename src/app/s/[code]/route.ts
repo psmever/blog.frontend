@@ -10,13 +10,15 @@ export async function GET(request: NextRequest, { params }: ShortUrlRouteContext
     const result = await resolveShortUrl(code);
 
     if (!result.status || !result.data?.original_url) {
+        const status = result.statusCode === 404 ? 404 : 502;
+
         return NextResponse.json(
             {
                 status: false,
-                message: result.message || "단축 URL을 찾을 수 없습니다.",
+                message: result.statusCode === 404 ? result.message || "단축 URL을 찾을 수 없습니다." : "단축 URL 처리 중 upstream API 요청에 실패했습니다.",
                 data: null,
             },
-            { status: 404 },
+            { status },
         );
     }
 

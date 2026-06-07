@@ -1,8 +1,19 @@
 import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { clearTokens, getAccessToken } from "./token-storage";
 
-const publicApiBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000/api";
-const rawBaseURL = typeof window === "undefined" ? (process.env.API_INTERNAL_BASE_URL ?? publicApiBaseURL) : publicApiBaseURL;
+function readEnv(...keys: string[]) {
+    for (const key of keys) {
+        const value = process.env[key]?.trim();
+        if (value) {
+            return value;
+        }
+    }
+
+    return null;
+}
+
+const publicApiBaseURL = readEnv("NEXT_PUBLIC_API_BASE_URL", "NEXT_PUBLIC_API_URL") ?? "http://localhost:4000/api";
+const rawBaseURL = typeof window === "undefined" ? (readEnv("API_INTERNAL_BASE_URL") ?? publicApiBaseURL) : publicApiBaseURL;
 const baseURL = rawBaseURL.endsWith("/api") ? rawBaseURL : `${rawBaseURL.replace(/\/$/, "")}/api`;
 const baseClientHeaderCode = process.env.NEXT_PUBLIC_API_BASE_CLIENT_HEADER_CODE ?? "CT04P";
 
@@ -22,6 +33,7 @@ export type ApiResult<T> = {
     status: boolean;
     message: string;
     data: T | null;
+    statusCode?: number | null;
 };
 
 export const apiClient = axios.create({
@@ -60,6 +72,7 @@ export async function apiRequest<T>(request: Promise<AxiosResponse<ApiResponse<T
             status: true,
             message: data.message,
             data: data.data ?? null,
+            statusCode: data.meta?.status ?? 200,
         };
     } catch (error) {
         const axiosError = error as AxiosError<ApiResponse<T>>;
@@ -68,6 +81,7 @@ export async function apiRequest<T>(request: Promise<AxiosResponse<ApiResponse<T
             status: false,
             message: responseData?.message ?? "요청 처리 중 오류가 발생했습니다.",
             data: responseData?.data ?? null,
+            statusCode: axiosError.response?.status ?? null,
         };
     }
 }
