@@ -1,15 +1,6 @@
-function readPublicEnv(...keys: string[]) {
-    for (const key of keys) {
-        const value = process.env[key]?.trim();
-        if (value) {
-            return value;
-        }
-    }
+import { requireEnv } from "@/config/env";
 
-    return null;
-}
-
-const rawApiAssetBaseURL = readPublicEnv("NEXT_PUBLIC_API_BASE_URL", "NEXT_PUBLIC_API_URL") ?? "http://localhost:4000/api";
+const rawApiAssetBaseURL = requireEnv("NEXT_PUBLIC_API_BASE_URL", process.env.NEXT_PUBLIC_API_BASE_URL);
 const apiAssetBaseURL = rawApiAssetBaseURL.endsWith("/api") ? rawApiAssetBaseURL.slice(0, -4) : rawApiAssetBaseURL;
 
 export function cn(...classes: Array<string | false | null | undefined>) {
