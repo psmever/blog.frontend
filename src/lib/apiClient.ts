@@ -1,7 +1,8 @@
 import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { clearTokens, getAccessToken } from "./token-storage";
 
-const rawBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const publicApiBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000/api";
+const rawBaseURL = typeof window === "undefined" ? (process.env.API_INTERNAL_BASE_URL ?? publicApiBaseURL) : publicApiBaseURL;
 const baseURL = rawBaseURL.endsWith("/api") ? rawBaseURL : `${rawBaseURL.replace(/\/$/, "")}/api`;
 const baseClientHeaderCode = process.env.NEXT_PUBLIC_API_BASE_CLIENT_HEADER_CODE ?? "CT04P";
 

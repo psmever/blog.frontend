@@ -9,6 +9,7 @@ import { Loader } from "@/components/ui/loader";
 import { getAccessToken } from "@/lib/token-storage";
 import { findPublishedPostBySlug } from "@/services/posts";
 import { fetchPublicPostDetailInBrowser, type PublicPostDetailData } from "@/services/public-posts";
+import { createShortUrl } from "@/services/short-urls";
 import { useAuthState } from "@/state";
 import { formatPublishedDate } from "@/lib/utils";
 
@@ -74,6 +75,7 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     const [detailState, setDetailState] = useState<DetailState>(initialState);
     const [retryCount, setRetryCount] = useState(0);
     const [editLookupState, setEditLookupState] = useState<EditLookupState>(initialEditLookupState);
+    const [shareStatus, setShareStatus] = useState<"idle" | "creating" | "copied" | "failed">("idle");
     const resolvedEditPostUuid = detailState.status === "success" ? resolveEditablePostUuid(detailState.post) : null;
 
     useEffect(() => {
@@ -221,6 +223,41 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
     const post = detailState.post;
     const editPostUuid = resolvedEditPostUuid ?? (editLookupState.slug === post.slug ? editLookupState.postUuid : null);
     const editTargetMessage = editLookupState.slug === post.slug ? editLookupState.message : null;
+    const shareButtonLabel = shareStatus === "creating" ? "생성 중" : shareStatus === "copied" ? "복사됨" : shareStatus === "failed" ? "실패" : "공유";
+
+    async function handleSharePost() {
+        if (detailState.status !== "success") {
+            return;
+        }
+
+        try {
+            setShareStatus("creating");
+
+            const originalUrl = `${window.location.pathname}${window.location.search}`;
+            const result = await createShortUrl({ original_url: originalUrl });
+
+            if (!result.status || !result.data?.short_url) {
+                setShareStatus("failed");
+                return;
+            }
+
+            const shareUrl = new URL(result.data.short_url, process.env.NEXT_PUBLIC_BASE_URL ?? window.location.origin).toString();
+
+            if (navigator.share) {
+                await navigator.share({
+                    title: detailState.post.title,
+                    url: shareUrl,
+                });
+                setShareStatus("idle");
+                return;
+            }
+
+            await navigator.clipboard.writeText(shareUrl);
+            setShareStatus("copied");
+        } catch {
+            setShareStatus("failed");
+        }
+    }
 
     return (
         <>
@@ -257,12 +294,19 @@ export function PublicPostDetail({ slug }: PublicPostDetailProps) {
                     <div className="mt-auto border-t border-dashed border-foreground/20 bg-muted/60">
                         <div className="flex w-full flex-col gap-4 px-6 py-6 text-sm text-foreground/75 sm:flex-row sm:items-center sm:justify-between lg:px-10">
                             <div className="space-y-1">
-                                <p>발행일 {formatPublishedDate(post.published_at)}</p>
-                                <p>마지막 수정 {formatPublishedDate(post.updated_at)}</p>
+                                <p>작성일 {formatPublishedDate(post.published_at)}</p>
+                                <p>수정일 {formatPublishedDate(post.updated_at)}</p>
                             </div>
-                            <Link href="/posts" className={SECONDARY_LINK_CLASS}>
-                                ← 글 목록으로 돌아가기
-                            </Link>
+                            <div className="flex flex-wrap items-center gap-2">
+                                {canEditPost ? (
+                                    <Button type="button" variant="outline" onClick={handleSharePost} disabled={shareStatus === "creating"}>
+                                        {shareButtonLabel}
+                                    </Button>
+                                ) : null}
+                                <Link href="/posts" className={SECONDARY_LINK_CLASS}>
+                                    글목록
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </section>
