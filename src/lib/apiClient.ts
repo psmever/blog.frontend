@@ -1,19 +1,9 @@
 import axios, { type AxiosError, type AxiosResponse } from "axios";
+import { requireEnv } from "@/config/env";
 import { clearTokens, getAccessToken } from "./token-storage";
 
-function readEnv(...keys: string[]) {
-    for (const key of keys) {
-        const value = process.env[key]?.trim();
-        if (value) {
-            return value;
-        }
-    }
-
-    return null;
-}
-
-const publicApiBaseURL = readEnv("NEXT_PUBLIC_API_BASE_URL", "NEXT_PUBLIC_API_URL") ?? "http://localhost:4000/api";
-const rawBaseURL = typeof window === "undefined" ? (readEnv("API_INTERNAL_BASE_URL") ?? publicApiBaseURL) : publicApiBaseURL;
+const publicApiBaseURL = requireEnv("NEXT_PUBLIC_API_BASE_URL", process.env.NEXT_PUBLIC_API_BASE_URL);
+const rawBaseURL = typeof window === "undefined" ? process.env.API_INTERNAL_BASE_URL?.trim() || publicApiBaseURL : publicApiBaseURL;
 const baseURL = rawBaseURL.endsWith("/api") ? rawBaseURL : `${rawBaseURL.replace(/\/$/, "")}/api`;
 const baseClientHeaderCode = process.env.NEXT_PUBLIC_API_BASE_CLIENT_HEADER_CODE ?? "CT04P";
 
