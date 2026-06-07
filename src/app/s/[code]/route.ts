@@ -1,11 +1,11 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { resolveShortUrl } from "@/services/short-urls";
 
 type ShortUrlRouteContext = {
     params: Promise<{ code: string }>;
 };
 
-export async function GET(request: NextRequest, { params }: ShortUrlRouteContext) {
+export async function GET(_request: Request, { params }: ShortUrlRouteContext) {
     const { code } = await params;
     const result = await resolveShortUrl(code);
 
@@ -22,5 +22,18 @@ export async function GET(request: NextRequest, { params }: ShortUrlRouteContext
         );
     }
 
-    return NextResponse.redirect(new URL(result.data.original_url, request.url));
+    const frontendBaseURL = process.env.NEXT_PUBLIC_BASE_URL;
+
+    if (!frontendBaseURL) {
+        return NextResponse.json(
+            {
+                status: false,
+                message: "NEXT_PUBLIC_BASE_URL 환경 변수가 설정되지 않았습니다.",
+                data: null,
+            },
+            { status: 500 },
+        );
+    }
+
+    return NextResponse.redirect(new URL(result.data.original_url, frontendBaseURL));
 }
