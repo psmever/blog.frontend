@@ -44,6 +44,7 @@ export type PostImageData = {
     width: number;
     height: number;
     size: number;
+    body_image: PostImageThumbnailData | null;
     thumbnail: PostImageThumbnailData | null;
 };
 

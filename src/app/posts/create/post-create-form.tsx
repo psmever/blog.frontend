@@ -443,7 +443,9 @@ export function PostCreateForm({ initialContent = "", mode = "create", postUuid 
                         return;
                     }
 
-                    markdownItems.push(formatImageMarkdown(file.name, result.data.url));
+                    const imageUrl = result.data.body_image?.url ?? result.data.url;
+
+                    markdownItems.push(formatImageMarkdown(file.name, imageUrl));
                 }
 
                 insertContentAtSelection(markdownItems.join("\n\n"), selectionStart, selectionEnd);
